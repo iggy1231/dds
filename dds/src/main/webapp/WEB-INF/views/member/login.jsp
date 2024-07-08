@@ -17,7 +17,7 @@ function sendLogin() {
 	
 	str = f.userId.value.trim();
     if(!str) {
-        f.userId.focus();
+        f.userId.focus(); 
         return;
     }
 
