@@ -27,7 +27,6 @@ function sendLogin() {
         return;
     }
 
-    f.action = "${pageContext.request.contextPath}/member/login";
     f.submit();
 }
 
@@ -47,16 +46,18 @@ function sendLogin() {
 									<div class="center-wrap">
 										<div class="section text-center">
 											<h4 class="mb-4 pb-3">Log In</h4>
+											<form action="${pageContext.request.contextPath}/member/login" method="post">
 											<div class="form-group">
-												<input type="email" name="logemail" class="form-style" placeholder="Your Email" id="logemail" autocomplete="off">
+												<input type="text" name="userId" class="form-style" placeholder="Your Email" id="logemail" autocomplete="off">
 												<i class="input-icon uil uil-at"></i>
 											</div>	
 											<div class="form-group mt-2">
-												<input type="password" name="logpass" class="form-style" placeholder="Your Password" id="logpass" autocomplete="off">
+												<input type="password" name="userPwd" class="form-style" placeholder="Your Password" id="logpass" autocomplete="off">
 												<i class="input-icon uil uil-lock-alt"></i>
 											</div>
-											<a href="#" class="btn mt-4">submit</a>
+											<button onclick="sendLogin();" class="btn mt-4">submit</button>
                             				<p class="mb-0 mt-4 text-center"><a href="#0" class="link">Forgot your password?</a></p>
+                            				</form>
 				      					</div>
 			      					</div>
 			      				</div>
