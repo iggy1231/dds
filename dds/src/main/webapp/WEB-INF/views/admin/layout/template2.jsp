@@ -5,7 +5,7 @@
 <div class="body-container">
     <div class="body-title">
 		<h2><i class="fa-brands fa-perbyte"></i> 제목 </h2>
-    </div>
+    </div> 
     
     <div class="body-main">
     	<p> 템플릿 입니다. </p>

@@ -3,7 +3,7 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 
 <div class="body-container">
-    <div class="body-main">
+    <div class="body-main"> 
     	<p> 관리자 페이지 입니다. </p>
 	</div>
 </div>

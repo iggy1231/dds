@@ -5,7 +5,7 @@
 <style type="text/css">
 .body-container {
 	max-width: 800px;
-}
+} 
 </style>
 
 <script type="text/javascript">

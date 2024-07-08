@@ -9,7 +9,7 @@
 .body-container {
 	max-width: 800px;
 }
-</style>
+</style> 
 
 <div class="container">
 	<div class="body-container">	

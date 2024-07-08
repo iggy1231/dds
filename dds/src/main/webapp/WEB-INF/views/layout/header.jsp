@@ -4,7 +4,7 @@
 
 	<div class="container-fluid bg-light header-top">
 		<div class="container">
-			<div class="row">
+			<div class="row"> 
 				<div class="col">
 					<div class="p-2">
 						<i class="bi bi-telephone-inbound-fill"></i> +82-1234-1234
