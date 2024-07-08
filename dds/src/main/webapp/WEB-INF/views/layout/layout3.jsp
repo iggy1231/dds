@@ -68,7 +68,7 @@
 	        return;
 	    }
 	
-	    f.action = "${pageContext.request.contextPath}/";
+	    f.action = "${pageContext.request.contextPath}/member/login";
 	    f.submit();
 	}
 </script>
