@@ -1,6 +1,8 @@
-﻿<%@ page contentType="text/html; charset=UTF-8" %>
+<%@ page contentType="text/html; charset=UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
+
+<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/login.css" type="text/css">
 
 <style type="text/css">
 .body-container {
@@ -28,51 +30,60 @@ function sendLogin() {
     f.action = "${pageContext.request.contextPath}/member/login";
     f.submit();
 }
+
 </script>
 
-<div class="container">
-	<div class="body-container">	
-
-        <div class="row">
-            <div class="col-md-6 offset-md-3">
-                <div class="border mt-5 p-4">
-                    <form name="loginForm" action="" method="post" class="row g-3">
-                        <h3 class="text-center"><i class="bi bi-lock"></i> 회원 로그인</h3>
-                        <div class="col-12">
-                            <label class="mb-1">아이디</label>
-                            <input type="text" name="userId" class="form-control" placeholder="아이디">
-                        </div>
-                        <div class="col-12">
-                            <label class="mb-1">패스워드</label>
-                            <input type="password" name="userPwd" class="form-control" autocomplete="off" 
-                            	placeholder="패스워드">
-                        </div>
-                        <div class="col-12">
-                            <div class="form-check">
-                                <input class="form-check-input" type="checkbox" id="rememberMe">
-                                <label class="form-check-label" for="rememberMe"> 아이디 저장</label>
-                            </div>
-                        </div>
-                        <div class="col-12">
-                            <button type="button" class="btn btn-primary float-end" onclick="sendLogin();">&nbsp;Login&nbsp;<i class="bi bi-check2"></i></button>
-                        </div>
-                    </form>
-                    <hr class="mt-4">
-                    <div class="col-12">
-                        <p class="text-center mb-0">
-                        	<a href="#" class="text-decoration-none me-2">아이디 찾기</a>
-                        	<a href="#" class="text-decoration-none me-2">패스워드 찾기</a>
-                        	<a href="#" class="text-decoration-none">회원가입</a>
-                        </p>
-                    </div>
-                </div>
-
-                <div class="d-grid">
-						<p class="form-control-plaintext text-center text-primary">${message}</p>
-                </div>
-
-            </div>
-        </div>
-
+	<div class="section">
+		<div class="container">
+			<div class="row full-height justify-content-center">
+				<div class="col-12 text-center align-self-center py-5">
+					<div class="section pb-5 pt-5 pt-sm-2 text-center">
+						<h6 class="mb-0 pb-3"><span>Log In </span><span>Sign Up</span></h6>
+			          	<input class="checkbox" type="checkbox" id="reg-log" name="reg-log"/>
+			          	<label for="reg-log"></label>
+						<div class="card-3d-wrap mx-auto">
+							<div class="card-3d-wrapper">
+								<div class="card-front">
+									<div class="center-wrap">
+										<div class="section text-center">
+											<h4 class="mb-4 pb-3">Log In</h4>
+											<div class="form-group">
+												<input type="email" name="logemail" class="form-style" placeholder="Your Email" id="logemail" autocomplete="off">
+												<i class="input-icon uil uil-at"></i>
+											</div>	
+											<div class="form-group mt-2">
+												<input type="password" name="logpass" class="form-style" placeholder="Your Password" id="logpass" autocomplete="off">
+												<i class="input-icon uil uil-lock-alt"></i>
+											</div>
+											<a href="#" class="btn mt-4">submit</a>
+                            				<p class="mb-0 mt-4 text-center"><a href="#0" class="link">Forgot your password?</a></p>
+				      					</div>
+			      					</div>
+			      				</div>
+								<div class="card-back">
+									<div class="center-wrap">
+										<div class="section text-center">
+											<h4 class="mb-4 pb-3">Sign Up</h4>
+											<div class="form-group">
+												<input type="text" name="logname" class="form-style" placeholder="Your Full Name" id="logname" autocomplete="off">
+												<i class="input-icon uil uil-user"></i>
+											</div>	
+											<div class="form-group mt-2">
+												<input type="email" name="logemail" class="form-style" placeholder="Your Email" id="logemail" autocomplete="off">
+												<i class="input-icon uil uil-at"></i>
+											</div>	
+											<div class="form-group mt-2">
+												<input type="password" name="logpass" class="form-style" placeholder="Your Password" id="logpass" autocomplete="off">
+												<i class="input-icon uil uil-lock-alt"></i>
+											</div>
+											<a href="#" class="btn mt-4">submit</a>
+				      					</div>
+			      					</div>
+			      				</div>
+			      			</div>
+			      		</div>
+			      	</div>
+		      	</div>
+	      	</div>
+	    </div>
 	</div>
-</div>
