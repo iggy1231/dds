@@ -133,8 +133,6 @@
     </div>
 </div>
         
-        
-        
 <!-- Property List Start -->
  <div class="container-xxl py-5">
     <div class="container ">
@@ -298,6 +296,5 @@
         </div>
     </div>
 </div>
-
         <!-- Property List End -->
 
