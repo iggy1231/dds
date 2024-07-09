@@ -10,6 +10,6 @@ public class TravelReviewController {
 	@GetMapping("list")
 	public String companionList() {
 		
-		return "travelreview/list";
+		return ".travelreview.list";
 	}
 }

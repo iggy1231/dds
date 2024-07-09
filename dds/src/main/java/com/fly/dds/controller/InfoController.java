@@ -11,6 +11,6 @@ public class InfoController {
 	@GetMapping("list")
 	public String infoList() {
 		
-		return "info/list";
+		return ".info.list";
 	}
 }

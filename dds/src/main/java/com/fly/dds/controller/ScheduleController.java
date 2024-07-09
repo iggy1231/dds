@@ -11,6 +11,6 @@ public class ScheduleController {
 	@GetMapping("list")
 	public String scheduleList() {
 		
-		return "schedule/list";
+		return ".schedule.list";
 	}
 }
