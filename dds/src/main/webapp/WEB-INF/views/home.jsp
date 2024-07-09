@@ -51,9 +51,15 @@
         .property-item:hover {
             box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
         }
+        
+       .carousel-caption {
+            top: 50%;
+            transform: translateY(-22%);
+        }
 </style>
 
 <div class="m-4 p-4"></div>
+
  <!-- Hero Start -->
         <div class="container-fluid py-5 mb-3 hero-header" style="font-family: pretendard;">
             <div class="container pt-1 pb-4">
@@ -297,4 +303,47 @@
     </div>
 </div>
         <!-- Property List End -->
+        
+<div class="container-xxl py-3">
+    <div class="container">
+	   <div id="carouselExampleCaptions" class="carousel slide">
+        <div class="carousel-indicators">
+            <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
+            <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="1" aria-label="Slide 2"></button>
+            <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="2" aria-label="Slide 3"></button>
+        </div>
+        <div class="rounded carousel-inner">
+            <div class="carousel-item active">
+                <img src="https://www.yeogi.com/_next/image?url=https%3A%2F%2Fstatic.yeogi.com%2F_next%2Fstatic%2Fmedia%2F03_Kv_PC_Light.c2b0d0f8.png&w=912&q=100" class="d-block w-100" alt="...">
+                <div class="carousel-caption d-none d-md-block">
+                    <h3>순천시 순천만</h3>
+                </div>
+            </div>
+            <div class="carousel-item">
+                <img src="https://www.yeogi.com/_next/image?url=https%3A%2F%2Fstatic.yeogi.com%2F_next%2Fstatic%2Fmedia%2F03_Kv_PC_Light.c2b0d0f8.png&w=912&q=100" class="d-block w-100" alt="...">
+                <div class="carousel-caption d-none d-md-block">
+                    <h3>익산시 미륵사지 석탑</h3>
+                </div>
+            </div>
+            <div class="carousel-item">
+                <img src="https://www.yeogi.com/_next/image?url=https%3A%2F%2Fstatic.yeogi.com%2F_next%2Fstatic%2Fmedia%2F03_Kv_PC_Light.c2b0d0f8.png&w=912&q=100" class="d-block w-100" alt="...">
+                <div class="carousel-caption d-none d-md-block">
+                    <h3>부산 해운대</h3>
+                </div>
+            </div>
+        </div>
+        <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide="prev">
+            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+            <span class="visually-hidden">Previous</span>
+        </button>
+        <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide="next">
+            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+            <span class="visually-hidden">Next</span>
+        </button>
+    </div>
+</div>
+</div>
+							
+        
+        
 
