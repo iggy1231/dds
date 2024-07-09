@@ -36,7 +36,7 @@
                     </div>
                 </div>
             </div>
-            <a href="${pageContext.request.contextPath}/member/login" class="btn btn-primary px-3 d-none d-lg-flex">로그인 및 회원가입</a>
+            <a href="${pageContext.request.contextPath}/member/login" class="btn btn-primary text-white px-3 d-none d-lg-flex">로그인 및 회원가입</a>
         </div>
     </nav>
 </div>
