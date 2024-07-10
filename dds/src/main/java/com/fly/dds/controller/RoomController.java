@@ -14,6 +14,12 @@ public class RoomController {
 		return ".room.main";
 	}
 	
+	@RequestMapping("article")
+	public String roomArticle() {
+		
+		return ".room.article";
+	}
+	
 	@GetMapping("list")
 	public String roomList() {
 		
