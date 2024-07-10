@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.fly.dds.mapper.TravelReviewMapper">
+	<insert id="insertReview" parameterType="com.fly.dds.domain.TravelReview">
+		INSERT INTO travelreview(num, nickname, subject, content, 
+			 reg_date, hitcount, user_num)
+		VALUES (travelreview_seq.NEXTVAL, #{nickname}, #{subject}, #{content},
+			 SYSDATE, 0, #{user_num} )
+	</insert>
+	
+	<sql id="where-list">
+		<choose>
+			<when test="schType == 'all' ">
+			   ( INSTR(subject, #{kwd}) &gt; 0
+		          OR DBMS_LOB.INSTR(content, #{kwd}) &gt; 0 )
+			</when>
+			<when test="schType == 'reg_date' ">
+			   ( TO_CHAR(reg_date, 'YYYYMMDD') = #{kwd}
+		          OR TO_CHAR(reg_date, 'YYYY-MM-DD') = #{kwd} )
+			</when>
+			<when test="schType == 'content'">
+			    DBMS_LOB.INSTR(content, #{kwd}) &gt; 0
+			</when>
+			<otherwise>
+			    INSTR(${schType}, #{kwd}) &gt; 0
+			</otherwise>
+		</choose>
+	</sql>
+	
+	<select id="dataCount" parameterType="map" resultType="Integer">
+		SELECT NVL(COUNT(*), 0)
+		FROM travelreview
+		<where>
+			<if test="kwd != null and kwd != '' ">
+				<include refid="where-list"/>
+			</if>
+		</where>   
+	</select>
+	
+	<select id="listReview" parameterType="map" resultType="com.fly.dds.domain.TravelReview">
+		SELECT NUM, NICKNAME, SUBJECT, CONTENT, REG_DATE, HITCOUNT, USER_NUM
+		FROM TRAVELREVIEW
+		<where>
+			<if test="kwd != null and kwd != ''">
+				<include refid="where-list"/>
+			</if>
+		</where>
+		ORDER BY NUM DESC
+		OFFSET #{offset} ROWS FETCH FIRST #{size} ROWS ONLY
+	</select>
+</mapper>
