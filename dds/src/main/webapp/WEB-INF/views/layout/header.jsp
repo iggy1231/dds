@@ -2,7 +2,6 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 
-<div class="fixed-top">
 <div class="nav-bar bg-transparent">
 	<div class="thin-blue-bar"></div>
 	
@@ -18,8 +17,8 @@
 
             <div class="collapse navbar-collapse px-5" id="navbarCollapse">
                 <div class="navbar-nav mx-auto">
-                    <a href="${pageContext.request.contextPath}/" class="nav-item nav-link"><img alt="" src="${pageContext.request.contextPath}/resources/images/menu_room.png" style="width: 35px;">&nbsp;&nbsp;&nbsp;숙소</a> 
-                    <a href="${pageContext.request.contextPath}/" class="nav-item nav-link"><img alt="" src="${pageContext.request.contextPath}/resources/images/menu_tour.png" style="width: 35px;">&nbsp;&nbsp;&nbsp;투어</a>
+                    <a href="${pageContext.request.contextPath}/" data-bs-toggle="dropdown" class="dropdown-toggle nav-item nav-link"><img alt="" src="${pageContext.request.contextPath}/resources/images/menu_room.png" style="width: 35px;">&nbsp;&nbsp;&nbsp;숙소</a> 
+                    <a href="${pageContext.request.contextPath}/" data-bs-toggle="dropdown" class="dropdown-toggle nav-item nav-link"><img alt="" src="${pageContext.request.contextPath}/resources/images/menu_tour.png" style="width: 35px;">&nbsp;&nbsp;&nbsp;투어</a>
                     <div class="nav-item dropdown">
                         <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown"><img alt="" src="${pageContext.request.contextPath}/resources/images/menu_여행.png" style="width: 35px;">&nbsp;&nbsp;&nbsp;여행</a>
                         <div class="dropdown-menu rounded-0 m-0">
@@ -39,5 +38,4 @@
                 <a href="${pageContext.request.contextPath}/member/login" class="btn btn-primary text-white px-3 d-none d-lg-flex">로그인 및 회원가입</a>
             </div>
         </nav>
-</div>
 </div>
