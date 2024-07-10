@@ -2,11 +2,19 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 
-
 <style type="text/css">
+/*
  * {
             font-family: pretendard;
         }
+        */
+        
+ * @font-face {
+    font-family: 'Pretendard-Regular';
+    src: url('https://fastly.jsdelivr.net/gh/Project-Noonnu/noonfonts_2107@1.1/Pretendard-Regular.woff') format('woff');
+    font-weight: 400;
+    font-style: normal;
+}      
         .hero-header {
             background-image: url('${pageContext.request.contextPath}/resources/images/main_header.png');
             background-size: cover;
@@ -56,49 +64,97 @@
             top: 50%;
             transform: translateY(-22%);
         }
+        
+.testimonial-item {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 50px; /* 이미지가 카드 아래로 나오도록 하기 위한 여백 */
+    background-color: white; /* 기본 배경색 */
+    border-radius: 10px;
+    padding: 20px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.testimonial-img {
+    position: absolute;
+    bottom: 130px; /* 이미지가 카드 아래로 나오도록 설정 */
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 10;
+    background-color: white;
+    border: 5px solid white;
+    border-radius: 50%;
+}
+
+.testimonial-comment {
+    width: 100%;
+    text-align: center;
+    background-color: #18A8F1;
+    color: white;
+    padding: 50px 20px 20px 20px; /* 이미지 크기 만큼의 패딩 추가 */
+    border-radius: 10px;
+    margin-bottom: 50px; /* 이미지와 텍스트 사이의 간격 */
+}
+
+.testimonial-comment::after {
+    content: "";
+    display: block;
+    height: 50px; /* 이미지 크기와 동일한 높이 */
+}
+
+.testimonial-item h5,
+.testimonial-item p {
+    margin: 5px 0 0 0;
+    padding-top: 15px; /* 이미지와의 간격을 위해 여백 추가 */
+}
+
+
+        
 </style>
 
 <div class="m-4 p-4"></div>
 
  <!-- Hero Start -->
-        <div class="container-fluid py-5 mb-3 hero-header" style="font-family: pretendard;">
+        <div class="container-fluid py-5 mb-3 hero-header">
             <div class="container pt-1 pb-4">
                 <div class="row m-2 g-5 align-items-center">
                     <div class="col-md-12">
-                        <h4 class="mb-1 text-light display-7" style="font-weight: 600;">두둥실 떠나는</h4>
-                        <h2 class="mb-3 text-light display-5" style="font-weight: 600;">신나는 여행</h2>
-                        <div class="container mt-5">
-    <div class="search-form-container">
-        <ul class="nav nav-tabs" id="myTab" role="tablist">
-            <li class="nav-item" role="presentation">
-                <a class="nav-link active" id="domestic-tab" data-bs-toggle="tab" href="#domestic" role="tab" aria-controls="domestic" aria-selected="true">국내 숙소</a>
-            </li>
-            <li class="nav-item" role="presentation">
-                <a class="nav-link" id="overseas-tab" data-bs-toggle="tab" href="#overseas" role="tab" aria-controls="overseas" aria-selected="false">여행 정보</a>
-            </li>
-        </ul>
-        <div class="tab-content mt-3" id="myTabContent">
-            <div class="tab-pane fade show active" id="domestic" role="tabpanel" aria-labelledby="domestic-tab">
-                <form class="d-flex" name="searchForm" action="${pageContext.request.contextPath}/search/main" method="post">
-                    <div class="input-group">
-                        <span class="input-group-text"><i class="p-2 bi bi-search"></i></span>
-                        <input name="search_term" type="text" class="p-3 form-control" placeholder="여행지나 숙소를 검색해보세요">
-                    </div>
-                    <button type="button" class="p-3 btn btn-outline-secondary mx-2">
-                        <i class=" bi bi-calendar"></i> 07.08 월 - 07.09 화 (1박)
-                    </button>
-                    <button type="button" class="p-3  btn btn-outline-secondary mx-2">
-                        <i class="bi bi-people"></i> 인원 2
-                    </button>
-                    <button type="submit" class="p-3  btn btn-primary">검색</button>
-                </form>
-            </div>
-            <div class="tab-pane fade" id="overseas" role="tabpanel" aria-labelledby="overseas-tab">
-                <!-- 해외 숙소 검색 폼 -->
-            </div>
-        </div>
-    </div>
-</div>
+                        <h2 class="mb-1 text-light display-5" style="font-weight: 600;">두둥실 떠나는</h2>
+                        <h2 class="mb-1 text-light display-5" style="font-weight: 600;">신나는 여행</h2>
+                        <div class="container mt-4">
+						    <div class="search-form-container">
+						        <ul class="nav nav-tabs" id="myTab" role="tablist">
+						            <li class="nav-item" role="presentation">
+						                <a class="nav-link active" id="domestic-tab" data-bs-toggle="tab" href="#domestic" role="tab" aria-controls="domestic" aria-selected="true">국내 숙소</a>
+						            </li>
+						            <li class="nav-item" role="presentation">
+						                <a class="nav-link" id="overseas-tab" data-bs-toggle="tab" href="#overseas" role="tab" aria-controls="overseas" aria-selected="false">여행 정보</a>
+						            </li>
+						        </ul>
+						        <div class="tab-content mt-3" id="myTabContent">
+						            <div class="tab-pane fade show active" id="domestic" role="tabpanel" aria-labelledby="domestic-tab">
+						                <form class="d-flex" name="searchForm" action="${pageContext.request.contextPath}/search/main" method="post">
+						                    <div class="input-group">
+						                        <span class="input-group-text"><i class="p-2 bi bi-search"></i></span>
+						                        <input name="search_term" type="text" class="p-3 form-control" placeholder="여행지나 숙소를 검색해보세요">
+						                    </div>
+						                    <button type="button" class="p-3 btn btn-outline-secondary mx-2">
+						                        <i class=" bi bi-calendar"></i> 07.08 월 - 07.09 화 (1박)
+						                    </button>
+						                    <button type="button" class="p-3  btn btn-outline-secondary mx-2">
+						                        <i class="bi bi-people"></i> 인원 2
+						                    </button>
+						                    <button type="submit" class="p-3  btn btn-primary">검색</button>
+						                </form>
+						            </div>
+						            <div class="tab-pane fade" id="overseas" role="tabpanel" aria-labelledby="overseas-tab">
+						                <!-- 해외 숙소 검색 폼 -->
+						            </div>
+						        </div>
+						    </div>
+						</div>
                     </div>
                 </div>
             </div>
@@ -167,11 +223,11 @@
                             <div class="position-relative overflow-hidden">
                                 <a href=""><img class="img-fluid" src="${pageContext.request.contextPath}/resources/images/숙소_예시.jpg" alt=""></a>
                                 <div class="bg-primary rounded text-white position-absolute start-0 top-0 m-4 py-1 px-3">★ 9.6</div>
-                                <div class="display-9 bg-white rounded-top text-primary position-absolute start-0 bottom-0 mx-4 pt-1 px-3"><h5>펜션</h5></div>
+                                <div class="display-9 bg-white rounded-top text-primary position-absolute start-0 bottom-0 mx-4 pt-1 px-3"><h5 style="font-weight: 600;">펜션</h5></div>
                             </div>
                             <div class="px-4 py-2 pb-3">
-                                <h4 class="text-primary my-2 pt-1">50,000원</h4>
-                                <a class="d-block h4 mb-2" href="">익산 함께해요 펜션</a>
+                                <h4 class="text-primary my-2 pt-1" style="font-weight: 600;">50,000원</h4>
+                                <a class="d-block h4 mb-2" href="" style="font-weight: 600;">익산 함께해요 펜션</a>
                                 <h6 class="display-10 py-1" style="color: #666565;"><i class="text-primary bi bi-geo-alt-fill"></i>&nbsp;서울시 마포구 oo로</h6>
                                 <h6 class="display-10" style="color: #666565;"><i class="text-primary bi bi-chat-fill"></i>&nbsp;&nbsp;199개</h6>
                             </div>
@@ -182,11 +238,11 @@
                             <div class="position-relative overflow-hidden">
                                 <a href=""><img class="img-fluid" src="${pageContext.request.contextPath}/resources/images/숙소_예시.jpg" alt=""></a>
                                 <div class="bg-primary rounded text-white position-absolute start-0 top-0 m-4 py-1 px-3">★ 9.6</div>
-                                <div class="display-9 bg-white rounded-top text-primary position-absolute start-0 bottom-0 mx-4 pt-1 px-3"><h5>펜션</h5></div>
+                                <div class="display-9 bg-white rounded-top text-primary position-absolute start-0 bottom-0 mx-4 pt-1 px-3"><h5 style="font-weight: 600;">펜션</h5></div>
                             </div>
                             <div class="px-4 py-2 pb-3">
-                                <h4 class="text-primary my-2 pt-1">50,000원</h4>
-                                <a class="d-block h4 mb-2" href="">익산 함께해요 펜션</a>
+                                <h4 class="text-primary my-2 pt-1" style="font-weight: 600;">50,000원</h4>
+                                <a class="d-block h4 mb-2" href="" style="font-weight: 600;">익산 함께해요 펜션</a>
                                 <h6 class="display-10 py-1" style="color: #666565;"><i class="text-primary bi bi-geo-alt-fill"></i>&nbsp;서울시 마포구 oo로</h6>
                                 <h6 class="display-10" style="color: #666565;"><i class="text-primary bi bi-chat-fill"></i>&nbsp;&nbsp;199개</h6>
                             </div>
@@ -197,11 +253,11 @@
                             <div class="position-relative overflow-hidden">
                                 <a href=""><img class="img-fluid" src="${pageContext.request.contextPath}/resources/images/숙소_예시.jpg" alt=""></a>
                                 <div class="bg-primary rounded text-white position-absolute start-0 top-0 m-4 py-1 px-3">★ 9.6</div>
-                                <div class="display-9 bg-white rounded-top text-primary position-absolute start-0 bottom-0 mx-4 pt-1 px-3"><h5>펜션</h5></div>
+                                <div class="display-9 bg-white rounded-top text-primary position-absolute start-0 bottom-0 mx-4 pt-1 px-3"><h5 style="font-weight: 600;">펜션</h5></div>
                             </div>
                             <div class="px-4 py-2 pb-3">
-                                <h4 class="text-primary my-2 pt-1">50,000원</h4>
-                                <a class="d-block h4 mb-2" href="">익산 함께해요 펜션</a>
+                                <h4 class="text-primary my-2 pt-1" style="font-weight: 600;">50,000원</h4>
+                                <a class="d-block h4 mb-2" href="" style="font-weight: 600;">익산 함께해요 펜션</a>
                                 <h6 class="display-10 py-1" style="color: #666565;"><i class="text-primary bi bi-geo-alt-fill"></i>&nbsp;서울시 마포구 oo로</h6>
                                 <h6 class="display-10" style="color: #666565;"><i class="text-primary bi bi-chat-fill"></i>&nbsp;&nbsp;199개</h6>
                             </div>
@@ -212,11 +268,11 @@
                             <div class="position-relative overflow-hidden">
                                 <a href=""><img class="img-fluid" src="${pageContext.request.contextPath}/resources/images/숙소_예시.jpg" alt=""></a>
                                 <div class="bg-primary rounded text-white position-absolute start-0 top-0 m-4 py-1 px-3">★ 9.6</div>
-                                <div class="display-9 bg-white rounded-top text-primary position-absolute start-0 bottom-0 mx-4 pt-1 px-3"><h5>펜션</h5></div>
+                                <div class="display-9 bg-white rounded-top text-primary position-absolute start-0 bottom-0 mx-4 pt-1 px-3"><h5 style="font-weight: 600;">펜션</h5></div>
                             </div>
                             <div class="px-4 py-2 pb-3">
-                                <h4 class="text-primary my-2 pt-1">50,000원</h4>
-                                <a class="d-block h4 mb-2" href="">익산 함께해요 펜션</a>
+                                <h4 class="text-primary my-2 pt-1" style="font-weight: 600;">50,000원</h4>
+                                <a class="d-block h4 mb-2" href="" style="font-weight: 600;">익산 함께해요 펜션</a>
                                 <h6 class="display-10 py-1" style="color: #666565;"><i class="text-primary bi bi-geo-alt-fill"></i>&nbsp;서울시 마포구 oo로</h6>
                                 <h6 class="display-10" style="color: #666565;"><i class="text-primary bi bi-chat-fill"></i>&nbsp;&nbsp;199개</h6>
                             </div>
@@ -227,11 +283,11 @@
                             <div class="position-relative overflow-hidden">
                                 <a href=""><img class="img-fluid" src="${pageContext.request.contextPath}/resources/images/숙소_예시.jpg" alt=""></a>
                                 <div class="bg-primary rounded text-white position-absolute start-0 top-0 m-4 py-1 px-3">★ 9.6</div>
-                                <div class="display-9 bg-white rounded-top text-primary position-absolute start-0 bottom-0 mx-4 pt-1 px-3"><h5>펜션</h5></div>
+                                <div class="display-9 bg-white rounded-top text-primary position-absolute start-0 bottom-0 mx-4 pt-1 px-3"><h5 style="font-weight: 600;">펜션</h5></div>
                             </div>
                             <div class="px-4 py-2 pb-3">
-                                <h4 class="text-primary my-2 pt-1">50,000원</h4>
-                                <a class="d-block h4 mb-2" href="">익산 함께해요 펜션</a>
+                                <h4 class="text-primary my-2 pt-1" style="font-weight: 600;">50,000원</h4>
+                                <a class="d-block h4 mb-2" href="" style="font-weight: 600;">익산 함께해요 펜션</a>
                                 <h6 class="display-10 py-1" style="color: #666565;"><i class="text-primary bi bi-geo-alt-fill"></i>&nbsp;서울시 마포구 oo로</h6>
                                 <h6 class="display-10" style="color: #666565;"><i class="text-primary bi bi-chat-fill"></i>&nbsp;&nbsp;199개</h6>
                             </div>
@@ -242,56 +298,11 @@
                             <div class="position-relative overflow-hidden">
                                 <a href=""><img class="img-fluid" src="${pageContext.request.contextPath}/resources/images/숙소_예시.jpg" alt=""></a>
                                 <div class="bg-primary rounded text-white position-absolute start-0 top-0 m-4 py-1 px-3">★ 9.6</div>
-                                <div class="display-9 bg-white rounded-top text-primary position-absolute start-0 bottom-0 mx-4 pt-1 px-3"><h5>펜션</h5></div>
+                                <div class="display-9 bg-white rounded-top text-primary position-absolute start-0 bottom-0 mx-4 pt-1 px-3"><h5 style="font-weight: 600;">펜션</h5></div>
                             </div>
                             <div class="px-4 py-2 pb-3">
-                                <h4 class="text-primary my-2 pt-1">50,000원</h4>
-                                <a class="d-block h4 mb-2" href="">익산 함께해요 펜션</a>
-                                <h6 class="display-10 py-1" style="color: #666565;"><i class="text-primary bi bi-geo-alt-fill"></i>&nbsp;서울시 마포구 oo로</h6>
-                                <h6 class="display-10" style="color: #666565;"><i class="text-primary bi bi-chat-fill"></i>&nbsp;&nbsp;199개</h6>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-lg-4 col-md-6 wow fadeInUp" data-wow-delay="0.3s">
-                        <div class="property-item rounded overflow-hidden">
-                            <div class="position-relative overflow-hidden">
-                                <a href=""><img class="img-fluid" src="${pageContext.request.contextPath}/resources/images/숙소_예시.jpg" alt=""></a>
-                                <div class="bg-primary rounded text-white position-absolute start-0 top-0 m-4 py-1 px-3">★ 9.6</div>
-                                <div class="display-9 bg-white rounded-top text-primary position-absolute start-0 bottom-0 mx-4 pt-1 px-3"><h5>펜션</h5></div>
-                            </div>
-                            <div class="px-4 py-2 pb-3">
-                                <h4 class="text-primary my-2 pt-1">50,000원</h4>
-                                <a class="d-block h4 mb-2" href="">익산 함께해요 펜션</a>
-                                <h6 class="display-10 py-1" style="color: #666565;"><i class="text-primary bi bi-geo-alt-fill"></i>&nbsp;서울시 마포구 oo로</h6>
-                                <h6 class="display-10" style="color: #666565;"><i class="text-primary bi bi-chat-fill"></i>&nbsp;&nbsp;199개</h6>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-lg-4 col-md-6 wow fadeInUp" data-wow-delay="0.3s">
-                        <div class="property-item rounded overflow-hidden">
-                            <div class="position-relative overflow-hidden">
-                                <a href=""><img class="img-fluid" src="${pageContext.request.contextPath}/resources/images/숙소_예시.jpg" alt=""></a>
-                                <div class="bg-primary rounded text-white position-absolute start-0 top-0 m-4 py-1 px-3">★ 9.6</div>
-                                <div class="display-9 bg-white rounded-top text-primary position-absolute start-0 bottom-0 mx-4 pt-1 px-3"><h5>펜션</h5></div>
-                            </div>
-                            <div class="px-4 py-2 pb-3">
-                                <h4 class="text-primary my-2 pt-1">50,000원</h4>
-                                <a class="d-block h4 mb-2" href="">익산 함께해요 펜션</a>
-                                <h6 class="display-10 py-1" style="color: #666565;"><i class="text-primary bi bi-geo-alt-fill"></i>&nbsp;서울시 마포구 oo로</h6>
-                                <h6 class="display-10" style="color: #666565;"><i class="text-primary bi bi-chat-fill"></i>&nbsp;&nbsp;199개</h6>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-lg-4 col-md-6 wow fadeInUp" data-wow-delay="0.3s">
-                        <div class="property-item rounded overflow-hidden">
-                            <div class="position-relative overflow-hidden">
-                                <a href=""><img class="img-fluid" src="${pageContext.request.contextPath}/resources/images/숙소_예시.jpg" alt=""></a>
-                                <div class="bg-primary rounded text-white position-absolute start-0 top-0 m-4 py-1 px-3">★ 9.6</div>
-                                <div class="display-9 bg-white rounded-top text-primary position-absolute start-0 bottom-0 mx-4 pt-1 px-3"><h5>펜션</h5></div>
-                            </div>
-                            <div class="px-4 py-2 pb-3">
-                                <h4 class="text-primary my-2 pt-1">50,000원</h4>
-                                <a class="d-block h4 mb-2" href="">익산 함께해요 펜션</a>
+                                <h4 class="text-primary my-2 pt-1" style="font-weight: 600;">50,000원</h4>
+                                <a class="d-block h4 mb-2" href="" style="font-weight: 600;">익산 함께해요 펜션</a>
                                 <h6 class="display-10 py-1" style="color: #666565;"><i class="text-primary bi bi-geo-alt-fill"></i>&nbsp;서울시 마포구 oo로</h6>
                                 <h6 class="display-10" style="color: #666565;"><i class="text-primary bi bi-chat-fill"></i>&nbsp;&nbsp;199개</h6>
                             </div>
@@ -343,7 +354,58 @@
     </div>
 </div>
 </div>
-							
+<div class="container-fluid testimonial py-5">
+    <div class="container py-5">
+        <div class="text-center mx-auto mb-5 wow slideInLeft" data-wow-delay="0.1s">
+            <h3 class="mb-2 display-8 text-black" style="font-weight: 600;">함께 떠나요! 😊</h3>
+            <h1 class="mb-3 display-6 text-black" style="font-weight: 600;">여행 동행 리스트</h1>
+        </div>
+        <div class="testimonial-carousel owl-carousel">
+            <div class="testimonial-item text-center rounded pb-4">
+                <div class="testimonial-img p-1">
+                    <img src="${pageContext.request.contextPath}/resources/images/숙소_예시.jpg" class="img-fluid rounded-circle" style="width: 100px;" alt="Image">
+                </div>
+                <div class="testimonial-comment">
+                    <h4 class="text-center mb-5">제주도 함께 동행하실분 모십니다! 함께 즐거운 추억 만들어요! :)</h4>
+                </div>
+                <div class="mt-4">
+                    <h3 class="mb-0 mt-3">익명의 고양이</h3>
+                    <h4 class="p-3 mb-0"><i class="text-primary bi bi-geo-alt-fill"></i>  제주도    |    <i class="text-primary bi bi-person-circle"></i>  5인</h4>
+                    <div class="d-flex justify-content-center">
+                        <i class="fas fa-star text-primary"></i>
+                        <i class="fas fa-star text-primary"></i>
+                        <i class="fas fa-star text-primary"></i>
+                        <i class="fas fa-star text-primary"></i>
+                        <i class="fas fa-star text-primary"></i>
+                    </div>
+                </div>
+            </div>
+            <!-- 반복되는 testimonial-item들에 대해서도 동일하게 수정 -->
+        </div>
+    </div>
+</div>
+
+	
+<script>
+    $(document).ready(function(){
+        $('.testimonial-carousel').owlCarousel({
+            loop: true,
+            margin: 10,
+            nav: true,
+            responsive: {
+                0: {
+                    items: 1
+                },
+                600: {
+                    items: 1
+                },
+                1000: {
+                    items: 2
+                }
+            }
+        });
+    });
+</script>				
         
         
 

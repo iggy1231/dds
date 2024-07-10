@@ -1,24 +1,26 @@
 @charset "UTF-8";
 
 .nav-item {
-    font-size: 1.15rem !important;
+    font-size: 1.35rem !important;
     font-weight: 600 !important;
-    padding-right: 15px !important;
+    padding-right: 50px !important;
 }
 
 .thin-blue-bar {
 	  width: 100%;
-      height: 25px; /* Adjust the height as needed */
+      height: 20px; /* Adjust the height as needed */
       background-color: #18A8F1; /* Blue color */
 }
-
+/*
 .dropdown-toggle {
 	margin: 2.5px !important;
 	padding: 2.5px !important;
 }
-
+*/
  .dropdown-menu {
-        margin-top: 20px !important;
+  font-size: 1.35rem !important;
+    font-weight: 600 !important;
+        margin-top: 15px !important;
     }
 
 .btn-primary {

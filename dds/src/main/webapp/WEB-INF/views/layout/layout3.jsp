@@ -14,13 +14,21 @@
     <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/vendor/bootstrap5/icon/bootstrap-icons.css" type="text/css">
 
     <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/core.css" type="text/css">
-    
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/style.css" type="text/css">
+   
     
     <!-- header.css 파일은 나중에 로드 -->
     <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/header.css" type="text/css">
     <script type="text/javascript" src="${pageContext.request.contextPath}/resources/vendor/jquery/js/jquery.min.js"></script>
     <script type="text/javascript" src="${pageContext.request.contextPath}/resources/js/util-jquery.js"></script>
     <script type="text/javascript" src="${pageContext.request.contextPath}/resources/js/menu.js"></script>
+    
+<!-- Include CSS Files -->
+<link href="${pageContext.request.contextPath}/resources/vendor/owlcarousel/assets/owl.carousel.min.css" rel="stylesheet">
+<link href="${pageContext.request.contextPath}/resources/vendor/owlcarousel/assets/owl.theme.default.min.css" rel="stylesheet">
+
+<!-- Include JS Files -->
+<script src="${pageContext.request.contextPath}/resources/vendor/owlcarousel/owl.carousel.min.js"></script>
 </head>
 
 <body>
