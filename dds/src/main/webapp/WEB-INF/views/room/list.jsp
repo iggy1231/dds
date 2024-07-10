@@ -38,7 +38,7 @@
 <body>
 
  <!-- 숙소 Start-->
-        <div class="container-fluid fruite py-5">
+        <div class="container-fluid room py-5">
             <div class="container py-5">
                 <h1 class="mb-4">✅ 선택한 여정</h1>
                 <div class="row g-4">
@@ -46,13 +46,13 @@
                         <div class="row g-4">
                                 <div class="container mt-5">
         <div class="search-bar">
-            <i class="bi bi-search"></i>
-            <input type="text" class="form-control" placeholder="순천" style="max-width: 150px;">
+            <i class="pl-2 bi bi-search"></i>
+            <h5 class="text-gray" style="font-weight: 600;">순천</h5>
             <span>|</span>
-            <button type="button" class="btn btn-outline-secondary" style="border: none; background-color: transparent;">07.19 금 - 07.27 토 (8박)</button>
+            <h5 class="p-1" style="font-weight: 600;">순천</h5>
             <span>|</span>
-            <button type="button" class="btn btn-outline-secondary" style="border: none; background-color: transparent;">인원 2</button>
-        </div>
+ <h5 class="p-1" style="font-weight: 600;">순천</h5>        
+ </div>
     </div>
 
                             <div class="col-6"></div>
@@ -70,49 +70,23 @@
                         </div>
                         <div class="row g-4">
                             <div class="col-lg-3">
-                                <div class="row g-4">
+                             	<!-- 필터 start -->
+                                <div class="p-2 border border-1 rounded pr-4 row g-4">
                                     <div class="col-lg-12">
                                         <div class="mb-3">
-                                            <h4>Categories</h4>
-                                            <ul class="list-unstyled fruite-categorie">
-                                                <li>
-                                                    <div class="d-flex justify-content-between fruite-name">
-                                                        <a href="#"><i class="fas fa-apple-alt me-2"></i>Apples</a>
-                                                        <span>(3)</span>
-                                                    </div>
-                                                </li>
-                                                <li>
-                                                    <div class="d-flex justify-content-between fruite-name">
-                                                        <a href="#"><i class="fas fa-apple-alt me-2"></i>Oranges</a>
-                                                        <span>(5)</span>
-                                                    </div>
-                                                </li>
-                                                <li>
-                                                    <div class="d-flex justify-content-between fruite-name">
-                                                        <a href="#"><i class="fas fa-apple-alt me-2"></i>Strawbery</a>
-                                                        <span>(2)</span>
-                                                    </div>
-                                                </li>
-                                                <li>
-                                                    <div class="d-flex justify-content-between fruite-name">
-                                                        <a href="#"><i class="fas fa-apple-alt me-2"></i>Banana</a>
-                                                        <span>(8)</span>
-                                                    </div>
-                                                </li>
-                                                <li>
-                                                    <div class="d-flex justify-content-between fruite-name">
-                                                        <a href="#"><i class="fas fa-apple-alt me-2"></i>Pumpkin</a>
-                                                        <span>(5)</span>
-                                                    </div>
-                                                </li>
-                                            </ul>
-                                        </div>
-                                    </div>
-                                    <div class="col-lg-12">
-                                        <div class="mb-3">
-                                            <h4 class="mb-2">Price</h4>
-                                            <input type="range" class="form-range w-100" id="rangeInput" name="rangeInput" min="0" max="500" value="0" oninput="amount.value=rangeInput.value">
-                                            <output id="amount" name="amount" min-velue="0" max-value="500" for="rangeInput">0</output>
+                                            <h4 class="pb-2" style="font-weight: 600;">숙소유형</h4>
+                                            <div class="form-check">
+											  <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault1" checked>
+											  <label class="display-8 form-check-label" for="flexRadioDefault1">
+											    Default radio
+											  </label>
+											</div>
+											<div class="form-check">
+											  <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault2">
+											  <label class="form-check-label" for="flexRadioDefault2">
+											    Default checked radio
+											  </label>
+											</div>
                                         </div>
                                     </div>
                                     <div class="col-lg-12">
@@ -212,13 +186,14 @@
                                         </div>
                                     </div>
                                 </div>
+                                <!-- 필터 end -->
                             </div>
                             <div class="col-lg-9">
                                 <div class="row g-4 justify-content-center">
                                     <div class="col-md-6 col-lg-6 col-xl-4">
-                                        <div class="rounded position-relative fruite-item">
-                                            <div class="fruite-img">
-                                                <img src="img/fruite-item-5.jpg" class="img-fluid w-100 rounded-top" alt="">
+                                        <div class="rounded position-relative room-item">
+                                            <div class="room-img">
+                                                <img src="img/room-item-5.jpg" class="img-fluid w-100 rounded-top" alt="">
                                             </div>
                                             <div class="text-white bg-secondary px-3 py-1 rounded position-absolute" style="top: 10px; left: 10px;">Fruits</div>
                                             <div class="p-4 border border-secondary border-top-0 rounded-bottom">
@@ -232,9 +207,9 @@
                                         </div>
                                     </div>
                                     <div class="col-md-6 col-lg-6 col-xl-4">
-                                        <div class="rounded position-relative fruite-item">
-                                            <div class="fruite-img">
-                                                <img src="img/fruite-item-5.jpg" class="img-fluid w-100 rounded-top" alt="">
+                                        <div class="rounded position-relative room-item">
+                                            <div class="room-img">
+                                                <img src="img/room-item-5.jpg" class="img-fluid w-100 rounded-top" alt="">
                                             </div>
                                             <div class="text-white bg-secondary px-3 py-1 rounded position-absolute" style="top: 10px; left: 10px;">Fruits</div>
                                             <div class="p-4 border border-secondary border-top-0 rounded-bottom">
@@ -248,9 +223,9 @@
                                         </div>
                                     </div>
                                     <div class="col-md-6 col-lg-6 col-xl-4">
-                                        <div class="rounded position-relative fruite-item">
-                                            <div class="fruite-img">
-                                                <img src="img/fruite-item-2.jpg" class="img-fluid w-100 rounded-top" alt="">
+                                        <div class="rounded position-relative room-item">
+                                            <div class="room-img">
+                                                <img src="img/room-item-2.jpg" class="img-fluid w-100 rounded-top" alt="">
                                             </div>
                                             <div class="text-white bg-secondary px-3 py-1 rounded position-absolute" style="top: 10px; left: 10px;">Fruits</div>
                                             <div class="p-4 border border-secondary border-top-0 rounded-bottom">
@@ -264,9 +239,9 @@
                                         </div>
                                     </div>
                                     <div class="col-md-6 col-lg-6 col-xl-4">
-                                        <div class="rounded position-relative fruite-item">
-                                            <div class="fruite-img">
-                                                <img src="img/fruite-item-4.jpg" class="img-fluid w-100 rounded-top" alt="">
+                                        <div class="rounded position-relative room-item">
+                                            <div class="room-img">
+                                                <img src="img/room-item-4.jpg" class="img-fluid w-100 rounded-top" alt="">
                                             </div>
                                             <div class="text-white bg-secondary px-3 py-1 rounded position-absolute" style="top: 10px; left: 10px;">Fruits</div>
                                             <div class="p-4 border border-secondary border-top-0 rounded-bottom">
@@ -280,9 +255,9 @@
                                         </div>
                                     </div>
                                     <div class="col-md-6 col-lg-6 col-xl-4">
-                                        <div class="rounded position-relative fruite-item">
-                                            <div class="fruite-img">
-                                                <img src="img/fruite-item-3.jpg" class="img-fluid w-100 rounded-top" alt="">
+                                        <div class="rounded position-relative room-item">
+                                            <div class="room-img">
+                                                <img src="img/room-item-3.jpg" class="img-fluid w-100 rounded-top" alt="">
                                             </div>
                                             <div class="text-white bg-secondary px-3 py-1 rounded position-absolute" style="top: 10px; left: 10px;">Fruits</div>
                                             <div class="p-4 border border-secondary border-top-0 rounded-bottom">
@@ -296,9 +271,9 @@
                                         </div>
                                     </div>
                                     <div class="col-md-6 col-lg-6 col-xl-4">
-                                        <div class="rounded position-relative fruite-item">
-                                            <div class="fruite-img">
-                                                <img src="img/fruite-item-1.jpg" class="img-fluid w-100 rounded-top" alt="">
+                                        <div class="rounded position-relative room-item">
+                                            <div class="room-img">
+                                                <img src="img/room-item-1.jpg" class="img-fluid w-100 rounded-top" alt="">
                                             </div>
                                             <div class="text-white bg-secondary px-3 py-1 rounded position-absolute" style="top: 10px; left: 10px;">Fruits</div>
                                             <div class="p-4 border border-secondary border-top-0 rounded-bottom">
@@ -312,9 +287,9 @@
                                         </div>
                                     </div>
                                     <div class="col-md-6 col-lg-6 col-xl-4">
-                                        <div class="rounded position-relative fruite-item">
-                                            <div class="fruite-img">
-                                                <img src="img/fruite-item-2.jpg" class="img-fluid w-100 rounded-top" alt="">
+                                        <div class="rounded position-relative room-item">
+                                            <div class="room-img">
+                                                <img src="img/room-item-2.jpg" class="img-fluid w-100 rounded-top" alt="">
                                             </div>
                                             <div class="text-white bg-secondary px-3 py-1 rounded position-absolute" style="top: 10px; left: 10px;">Fruits</div>
                                             <div class="p-4 border border-secondary border-top-0 rounded-bottom">
@@ -328,9 +303,9 @@
                                         </div>
                                     </div>
                                     <div class="col-md-6 col-lg-6 col-xl-4">
-                                        <div class="rounded position-relative fruite-item">
-                                            <div class="fruite-img">
-                                                <img src="img/fruite-item-5.jpg" class="img-fluid w-100 rounded-top" alt="">
+                                        <div class="rounded position-relative room-item">
+                                            <div class="room-img">
+                                                <img src="img/room-item-5.jpg" class="img-fluid w-100 rounded-top" alt="">
                                             </div>
                                             <div class="text-white bg-secondary px-3 py-1 rounded position-absolute" style="top: 10px; left: 10px;">Fruits</div>
                                             <div class="p-4 border border-secondary border-top-0 rounded-bottom">
@@ -344,9 +319,9 @@
                                         </div>
                                     </div>
                                     <div class="col-md-6 col-lg-6 col-xl-4">
-                                        <div class="rounded position-relative fruite-item">
-                                            <div class="fruite-img">
-                                                <img src="img/fruite-item-1.jpg" class="img-fluid w-100 rounded-top" alt="">
+                                        <div class="rounded position-relative room-item">
+                                            <div class="room-img">
+                                                <img src="img/room-item-1.jpg" class="img-fluid w-100 rounded-top" alt="">
                                             </div>
                                             <div class="text-white bg-secondary px-3 py-1 rounded position-absolute" style="top: 10px; left: 10px;">Fruits</div>
                                             <div class="p-4 border border-secondary border-top-0 rounded-bottom">
