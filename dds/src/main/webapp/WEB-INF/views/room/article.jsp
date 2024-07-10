@@ -54,10 +54,10 @@
                     <img src="https://item.kakaocdn.net/do/3bbb15e985d0628d50c187157e06cc5cf43ad912ad8dd55b04db6a64cddaf76d" class="img-fluid" alt="이미지 2">
                 </div>
                 <div class="col-6 mb-3">
-                    <img src="${pageContext.request.contextPath}/resources/images/숙소_예시.jpg" class="img-fluid" alt="이미지 3">
+                    <img src="https://mblogthumb-phinf.pstatic.net/MjAyNDA0MDVfMTgy/MDAxNzEyMjQ2ODA1NTM4.nN-x1y-9_NBfzKPUHLsAQ48wq1egQDUsdcpIDh9OTsMg.fncd3H-GO-Co97vK78L5_1cf-w8bfsCOiMmCV96met0g.GIF/%EB%A1%9C%EA%B3%BD%EC%A3%BC_%EC%97%89%EB%8D%A9%EC%9D%B4_%ED%8C%A1%ED%8C%A1.gif?type=w800" class="img-fluid" alt="이미지 3">
                 </div>
                 <div class="col-6 mb-3">
-                    <img src="${pageContext.request.contextPath}/resources/images/숙소_예시.jpg" class="img-fluid" alt="이미지 4">
+                    <img src="https://item.kakaocdn.net/do/992fcaa6397634d180a621bfbc9075b6ff1cf2d4e1bdc11c5e3dd410963d18c7" class="img-fluid" alt="이미지 4">
                 </div>
                 <div class="col-6 mb-3">
                     <img src="${pageContext.request.contextPath}/resources/images/숙소_예시.jpg" class="img-fluid" alt="이미지 5">
@@ -120,7 +120,7 @@
                 </div>
             </div>
             <div class="room-card">
-                <img src="https://item.kakaocdn.net/do/3bbb15e985d0628d50c187157e06cc5cf43ad912ad8dd55b04db6a64cddaf76d" class="img-fluid" alt="객실 이미지">
+                <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTe9eMd8_ro5PGvscRMNkOYdwGWrkJHAPeuBg&s" class="img-fluid" alt="객실 이미지">
                 <div class="room-info">
                     <h6>A101</h6>
                     <p>객실정보</p>
@@ -133,7 +133,7 @@
                 </div>
             </div>
             <div class="room-card">
-                <img src="https://item.kakaocdn.net/do/3bbb15e985d0628d50c187157e06cc5cf43ad912ad8dd55b04db6a64cddaf76d" class="img-fluid" alt="객실 이미지">
+                <img src="https://mblogthumb-phinf.pstatic.net/MjAyNDA0MDVfMTgy/MDAxNzEyMjQ2ODA1NTM4.nN-x1y-9_NBfzKPUHLsAQ48wq1egQDUsdcpIDh9OTsMg.fncd3H-GO-Co97vK78L5_1cf-w8bfsCOiMmCV96met0g.GIF/%EB%A1%9C%EA%B3%BD%EC%A3%BC_%EC%97%89%EB%8D%A9%EC%9D%B4_%ED%8C%A1%ED%8C%A1.gif?type=w800" class="img-fluid" alt="객실 이미지">
                 <div class="room-info">
                     <h6>A101</h6>
                     <p>객실정보</p>
