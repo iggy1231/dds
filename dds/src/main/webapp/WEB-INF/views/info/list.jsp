@@ -119,42 +119,7 @@ body {
 				<br>
 				<div>
 				<p>전체글</p>
-				<div class="row item-list">
-					<div class="col card">
-	  					<img src="${pageContext.request.contextPath}/resources/images/숙소_예시.jpg" class="card-img-top" alt="...">
-	  					<div class="card-body">
-	      					<p>이름</p>
-	    					<p class="card-text">지역, 시군구</p>
-	    					<footer>태그(콘텐츠타입, 대분류, 중분류, 소분류)</footer>
-	  					</div>
-					</div>
-					<div class="col card">
-	  					<img src="${pageContext.request.contextPath}/resources/images/숙소_예시.jpg" class="card-img-top" alt="...">
-	  					<div class="card-body">
-	      					<p>이름</p>
-	    					<p class="card-text">지역, 시군구</p>
-	    					<footer>태그(콘텐츠타입, 대분류, 중분류, 소분류)</footer>
-	  					</div>
-					</div>
-					<div class="col card">
-		  				<img src="${pageContext.request.contextPath}/resources/images/숙소_예시.jpg" class="card-img-top" alt="...">
-		  				<div class="card-body">
-	      					<p>이름</p>
-	    					<p class="card-text">지역, 시군구</p>
-	    					<footer>태그(콘텐츠타입, 대분류, 중분류, 소분류)</footer>
-	  					</div>
-					</div>
-					<div class="col card">
-		  				<img src="${pageContext.request.contextPath}/resources/images/숙소_예시.jpg" class="card-img-top" alt="...">
-		  				<div class="card-body">
-	      					<p>이름</p>
-	    					<p class="card-text">지역, 시군구</p>
-	    					<footer>태그(콘텐츠타입, 대분류, 중분류, 소분류)</footer>
-	  					</div>
-					</div>
-				</div>
 				<div class="list-content" data-pageNo="0" data-totalPage="0"></div>
-				
 				<div class="list-footer mt-2 text-end">
 					<span class="more-btn btn btn-light">&nbsp;더보기&nbsp;<i class="bi bi-chevron-down"></i>&nbsp;</span>
 				</div>
@@ -190,10 +155,9 @@ function ajaxFun(url, method, formData, dataType, fn, file = false) {
 	};
 	
 	if(file) {
-		settings.processData = false;  // file 전송시 필수. 서버로전송할 데이터를 쿼리문자열로 변환여부
-		settings.contentType = false;  // file 전송시 필수. 서버에전송할 데이터의 Content-Type. 기본:application/x-www-urlencoded
+		settings.processData = false;
+		settings.contentType = false;
 	}
-	
 	$.ajax(url, settings);
 }
 
@@ -203,11 +167,10 @@ $(function(){
 });
 
 function listPage(page) {
-	let url = '${pageContext.request.contextPath}/info/list';
-	let formData = 'pageNo=' + page;
+	let url='${pageContext.request.contextPath}/info/list';
+	let formData='pageNo='+page;
 	
-	const fn = function(data) {
-		console.log(data);
+	const fn=function(data) {
 		addNewContent(data);
 	};
 	ajaxFun(url, 'get', formData, 'json', fn);
@@ -220,11 +183,6 @@ function addNewContent(data) {
 	
 	$('.list-content').attr('data-pageNo', pageNo);
 	$('.list-content').attr('data-totalPage', total_page);
-	
-	$('.list-footer').hide();
-	if(pageNo < total_page) {
-		$('.list-footer').show();
-	}
 
 	let htmlText='<div class="row item-list">';
 	for(let item of data.list) {
@@ -234,13 +192,13 @@ function addNewContent(data) {
 		let contentId = item.contentId;
 		let contentType = item.contentType;
 		let name=item.name;
-		let thumbnailImg=item.thumbnailImg;
+		let thumbnail=item.thumbnail;
 		let main_Category=item.main_Category;
 		let middle_Category=item.middle_Category;
 		let sub_Category=item.sub_Category;
 		
 		htmlText+='	<div class="col card">';
-		htmlText+='		<img src="'+thumbnailImg+'" class="card-img-top" alt="...">';
+		htmlText+='		<img src="'+thumbnail+'" class="card-img-top" alt="...">';
 		htmlText+='		<div class="card-body">';
 		htmlText+='			<p>'+name+'</p>';
 		htmlText+='			<p class="card-text">'+region_Main+' '+region_Sub+'</p>';
@@ -257,8 +215,10 @@ $(function(){
 		let pageNo = $('.list-content').attr('data-pageNo');
 		let total_page = $('.list-content').attr('data-totalPage');
 		
-		if(pageNo < total_page) {
-			pageNo++;
+		pageNo++;
+		if(pageNo==total_page) {
+			$('.list-footer .more-btn').hide();
+		} else {
 			listPage(pageNo);
 		}
 	});

@@ -9,7 +9,7 @@
 	<select id="listInfo" parameterType="map" resultType="com.fly.dds.domain.Info">
 		SELECT NUM, REGION_MAIN, REGION_SUB, CONTENTID, CONTENTTYPE, NAME, THUMBNAIL, MAIN_CATEGORY, MIDDLE_CATEGORY, SUB_CATEGORY
 		FROM info
-		ORDER BY NUM DESC
+		ORDER BY NAME ASC
 		OFFSET #{offset} ROWS FETCH FIRST #{size} ROWS ONLY
 	</select>
 </mapper>

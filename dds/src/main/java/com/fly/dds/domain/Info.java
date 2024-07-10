@@ -51,7 +51,7 @@ public class Info {
 	public String getThumbnail() {
 		return thumbnail;
 	}
-	public void setThumbnail(String thumbnailImg) {
+	public void setThumbnail(String thumbnail) {
 		this.thumbnail = thumbnail;
 	}
 	public String getMain_Category() {

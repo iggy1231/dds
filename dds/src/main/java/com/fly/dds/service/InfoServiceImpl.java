@@ -39,5 +39,4 @@ public class InfoServiceImpl implements InfoService {
 		
 		return list;
 	}
-
 }
