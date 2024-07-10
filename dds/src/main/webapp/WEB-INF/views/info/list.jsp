@@ -8,6 +8,12 @@
 	margin: 0px;
 	box-sizing: border-box;
 }
+body {
+	background-color: #18A8F1;
+}
+.container {
+	background-color: white;
+}
 .body-container {
 	max-width: 800px;
 }
@@ -19,7 +25,7 @@
 	margin: 0px;
 }
 .carousel-item img {
-	height: 700px;
+	height: 500px;
 }
 </style>
 
@@ -67,7 +73,7 @@
 	<div class="body-container">	
 		<div class="body-main">
 			<div>
-				<form action="">
+				<form action="${pageContext.request.contextPath}/info/search">
 					<select>
 						<option>지역</option>
 						<option>태그</option>
@@ -111,41 +117,6 @@
 					</div>
 				</div>
 				<br>
-				<div class="row item-list">
-					<div class="col card">
-	  					<img src="${pageContext.request.contextPath}/resources/images/숙소_예시.jpg" class="card-img-top" alt="...">
-	  					<div class="card-body">
-	      					<p>이름</p>
-	    					<p class="card-text">지역, 시군구</p>
-	    					<footer>태그(콘텐츠타입, 대분류, 중분류, 소분류)</footer>
-	  					</div>
-					</div>
-					<div class="col card">
-	  					<img src="${pageContext.request.contextPath}/resources/images/숙소_예시.jpg" class="card-img-top" alt="...">
-	  					<div class="card-body">
-	      					<p>이름</p>
-	    					<p class="card-text">지역, 시군구</p>
-	    					<footer>태그(콘텐츠타입, 대분류, 중분류, 소분류)</footer>
-	  					</div>
-					</div>
-					<div class="col card">
-		  				<img src="${pageContext.request.contextPath}/resources/images/숙소_예시.jpg" class="card-img-top" alt="...">
-		  				<div class="card-body">
-	      					<p>이름</p>
-	    					<p class="card-text">지역, 시군구</p>
-	    					<footer>태그(콘텐츠타입, 대분류, 중분류, 소분류)</footer>
-	  					</div>
-					</div>
-					<div class="col card">
-		  				<img src="${pageContext.request.contextPath}/resources/images/숙소_예시.jpg" class="card-img-top" alt="...">
-		  				<div class="card-body">
-	      					<p>이름</p>
-	    					<p class="card-text">지역, 시군구</p>
-	    					<footer>태그(콘텐츠타입, 대분류, 중분류, 소분류)</footer>
-	  					</div>
-					</div>
-				</div>			
-				<br>
 				<div>
 				<p>전체글</p>
 				<div class="row item-list">
@@ -182,150 +153,114 @@
 	  					</div>
 					</div>
 				</div>
-				<br>
-				<div class="row item-list">
-					<div class="col card">
-	  					<img src="${pageContext.request.contextPath}/resources/images/숙소_예시.jpg" class="card-img-top" alt="...">
-	  					<div class="card-body">
-	      					<p>이름</p>
-	    					<p class="card-text">지역, 시군구</p>
-	    					<footer>태그(콘텐츠타입, 대분류, 중분류, 소분류)</footer>
-	  					</div>
-					</div>
-					<div class="col card">
-	  					<img src="${pageContext.request.contextPath}/resources/images/숙소_예시.jpg" class="card-img-top" alt="...">
-	  					<div class="card-body">
-	      					<p>이름</p>
-	    					<p class="card-text">지역, 시군구</p>
-	    					<footer>태그(콘텐츠타입, 대분류, 중분류, 소분류)</footer>
-	  					</div>
-					</div>
-					<div class="col card">
-		  				<img src="${pageContext.request.contextPath}/resources/images/숙소_예시.jpg" class="card-img-top" alt="...">
-		  				<div class="card-body">
-	      					<p>이름</p>
-	    					<p class="card-text">지역, 시군구</p>
-	    					<footer>태그(콘텐츠타입, 대분류, 중분류, 소분류)</footer>
-	  					</div>
-					</div>
-					<div class="col card">
-		  				<img src="${pageContext.request.contextPath}/resources/images/숙소_예시.jpg" class="card-img-top" alt="...">
-		  				<div class="card-body">
-	      					<p>이름</p>
-	    					<p class="card-text">지역, 시군구</p>
-	    					<footer>태그(콘텐츠타입, 대분류, 중분류, 소분류)</footer>
-	  					</div>
-					</div>
-				</div>
-				<br>
-				<div class="row item-list">
-					<div class="col card">
-	  					<img src="${pageContext.request.contextPath}/resources/images/숙소_예시.jpg" class="card-img-top" alt="...">
-	  					<div class="card-body">
-	      					<p>이름</p>
-	    					<p class="card-text">지역, 시군구</p>
-	    					<footer>태그(콘텐츠타입, 대분류, 중분류, 소분류)</footer>
-	  					</div>
-					</div>
-					<div class="col card">
-	  					<img src="${pageContext.request.contextPath}/resources/images/숙소_예시.jpg" class="card-img-top" alt="...">
-	  					<div class="card-body">
-	      					<p>이름</p>
-	    					<p class="card-text">지역, 시군구</p>
-	    					<footer>태그(콘텐츠타입, 대분류, 중분류, 소분류)</footer>
-	  					</div>
-					</div>
-					<div class="col card">
-		  				<img src="${pageContext.request.contextPath}/resources/images/숙소_예시.jpg" class="card-img-top" alt="...">
-		  				<div class="card-body">
-	      					<p>이름</p>
-	    					<p class="card-text">지역, 시군구</p>
-	    					<footer>태그(콘텐츠타입, 대분류, 중분류, 소분류)</footer>
-	  					</div>
-					</div>
-					<div class="col card">
-		  				<img src="${pageContext.request.contextPath}/resources/images/숙소_예시.jpg" class="card-img-top" alt="...">
-		  				<div class="card-body">
-	      					<p>이름</p>
-	    					<p class="card-text">지역, 시군구</p>
-	    					<footer>태그(콘텐츠타입, 대분류, 중분류, 소분류)</footer>
-	  					</div>
-					</div>
-				</div>
-				</div>
+				<div class="list-content" data-pageNo="0" data-totalPage="0"></div>
 				
-				<br>
-				<div class="row item-list">
-					<div class="col card">
-	  					<img src="${pageContext.request.contextPath}/resources/images/숙소_예시.jpg" class="card-img-top" alt="...">
-	  					<div class="card-body">
-	      					<p>이름</p>
-	    					<p class="card-text">지역, 시군구</p>
-	    					<footer>태그(콘텐츠타입, 대분류, 중분류, 소분류)</footer>
-	  					</div>
-					</div>
-					<div class="col card">
-	  					<img src="${pageContext.request.contextPath}/resources/images/숙소_예시.jpg" class="card-img-top" alt="...">
-	  					<div class="card-body">
-	      					<p>이름</p>
-	    					<p class="card-text">지역, 시군구</p>
-	    					<footer>태그(콘텐츠타입, 대분류, 중분류, 소분류)</footer>
-	  					</div>
-					</div>
-					<div class="col card">
-		  				<img src="${pageContext.request.contextPath}/resources/images/숙소_예시.jpg" class="card-img-top" alt="...">
-		  				<div class="card-body">
-	      					<p>이름</p>
-	    					<p class="card-text">지역, 시군구</p>
-	    					<footer>태그(콘텐츠타입, 대분류, 중분류, 소분류)</footer>
-	  					</div>
-					</div>
-					<div class="col card">
-		  				<img src="${pageContext.request.contextPath}/resources/images/숙소_예시.jpg" class="card-img-top" alt="...">
-		  				<div class="card-body">
-	      					<p>이름</p>
-	    					<p class="card-text">지역, 시군구</p>
-	    					<footer>태그(콘텐츠타입, 대분류, 중분류, 소분류)</footer>
-	  					</div>
-					</div>
+				<div class="list-footer mt-2 text-end">
+					<span class="more-btn btn btn-light">&nbsp;더보기&nbsp;<i class="bi bi-chevron-down"></i>&nbsp;</span>
 				</div>
-				<br>
-				<div class="row item-list">
-					<div class="col card">
-	  					<img src="${pageContext.request.contextPath}/resources/images/숙소_예시.jpg" class="card-img-top" alt="...">
-	  					<div class="card-body">
-	      					<p>이름</p>
-	    					<p class="card-text">지역, 시군구</p>
-	    					<footer>태그(콘텐츠타입, 대분류, 중분류, 소분류)</footer>
-	  					</div>
-					</div>
-					<div class="col card">
-	  					<img src="${pageContext.request.contextPath}/resources/images/숙소_예시.jpg" class="card-img-top" alt="...">
-	  					<div class="card-body">
-	      					<p>이름</p>
-	    					<p class="card-text">지역, 시군구</p>
-	    					<footer>태그(콘텐츠타입, 대분류, 중분류, 소분류)</footer>
-	  					</div>
-					</div>
-					<div class="col card">
-		  				<img src="${pageContext.request.contextPath}/resources/images/숙소_예시.jpg" class="card-img-top" alt="...">
-		  				<div class="card-body">
-	      					<p>이름</p>
-	    					<p class="card-text">지역, 시군구</p>
-	    					<footer>태그(콘텐츠타입, 대분류, 중분류, 소분류)</footer>
-	  					</div>
-					</div>
-					<div class="col card">
-		  				<img src="${pageContext.request.contextPath}/resources/images/숙소_예시.jpg" class="card-img-top" alt="...">
-		  				<div class="card-body">
-	      					<p>이름</p>
-	    					<p class="card-text">지역, 시군구</p>
-	    					<footer>태그(콘텐츠타입, 대분류, 중분류, 소분류)</footer>
-	  					</div>
-					</div>
-				</div>
-				<p>더보기(무한스크롤)</p>
 			</div>
 		</div>
 	</div>
 </div>
+</div>
+
+<script>
+function ajaxFun(url, method, formData, dataType, fn, file = false) {
+	const settings = {
+			type: method, 
+			data: formData,
+			success:function(data) {
+				fn(data);
+			},
+			beforeSend: function(jqXHR) {
+				jqXHR.setRequestHeader('AJAX', true);
+			},
+			complete: function () {
+			},
+			error: function(jqXHR) {
+				if(jqXHR.status === 403) {
+					return false;
+				} else if(jqXHR.status === 400) {
+					alert('요청 처리가 실패 했습니다.');
+					return false;
+		    	}
+		    	
+				console.log(jqXHR.responseText);
+			}
+	};
+	
+	if(file) {
+		settings.processData = false;  // file 전송시 필수. 서버로전송할 데이터를 쿼리문자열로 변환여부
+		settings.contentType = false;  // file 전송시 필수. 서버에전송할 데이터의 Content-Type. 기본:application/x-www-urlencoded
+	}
+	
+	$.ajax(url, settings);
+}
+
+
+$(function(){
+	listPage(1);
+});
+
+function listPage(page) {
+	let url = '${pageContext.request.contextPath}/info/list';
+	let formData = 'pageNo=' + page;
+	
+	const fn = function(data) {
+		console.log(data);
+		addNewContent(data);
+	};
+	ajaxFun(url, 'get', formData, 'json', fn);
+}
+
+function addNewContent(data) {
+	let dataCount = data.dataCount;
+	let pageNo = data.pageNo;
+	let total_page = data.total_page;
+	
+	$('.list-content').attr('data-pageNo', pageNo);
+	$('.list-content').attr('data-totalPage', total_page);
+	
+	$('.list-footer').hide();
+	if(pageNo < total_page) {
+		$('.list-footer').show();
+	}
+
+	let htmlText='<div class="row item-list">';
+	for(let item of data.list) {
+		let num = item.num;
+		let region_Main = item.region_Main;
+		let region_Sub = item.region_Sub;
+		let contentId = item.contentId;
+		let contentType = item.contentType;
+		let name=item.name;
+		let thumbnailImg=item.thumbnailImg;
+		let main_Category=item.main_Category;
+		let middle_Category=item.middle_Category;
+		let sub_Category=item.sub_Category;
+		
+		htmlText+='	<div class="col card">';
+		htmlText+='		<img src="'+thumbnailImg+'" class="card-img-top" alt="...">';
+		htmlText+='		<div class="card-body">';
+		htmlText+='			<p>'+name+'</p>';
+		htmlText+='			<p class="card-text">'+region_Main+' '+region_Sub+'</p>';
+		htmlText+='			<footer>#'+contentType+' #'+main_Category+' #'+middle_Category+' #'+sub_Category+'</footer>';
+		htmlText+='		</div>';
+		htmlText+='	</div>';
+	}
+	htmlText+='</div><br>';
+	$(".list-content").append(htmlText);	
+}
+
+$(function(){
+	$('.list-footer .more-btn').click(function(){
+		let pageNo = $('.list-content').attr('data-pageNo');
+		let total_page = $('.list-content').attr('data-totalPage');
+		
+		if(pageNo < total_page) {
+			pageNo++;
+			listPage(pageNo);
+		}
+	});
+});
+</script>

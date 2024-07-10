@@ -2,10 +2,11 @@
 
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.fly.dds.mapper.MemberMapper">
+	<!-- enabled 상태에 따라 로그인 불가능하게 하기 -->
 	<select id="loginMember" parameterType="String" resultType="com.fly.dds.domain.Member">
-		SELECT m2.user_num, userId, pwd, userName, nickName, reg_date, modify_date, activity, user_grade, status
+		SELECT m2.user_num, userId, pwd, userName, nickName, reg_date, modify_date, activity, user_grade, enabled
 		FROM member_info m1
-		JOIN member_status m2 ON m1.user_num=m2.user_num
+		JOIN member1 m2 ON m1.user_num=m2.user_num
 		WHERE userId=#{userId}
 	</select>
 </mapper>

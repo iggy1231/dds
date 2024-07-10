@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.fly.dds.mapper.InfoMapper">
+	<select id="dataCount" resultType="Integer">
+		SELECT NVL(COUNT(*), 0) FROM info
+	</select>
+	
+	<select id="listInfo" parameterType="map" resultType="com.fly.dds.domain.Info">
+		SELECT NUM, REGION_MAIN, REGION_SUB, CONTENTID, CONTENTTYPE, NAME, THUMBNAIL, MAIN_CATEGORY, MIDDLE_CATEGORY, SUB_CATEGORY
+		FROM info
+		ORDER BY NUM DESC
+		OFFSET #{offset} ROWS FETCH FIRST #{size} ROWS ONLY
+	</select>
+</mapper>
