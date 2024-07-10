@@ -110,11 +110,13 @@
     padding-top: 15px; /* 이미지와의 간격을 위해 여백 추가 */
 }
 
-
+.nav-item {
+	padding-left: 3px !important;
+	
+}
         
 </style>
 
-<div class="m-4 p-4"></div>
 
  <!-- Hero Start -->
         <div class="container-fluid py-5 mb-3 hero-header">
@@ -196,8 +198,9 @@
 </div>
         
 <!-- Property List Start -->
- <div class="container-xxl py-5">
-    <div class="container ">
+ <!-- Property List Start -->
+<div class="container-xxl py-5">
+    <div class="container">
         <div class="row g-0 gx-5 align-items-end">
             <div class="col-lg-6">
                 <div class="text-start mx-auto mb-5 wow slideInLeft" data-wow-delay="0.1s">
@@ -206,10 +209,10 @@
             </div>
             <div class="col-lg-6 text-start text-lg-end wow slideInRight" data-wow-delay="0.1s">
                 <ul class="nav nav-pills d-inline-flex justify-content-end mb-5">
-                    <li class="nav-item me-2">
+                    <li class="nav-item">
                         <a class="py-1 px-4 btn btn-outline-primary active" data-bs-toggle="pill" href="#tab-1">숙소</a>
                     </li>
-                    <li class="nav-item me-2">
+                    <li class="nav-item">
                         <a class="py-1 px-4 btn btn-outline-primary" data-bs-toggle="pill" href="#tab-2">투어</a>
                     </li>
                 </ul>
@@ -218,7 +221,7 @@
         <div class="tab-content">
             <div id="tab-1" class="tab-pane fade show p-0 active">
                 <div class="row g-4">
-                    <div class="col-lg-4 col-md-6 wow fadeInUp" data-wow-delay="0.3s">
+                    <div class="col-lg-3 col-md-6 wow fadeInUp" data-wow-delay="0.3s">
                         <div class="property-item rounded overflow-hidden">
                             <div class="position-relative overflow-hidden">
                                 <a href=""><img class="img-fluid" src="${pageContext.request.contextPath}/resources/images/숙소_예시.jpg" alt=""></a>
@@ -233,7 +236,8 @@
                             </div>
                         </div>
                     </div>
-                    <div class="col-lg-4 col-md-6 wow fadeInUp" data-wow-delay="0.3s">
+                    <!-- Repeat the same for other property items -->
+                    <div class="col-lg-3 col-md-6 wow fadeInUp" data-wow-delay="0.3s">
                         <div class="property-item rounded overflow-hidden">
                             <div class="position-relative overflow-hidden">
                                 <a href=""><img class="img-fluid" src="${pageContext.request.contextPath}/resources/images/숙소_예시.jpg" alt=""></a>
@@ -248,7 +252,7 @@
                             </div>
                         </div>
                     </div>
-                    <div class="col-lg-4 col-md-6 wow fadeInUp" data-wow-delay="0.3s">
+                    <div class="col-lg-3 col-md-6 wow fadeInUp" data-wow-delay="0.3s">
                         <div class="property-item rounded overflow-hidden">
                             <div class="position-relative overflow-hidden">
                                 <a href=""><img class="img-fluid" src="${pageContext.request.contextPath}/resources/images/숙소_예시.jpg" alt=""></a>
@@ -263,7 +267,7 @@
                             </div>
                         </div>
                     </div>
-                    <div class="col-lg-4 col-md-6 wow fadeInUp" data-wow-delay="0.3s">
+                    <div class="col-lg-3 col-md-6 wow fadeInUp" data-wow-delay="0.3s">
                         <div class="property-item rounded overflow-hidden">
                             <div class="position-relative overflow-hidden">
                                 <a href=""><img class="img-fluid" src="${pageContext.request.contextPath}/resources/images/숙소_예시.jpg" alt=""></a>
@@ -278,7 +282,7 @@
                             </div>
                         </div>
                     </div>
-                    <div class="col-lg-4 col-md-6 wow fadeInUp" data-wow-delay="0.3s">
+                    <div class="col-lg-3 col-md-6 wow fadeInUp" data-wow-delay="0.3s">
                         <div class="property-item rounded overflow-hidden">
                             <div class="position-relative overflow-hidden">
                                 <a href=""><img class="img-fluid" src="${pageContext.request.contextPath}/resources/images/숙소_예시.jpg" alt=""></a>
@@ -293,7 +297,7 @@
                             </div>
                         </div>
                     </div>
-                    <div class="col-lg-4 col-md-6 wow fadeInUp" data-wow-delay="0.3s">
+                    <div class="col-lg-3 col-md-6 wow fadeInUp" data-wow-delay="0.3s">
                         <div class="property-item rounded overflow-hidden">
                             <div class="position-relative overflow-hidden">
                                 <a href=""><img class="img-fluid" src="${pageContext.request.contextPath}/resources/images/숙소_예시.jpg" alt=""></a>
@@ -308,12 +312,43 @@
                             </div>
                         </div>
                     </div>
+                    <div class="col-lg-3 col-md-6 wow fadeInUp" data-wow-delay="0.3s">
+                        <div class="property-item rounded overflow-hidden">
+                            <div class="position-relative overflow-hidden">
+                                <a href=""><img class="img-fluid" src="${pageContext.request.contextPath}/resources/images/숙소_예시.jpg" alt=""></a>
+                                <div class="bg-primary rounded text-white position-absolute start-0 top-0 m-4 py-1 px-3">★ 9.6</div>
+                                <div class="display-9 bg-white rounded-top text-primary position-absolute start-0 bottom-0 mx-4 pt-1 px-3"><h5 style="font-weight: 600;">펜션</h5></div>
+                            </div>
+                            <div class="px-4 py-2 pb-3">
+                                <h4 class="text-primary my-2 pt-1" style="font-weight: 600;">50,000원</h4>
+                                <a class="d-block h4 mb-2" href="" style="font-weight: 600;">익산 함께해요 펜션</a>
+                                <h6 class="display-10 py-1" style="color: #666565;"><i class="text-primary bi bi-geo-alt-fill"></i>&nbsp;서울시 마포구 oo로</h6>
+                                <h6 class="display-10" style="color: #666565;"><i class="text-primary bi bi-chat-fill"></i>&nbsp;&nbsp;199개</h6>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-3 col-md-6 wow fadeInUp" data-wow-delay="0.3s">
+                        <div class="property-item rounded overflow-hidden">
+                            <div class="position-relative overflow-hidden">
+                                <a href=""><img class="img-fluid" src="${pageContext.request.contextPath}/resources/images/숙소_예시.jpg" alt=""></a>
+                                <div class="bg-primary rounded text-white position-absolute start-0 top-0 m-4 py-1 px-3">★ 9.6</div>
+                                <div class="display-9 bg-white rounded-top text-primary position-absolute start-0 bottom-0 mx-4 pt-1 px-3"><h5 style="font-weight: 600;">펜션</h5></div>
+                            </div>
+                            <div class="px-4 py-2 pb-3">
+                                <h4 class="text-primary my-2 pt-1" style="font-weight: 600;">50,000원</h4>
+                                <a class="d-block h4 mb-2" href="" style="font-weight: 600;">익산 함께해요 펜션</a>
+                                <h6 class="display-10 py-1" style="color: #666565;"><i class="text-primary bi bi-geo-alt-fill"></i>&nbsp;서울시 마포구 oo로</h6>
+                                <h6 class="display-10" style="color: #666565;"><i class="text-primary bi bi-chat-fill"></i>&nbsp;&nbsp;199개</h6>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Repeat the above block for more property items as needed -->
                 </div>
             </div>
         </div>
     </div>
 </div>
-        <!-- Property List End -->
+<!-- Property List End -->
         
 <div class="container-xxl py-3">
     <div class="container">
@@ -354,9 +389,11 @@
     </div>
 </div>
 </div>
+
+<!-- 여행 동행 구하기 시작 -->
 <div class="container-fluid testimonial py-5">
     <div class="container py-5">
-        <div class="text-center mx-auto mb-5 wow slideInLeft" data-wow-delay="0.1s">
+        <div class="text-center mx-auto mb-5 wow slideInLeft" data-wow -delay="0.1s">
             <h3 class="mb-2 display-8 text-black" style="font-weight: 600;">함께 떠나요! 😊</h3>
             <h1 class="mb-3 display-6 text-black" style="font-weight: 600;">여행 동행 리스트</h1>
         </div>
@@ -366,11 +403,11 @@
                     <img src="${pageContext.request.contextPath}/resources/images/숙소_예시.jpg" class="img-fluid rounded-circle" style="width: 100px;" alt="Image">
                 </div>
                 <div class="testimonial-comment">
-                    <h4 class="text-center mb-5">제주도 함께 동행하실분 모십니다! 함께 즐거운 추억 만들어요! :)</h4>
+                    <h4 class="text-center mb-5">제주도 함께 동행하실분 모십니다! <br class="pt-3"> 함께 즐거운 추억 만들어요! :)</h4>
                 </div>
                 <div class="mt-4">
                     <h3 class="mb-0 mt-3">익명의 고양이</h3>
-                    <h4 class="p-3 mb-0"><i class="text-primary bi bi-geo-alt-fill"></i>  제주도    |    <i class="text-primary bi bi-person-circle"></i>  5인</h4>
+                    <h4 class="p-3 mb-0"><i class="text-primary bi bi-geo-alt-fill"></i>  제주도      |      <i class="text-primary bi bi-person-circle"></i>  5인</h4>
                     <div class="d-flex justify-content-center">
                         <i class="fas fa-star text-primary"></i>
                         <i class="fas fa-star text-primary"></i>
@@ -384,7 +421,7 @@
         </div>
     </div>
 </div>
-
+<!-- 여행 동행 구하기 끝 -->
 	
 <script>
     $(document).ready(function(){

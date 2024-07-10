@@ -17,8 +17,23 @@
 
             <div class="collapse navbar-collapse px-5" id="navbarCollapse">
                 <div class="navbar-nav mx-auto">
-                    <a href="${pageContext.request.contextPath}/" data-bs-toggle="dropdown" class="dropdown-toggle nav-item nav-link"><img alt="" src="${pageContext.request.contextPath}/resources/images/menu_room.png" style="width: 35px;">&nbsp;&nbsp;&nbsp;숙소</a> 
-                    <a href="${pageContext.request.contextPath}/" data-bs-toggle="dropdown" class="dropdown-toggle nav-item nav-link"><img alt="" src="${pageContext.request.contextPath}/resources/images/menu_tour.png" style="width: 35px;">&nbsp;&nbsp;&nbsp;투어</a>
+                    
+                    <div class="nav-item dropdown">
+                        <a href="${pageContext.request.contextPath}" class="nav-link dropdown-toggle" data-bs-toggle="dropdown"><img alt="" src="${pageContext.request.contextPath}/resources/images/menu_room.png" style="width: 35px;">&nbsp;&nbsp;&nbsp;숙소</a>
+                        <div class="dropdown-menu rounded-0 m-0">
+                            <a href="${pageContext.request.contextPath}/room/main" class="dropdown-item">숙소 전체보기</a>
+                            <a href="${pageContext.request.contextPath}/" class="dropdown-item">내 예약</a>
+                        </div>
+                    </div>
+                    
+                    <div class="nav-item dropdown">
+                        <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown"><img alt="" src="${pageContext.request.contextPath}/resources/images/menu_tour.png" style="width: 35px;">&nbsp;&nbsp;&nbsp;투어</a>
+                        <div class="dropdown-menu rounded-0 m-0">
+                            <a href="${pageContext.request.contextPath}/" class="dropdown-item">투어 전체보기</a>
+                            <a href="${pageContext.request.contextPath}/" class="dropdown-item">내 예약</a>
+                        </div>
+                    </div>
+                    
                     <div class="nav-item dropdown">
                         <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown"><img alt="" src="${pageContext.request.contextPath}/resources/images/menu_여행.png" style="width: 35px;">&nbsp;&nbsp;&nbsp;여행</a>
                         <div class="dropdown-menu rounded-0 m-0">

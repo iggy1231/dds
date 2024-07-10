@@ -1,9 +1,9 @@
 @charset "UTF-8";
 
 .nav-item {
-    font-size: 1.35rem !important;
+    font-size: 1.25rem !important;
     font-weight: 600 !important;
-    padding-right: 50px !important;
+    padding-right: 20px !important;
 }
 
 .thin-blue-bar {
@@ -20,7 +20,7 @@
  .dropdown-menu {
   font-size: 1.35rem !important;
     font-weight: 600 !important;
-        margin-top: 15px !important;
+    margin-top: 15px !important;
     }
 
 .btn-primary {
