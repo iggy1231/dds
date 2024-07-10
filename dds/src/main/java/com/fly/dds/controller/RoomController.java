@@ -11,6 +11,6 @@ public class RoomController {
 	@GetMapping("main")
 	public String roomMain() {
 		
-		return "room/main";
+		return ".room.main";
 	}
 }
