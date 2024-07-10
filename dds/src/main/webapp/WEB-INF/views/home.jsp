@@ -79,9 +79,9 @@
 
 .testimonial-img {
     position: absolute;
-    bottom: 130px; /* 이미지가 카드 아래로 나오도록 설정 */
+    top: 50%;
     left: 50%;
-    transform: translateX(-50%);
+    transform: translate(-50%, -50%);
     z-index: 10;
     background-color: white;
     border: 5px solid white;
@@ -101,7 +101,7 @@
 .testimonial-comment::after {
     content: "";
     display: block;
-    height: 50px; /* 이미지 크기와 동일한 높이 */
+    height: 30px; /* 이미지 크기와 동일한 높이 */
 }
 
 .testimonial-item h5,
@@ -110,10 +110,105 @@
     padding-top: 15px; /* 이미지와의 간격을 위해 여백 추가 */
 }
 
-.nav-item {
-	padding-left: 3px !important;
-	
+.ratio-4x3 {
+    aspect-ratio: 4 / 3;
+    width: 100%;
+    object-fit: cover;
 }
+
+/*** Testimonial Start ***/
+.testimonial .testimonial-carousel {
+    position: relative;
+}
+
+.testimonial .testimonial-carousel .testimonial-item .testimonial-img {
+    position: relative;
+    width: 100px; 
+    height: 100px; 
+    top: 0; left: 50%; 
+    transform: translate(-50%, -50%);
+    border: 3px solid var(--bs-primary); 
+    border-style: dotted;
+    border-radius: 50%;
+}
+
+.testimonial .testimonial-carousel .owl-dots {
+    margin-top: 30px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.testimonial .testimonial-carousel .owl-dot {
+    position: relative;
+    display: inline-block;
+    margin: 0 5px;
+    width: 15px;
+    height: 15px;
+    background: var(--bs-light);
+    border: 1px solid var(--bs-primary);
+    border-radius: 10px;
+    transition: 0.5s;
+}
+
+.testimonial .testimonial-carousel .owl-dot.active {
+    width: 40px;
+    background: var(--bs-primary);
+}
+
+.testimonial .testimonial-carousel .owl-nav .owl-prev {
+    position: absolute;
+    top: -55px;
+    left: 0;
+    padding: 5px 30px;
+    border: 1px solid var(--bs-primary);
+    border-radius: 30px;
+    transition: 0.5s;
+}
+
+.testimonial .testimonial-carousel .owl-nav .owl-next {
+    position: absolute;
+    top: -55px;
+    right: 0;
+    padding: 5px 30px;
+    border: 1px solid var(--bs-primary);
+    border-radius: 30px;
+    transition: 0.5s;
+}
+
+.testimonial .testimonial-carousel .owl-nav .owl-prev i,
+.testimonial .testimonial-carousel .owl-nav .owl-next i {
+    color: var(--bs-primary);
+    font-size: 17px;
+    transition: 0.5s;
+}
+
+.testimonial .testimonial-carousel .owl-nav .owl-prev:hover,
+.testimonial .testimonial-carousel .owl-nav .owl-next:hover {
+    background: var(--bs-primary);
+}
+
+.testimonial .testimonial-carousel .owl-nav .owl-prev:hover i,
+.testimonial .testimonial-carousel .owl-nav .owl-next:hover i {
+    color: var(--bs-white);
+}
+
+.testimonial .testimonial-carousel .owl-item.center .testimonial-item .testimonial-comment {
+    background: var(--bs-primary) !important;
+    color: var(--bs-white);
+    transition: 0.5s;
+}
+
+.testimonial .testimonial-carousel .owl-item.center .testimonial-item .testimonial-img {
+    border: 3px solid var(--bs-white); 
+    border-style: dotted;
+    transition: 0.5s;
+}
+
+
+/*** Testimonial End ***/
+
+
         
 </style>
 
@@ -198,9 +293,8 @@
 </div>
         
 <!-- Property List Start -->
- <!-- Property List Start -->
-<div class="container-xxl py-5">
-    <div class="container">
+ <div class="container-xxl py-5">
+    <div class="container ">
         <div class="row g-0 gx-5 align-items-end">
             <div class="col-lg-6">
                 <div class="text-start mx-auto mb-5 wow slideInLeft" data-wow-delay="0.1s">
@@ -209,10 +303,10 @@
             </div>
             <div class="col-lg-6 text-start text-lg-end wow slideInRight" data-wow-delay="0.1s">
                 <ul class="nav nav-pills d-inline-flex justify-content-end mb-5">
-                    <li class="nav-item">
+                    <li class="nav-item me-2">
                         <a class="py-1 px-4 btn btn-outline-primary active" data-bs-toggle="pill" href="#tab-1">숙소</a>
                     </li>
-                    <li class="nav-item">
+                    <li class="nav-item me-2">
                         <a class="py-1 px-4 btn btn-outline-primary" data-bs-toggle="pill" href="#tab-2">투어</a>
                     </li>
                 </ul>
@@ -221,10 +315,10 @@
         <div class="tab-content">
             <div id="tab-1" class="tab-pane fade show p-0 active">
                 <div class="row g-4">
-                    <div class="col-lg-3 col-md-6 wow fadeInUp" data-wow-delay="0.3s">
+                    <div class="col-lg-4 col-md-6 wow fadeInUp" data-wow-delay="0.3s">
                         <div class="property-item rounded overflow-hidden">
                             <div class="position-relative overflow-hidden">
-                                <a href=""><img class="img-fluid" src="${pageContext.request.contextPath}/resources/images/숙소_예시.jpg" alt=""></a>
+                                <a href=""><img class="ratio ratio-4x3 img-fluid" src="https://ppss.kr/wp-content/uploads/2023/02/1-2.jpeg" alt=""></a>
                                 <div class="bg-primary rounded text-white position-absolute start-0 top-0 m-4 py-1 px-3">★ 9.6</div>
                                 <div class="display-9 bg-white rounded-top text-primary position-absolute start-0 bottom-0 mx-4 pt-1 px-3"><h5 style="font-weight: 600;">펜션</h5></div>
                             </div>
@@ -236,11 +330,10 @@
                             </div>
                         </div>
                     </div>
-                    <!-- Repeat the same for other property items -->
-                    <div class="col-lg-3 col-md-6 wow fadeInUp" data-wow-delay="0.3s">
+                    <div class="col-lg-4 col-md-6 wow fadeInUp" data-wow-delay="0.3s">
                         <div class="property-item rounded overflow-hidden">
                             <div class="position-relative overflow-hidden">
-                                <a href=""><img class="img-fluid" src="${pageContext.request.contextPath}/resources/images/숙소_예시.jpg" alt=""></a>
+                                <a href=""><img class="ratio ratio-4x3 img-fluid" src="${pageContext.request.contextPath}/resources/images/숙소_예시.jpg" alt=""></a>
                                 <div class="bg-primary rounded text-white position-absolute start-0 top-0 m-4 py-1 px-3">★ 9.6</div>
                                 <div class="display-9 bg-white rounded-top text-primary position-absolute start-0 bottom-0 mx-4 pt-1 px-3"><h5 style="font-weight: 600;">펜션</h5></div>
                             </div>
@@ -252,10 +345,10 @@
                             </div>
                         </div>
                     </div>
-                    <div class="col-lg-3 col-md-6 wow fadeInUp" data-wow-delay="0.3s">
+                    <div class="col-lg-4 col-md-6 wow fadeInUp" data-wow-delay="0.3s">
                         <div class="property-item rounded overflow-hidden">
                             <div class="position-relative overflow-hidden">
-                                <a href=""><img class="img-fluid" src="${pageContext.request.contextPath}/resources/images/숙소_예시.jpg" alt=""></a>
+                                <a href=""><img class="ratio ratio-4x3 img-fluid" src="${pageContext.request.contextPath}/resources/images/숙소_예시.jpg" alt=""></a>
                                 <div class="bg-primary rounded text-white position-absolute start-0 top-0 m-4 py-1 px-3">★ 9.6</div>
                                 <div class="display-9 bg-white rounded-top text-primary position-absolute start-0 bottom-0 mx-4 pt-1 px-3"><h5 style="font-weight: 600;">펜션</h5></div>
                             </div>
@@ -267,10 +360,10 @@
                             </div>
                         </div>
                     </div>
-                    <div class="col-lg-3 col-md-6 wow fadeInUp" data-wow-delay="0.3s">
+                    <div class="col-lg-4 col-md-6 wow fadeInUp" data-wow-delay="0.3s">
                         <div class="property-item rounded overflow-hidden">
                             <div class="position-relative overflow-hidden">
-                                <a href=""><img class="img-fluid" src="${pageContext.request.contextPath}/resources/images/숙소_예시.jpg" alt=""></a>
+                                <a href=""><img class="ratio ratio-4x3  img-fluid" src="${pageContext.request.contextPath}/resources/images/숙소_예시.jpg" alt=""></a>
                                 <div class="bg-primary rounded text-white position-absolute start-0 top-0 m-4 py-1 px-3">★ 9.6</div>
                                 <div class="display-9 bg-white rounded-top text-primary position-absolute start-0 bottom-0 mx-4 pt-1 px-3"><h5 style="font-weight: 600;">펜션</h5></div>
                             </div>
@@ -282,10 +375,10 @@
                             </div>
                         </div>
                     </div>
-                    <div class="col-lg-3 col-md-6 wow fadeInUp" data-wow-delay="0.3s">
+                    <div class="col-lg-4 col-md-6 wow fadeInUp" data-wow-delay="0.3s">
                         <div class="property-item rounded overflow-hidden">
                             <div class="position-relative overflow-hidden">
-                                <a href=""><img class="img-fluid" src="${pageContext.request.contextPath}/resources/images/숙소_예시.jpg" alt=""></a>
+                                <a href=""><img class="ratio ratio-4x3  img-fluid" src="${pageContext.request.contextPath}/resources/images/숙소_예시.jpg" alt=""></a>
                                 <div class="bg-primary rounded text-white position-absolute start-0 top-0 m-4 py-1 px-3">★ 9.6</div>
                                 <div class="display-9 bg-white rounded-top text-primary position-absolute start-0 bottom-0 mx-4 pt-1 px-3"><h5 style="font-weight: 600;">펜션</h5></div>
                             </div>
@@ -297,10 +390,10 @@
                             </div>
                         </div>
                     </div>
-                    <div class="col-lg-3 col-md-6 wow fadeInUp" data-wow-delay="0.3s">
+                    <div class="col-lg-4 col-md-6 wow fadeInUp" data-wow-delay="0.3s">
                         <div class="property-item rounded overflow-hidden">
                             <div class="position-relative overflow-hidden">
-                                <a href=""><img class="img-fluid" src="${pageContext.request.contextPath}/resources/images/숙소_예시.jpg" alt=""></a>
+                                <a href=""><img class="ratio ratio-4x3  img-fluid" src="${pageContext.request.contextPath}/resources/images/숙소_예시.jpg" alt=""></a>
                                 <div class="bg-primary rounded text-white position-absolute start-0 top-0 m-4 py-1 px-3">★ 9.6</div>
                                 <div class="display-9 bg-white rounded-top text-primary position-absolute start-0 bottom-0 mx-4 pt-1 px-3"><h5 style="font-weight: 600;">펜션</h5></div>
                             </div>
@@ -312,43 +405,12 @@
                             </div>
                         </div>
                     </div>
-                    <div class="col-lg-3 col-md-6 wow fadeInUp" data-wow-delay="0.3s">
-                        <div class="property-item rounded overflow-hidden">
-                            <div class="position-relative overflow-hidden">
-                                <a href=""><img class="img-fluid" src="${pageContext.request.contextPath}/resources/images/숙소_예시.jpg" alt=""></a>
-                                <div class="bg-primary rounded text-white position-absolute start-0 top-0 m-4 py-1 px-3">★ 9.6</div>
-                                <div class="display-9 bg-white rounded-top text-primary position-absolute start-0 bottom-0 mx-4 pt-1 px-3"><h5 style="font-weight: 600;">펜션</h5></div>
-                            </div>
-                            <div class="px-4 py-2 pb-3">
-                                <h4 class="text-primary my-2 pt-1" style="font-weight: 600;">50,000원</h4>
-                                <a class="d-block h4 mb-2" href="" style="font-weight: 600;">익산 함께해요 펜션</a>
-                                <h6 class="display-10 py-1" style="color: #666565;"><i class="text-primary bi bi-geo-alt-fill"></i>&nbsp;서울시 마포구 oo로</h6>
-                                <h6 class="display-10" style="color: #666565;"><i class="text-primary bi bi-chat-fill"></i>&nbsp;&nbsp;199개</h6>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-lg-3 col-md-6 wow fadeInUp" data-wow-delay="0.3s">
-                        <div class="property-item rounded overflow-hidden">
-                            <div class="position-relative overflow-hidden">
-                                <a href=""><img class="img-fluid" src="${pageContext.request.contextPath}/resources/images/숙소_예시.jpg" alt=""></a>
-                                <div class="bg-primary rounded text-white position-absolute start-0 top-0 m-4 py-1 px-3">★ 9.6</div>
-                                <div class="display-9 bg-white rounded-top text-primary position-absolute start-0 bottom-0 mx-4 pt-1 px-3"><h5 style="font-weight: 600;">펜션</h5></div>
-                            </div>
-                            <div class="px-4 py-2 pb-3">
-                                <h4 class="text-primary my-2 pt-1" style="font-weight: 600;">50,000원</h4>
-                                <a class="d-block h4 mb-2" href="" style="font-weight: 600;">익산 함께해요 펜션</a>
-                                <h6 class="display-10 py-1" style="color: #666565;"><i class="text-primary bi bi-geo-alt-fill"></i>&nbsp;서울시 마포구 oo로</h6>
-                                <h6 class="display-10" style="color: #666565;"><i class="text-primary bi bi-chat-fill"></i>&nbsp;&nbsp;199개</h6>
-                            </div>
-                        </div>
-                    </div>
-                    <!-- Repeat the above block for more property items as needed -->
                 </div>
             </div>
         </div>
     </div>
 </div>
-<!-- Property List End -->
+        <!-- Property List End -->
         
 <div class="container-xxl py-3">
     <div class="container">
@@ -390,58 +452,92 @@
 </div>
 </div>
 
-<!-- 여행 동행 구하기 시작 -->
-<div class="container-fluid testimonial py-5">
-    <div class="container py-5">
-        <div class="text-center mx-auto mb-5 wow slideInLeft" data-wow -delay="0.1s">
+
+
+<!-- Testimonial Start -->
+        <div class="container-fluid testimonial py-5">
+            <div class="container py-5">
+                <div class="text-center mx-auto mb-5 wow slideInLeft" data-wow-delay="0.1s">
             <h3 class="mb-2 display-8 text-black" style="font-weight: 600;">함께 떠나요! 😊</h3>
             <h1 class="mb-3 display-6 text-black" style="font-weight: 600;">여행 동행 리스트</h1>
         </div>
-        <div class="testimonial-carousel owl-carousel">
-            <div class="testimonial-item text-center rounded pb-4">
-                <div class="testimonial-img p-1">
-                    <img src="${pageContext.request.contextPath}/resources/images/숙소_예시.jpg" class="img-fluid rounded-circle" style="width: 100px;" alt="Image">
-                </div>
-                <div class="testimonial-comment">
-                    <h4 class="text-center mb-5">제주도 함께 동행하실분 모십니다! <br class="pt-3"> 함께 즐거운 추억 만들어요! :)</h4>
-                </div>
-                <div class="mt-4">
-                    <h3 class="mb-0 mt-3">익명의 고양이</h3>
-                    <h4 class="p-3 mb-0"><i class="text-primary bi bi-geo-alt-fill"></i>  제주도      |      <i class="text-primary bi bi-person-circle"></i>  5인</h4>
-                    <div class="d-flex justify-content-center">
-                        <i class="fas fa-star text-primary"></i>
-                        <i class="fas fa-star text-primary"></i>
-                        <i class="fas fa-star text-primary"></i>
-                        <i class="fas fa-star text-primary"></i>
-                        <i class="fas fa-star text-primary"></i>
+                <div class="testimonial-carousel owl-carousel">
+                    <div class="testimonial-item text-center rounded pb-4">
+                        <div class="d-flex justify-content-center align-items-center testimonial-comment bg-primary rounded p-4" style="height: 200px;">
+						    <h4 class="text-center lh-lg">제주도 함께 동행하실분 모십니다!<br>함께 즐거운 추억 만들어요! :)</h4>
+						</div>
+                        <div style="margin-top: -35px;">
+                            <h3 class="mb-0 mt-3">익명의 고양이</h3>
+                   			 <h4 class="p-3 mb-0"><i class="text-primary bi bi-geo-alt-fill"></i>  제주도&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;<i class="text-primary bi bi-person-circle"></i>  5인</h4>
+                        </div> 
+                    </div>
+                    <div class="testimonial-item text-center rounded pb-4">
+                        <div class="d-flex justify-content-center align-items-center testimonial-comment bg-primary rounded p-4" style="height: 200px;">
+						    <h4 class="text-center lh-lg">제주도 함께 동행하실분 모십니다!<br>함께 즐거운 추억 만들어요! :)</h4>
+						</div>
+                        <div style="margin-top: -35px;">
+                            <h3 class="mb-0 mt-3">익명의 고양이</h3>
+                   			 <h4 class="p-3 mb-0"><i class="text-primary bi bi-geo-alt-fill"></i>  제주도&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;<i class="text-primary bi bi-person-circle"></i>  5인</h4>
+                        </div> 
+                    </div>
+                    <div class="testimonial-item text-center rounded pb-4">
+                        <div class="d-flex justify-content-center align-items-center testimonial-comment bg-primary rounded p-4" style="height: 200px;">
+						    <h4 class="text-center lh-lg">제주도 함께 동행하실분 모십니다!<br>함께 즐거운 추억 만들어요! :)</h4>
+						</div>
+                        <div style="margin-top: -35px;">
+                            <h3 class="mb-0 mt-3">익명의 고양이</h3>
+                   			 <h4 class="p-3 mb-0"><i class="text-primary bi bi-geo-alt-fill"></i>  제주도&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;<i class="text-primary bi bi-person-circle"></i>  5인</h4>
+                        </div> 
+                    </div>
+                    <div class="testimonial-item text-center rounded pb-4">
+                        <div class="d-flex justify-content-center align-items-center testimonial-comment bg-primary rounded p-4" style="height: 200px;">
+						    <h4 class="text-center lh-lg">제주도 함께 동행하실분 모십니다!<br>함께 즐거운 추억 만들어요! :)</h4>
+						</div>
+                        <div style="margin-top: -35px;">
+                            <h3 class="mb-0 mt-3">익명의 고양이</h3>
+                   			 <h4 class="p-3 mb-0"><i class="text-primary bi bi-geo-alt-fill"></i>  제주도&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;<i class="text-primary bi bi-person-circle"></i>  5인</h4>
+                        </div> 
                     </div>
                 </div>
             </div>
-            <!-- 반복되는 testimonial-item들에 대해서도 동일하게 수정 -->
         </div>
-    </div>
-</div>
-<!-- 여행 동행 구하기 끝 -->
+        <!-- Testimonial End -->
 	
 <script>
-    $(document).ready(function(){
-        $('.testimonial-carousel').owlCarousel({
-            loop: true,
-            margin: 10,
-            nav: true,
-            responsive: {
-                0: {
-                    items: 1
-                },
-                600: {
-                    items: 1
-                },
-                1000: {
-                    items: 2
-                }
+$(document).ready(function(){
+    $('.testimonial-carousel').owlCarousel({
+        loop: true,
+        margin: 10,
+        nav: true,
+        navText: [
+            '<i class="px-2 bi bi-arrow-left" style="font-size: 1.3rem;"></i>',
+            '<i class="px-2 bi bi-arrow-right" style="font-size: 1.3rem;"></i>'
+        ],
+        autoplay: true,
+        autoplayTimeout: 2500,
+        responsive: {
+            0: {
+                items: 1
+            },
+            600: {
+                items: 1
+            },
+            1000: {
+                items: 2
             }
-        });
+        },
+        onInitialized: function(event) {
+            setOwlStageOuterPadding();
+        },
+        onResized: function(event) {
+            setOwlStageOuterPadding();
+        }
     });
+
+    function setOwlStageOuterPadding() {
+        $('.owl-stage-outer').css('padding', '1rem'); // Adjust padding as needed
+    }
+});
 </script>				
         
         
