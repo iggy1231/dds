@@ -3,12 +3,6 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 
 <style type="text/css">
-/*
- * {
-            font-family: pretendard;
-        }
-        */
-        
  * @font-face {
     font-family: 'Pretendard-Regular';
     src: url('https://fastly.jsdelivr.net/gh/Project-Noonnu/noonfonts_2107@1.1/Pretendard-Regular.woff') format('woff');
@@ -455,7 +449,7 @@
 
 
 <!-- Testimonial Start -->
-        <div class="container-fluid testimonial py-5">
+        <div class="together container-fluid testimonial py-5">
             <div class="container py-5">
                 <div class="text-center mx-auto mb-5 wow slideInLeft" data-wow-delay="0.1s">
             <h3 class="mb-2 display-8 text-black" style="font-weight: 600;">함께 떠나요! 😊</h3>

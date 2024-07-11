@@ -197,7 +197,7 @@ function addNewContent(data) {
 		let middle_Category=item.middle_Category;
 		let sub_Category=item.sub_Category;
 		
-		htmlText+='	<div class="col card">';
+		htmlText+='	<div class="col card" onclick="article('+contentId+', '+contentType+');">'
 		htmlText+='		<img src="'+thumbnail+'" class="card-img-top" alt="...">';
 		htmlText+='		<div class="card-body">';
 		htmlText+='			<p>'+name+'</p>';
@@ -223,4 +223,8 @@ $(function(){
 		}
 	});
 });
+
+function article(contentId, contentType) {
+	location.href="${pageContext.request.contextPath}/info/load?contentId="+contentId+"&contentType="+contentType;
+}
 </script>
