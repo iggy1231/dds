@@ -28,6 +28,7 @@ form {
 		<input type="text" name="mapx">
 		<input type="text" name="mapy">
 		<textarea name="overview"></textarea>
+		<input type="text" name="contentId">
 	</form>
 	<div class="resultLayout"></div>
 </div>
@@ -125,6 +126,7 @@ $(function(){
 			f.mapx.value=item.mapx;
 			f.mapy.value=item.mapy;
 			f.overview.value=item.overview;
+			f.contentId.value=${contentId};
 			f.submit();
 		}		
 	}
