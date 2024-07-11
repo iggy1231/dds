@@ -12,6 +12,15 @@ public class Info {
 	private String middle_Category;
 	private String sub_Category;
 	
+	private String homepage;
+	private String tel;
+	private String addr1;
+	private String addr2;
+	private String zipcode;
+	private String mapx;
+	private String mapy;
+	private String overview;
+	
 	public long getNum() {
 		return num;
 	}
@@ -71,5 +80,53 @@ public class Info {
 	}
 	public void setSub_Category(String sub_Category) {
 		this.sub_Category = sub_Category;
+	}
+	public String getHomepage() {
+		return homepage;
+	}
+	public void setHomepage(String homepage) {
+		this.homepage = homepage;
+	}
+	public String getTel() {
+		return tel;
+	}
+	public void setTel(String tel) {
+		this.tel = tel;
+	}
+	public String getAddr1() {
+		return addr1;
+	}
+	public void setAddr1(String addr1) {
+		this.addr1 = addr1;
+	}
+	public String getAddr2() {
+		return addr2;
+	}
+	public void setAddr2(String addr2) {
+		this.addr2 = addr2;
+	}
+	public String getZipcode() {
+		return zipcode;
+	}
+	public void setZipcode(String zipcode) {
+		this.zipcode = zipcode;
+	}
+	public String getMapx() {
+		return mapx;
+	}
+	public void setMapx(String mapx) {
+		this.mapx = mapx;
+	}
+	public String getMapy() {
+		return mapy;
+	}
+	public void setMapy(String mapy) {
+		this.mapy = mapy;
+	}
+	public String getOverview() {
+		return overview;
+	}
+	public void setOverview(String overview) {
+		this.overview = overview;
 	}
 }

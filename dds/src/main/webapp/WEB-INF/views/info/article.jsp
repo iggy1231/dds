@@ -22,25 +22,29 @@ body {
 <div class="container">
 	<div class="body-container">	
 		<div class="body-title">
-			<h3><i class="bi bi-app"></i> 이름 </h3>
-			<p>지역코드, 시군구코드에 따른 지역 이름</p>
+			<h3><i class="bi bi-app"></i> ${dto.name} </h3>
+			<p> ${dto.region_Main} ${dto.region_Sub} </p>
 			<div class="row">
-				<button class="col-1">#태그</button>
-				<button class="col-1">#태그</button>
-				<button class="col-1">#태그</button>
-				<button class="col-1">#태그</button>
+				<c:forEach var="tag" items="${tagList}">
+					<button class="col-1">${tag}</button>
+				</c:forEach>
 			</div>
 		</div>
 		<div class="body-main">
-			<p>이미지 목록 가져와서 캐러셀 사용</p>
 			<img src="${pageContext.request.contextPath}/resources/images/숙소_예시.jpg" alt="...">
-			<br>
+			<p>이미지 목록 가져와서 캐러셀 사용</p>
+			<hr>
 			<h3>소개</h3>
 			<hr>
-			<p>소개 텍스트 가져오기</p>
-			<div class="bg-primary" style="height: 500px;">gps 위치 가져와서 지도 api로 위치 찍기</div>
+			<p>${dto.overview}</p>
+			<h3>지도</h3>
+			<div class="bg-primary" style="height: 500px;">GPS 주소 : ${dto.mapx}, ${dto.mapy}</div>
+			<hr>
 			<h3>상세정보</h3>
-			<p>연락처, 주소, 홈페이지 등 기타 정보</p>
+			<hr>
+			<p>주소 : ${dto.addr1} ${dto.addr2} (우편번호 : ${dto.zipcode})</p>
+			<p>전화번호 : ${dto.tel}</p>
+			<p>홈페이지 : ${dto.homepage}</p>
 		</div>
 		<div>
 			<h3>댓글 0</h3>
