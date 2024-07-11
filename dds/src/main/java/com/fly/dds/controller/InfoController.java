@@ -97,6 +97,7 @@ public class InfoController {
 			@RequestParam String mapx,
 			@RequestParam String mapy,
 			@RequestParam String overview,
+			@RequestParam String contentId,
 			Model model) {
 		Info dto=new Info();
 		Map<String, Object> areaMap=new HashMap<String, Object>();
@@ -129,7 +130,7 @@ public class InfoController {
 		}
 		model.addAttribute("tagList", tagList);
 		model.addAttribute("dto", dto);
-
+		model.addAttribute("contentId", contentId);
 		return ".info.article";
 	}
 }
