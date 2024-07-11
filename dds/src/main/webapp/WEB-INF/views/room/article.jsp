@@ -45,6 +45,13 @@
         .expanded {
             height: auto;
         }
+      .fixed-box {
+            position: fixed;
+            top: 200px;
+            right: 20px;
+            width: 300px;
+            height : 500px;
+        }
     </style>
 </head>
 <body>
@@ -179,6 +186,26 @@
         </div>
     </div>
 </div>
+
+       <!-- 우측 옵션 선택 섹션 -->
+        <div class="col-md-4">
+            <div class="fixed-box p-4 border rounded bg-white">
+                <h5>옵션선택</h5>
+                <div class="mb-3">
+                    <p>포켓몬 마이 스탠드 캔디 10g</p>
+                    <div class="input-group">
+                        <button class="btn btn-outline-secondary" type="button">-</button>
+                        <input type="text" class="form-control text-center" value="1">
+                        <button class="btn btn-outline-secondary" type="button">+</button>
+                    </div>
+                </div>
+                <h4 class="text-end">1,000원</h4>
+                <div class="d-grid gap-2">
+                    <button class="btn btn-danger">바로구매</button>
+                    <button class="btn btn-dark">장바구니</button>
+                </div>
+            </div>
+        </div>
 
 <script>
 function toggleCollapseImage() {
