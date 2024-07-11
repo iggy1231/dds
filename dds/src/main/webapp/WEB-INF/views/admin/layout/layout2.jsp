@@ -18,7 +18,7 @@
       content="width=device-width, initial-scale=1.0, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0"
     />
 
-    <title>두둥실 admin</title>
+    <title><tiles:insertAttribute name="title"/></title>
 
     <meta name="description" content="" />
 
@@ -54,9 +54,13 @@
 
 <body>
 
-<main class="wrapper">
-    <tiles:insertAttribute name="body"/>
-</main>
+<header>
+    <tiles:insertAttribute name="left"/>
+</header>
+
+<main>
+	<tiles:insertAttribute name="body"/>
+</main>    
 
 <div id="loadingLayout" style="display:none; position: absolute; left: 0; top:0; width: 100%; height: 100%; z-index: 9000; background: #eee;">
     <div class="loader"></div>
