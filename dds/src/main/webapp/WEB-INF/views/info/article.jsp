@@ -34,8 +34,7 @@ body {
 			<div class="resultLayout"></div>
 			
 			<div id="carouselExample" class="carousel slide">
-			  <div class="carousel-inner">
-			  </div>
+			  <div class="carousel-inner"></div>
 			  <button class="carousel-control-prev" type="button" data-bs-target="#carouselExample" data-bs-slide="prev">
 			    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
 			    <span class="visually-hidden">Previous</span>
@@ -85,8 +84,8 @@ function ajaxFun(url, method, formData, dataType, fn, file = false) {
 	};
 	
 	if(file) {
-		settings.processData = false;  // file 전송시 필수. 서버로전송할 데이터를 쿼리문자열로 변환여부
-		settings.contentType = false;  // file 전송시 필수. 서버에전송할 데이터의 Content-Type. 기본:application/x-www-urlencoded
+		settings.processData = false;
+		settings.contentType = false;
 	}
 	
 	$.ajax(url, settings);
@@ -95,7 +94,7 @@ function ajaxFun(url, method, formData, dataType, fn, file = false) {
 $(function(){
 		let spec = "http://apis.data.go.kr/B551011/KorService1/detailImage1";
 		let serviceKey = "%2BBYblTiFRhHS3gVGdmlooqI6F8hrHOcIDfvSJ07UndyvIEjGi%2BbZjcS59aQstEj7xogo%2Fu%2BPUpmgdcfZ1DD%2B%2BQ%3D%3D";
-		let numOfRows = 5; // 한페이지 결과수
+		let numOfRows = 5;
 		let pageNo = 1;
 		let _type = "JSON";
 		let MobileOS="ETC" // OS
@@ -108,8 +107,7 @@ $(function(){
 		query += "&pageNo="+pageNo;
 		query += "&MobileOS="+MobileOS;
 		query += "&MobileApp="+MobileApp;
-		query += "&contentId=";
-		query += ${contentId}
+		query += "&contentId=${contentId}";
 		query += "&_type="+_type;
 		query += "&imageYN="+imageYN;
 		query += "&subImageYN="+subImageYN;
@@ -122,27 +120,29 @@ $(function(){
 	
 	function printJSON(data) {
 		console.log(data);
-		if( ! $(data).find("body") ) { // 데이터가 없으면
-			alert("데이터가 존재하지 않습니다.");
+		if( ! $(data).find("body") ) {
+			return;
+		}
+
+		let list = data.response.body.items.item;
+		let out='<div id="carousel-thumbnail" class="carousel-item active">';
+		out +=  '	<img src="${dto.thumbnail}" class="d-block w-100" alt="...">';
+		out +=  '</div>';
+		$(".carousel-inner").html(out);
+		
+		if( data.response.body.totalCount==0 ) {
 			return;
 		}
 		
-		if( data.response.body.totalCount==0 ) { // 데이터가 없으면
-			alert("데이터가 존재하지 않습니다.");
-			return;
-		}
-		let out = "<h3>이미지 검색</h3>";
-				
-		let list = data.response.body.items.item;
-		// 받아온 데이터가 data/response/body/items/item에 있음
-		out+='<div id="carousel-thumbnail" class="carousel-item active">';
-		out+='<img src="${pageContext.request.contextPath}/resources/images/숙소_예시.jpg" class="d-block w-100" alt="..."></div>';
 		for(let item of list) {
-			console.log(item.originimgurl);
-			out+='<div class="carousel-item"><img src="'+item.originimgurl+'" class="d-block w-100" alt="...></div>';
-			
+			const e=document.createElement('div');
+			e.className += ' carousel-item';
+			const img=document.createElement('img');
+			img.className += 'd-block w-100';
+			img.src=item.originimgurl
+			e.append(img);
+			$(".carousel-inner").append(e);
 		}
-		$(".carousel-inner").html(out);
 	}
 });
 </script>
