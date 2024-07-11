@@ -53,10 +53,16 @@
         width: 100%;
     }
 
+    
     @media (min-width: 992px) {
-        .filter-box {
-            width: 90%; /* 너비를 조절하려면 이 값을 변경 */
-        }
+    .col-lg-3 {
+        flex: 0 0 auto;
+        width: 30%;
+    }
+}
+
+.ratio-2x1 {
+    	--bs-aspect-ratio : 55%;
     }
         
     </style>
@@ -88,7 +94,7 @@
                 </div>
 
                         <div class="row g-4">
-                            <div class="col-lg-4">
+                            <div class="col-lg-3">
                              	<!-- 필터 start -->
                                 <div class="p-3 border border-1 rounded pr-4 row g-4">
                                 <h3 class="pb-2" style="font-weight: 700;"><i class="bi bi-filter-left"></i>  필터</h3>
@@ -184,36 +190,43 @@
 		                                 </div>
                                     </div>
                                 </div>
-                                
-                                <!-- 필터 end -->
                             </div>
-                            <div class="col-lg-7">
-							    <div class="row g-4 justify-content-center">
-							        <div class="col-md-12">
-							            <div class="d-flex border p-3 rounded">
-							                <img src="https://cdn.imweb.me/thumbnail/20220827/2572710192af0.png" class="img-fluid rounded" style="width: 200px; height: 150px;" alt="숙소 이미지">
-							                <div class="pl-3">
-							                    <h5 class="mb-1">펜션</h5>
-							                    <a class="pl-5 d-block h4 mb-2" href="" style="font-weight: 600;">익산 함께해요 펜션</a>
-							                    <p class="mb-1 text-muted">전라남도 순천시 OO로</p>
-							                    <div class="d-flex align-items-center mb-2">
-							                        <span class="badge badge-danger mr-2">9.6</span>
-							                        <span class="text-muted">1,209명 평가</span>
-							                    </div>
-							                    <p class="mb-0">할인가 <strong class="text-danger">100,324원 /박</strong></p>
-							                </div>
-							            </div>
-							        </div>
-							        <!-- 더 많은 숙소 항목 추가 -->
-							    </div>
-						</div>
+                                <!-- 필터 end -->
+<div class="col-lg-8">
+    <div class="row g-5 justify-content-center">
+        <div class="col-md-12">
+            <div class="d-flex p-3">
+                <div class="ratio ratio-2x1">
+                    <img src="https://cdn.imweb.me/thumbnail/20220827/2572710192af0.png" class="img-fluid rounded" alt="숙소 이미지">
+                </div>
+                <div class="d-flex flex-column justify-content-between w-100 pl-5">
+                    <div class="p-3">
+                        <h5 class="mb-1">펜션</h5>
+                        <h4 class="mb-2">신라스테이 순천</h4>
+                        <p class="mb-1 text-muted">전라남도 순천시 OO로</p>
+                        <div class="d-flex align-items-center mb-2">
+                            <h4 class="badge mr-2">9.6</h4>
+                            <span class="text-muted">1,209명 평가</span>
+                        </div>
+                    </div>
+                    <div class="d-flex justify-content-end mt-2">
+                        <h4 class="mb-0">할인가 <strong class="text-primary">100,324원 /박</strong></h4>
+                    </div>
+                </div>
+            </div>
+            <hr>
+        </div>
+        <!-- 더 많은 숙소 항목 추가 -->
+    </div>
+</div>
+
                     </div>
                 </div>
             </div>
         </div>
         <!-- Fruits Shop End-->
 
-
+</div>
 
 
 </body>
