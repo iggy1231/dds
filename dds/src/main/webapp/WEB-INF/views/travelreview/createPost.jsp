@@ -87,8 +87,8 @@
             </div>
 
             <div class="form-container">
-                <form action="${pageContext.request.contextPath}/post/submit" method="post" enctype="multipart/form-data">
-                    <input type="text" name="title" placeholder="제목을 입력하세요" required>
+                <form action="${pageContext.request.contextPath}/travelreview/create" method="post" enctype="multipart/form-data">
+                    <input type="text" name="subject" placeholder="제목을 입력하세요" required>
                     <textarea name="content" placeholder="내용을 입력하세요" required></textarea>
                     <input type="file" name="files" multiple>
                     <button type="submit">작성하기</button>

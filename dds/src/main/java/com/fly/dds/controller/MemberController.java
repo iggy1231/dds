@@ -30,9 +30,6 @@ public class MemberController {
 			@RequestParam String userPwd,
 			HttpSession session,
 			Model model) {
-		
-		System.out.println(userId);
-		System.out.println(userPwd);
 
 		Member dto = service.loginMember(userId);
 		if (dto == null || !userPwd.equals(dto.getPwd())) {

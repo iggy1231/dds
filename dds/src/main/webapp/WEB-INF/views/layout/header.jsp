@@ -38,7 +38,7 @@
                         <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown"><img alt="" src="${pageContext.request.contextPath}/resources/images/menu_여행.png" style="width: 35px;">&nbsp;&nbsp;&nbsp;여행</a>
                         <div class="dropdown-menu rounded-0 m-0">
                             <a href="${pageContext.request.contextPath}/" class="dropdown-item">여행 정보</a>
-                            <a href="${pageContext.request.contextPath}/" class="dropdown-item">여행기</a>
+                            <a href="${pageContext.request.contextPath}/travelreview/list" class="dropdown-item">여행 후기</a>
                             <a href="${pageContext.request.contextPath}/" class="dropdown-item">플래너</a>
                         </div>
                     </div>

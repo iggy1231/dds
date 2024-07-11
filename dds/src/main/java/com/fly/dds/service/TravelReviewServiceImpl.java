@@ -46,4 +46,26 @@ public class TravelReviewServiceImpl implements TravelReviewService {
 		return list;
 	}
 
+	@Override
+	public void updateHitCount(long num) {
+		try {
+			mapper.updateHitCount(num);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+
+	@Override
+	public TravelReview findByNum(long num) {
+		TravelReview dto=null;
+		
+		try {
+			dto=mapper.findByNum(num);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		return dto;
+	}
+
 }

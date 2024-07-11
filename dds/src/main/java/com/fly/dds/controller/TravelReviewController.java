@@ -2,6 +2,7 @@ package com.fly.dds.controller;
 
 import java.io.File;
 import java.net.URLDecoder;
+import java.net.URLEncoder;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -20,7 +21,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 import com.fly.dds.domain.SessionInfo;
 import com.fly.dds.domain.TravelReview;
 import com.fly.dds.service.TravelReviewService;
-
 
 @Controller
 @RequestMapping(value = "/travelreview/*")
@@ -85,18 +85,58 @@ public class TravelReviewController {
 	}
 	
 	@PostMapping("create")
-	public String insertReview(HttpSession session, TravelReview dto) {
+	public String insertReview(HttpSession session,
+			@RequestParam String subject,
+			@RequestParam String content) {
 		SessionInfo info = (SessionInfo) session.getAttribute("member");
 
 		String root = session.getServletContext().getRealPath("/");
 		String pathname = root + "uploads" + File.separator + "travelreview";
-
+		
 		try {
+			TravelReview dto=new TravelReview();
+			
+			dto.setSubject(subject);
+			dto.setContent(content);
+			dto.setNickName(info.getNickName());
 			dto.setUser_num(info.getUser_num());
+			
 			service.reviewInsert(dto, pathname);
 		} catch (Exception e) {
+			e.printStackTrace();
 		}
 
 		return "redirect:/travelreview/list";
+	}
+	
+	@GetMapping("article")
+	public String article(@RequestParam long num,
+			@RequestParam String page,
+			@RequestParam(defaultValue = "all") String schType,
+			@RequestParam(defaultValue = "") String kwd,
+			HttpSession session,
+			Model model) throws Exception {
+		
+		kwd = URLDecoder.decode(kwd, "utf-8");
+
+		String query = "page=" + page;
+		if (kwd.length() != 0) {
+			query += "&schType=" + schType + 
+					"&kwd=" + URLEncoder.encode(kwd, "UTF-8");
+	
+		}
+		service.updateHitCount(num);
+
+		// 해당 레코드 가져 오기
+		TravelReview dto = service.findByNum(num);
+		if (dto == null) {
+			return "redirect:/travelreview/list?" + query;
+		}
+		
+		model.addAttribute("dto", dto);
+		model.addAttribute("page", page);
+		model.addAttribute("query", query);
+		
+		return ".travelreview.article";
 	}
 }

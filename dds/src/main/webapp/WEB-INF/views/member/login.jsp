@@ -28,7 +28,7 @@
                                 <div class="center-wrap">
                                     <div class="section text-center">
                                         <h4 class="mb-4 pb-3">Log In</h4>
-                                        <form action="${pageContext.request.contextPath}" method="post" name="loginForm">
+                                        <form action="${pageContext.request.contextPath}/member/login" method="post" name="loginForm">
                                             <div class="form-group">
                                                 <input type="text" name="userId" class="form-style" placeholder="Your Id" id="logemail" autocomplete="off"/>
                                                 <i class="input-icon bi bi-box-arrow-in-right"></i>

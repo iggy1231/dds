@@ -12,4 +12,6 @@ public interface TravelReviewMapper {
 	public void insertReview(TravelReview dto);
 	public int dataCount(Map<String, Object> map);
 	public List<TravelReview> listReview(Map<String, Object> map);
+	public TravelReview findByNum(long num);
+	public void updateHitCount(long num);
 }
