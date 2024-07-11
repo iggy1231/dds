@@ -33,322 +33,180 @@
             margin: 0 15px;
             color: #6c757d;
         }
+        
+        .form-check-label {
+        	font-size: 1.2rem !important;
+        	padding-left: 20px  !important;
+        	color : #454545 !important;
+        }
+        
+        hr {
+            border-top: 0.5px solid gray;
+        }
+        
+        .keyword-btn {
+        font-size: 17.5px  !important;
+        font-weight: 500 !important;
+        }
+        
+            .filter-box {
+        width: 100%;
+    }
+
+    @media (min-width: 992px) {
+        .filter-box {
+            width: 90%; /* 너비를 조절하려면 이 값을 변경 */
+        }
+    }
+        
     </style>
 </head>
 <body>
 
  <!-- 숙소 Start-->
-        <div class="container-fluid room py-5">
             <div class="container py-5">
-                <h1 class="mb-4">✅ 선택한 여정</h1>
+                <h3 class="mb-4">✅ 선택한 여정</h3>
                 <div class="row g-4">
                     <div class="col-lg-12">
                         <div class="row g-4">
-                                <div class="container mt-5">
-        <div class="search-bar">
-            <i class="pl-2 bi bi-search"></i>
-            <h5 class="text-gray" style="font-weight: 600;">순천</h5>
-            <span>|</span>
-            <h5 class="p-1" style="font-weight: 600;">순천</h5>
-            <span>|</span>
- <h5 class="p-1" style="font-weight: 600;">순천</h5>        
- </div>
-    </div>
+                                <div class="d-flex justify-content-between align-items-center mb-4">
+                    <div class="search-bar d-flex align-items-center">
+                        <i class="pl-2 bi bi-search"></i>
+                        <h5 class="text-gray" style="font-weight: 600;">순천</h5>
+                        <span>|</span>
+                        <h5 class="p-1" style="font-weight: 600;">07.19 ~ 07.21</h5>
+                        <span>|</span>
+                        <h5 class="p-1" style="font-weight: 600;">인원 2</h5>        
+                    </div>
+                    <div class="bg-light ps-3 py-3 rounded d-flex justify-content-between">
+                        <select id="fruits" name="fruitlist" class="border-0 form-select-sm bg-light me-3" form="fruitform">
+                            <option value="volvo">인기순</option>
+                            <option value="saab">낮은 가격순</option>
+                            <option value="opel">높은 가격순</option>
+                        </select>
+                    </div>
+                </div>
 
-                            <div class="col-6"></div>
-                            <div class="col-xl-3">
-                                <div class="bg-light ps-3 py-3 rounded d-flex justify-content-between mb-4">
-                                    <label for="fruits">Default Sorting:</label>
-                                    <select id="fruits" name="fruitlist" class="border-0 form-select-sm bg-light me-3" form="fruitform">
-                                        <option value="volvo">Nothing</option>
-                                        <option value="saab">Popularity</option>
-                                        <option value="opel">Organic</option>
-                                        <option value="audi">Fantastic</option>
-                                    </select>
-                                </div>
-                            </div>
-                        </div>
                         <div class="row g-4">
-                            <div class="col-lg-3">
+                            <div class="col-lg-4">
                              	<!-- 필터 start -->
-                                <div class="p-2 border border-1 rounded pr-4 row g-4">
+                                <div class="p-3 border border-1 rounded pr-4 row g-4">
+                                <h3 class="pb-2" style="font-weight: 700;"><i class="bi bi-filter-left"></i>  필터</h3>
                                     <div class="col-lg-12">
-                                        <div class="mb-3">
+                                        <div class="mb-2">
                                             <h4 class="pb-2" style="font-weight: 600;">숙소유형</h4>
-                                            <div class="form-check">
-											  <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault1" checked>
-											  <label class="display-8 form-check-label" for="flexRadioDefault1">
-											    Default radio
+                                            <div class="pb-2 form-check">
+											  <input class="p-2 form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault1" checked>
+											  <label class="form-check-label" for="flexRadioDefault1">
+											    전체
 											  </label>
 											</div>
-											<div class="form-check">
-											  <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault2">
+											<div class="pb-2 form-check">
+											  <input class="p-2 form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault2">
 											  <label class="form-check-label" for="flexRadioDefault2">
-											    Default checked radio
+											    펜션
+											  </label>
+											</div>
+											<div class="pb-2 form-check">
+											  <input class="p-2 form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault3">
+											  <label class="form-check-label" for="flexRadioDefault3">
+											    캠핑/글램핑
 											  </label>
 											</div>
                                         </div>
                                     </div>
+                                    
+                                    <hr>
                                     <div class="col-lg-12">
                                         <div class="mb-3">
-                                            <h4>Additional</h4>
-                                            <div class="mb-2">
-                                                <input type="radio" class="me-2" id="Categories-1" name="Categories-1" value="Beverages">
-                                                <label for="Categories-1"> Organic</label>
-                                            </div>
-                                            <div class="mb-2">
-                                                <input type="radio" class="me-2" id="Categories-2" name="Categories-1" value="Beverages">
-                                                <label for="Categories-2"> Fresh</label>
-                                            </div>
-                                            <div class="mb-2">
-                                                <input type="radio" class="me-2" id="Categories-3" name="Categories-1" value="Beverages">
-                                                <label for="Categories-3"> Sales</label>
-                                            </div>
-                                            <div class="mb-2">
-                                                <input type="radio" class="me-2" id="Categories-4" name="Categories-1" value="Beverages">
-                                                <label for="Categories-4"> Discount</label>
-                                            </div>
-                                            <div class="mb-2">
-                                                <input type="radio" class="me-2" id="Categories-5" name="Categories-1" value="Beverages">
-                                                <label for="Categories-5"> Expired</label>
-                                            </div>
+                                            <h4 class="pb-2" style="font-weight: 600;">가격대</h4>
+                                            <div class="pb-2 form-check">
+											  <input class="p-2 form-check-input" type="radio" name="flexRadioPrice" id="flexRadioPrice1" checked>
+											  <label class="form-check-label" for="flexRadioPrice1">
+											    0 원 ~ 10 만원
+											  </label>
+											</div>
+											<div class="pb-2 form-check">
+											  <input class="p-2 form-check-input" type="radio" name="flexRadioPrice" id="flexRadioPrice2">
+											  <label class="form-check-label" for="flexRadioPrice2">
+											    10 만원 ~ 20 만원
+											  </label>
+											</div>
+											<div class="pb-2 form-check">
+											  <input class="p-2 form-check-input" type="radio" name="flexRadioPrice" id="flexRadioPrice3">
+											  <label class="form-check-label" for="flexRadioPrice3">
+											    20 만원 ~ 30 만원
+											  </label>
+											</div>
+											<div class="pb-2 form-check">
+											  <input class="p-2 form-check-input" type="radio" name="flexRadioPrice" id="flexRadioPrice4">
+											  <label class="form-check-label" for="flexRadioPrice4">
+											    30 만원 ~ 40 만원
+											  </label>
+											</div>
+											<div class="pb-2 form-check">
+											  <input class="p-2 form-check-input" type="radio" name="flexRadioPrice" id="flexRadioPrice5">
+											  <label class="form-check-label" for="flexRadioPrice5">
+											    40만원 ~ 
+											  </label>
+											</div>
                                         </div>
                                     </div>
+                                    
+                                    <hr>
                                     <div class="col-lg-12">
-                                        <h4 class="mb-3">Featured products</h4>
-                                        <div class="d-flex align-items-center justify-content-start">
-                                            <div class="rounded me-4" style="width: 100px; height: 100px;">
-                                                <img src="img/featur-1.jpg" class="img-fluid rounded" alt="">
-                                            </div>
-                                            <div>
-                                                <h6 class="mb-2">Big Banana</h6>
-                                                <div class="d-flex mb-2">
-                                                    <i class="fa fa-star text-secondary"></i>
-                                                    <i class="fa fa-star text-secondary"></i>
-                                                    <i class="fa fa-star text-secondary"></i>
-                                                    <i class="fa fa-star text-secondary"></i>
-                                                    <i class="fa fa-star"></i>
-                                                </div>
-                                                <div class="d-flex mb-2">
-                                                    <h5 class="fw-bold me-2">2.99 $</h5>
-                                                    <h5 class="text-danger text-decoration-line-through">4.11 $</h5>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="d-flex align-items-center justify-content-start">
-                                            <div class="rounded me-4" style="width: 100px; height: 100px;">
-                                                <img src="img/featur-2.jpg" class="img-fluid rounded" alt="">
-                                            </div>
-                                            <div>
-                                                <h6 class="mb-2">Big Banana</h6>
-                                                <div class="d-flex mb-2">
-                                                    <i class="fa fa-star text-secondary"></i>
-                                                    <i class="fa fa-star text-secondary"></i>
-                                                    <i class="fa fa-star text-secondary"></i>
-                                                    <i class="fa fa-star text-secondary"></i>
-                                                    <i class="fa fa-star"></i>
-                                                </div>
-                                                <div class="d-flex mb-2">
-                                                    <h5 class="fw-bold me-2">2.99 $</h5>
-                                                    <h5 class="text-danger text-decoration-line-through">4.11 $</h5>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="d-flex align-items-center justify-content-start">
-                                            <div class="rounded me-4" style="width: 100px; height: 100px;">
-                                                <img src="img/featur-3.jpg" class="img-fluid rounded" alt="">
-                                            </div>
-                                            <div>
-                                                <h6 class="mb-2">Big Banana</h6>
-                                                <div class="d-flex mb-2">
-                                                    <i class="fa fa-star text-secondary"></i>
-                                                    <i class="fa fa-star text-secondary"></i>
-                                                    <i class="fa fa-star text-secondary"></i>
-                                                    <i class="fa fa-star text-secondary"></i>
-                                                    <i class="fa fa-star"></i>
-                                                </div>
-                                                <div class="d-flex mb-2">
-                                                    <h5 class="fw-bold me-2">2.99 $</h5>
-                                                    <h5 class="text-danger text-decoration-line-through">4.11 $</h5>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="d-flex justify-content-center my-4">
-                                            <a href="#" class="btn border border-secondary px-4 py-3 rounded-pill text-primary w-100">Vew More</a>
-                                        </div>
+                                        <div class="mb-3">
+                                            <h4 class="pb-2" style="font-weight: 600;">키워드</h4>
+                                             <div id="keywords">
+		                                        <button type="button" class="m-1 mb-2 px-3 py-1 btn border border-gray rounded-pill keyword-btn" onclick=""># 가족여행</button>
+		                                        <button type="button" class="m-1 mb-2 px-3 py-1 btn border border-gray rounded-pill keyword-btn" onclick=""># 스파</button>
+		                                        <button type="button" class="m-1 mb-2 px-3 py-1 btn border border-gray rounded-pill keyword-btn" onclick=""># 힙한감성</button>
+		                                        <button type="button" class="m-1 mb-2 px-3 py-1 btn border border-gray rounded-pill keyword-btn" onclick=""># OTT</button>
+		                                        <button type="button" class="m-1 mb-2 px-3 py-1 btn border border-gray rounded-pill keyword-btn" onclick=""># 피고내</button>
+		                                        <button type="button" class="m-1 mb-2 px-3 py-1 btn border border-gray rounded-pill keyword-btn" onclick=""># 감성숙소</button>
+		                                        <button type="button" class="m-1 mb-2 px-3 py-1 btn border border-gray rounded-pill keyword-btn" onclick=""># 뷰맛집</button>
+		                                    </div>
+		                                 </div>
                                     </div>
+                                    
+                                    <hr>
                                     <div class="col-lg-12">
-                                        <div class="position-relative">
-                                            <img src="img/banner-fruits.jpg" class="img-fluid w-100 rounded" alt="">
-                                            <div class="position-absolute" style="top: 50%; right: 10px; transform: translateY(-50%);">
-                                                <h3 class="text-secondary fw-bold">Fresh <br> Fruits <br> Banner</h3>
-                                            </div>
-                                        </div>
+                                        <div class="mb-3">
+                                            <h4 class="pb-2" style="font-weight: 600;">시설</h4>
+                                             <div id="keywords">
+		                                        <button type="button" class="m-1 mb-2 px-3 py-1 btn border border-gray rounded-pill keyword-btn" onclick="">사우나</button>
+		                                        <button type="button" class="m-1 mb-2 px-3 py-1 btn border border-gray rounded-pill keyword-btn" onclick="">수영장</button>
+		                                        <button type="button" class="m-1 mb-2 px-3 py-1 btn border border-gray rounded-pill keyword-btn" onclick="">바비큐시설</button>
+		                                        <button type="button" class="m-1 mb-2 px-3 py-1 btn border border-gray rounded-pill keyword-btn" onclick="">피트니스</button>
+		                                        <button type="button" class="m-1 mb-2 px-3 py-1 btn border border-gray rounded-pill keyword-btn" onclick="">수영장</button>
+		                                        <button type="button" class="m-1 mb-2 px-3 py-1 btn border border-gray rounded-pill keyword-btn" onclick="">공용화장실</button>
+		                                    </div>
+		                                 </div>
                                     </div>
                                 </div>
+                                
                                 <!-- 필터 end -->
                             </div>
-                            <div class="col-lg-9">
-                                <div class="row g-4 justify-content-center">
-                                    <div class="col-md-6 col-lg-6 col-xl-4">
-                                        <div class="rounded position-relative room-item">
-                                            <div class="room-img">
-                                                <img src="img/room-item-5.jpg" class="img-fluid w-100 rounded-top" alt="">
-                                            </div>
-                                            <div class="text-white bg-secondary px-3 py-1 rounded position-absolute" style="top: 10px; left: 10px;">Fruits</div>
-                                            <div class="p-4 border border-secondary border-top-0 rounded-bottom">
-                                                <h4>Grapes</h4>
-                                                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit sed do eiusmod te incididunt</p>
-                                                <div class="d-flex justify-content-between flex-lg-wrap">
-                                                    <p class="text-dark fs-5 fw-bold mb-0">$4.99 / kg</p>
-                                                    <a href="#" class="btn border border-secondary rounded-pill px-3 text-primary"><i class="fa fa-shopping-bag me-2 text-primary"></i> Add to cart</a>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="col-md-6 col-lg-6 col-xl-4">
-                                        <div class="rounded position-relative room-item">
-                                            <div class="room-img">
-                                                <img src="img/room-item-5.jpg" class="img-fluid w-100 rounded-top" alt="">
-                                            </div>
-                                            <div class="text-white bg-secondary px-3 py-1 rounded position-absolute" style="top: 10px; left: 10px;">Fruits</div>
-                                            <div class="p-4 border border-secondary border-top-0 rounded-bottom">
-                                                <h4>Grapes</h4>
-                                                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit sed do eiusmod te incididunt</p>
-                                                <div class="d-flex justify-content-between flex-lg-wrap">
-                                                    <p class="text-dark fs-5 fw-bold mb-0">$4.99 / kg</p>
-                                                    <a href="#" class="btn border border-secondary rounded-pill px-3 text-primary"><i class="fa fa-shopping-bag me-2 text-primary"></i> Add to cart</a>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="col-md-6 col-lg-6 col-xl-4">
-                                        <div class="rounded position-relative room-item">
-                                            <div class="room-img">
-                                                <img src="img/room-item-2.jpg" class="img-fluid w-100 rounded-top" alt="">
-                                            </div>
-                                            <div class="text-white bg-secondary px-3 py-1 rounded position-absolute" style="top: 10px; left: 10px;">Fruits</div>
-                                            <div class="p-4 border border-secondary border-top-0 rounded-bottom">
-                                                <h4>Raspberries</h4>
-                                                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit sed do eiusmod te incididunt</p>
-                                                <div class="d-flex justify-content-between flex-lg-wrap">
-                                                    <p class="text-dark fs-5 fw-bold mb-0">$4.99 / kg</p>
-                                                    <a href="#" class="btn border border-secondary rounded-pill px-3 text-primary"><i class="fa fa-shopping-bag me-2 text-primary"></i> Add to cart</a>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="col-md-6 col-lg-6 col-xl-4">
-                                        <div class="rounded position-relative room-item">
-                                            <div class="room-img">
-                                                <img src="img/room-item-4.jpg" class="img-fluid w-100 rounded-top" alt="">
-                                            </div>
-                                            <div class="text-white bg-secondary px-3 py-1 rounded position-absolute" style="top: 10px; left: 10px;">Fruits</div>
-                                            <div class="p-4 border border-secondary border-top-0 rounded-bottom">
-                                                <h4>Apricots</h4>
-                                                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit sed do eiusmod te incididunt</p>
-                                                <div class="d-flex justify-content-between flex-lg-wrap">
-                                                    <p class="text-dark fs-5 fw-bold mb-0">$4.99 / kg</p>
-                                                    <a href="#" class="btn border border-secondary rounded-pill px-3 text-primary"><i class="fa fa-shopping-bag me-2 text-primary"></i> Add to cart</a>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="col-md-6 col-lg-6 col-xl-4">
-                                        <div class="rounded position-relative room-item">
-                                            <div class="room-img">
-                                                <img src="img/room-item-3.jpg" class="img-fluid w-100 rounded-top" alt="">
-                                            </div>
-                                            <div class="text-white bg-secondary px-3 py-1 rounded position-absolute" style="top: 10px; left: 10px;">Fruits</div>
-                                            <div class="p-4 border border-secondary border-top-0 rounded-bottom">
-                                                <h4>Banana</h4>
-                                                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit sed do eiusmod te incididunt</p>
-                                                <div class="d-flex justify-content-between flex-lg-wrap">
-                                                    <p class="text-dark fs-5 fw-bold mb-0">$4.99 / kg</p>
-                                                    <a href="#" class="btn border border-secondary rounded-pill px-3 text-primary"><i class="fa fa-shopping-bag me-2 text-primary"></i> Add to cart</a>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="col-md-6 col-lg-6 col-xl-4">
-                                        <div class="rounded position-relative room-item">
-                                            <div class="room-img">
-                                                <img src="img/room-item-1.jpg" class="img-fluid w-100 rounded-top" alt="">
-                                            </div>
-                                            <div class="text-white bg-secondary px-3 py-1 rounded position-absolute" style="top: 10px; left: 10px;">Fruits</div>
-                                            <div class="p-4 border border-secondary border-top-0 rounded-bottom">
-                                                <h4>Oranges</h4>
-                                                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit sed do eiusmod te incididunt</p>
-                                                <div class="d-flex justify-content-between flex-lg-wrap">
-                                                    <p class="text-dark fs-5 fw-bold mb-0">$4.99 / kg</p>
-                                                    <a href="#" class="btn border border-secondary rounded-pill px-3 text-primary"><i class="fa fa-shopping-bag me-2 text-primary"></i> Add to cart</a>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="col-md-6 col-lg-6 col-xl-4">
-                                        <div class="rounded position-relative room-item">
-                                            <div class="room-img">
-                                                <img src="img/room-item-2.jpg" class="img-fluid w-100 rounded-top" alt="">
-                                            </div>
-                                            <div class="text-white bg-secondary px-3 py-1 rounded position-absolute" style="top: 10px; left: 10px;">Fruits</div>
-                                            <div class="p-4 border border-secondary border-top-0 rounded-bottom">
-                                                <h4>Raspberries</h4>
-                                                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit sed do eiusmod te incididunt</p>
-                                                <div class="d-flex justify-content-between flex-lg-wrap">
-                                                    <p class="text-dark fs-5 fw-bold mb-0">$4.99 / kg</p>
-                                                    <a href="#" class="btn border border-secondary rounded-pill px-3 text-primary"><i class="fa fa-shopping-bag me-2 text-primary"></i> Add to cart</a>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="col-md-6 col-lg-6 col-xl-4">
-                                        <div class="rounded position-relative room-item">
-                                            <div class="room-img">
-                                                <img src="img/room-item-5.jpg" class="img-fluid w-100 rounded-top" alt="">
-                                            </div>
-                                            <div class="text-white bg-secondary px-3 py-1 rounded position-absolute" style="top: 10px; left: 10px;">Fruits</div>
-                                            <div class="p-4 border border-secondary border-top-0 rounded-bottom">
-                                                <h4>Grapes</h4>
-                                                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit sed do eiusmod te incididunt</p>
-                                                <div class="d-flex justify-content-between flex-lg-wrap">
-                                                    <p class="text-dark fs-5 fw-bold mb-0">$4.99 / kg</p>
-                                                    <a href="#" class="btn border border-secondary rounded-pill px-3 text-primary"><i class="fa fa-shopping-bag me-2 text-primary"></i> Add to cart</a>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="col-md-6 col-lg-6 col-xl-4">
-                                        <div class="rounded position-relative room-item">
-                                            <div class="room-img">
-                                                <img src="img/room-item-1.jpg" class="img-fluid w-100 rounded-top" alt="">
-                                            </div>
-                                            <div class="text-white bg-secondary px-3 py-1 rounded position-absolute" style="top: 10px; left: 10px;">Fruits</div>
-                                            <div class="p-4 border border-secondary border-top-0 rounded-bottom">
-                                                <h4>Oranges</h4>
-                                                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit sed do eiusmod te incididunt</p>
-                                                <div class="d-flex justify-content-between flex-lg-wrap">
-                                                    <p class="text-dark fs-5 fw-bold mb-0">$4.99 / kg</p>
-                                                    <a href="#" class="btn border border-secondary rounded-pill px-3 text-primary"><i class="fa fa-shopping-bag me-2 text-primary"></i> Add to cart</a>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="col-12">
-                                        <div class="pagination d-flex justify-content-center mt-5">
-                                            <a href="#" class="rounded">&laquo;</a>
-                                            <a href="#" class="active rounded">1</a>
-                                            <a href="#" class="rounded">2</a>
-                                            <a href="#" class="rounded">3</a>
-                                            <a href="#" class="rounded">4</a>
-                                            <a href="#" class="rounded">5</a>
-                                            <a href="#" class="rounded">6</a>
-                                            <a href="#" class="rounded">&raquo;</a>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
+                            <div class="col-lg-7">
+							    <div class="row g-4 justify-content-center">
+							        <div class="col-md-12">
+							            <div class="d-flex border p-3 rounded">
+							                <img src="https://cdn.imweb.me/thumbnail/20220827/2572710192af0.png" class="img-fluid rounded" style="width: 200px; height: 150px;" alt="숙소 이미지">
+							                <div class="pl-3">
+							                    <h5 class="mb-1">펜션</h5>
+							                    <a class="pl-5 d-block h4 mb-2" href="" style="font-weight: 600;">익산 함께해요 펜션</a>
+							                    <p class="mb-1 text-muted">전라남도 순천시 OO로</p>
+							                    <div class="d-flex align-items-center mb-2">
+							                        <span class="badge badge-danger mr-2">9.6</span>
+							                        <span class="text-muted">1,209명 평가</span>
+							                    </div>
+							                    <p class="mb-0">할인가 <strong class="text-danger">100,324원 /박</strong></p>
+							                </div>
+							            </div>
+							        </div>
+							        <!-- 더 많은 숙소 항목 추가 -->
+							    </div>
+						</div>
                     </div>
                 </div>
             </div>

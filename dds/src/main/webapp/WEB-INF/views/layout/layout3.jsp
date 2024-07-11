@@ -27,8 +27,6 @@
 <link href="${pageContext.request.contextPath}/resources/vendor/owlcarousel/assets/owl.carousel.min.css" rel="stylesheet">
 <link href="${pageContext.request.contextPath}/resources/vendor/owlcarousel/assets/owl.theme.default.min.css" rel="stylesheet">
 
-<!-- Include JS Files -->
-<script src="${pageContext.request.contextPath}/resources/vendor/owlcarousel/owl.carousel.min.js"></script>
 </head>
 
 <body>
@@ -133,5 +131,7 @@
 </div>
 
 </body>
+ 
 <script src="${pageContext.request.contextPath}/resources/vendor/owlcarousel/owl.carousel.min.js"></script>
+
 </html>
