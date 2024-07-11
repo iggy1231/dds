@@ -8,7 +8,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>게시판</title>
-    <link href="https://stackpath.bootstrapcdn.com/bootstrap/5.1.3/css/bootstrap.min.css" rel="stylesheet">
+
     <style>
         .room-card {
             border: 1px solid #e0e0e0;
@@ -36,6 +36,14 @@
             display: flex;
             flex-direction: column;
             align-items: flex-end;
+        }
+       .collapse-image-container {
+            height: 300px;
+            overflow: hidden;
+            transition: height 0.3s ease;
+        }
+        .expanded {
+            height: auto;
         }
     </style>
 </head>
@@ -85,12 +93,17 @@
             <img src="${pageContext.request.contextPath}/resources/images/숙소_예시.jpg" class="img-fluid" alt="지도">
         </div>
     </div>
-
-    <!-- 상세 설명 섹션 -->
+	
+	<!-- 상세 설명 섹션 -->
     <div class="row mb-4">
         <div class="col-12">
             <h5>상세 설명</h5>
-            <p>여기에 숙소에 대한 상세 설명을 작성합니다. 숙소의 특징, 주변 관광지, 접근성, 편의시설 등에 대한 자세한 설명을 포함할 수 있습니다. 이 설명은 숙박객들이 숙소를 선택하는 데 도움이 됩니다.</p>
+            <div id="collapseImageContainer" class="collapse-image-container">
+                <img src="https://shop-phinf.pstatic.net/20230412_49/1681266662977k8PCS_PNG/%EC%82%B0%EB%A6%AC%EC%98%A4%ED%82%A4%EB%A7%81%EC%98%B5%EC%85%98-005.png?type=w860" class="img-fluid" alt="상세 설명 이미지">
+            </div>
+            <button class="btn btn-primary mt-2" type="button" onclick="toggleCollapseImage()">
+                상품 설명 더보기
+            </button>
         </div>
     </div>
 
@@ -167,10 +180,19 @@
     </div>
 </div>
 
-<!-- Bootstrap JS -->
-<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.10.2/dist/umd/popper.min.js"></script>
-<script src="https://stackpath.bootstrapcdn.com/bootstrap/5.1.3/js/bootstrap.min.js"></script>
+<script>
+function toggleCollapseImage() {
+    var container = document.getElementById("collapseImageContainer");
+    var button = event.target;
+    if (container.classList.contains("expanded")) {
+        container.classList.remove("expanded");
+        button.innerText = "상품 설명 더보기";
+    } else {
+        container.classList.add("expanded");
+        button.innerText = "상품 설명 접기";
+    }
+}
+</script>
 
 </body>
 </html>
