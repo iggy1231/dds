@@ -57,6 +57,16 @@ public class InfoController {
 		map.put("size", size);
 		
 		List<Info> list=service.listInfo(map);
+		for(Info dto:list) {
+			Set<String> set=new HashSet<String>();
+			
+			set.add(dto.getContentType());
+			set.add(dto.getMain_Category());
+			set.add(dto.getMiddle_Category());
+			set.add(dto.getSub_Category());
+			
+			dto.setTags(set);
+		}
 		
 		Map<String, Object> model=new HashMap<String, Object>();
 		model.put("dataCount", dataCount);

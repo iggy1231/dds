@@ -7,8 +7,6 @@ import java.util.Map;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import org.apache.commons.collections.map.HashedMap;
-
 public abstract class MyUtil {
 	/**
 	* 전체 페이지수를 구하는 메소드
