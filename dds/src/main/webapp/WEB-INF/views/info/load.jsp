@@ -28,6 +28,8 @@ form {
 		<input type="text" name="mapx">
 		<input type="text" name="mapy">
 		<textarea name="overview"></textarea>
+		<input type="text" name="contentId" value="${contentId}">
+		<input type="text" name="thumbnail" value="${thumbnail}">
 	</form>
 	<div class="resultLayout"></div>
 </div>
@@ -51,8 +53,8 @@ function ajaxFun(url, method, formData, dataType, fn, file = false) {
 	};
 	
 	if(file) {
-		settings.processData = false;  // file 전송시 필수. 서버로전송할 데이터를 쿼리문자열로 변환여부
-		settings.contentType = false;  // file 전송시 필수. 서버에전송할 데이터의 Content-Type. 기본:application/x-www-urlencoded
+		settings.processData = false;
+		settings.contentType = false;
 	}
 	
 	$.ajax(url, settings);
@@ -60,8 +62,8 @@ function ajaxFun(url, method, formData, dataType, fn, file = false) {
 
 $(function(){
 	let spec = "http://apis.data.go.kr/B551011/KorService1/detailCommon1";
-	let serviceKey = "%2BBYblTiFRhHS3gVGdmlooqI6F8hrHOcIDfvSJ07UndyvIEjGi%2BbZjcS59aQstEj7xogo%2Fu%2BPUpmgdcfZ1DD%2B%2BQ%3D%3D";
-	let numOfRows = 10; // 한페이지 결과수
+	let serviceKey = "api키";
+	let numOfRows = 10;
 	let pageNo = 1;
 	let _type = "JSON";
 	let MobileOS="ETC"; // OS
@@ -73,8 +75,6 @@ $(function(){
 	let addrinfoYN = "Y";
 	let mapinfoYN = "Y";
 	let overviewYN = "Y";
-
-	// 쿼리 작성
 	
 	let query = "serviceKey="+serviceKey;
 	query += "&numOfRows="+numOfRows;
@@ -98,12 +98,12 @@ $(function(){
 	
 	function printJSON(data) {
 		console.log(data);
-		if( ! $(data).find("body") ) { // 데이터가 없으면
+		if( ! $(data).find("body") ) {
 			alert("데이터가 존재하지 않습니다.");
 			return;
 		}
 		
-		if( data.response.body.totalCount==0 ) { // 데이터가 없으면
+		if( data.response.body.totalCount==0 ) {
 			alert("데이터가 존재하지 않습니다.");
 			return;
 		}

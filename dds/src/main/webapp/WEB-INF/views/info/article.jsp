@@ -31,8 +31,20 @@ body {
 			</div>
 		</div>
 		<div class="body-main">
-			<img src="${pageContext.request.contextPath}/resources/images/숙소_예시.jpg" alt="...">
-			<p>이미지 목록 가져와서 캐러셀 사용</p>
+			<div class="resultLayout"></div>
+			
+			<div id="carouselExample" class="carousel slide">
+			  <div class="carousel-inner"></div>
+			  <button class="carousel-control-prev" type="button" data-bs-target="#carouselExample" data-bs-slide="prev">
+			    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+			    <span class="visually-hidden">Previous</span>
+			  </button>
+			  <button class="carousel-control-next" type="button" data-bs-target="#carouselExample" data-bs-slide="next">
+			    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+			    <span class="visually-hidden">Next</span>
+			  </button>
+			</div>
+			
 			<hr>
 			<h3>소개</h3>
 			<hr>
@@ -52,3 +64,85 @@ body {
 		</div>
 	</div>
 </div>
+
+<script type="text/javascript">
+function ajaxFun(url, method, formData, dataType, fn, file = false) {
+	const settings = {
+			type: method, 
+			data: formData,
+			dataType:dataType,
+			success:function(data) {
+				fn(data);
+			},
+			beforeSend: function(jqXHR) {
+			},
+			complete: function () {
+			},
+			error: function(jqXHR) {
+				console.log(jqXHR.responseText);
+			}
+	};
+	
+	if(file) {
+		settings.processData = false;
+		settings.contentType = false;
+	}
+	
+	$.ajax(url, settings);
+}
+
+$(function(){
+		let spec = "http://apis.data.go.kr/B551011/KorService1/detailImage1";
+		let serviceKey = "api키";
+		let numOfRows = 5;
+		let pageNo = 1;
+		let _type = "JSON";
+		let MobileOS="ETC" // OS
+		let MobileApp="test"
+		let imageYN="Y";
+		let subImageYN="Y";
+		
+		let query = "serviceKey="+serviceKey;
+		query += "&numOfRows="+numOfRows;
+		query += "&pageNo="+pageNo;
+		query += "&MobileOS="+MobileOS;
+		query += "&MobileApp="+MobileApp;
+		query += "&contentId=${contentId}";
+		query += "&_type="+_type;
+		query += "&imageYN="+imageYN;
+		query += "&subImageYN="+subImageYN;
+		
+		const fn = function(data) {
+			printJSON(data);
+		};
+		
+		ajaxFun(spec, "get", query, "json", fn);
+	
+	function printJSON(data) {
+		console.log(data);
+		if( ! $(data).find("body") ) {
+			return;
+		}
+
+		let list = data.response.body.items.item;
+		let out='<div id="carousel-thumbnail" class="carousel-item active">';
+		out +=  '	<img src="${dto.thumbnail}" class="d-block w-100" alt="...">';
+		out +=  '</div>';
+		$(".carousel-inner").html(out);
+		
+		if( data.response.body.totalCount==0 ) {
+			return;
+		}
+		
+		for(let item of list) {
+			const e=document.createElement('div');
+			e.className += ' carousel-item';
+			const img=document.createElement('img');
+			img.className += 'd-block w-100';
+			img.src=item.originimgurl
+			e.append(img);
+			$(".carousel-inner").append(e);
+		}
+	}
+});
+</script>

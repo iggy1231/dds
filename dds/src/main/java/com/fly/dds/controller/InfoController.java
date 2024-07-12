@@ -76,9 +76,12 @@ public class InfoController {
 	@GetMapping("load")
 	public String loadArticle(@RequestParam String contentId,
 			@RequestParam String contentType,
+			@RequestParam String thumbnail,
 			Model model) {
 		model.addAttribute("contentId", contentId);
 		model.addAttribute("contentType", contentType);
+		model.addAttribute("thumbnail", thumbnail);
+		
 		return "info/load";
 	}
 	
@@ -97,6 +100,8 @@ public class InfoController {
 			@RequestParam String mapx,
 			@RequestParam String mapy,
 			@RequestParam String overview,
+			@RequestParam String contentId,
+			@RequestParam String thumbnail,
 			Model model) {
 		Info dto=new Info();
 		Map<String, Object> areaMap=new HashMap<String, Object>();
@@ -116,7 +121,6 @@ public class InfoController {
 			dto.setRegion_Main(areaMap.get("areaCode").toString());
 			dto.setRegion_Sub(areaMap.get("sigunguCode").toString());
 			
-			
 			tagList.add(categoryMap.get("category1").toString());
 			tagList.add(categoryMap.get("category2").toString());
 			tagList.add(categoryMap.get("category3").toString());
@@ -124,12 +128,13 @@ public class InfoController {
 			dto.setMapx(mapx);
 			dto.setMapy(mapy);
 			dto.setOverview(overview);
+			dto.setThumbnail(thumbnail);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
 		model.addAttribute("tagList", tagList);
 		model.addAttribute("dto", dto);
-
+		model.addAttribute("contentId", contentId);
 		return ".info.article";
 	}
 }
