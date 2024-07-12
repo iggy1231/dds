@@ -6,14 +6,11 @@ import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.fly.dds.common.MyUtil;
 import com.fly.dds.domain.Info;
 import com.fly.dds.mapper.InfoMapper;
 
 @Service
 public class InfoServiceImpl implements InfoService {
-	@Autowired
-	private MyUtil myUtil;
 	
 	@Autowired
 	private InfoMapper mapper;

@@ -11,4 +11,12 @@ public interface TravelReviewService {
 	public int dataCount(Map<String, Object> map);
 
 	public List<TravelReview> listReview(Map<String, Object> map);
+
+	public void updateHitCount(long num);
+
+	public TravelReview findByNum(long num);
+
+	public void updateReview(TravelReview dto);
+
+	public void deleteReview(long num);
 }

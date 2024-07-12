@@ -3,9 +3,9 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.fly.dds.mapper.TravelReviewMapper">
 	<insert id="insertReview" parameterType="com.fly.dds.domain.TravelReview">
-		INSERT INTO travelreview(num, nickname, subject, content, 
+		INSERT INTO travelreview(num, nickName, subject, content, 
 			 reg_date, hitcount, user_num)
-		VALUES (travelreview_seq.NEXTVAL, #{nickname}, #{subject}, #{content},
+		VALUES (travelreview_seq.NEXTVAL, #{nickName}, #{subject}, #{content},
 			 SYSDATE, 0, #{user_num} )
 	</insert>
 	
@@ -14,10 +14,6 @@
 			<when test="schType == 'all' ">
 			   ( INSTR(subject, #{kwd}) &gt; 0
 		          OR DBMS_LOB.INSTR(content, #{kwd}) &gt; 0 )
-			</when>
-			<when test="schType == 'reg_date' ">
-			   ( TO_CHAR(reg_date, 'YYYYMMDD') = #{kwd}
-		          OR TO_CHAR(reg_date, 'YYYY-MM-DD') = #{kwd} )
 			</when>
 			<when test="schType == 'content'">
 			    DBMS_LOB.INSTR(content, #{kwd}) &gt; 0
@@ -49,4 +45,22 @@
 		ORDER BY NUM DESC
 		OFFSET #{offset} ROWS FETCH FIRST #{size} ROWS ONLY
 	</select>
+	
+	<select id="findByNum" parameterType="Long" resultType="com.fly.dds.domain.TravelReview">
+		SELECT NUM, NICKNAME, SUBJECT, CONTENT, REG_DATE, HITCOUNT, USER_NUM
+		FROM travelreview
+		WHERE num = #{num}
+	</select>
+	
+	<update id="updateHitCount" parameterType="Long">
+		UPDATE travelreview SET hitCount=hitCount+1 WHERE num = #{num}
+	</update>
+	
+	<update id="updateReview" parameterType="com.fly.dds.domain.TravelReview">
+		UPDATE travelreview SET subject = #{subject}, content = #{content} WHERE num = #{num}
+	</update>
+	
+	<delete id="deleteReview" parameterType="Long">
+		DELETE FROM travelreview WHERE num = #{num}
+	</delete>
 </mapper>

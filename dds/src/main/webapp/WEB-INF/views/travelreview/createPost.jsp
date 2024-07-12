@@ -83,15 +83,17 @@
     <div class="container">
         <div class="body-container">
             <div class="post-title">
-                여행 후기 작성하기
+                ${mode=="create"?"여행 후기 작성하기":"여행 후기 수정하기"}
             </div>
 
             <div class="form-container">
-                <form action="${pageContext.request.contextPath}/post/submit" method="post" enctype="multipart/form-data">
-                    <input type="text" name="title" placeholder="제목을 입력하세요" required>
-                    <textarea name="content" placeholder="내용을 입력하세요" required></textarea>
+                <form action="${pageContext.request.contextPath}/travelreview/${mode}" method="post" enctype="multipart/form-data">
+                    <input type="text" name="subject" placeholder="제목을 입력하세요" required value='${mode=="create"?"":dto.subject}'>
+                    <textarea name="content" placeholder="내용을 입력하세요" required>${mode=="create"?"":dto.content}</textarea>
                     <input type="file" name="files" multiple>
-                    <button type="submit">작성하기</button>
+                    <input type="hidden" name="num" value="${dto.num}">
+                    <input type="hidden" name="page" value="${page}">
+                    <button type="submit">${mode=="create"?"작성하기":"수정하기"}</button>
                 </form>
             </div>
         </div>
