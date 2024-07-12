@@ -14,4 +14,6 @@ public interface TravelReviewMapper {
 	public List<TravelReview> listReview(Map<String, Object> map);
 	public TravelReview findByNum(long num);
 	public void updateHitCount(long num);
+	public void updateReview(TravelReview dto);
+	public void deleteReview(long num);
 }

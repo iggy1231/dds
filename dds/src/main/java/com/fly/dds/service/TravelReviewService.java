@@ -15,4 +15,8 @@ public interface TravelReviewService {
 	public void updateHitCount(long num);
 
 	public TravelReview findByNum(long num);
+
+	public void updateReview(TravelReview dto);
+
+	public void deleteReview(long num);
 }

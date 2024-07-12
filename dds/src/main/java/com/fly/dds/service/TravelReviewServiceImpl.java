@@ -25,9 +25,9 @@ public class TravelReviewServiceImpl implements TravelReviewService {
 
 	@Override
 	public int dataCount(Map<String, Object> map) {
-		int result=0;
+		int result = 0;
 		try {
-			result=mapper.dataCount(map);
+			result = mapper.dataCount(map);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -36,10 +36,10 @@ public class TravelReviewServiceImpl implements TravelReviewService {
 
 	@Override
 	public List<TravelReview> listReview(Map<String, Object> map) {
-		List<TravelReview> list=null;
+		List<TravelReview> list = null;
 		
 		try {
-			list=mapper.listReview(map);
+			list = mapper.listReview(map);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -57,10 +57,10 @@ public class TravelReviewServiceImpl implements TravelReviewService {
 
 	@Override
 	public TravelReview findByNum(long num) {
-		TravelReview dto=null;
+		TravelReview dto = null;
 		
 		try {
-			dto=mapper.findByNum(num);
+			dto = mapper.findByNum(num);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -68,4 +68,21 @@ public class TravelReviewServiceImpl implements TravelReviewService {
 		return dto;
 	}
 
+	@Override
+	public void updateReview(TravelReview dto) {
+		try {
+			mapper.updateReview(dto);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+
+	@Override
+	public void deleteReview(long num) {
+		try {
+			mapper.deleteReview(num);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
 }
