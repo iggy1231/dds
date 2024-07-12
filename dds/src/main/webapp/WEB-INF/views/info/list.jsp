@@ -196,14 +196,17 @@ function addNewContent(data) {
 		let main_Category=item.main_Category;
 		let middle_Category=item.middle_Category;
 		let sub_Category=item.sub_Category;
+		let tags=item.tags;
 		
 		htmlText+='	<div class="col card" onclick="article(\''+contentId+'\'\,\''+contentType+'\'\,\''+thumbnail+'\');">';
 		htmlText+='		<img src="'+thumbnail+'" class="card-img-top" alt="...">';
 		htmlText+='		<div class="card-body">';
 		htmlText+='			<p>'+name+'</p>';
-		htmlText+='			<p class="card-text">'+region_Main+' '+region_Sub+'</p>';
-		htmlText+='			<footer>#'+contentType+' #'+main_Category+' #'+middle_Category+' #'+sub_Category+'</footer>';
-		htmlText+='		</div>';
+		htmlText+='			<p class="card-text">'+region_Main+' '+region_Sub+'</p><footer>';
+		tags.forEach((tag)=>{
+			htmlText+='			<span>#'+tag+'</span>';		
+		})
+		htmlText+='		</footer></div>';
 		htmlText+='	</div>';
 	}
 	htmlText+='</div><br>';
