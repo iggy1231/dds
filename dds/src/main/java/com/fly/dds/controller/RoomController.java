@@ -25,4 +25,10 @@ public class RoomController {
 		
 		return ".room.list";
 	}
+	
+	@GetMapping("review")
+	public String roomReview() {
+		
+		return ".room.review";
+	}
 }
