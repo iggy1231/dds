@@ -9,63 +9,62 @@
 <link rel="icon" href="data:;base64,iVBORw0KGgo=">
 
 <style>
-        .search-bar {
-            background-color: #f8f9fa;
-            border-radius: 30px;
-            padding: 10px 20px;
-            display: flex;
-            align-items: center;
-            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-        }
-        .search-bar input[type="text"] {
-            border: none;
-            outline: none;
-            box-shadow: none;
-        }
-        .search-bar .form-control:focus {
-            box-shadow: none;
-        }
-        .search-bar i {
-            margin-right: 10px;
-            color: #6c757d;
-        }
-        .search-bar span {
-            margin: 0 15px;
-            color: #6c757d;
-        }
-        
-        .form-check-label {
-        	font-size: 1.2rem !important;
-        	padding-left: 20px  !important;
-        	color : #454545 !important;
-        }
-        
-        hr {
-            border-top: 0.5px solid gray;
-        }
-        
-        .keyword-btn {
-        font-size: 17.5px  !important;
-        font-weight: 500 !important;
-        }
-        
-            .filter-box {
-        width: 100%;
-    }
+.search-bar {
+  background-color: #f8f9fa;
+  border-radius: 30px;
+  padding: 10px 20px;
+  display: flex;
+  align-items: center;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+.search-bar input[type="text"] {
+  border: none;
+  outline: none;
+  box-shadow: none;
+}
+.search-bar .form-control:focus {
+  box-shadow: none;
+}
+.search-bar i {
+  margin-right: 10px;
+  color: #6c757d;
+}
+.search-bar span {
+  margin: 0 15px;
+  color: #6c757d;
+}
+.form-check-label {
+  font-size: 1.2rem !important;
+  padding-left: 20px !important;
+  color : #454545 !important;
+}
+hr {
+  border-top: 0.5px solid gray;
+}
+.keyword-btn {
+  font-size: 17.5px !important;
+  font-weight: 500 !important;
+}
+.filter-box {
+  width: 100%;
+}
+@media (min-width: 992px) {
+  .col-lg-3 {
+    flex: 0 0 auto;
+    width: 30%;
+  }
+  .col-lg-8 {
+    width: 70%;
+  }
+}    
 
-    
-    @media (min-width: 992px) {
-    .col-lg-3 {
-        flex: 0 0 auto;
-        width: 30%;
-    }
+.text-primary {
+	color: #18A8F1 !important;
 }
 
-.ratio-2x1 {
-    	--bs-aspect-ratio : 55%;
-    }
-        
-    </style>
+
+
+</style>
 </head>
 <body>
 
@@ -84,6 +83,9 @@
                         <span>|</span>
                         <h5 class="p-1" style="font-weight: 600;">인원 2</h5>        
                     </div>
+                    <div class="text-start">
+                    	<h2 class="text-start mt-0 pb-1 bold">순천 숙소 '999'개</h2>
+                    </div>
                     <div class="bg-light ps-3 py-3 rounded d-flex justify-content-between">
                         <select id="fruits" name="fruitlist" class="border-0 form-select-sm bg-light me-3" form="fruitform">
                             <option value="volvo">인기순</option>
@@ -91,6 +93,8 @@
                             <option value="opel">높은 가격순</option>
                         </select>
                     </div>
+                 
+                    
                 </div>
 
                         <div class="row g-4">
@@ -192,21 +196,63 @@
                                 </div>
                             </div>
                                 <!-- 필터 end -->
-<div class="col-lg-8">
-    <div class="row g-5 justify-content-center">
+
+<!-- 각 숙소 정보 -->                                
+<div class="col-lg-8 mt-0">
+    <div class="row justify-content-center">
         <div class="col-md-12">
-            <div class="d-flex p-3">
-                <div class="ratio ratio-2x1">
+            <div class="d-flex pt-1 p-3">
+                <div class="ratio ratio-4x3" style="width:550px; height: 200px;">
                     <img src="https://cdn.imweb.me/thumbnail/20220827/2572710192af0.png" class="img-fluid rounded" alt="숙소 이미지">
                 </div>
                 <div class="d-flex flex-column justify-content-between w-100 pl-5">
                     <div class="p-3">
-                        <h5 class="mb-1">펜션</h5>
+                        <h5 class="mb-2">펜션</h5>
                         <h4 class="mb-2">신라스테이 순천</h4>
-                        <p class="mb-1 text-muted">전라남도 순천시 OO로</p>
+                        <h5 class="mb-2 text-muted">전라남도 순천시 OO로</h5>
                         <div class="d-flex align-items-center mb-2">
-                            <h4 class="badge mr-2">9.6</h4>
-                            <span class="text-muted">1,209명 평가</span>
+                            <h5 class="p-2 text-white rounded border-primary mr-2" style="background-color: #18A8F1;  font-size: 0.875rem;">★ 9.6</h5>
+                            <h6 class="px-3 text-muted">1,209명 평가</h6>
+                        </div>
+                    </div>
+                    <div class="d-flex justify-content-end mt-2">
+                        <h4 class="mb-0">할인가 <strong class="text-primary">100,324원 /박</strong></h4>
+                    </div>
+                </div>
+            </div>
+            <hr>
+            <div class="d-flex p-3">
+                <div class="ratio ratio-4x3" style="width:550px; height: 200px;">
+                    <img src="https://cdn.imweb.me/thumbnail/20220827/2572710192af0.png" class="img-fluid rounded" alt="숙소 이미지">
+                </div>
+                <div class="d-flex flex-column justify-content-between w-100 pl-5">
+                    <div class="p-3">
+                        <h5 class="mb-2">펜션</h5>
+                        <h4 class="mb-2">신라스테이 순천</h4>
+                        <h5 class="mb-2 text-muted">전라남도 순천시 OO로</h5>
+                        <div class="d-flex align-items-center mb-2">
+                            <h5 class="p-2 text-white rounded border-primary mr-2" style="background-color: #18A8F1;  font-size: 0.875rem;">★ 9.6</h5>
+                            <h6 class="px-3 text-muted">1,209명 평가</h6>
+                        </div>
+                    </div>
+                    <div class="d-flex justify-content-end mt-2">
+                        <h4 class="mb-0">할인가 <strong class="text-primary">100,324원 /박</strong></h4>
+                    </div>
+                </div>
+            </div>
+            <hr>
+            <div class="d-flex p-3">
+                <div class="ratio ratio-4x3" style="width:550px; height: 200px;">
+                    <img src="https://cdn.imweb.me/thumbnail/20220827/2572710192af0.png" class="img-fluid rounded" alt="숙소 이미지">
+                </div>
+                <div class="d-flex flex-column justify-content-between w-100 pl-5">
+                    <div class="p-3">
+                        <h5 class="mb-2">펜션</h5>
+                        <h4 class="mb-2">신라스테이 순천</h4>
+                        <h5 class="mb-2 text-muted">전라남도 순천시 OO로</h5>
+                        <div class="d-flex align-items-center mb-2">
+                            <h5 class="p-2 text-white rounded border-primary mr-2" style="background-color: #18A8F1;  font-size: 0.875rem;">★ 9.6</h5>
+                            <h6 class="px-3 text-muted">1,209명 평가</h6>
                         </div>
                     </div>
                     <div class="d-flex justify-content-end mt-2">
@@ -217,6 +263,8 @@
             <hr>
         </div>
         <!-- 더 많은 숙소 항목 추가 -->
+        
+        
     </div>
 </div>
 

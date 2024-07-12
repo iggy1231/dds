@@ -1,5 +1,7 @@
 package com.fly.dds.domain;
 
+import java.util.Set;
+
 public class Info {
 	private long num;
 	private String region_Main;
@@ -21,6 +23,14 @@ public class Info {
 	private String mapy;
 	private String overview;
 	
+	private Set<String> tags;
+	
+	public Set<String> getTags() {
+		return tags;
+	}
+	public void setTags(Set<String> tags) {
+		this.tags = tags;
+	}
 	public long getNum() {
 		return num;
 	}

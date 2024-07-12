@@ -62,7 +62,7 @@ function ajaxFun(url, method, formData, dataType, fn, file = false) {
 
 $(function(){
 	let spec = "http://apis.data.go.kr/B551011/KorService1/detailCommon1";
-	let serviceKey = "api키";
+	let serviceKey = "OXILAyifZ60FGrDoEDdcW8SLgmOUo3D%2FD%2FcndXOLSg%2B3Ig6CJbBNtpu%2BeL9LxLlFgIdpxOUhAkV3GWuZJ9rvdg%3D%3D";
 	let numOfRows = 10;
 	let pageNo = 1;
 	let _type = "JSON";
