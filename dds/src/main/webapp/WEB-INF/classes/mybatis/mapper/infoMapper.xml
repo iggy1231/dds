@@ -2,14 +2,108 @@
 
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.fly.dds.mapper.InfoMapper">
-	<select id="dataCount" resultType="Integer">
+	<sql id="where-list">
+		<choose>
+			<when test="schType == 'name'">
+				INSTR(name, #{kwd}) &gt; 0
+			</when>
+			<when test="schType == 'region'">
+			    INSTR(region_main||region_sub, #{kwd}) &gt; 0
+			</when>
+			<when test="schType == 'tag'">
+			    INSTR(contentType, #{kwd}) &gt; 0
+				OR INSTR(main_category, #{kwd}) &gt; 0
+				OR INSTR(middle_category, #{kwd}) &gt; 0
+				OR INSTR(sub_category, #{kwd}) &gt; 0
+			</when>
+			<otherwise>
+			    INSTR(name, #{kwd}) &gt; 0
+			    OR INSTR(region_main||region_sub, #{kwd}) &gt; 0
+			    OR INSTR(contentType, #{kwd}) &gt; 0
+				OR INSTR(main_category, #{kwd}) &gt; 0
+				OR INSTR(middle_category, #{kwd}) &gt; 0
+				OR INSTR(sub_category, #{kwd}) &gt; 0
+			</otherwise>
+		</choose>
+	</sql>
+		
+	<select id="dataCount" parameterType="map" resultType="Integer">
 		SELECT NVL(COUNT(*), 0) FROM info
+		<where>
+			<if test="kwd != null and kwd != ''">
+				<include refid="where-list"/>
+			</if>
+		</where>
 	</select>
 	
 	<select id="listInfo" parameterType="map" resultType="com.fly.dds.domain.Info">
 		SELECT NUM, REGION_MAIN, REGION_SUB, CONTENTID, CONTENTTYPE, NAME, THUMBNAIL, MAIN_CATEGORY, MIDDLE_CATEGORY, SUB_CATEGORY
 		FROM info
+		<where>
+			<if test="kwd != null and kwd != ''">
+				<include refid="where-list"/>
+			</if>
+		</where>
 		ORDER BY NAME ASC
+		OFFSET #{offset} ROWS FETCH FIRST #{size} ROWS ONLY
+	</select>
+	
+	<select id="findByNum" parameterType="Long" resultType="com.fly.dds.domain.Info">
+		SELECT NUM, REGION_MAIN, REGION_SUB, CONTENTID, CONTENTTYPE, NAME, THUMBNAIL, MAIN_CATEGORY, MIDDLE_CATEGORY, SUB_CATEGORY
+		FROM info
+		WHERE num=#{num}
+	</select>
+	
+	<select id="likeCount" parameterType="Long" resultType="Integer">
+		select NVL(COUNT(*), 0) from info_like where num=#{num}
+	</select>
+	
+	<select id="isInfoLiked" parameterType="map" resultType="Integer">
+		select NVL(COUNT(*), 0) from info_like where num=#{num} AND user_num=#{user_num}
+	</select>
+	
+	<insert id="insertInfoLike" parameterType="map">
+		INSERT INTO INFO_LIKE(NUM, USER_NUM) VALUES(#{num}, #{user_num})
+	</insert>
+	
+	<insert id="insertInfoReply" parameterType="map">
+		INSERT INTO INFO_REPLY(REPLY_NUM, NUM, USER_NUM, NICKNAME, CONTENT, REG_DATE)
+		VALUES(INFO_REPLY_SEQ.NEXTVAL, #{num}, #{user_num}, #{nickName}, #{content}, SYSDATE)
+	</insert>
+	
+	<select id="replyCount" parameterType="Long" resultType="Integer">
+		select NVL(COUNT(*), 0) from info_reply where num=#{num}
+	</select>
+	
+	<select id="listInfoReply" parameterType="map" resultType="com.fly.dds.domain.InfoReply">
+		SELECT REPLY_NUM, NUM, USER_NUM, NICKNAME, CONTENT, TO_CHAR(REG_DATE, 'YYYY-MM-DD') AS REG_DATE FROM INFO_REPLY
+		WHERE num=#{num}
+		OFFSET #{offset} ROWS FETCH FIRST #{size} ROWS ONLY
+	</select>
+	
+	<select id="replyLikeCount" parameterType="Long" resultType="Integer">
+		select NVL(COUNT(*), 0) from info_reply_like where reply_num=#{reply_num}
+	</select>
+	
+	<insert id="insertinfoReplyLike" parameterType="map">
+		insert into info_reply_like(reply_num, user_num) values(#{reply_num}, #{user_num})
+	</insert>
+	
+	<select id="isInfoReplyLiked" parameterType="map" resultType="Integer">
+		select NVL(COUNT(*), 0) from info_reply_like where reply_num=#{reply_num} AND user_num=#{user_num}
+	</select>
+	
+	<select id="popularListInfo" parameterType="map" resultType="com.fly.dds.domain.Info">
+		SELECT i.NUM, REGION_MAIN, REGION_SUB, CONTENTID, CONTENTTYPE, NAME, THUMBNAIL, MAIN_CATEGORY, MIDDLE_CATEGORY, SUB_CATEGORY, COUNT
+		FROM info i
+		LEFT OUTER JOIN (SELECT NUM, COUNT(*) AS COUNT FROM INFO_LIKE GROUP BY NUM) i2	
+		ON i.NUM=i2.NUM
+		<where>
+			<if test="kwd != null and kwd != ''">
+				<include refid="where-list"/>
+			</if>
+		</where>
+		ORDER BY COUNT ASC, NAME ASC
 		OFFSET #{offset} ROWS FETCH FIRST #{size} ROWS ONLY
 	</select>
 </mapper>

@@ -20,8 +20,17 @@ body {
 .map {
 	width: 100%; height:450px; border: 1px solid #777;
 }
+#likeIcon, .btnReplyLike>i {
+	color: red;
+}
 p {
 	margin: 0px;
+}
+.reply-table tr>td {
+	text-align: center;
+}
+.reply-table tr>td:nth-child(2) {
+	text-align: left;
 }
 </style>
 
@@ -59,34 +68,58 @@ p {
 			<p>홈페이지 : ${dto.homepage}</p><hr>
 		</div>
 		<div class="reply">
-				<form name="replyForm" method="post">
-					<table class="table table-borderless reply-form">
-						<tr>
-							<td colspan="2" class="text-center p-3" style="border-bottom: none;">
-								<button type="button" class="btn btn-outline-secondary btnSendBoardLike" title="좋아요">
-									<i class="bi bi-hand-thumbs-up-fill"></i>&nbsp;&nbsp;<span id="boardLikeCount">좋아요 수</span>
-								</button>
-							</td>
-						</tr>
-						<tr>
-							<td>
-								<h3>댓글 (댓글 갯수)</h3>
-							</td>
-						</tr>
-						<tr>
-							<td>
-								<textarea class='form-control' name="content"></textarea>
-							</td>
-						</tr>
-						<tr>
-						   <td align='right'>
-						        <button type='button' class='btn btn-light btnSendReply'>댓글 등록</button>
-						    </td>
-						 </tr>
-					</table>
-				</form>
-				<div id="listReply"></div>
-			</div>
+			<form name="replyForm" method="post">
+				<table class="table table-borderless reply-form">
+					<tr>
+						<td colspan="2" class="text-center p-3" style="border-bottom: none;">
+							<button type="button" class="btn btn-outline-secondary btnSendBoardLike" onclick="insertInfoLike();" title="좋아요">
+								<c:if test="${liked eq 'true'}">
+									<i id="likeIcon" class="bi bi-heart-fill"></i>&nbsp;&nbsp;<span id="infoLikeCount">${likeCount}</span>
+								</c:if>
+								<c:if test="${liked eq 'false'}">
+									<i id="likeIcon" class="bi bi-heart"></i>&nbsp;&nbsp;<span id="infoLikeCount">${likeCount}</span>
+								</c:if>
+							</button>
+						</td>
+					</tr>
+					<tr>
+						<td>
+							<h3 id="replyCount"></h3>
+						</td>
+					</tr>
+					<tr>
+						<td>
+							<textarea class='form-control' name="content"></textarea>
+						</td>
+					</tr>
+					<tr>
+						<td align='right'>
+					   		<button type='button' class='btn btn-light btnSendReply'>댓글 등록</button>
+						</td>
+					</tr>
+				</table>
+			</form>
+			<table class='table table-borderless reply-table'>
+				<thead>
+					<tr class="table-primary bold">
+					<td width='10%'>
+						<span>작성자</span>
+					</td>
+					<td>
+						<span>내용</span>
+					</td>
+					<td width='10%'>
+						<span>작성일</span>
+					</td>
+					<td width='10%'>
+						<span>좋아요</span>
+					</td>
+				</tr>
+				</thead>
+				<tbody class="reply-list"></tbody>
+				
+			</table>			
+		</div>		
 	</div>
 </div>
 <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=63f9640ae647d0bba0630ea1ce2eb859"></script>
@@ -125,6 +158,69 @@ p {
 	infowindow.open(map, marker);
 </script>
 <script type="text/javascript">
+function insertInfoLike() {
+	if(${empty sessionScope.member}) {
+		alert("좋아요는 로그인 후에만 가능합니다.")
+		return;
+	}
+	
+	let url="${pageContext.request.contextPath}/info/like";
+	let query="num=${dto.num}";
+	
+	const fn = function(data) {
+		let state=data.state;
+		if(state === "true") {
+			let count = data.likeCount;
+			$("#infoLikeCount").text(count);
+			
+			let heart=document.querySelector("#likeIcon");
+		
+			heart.classList.replace('bi-heart', 'bi-heart-fill');
+		} else if(state === "liked") {
+			alert("좋아요는 1회만 가능합니다");
+				return;
+		} else {
+			alert("좋아요 처리에 실패했습니다.");
+		}
+	}
+	
+	ajaxFun(url, "post", query, "json", fn);
+};
+
+$(function() {
+	$(".btnSendReply").click(function() {
+		if(${empty sessionScope.member}) {
+			alert("댓글 작성은 로그인 후에만 가능합니다.")
+			return;
+		}
+		
+		const $tb = $(this).closest("table");
+		let content = $tb.find("textarea").val().trim();
+		
+		if(! content){
+			alert("댓글 내용을 작성해주세요.");
+			$tb.find("textarea").focus();
+			return false;
+		}
+		content = encodeURIComponent(content);
+		
+		let url = "${pageContext.request.contextPath}/info/insertReply";
+		let query = "num=${dto.num}&content="+content;
+		
+		const fn = function(data) {
+			$tb.find("textarea").val("");
+			let state = data.state;
+			if(state === "true"){
+				listPage(1);
+			} else {
+				alert("댓글 등록이 실패했습니다");
+			}
+		};
+		
+		ajaxFun(url, "post", query, "json", fn);
+	});
+});
+
 function ajaxFun(url, method, formData, dataType, fn, file = false) {
 	const settings = {
 			type: method, 
@@ -149,8 +245,37 @@ function ajaxFun(url, method, formData, dataType, fn, file = false) {
 	
 	$.ajax(url, settings);
 }
-
+function listPage(page) {
+	let url = "${pageContext.request.contextPath}/info/listReply";
+	let query = "num=${dto.num}&pageNo="+page;
+	
+	const fn = function(data) {
+		let obj=JSON.parse(data);
+		document.getElementById('replyCount').innerText="댓글 "+obj.dataCount;
+		
+		let out="";
+		for(let item of obj.list) {
+			out+='<tr><td><span>'+item.nickName+'</td>';
+			out+='<td><span>'+item.content+'</td>';
+			out+='<td><span>'+item.reg_date+'</td>';
+			out+='<td><button class="btn btn-outline-secondary btnReplyLike" data-reply_num='+item.reply_num+'>';
+			if(item.liked=="true") {
+				out+='<i id="replylikeIcon'+item.reply_num+'" class="bi bi-heart-fill">'+item.likeCount+'</i>';
+			} else {
+				out+='<i id="replylikeIcon'+item.reply_num+'" class="bi bi-heart">'+item.likeCount+'</i>';
+			}
+			out+='</button></td></tr>';
+			
+		}
+		out+='<tr><td><button class="btn btn-outline-secondary">더보기</button></td></tr>';
+		document.querySelector('.reply-list').innerHTML=out;
+	}
+	
+	ajaxFun(url, "get", query, "text", fn);
+}
 $(function(){
+		listPage(1);
+		
 		let spec = "http://apis.data.go.kr/B551011/KorService1/detailImage1";
 		let serviceKey = "OXILAyifZ60FGrDoEDdcW8SLgmOUo3D%2FD%2FcndXOLSg%2B3Ig6CJbBNtpu%2BeL9LxLlFgIdpxOUhAkV3GWuZJ9rvdg%3D%3D";
 		let numOfRows = 5;
@@ -176,12 +301,44 @@ $(function(){
 		};
 		
 		ajaxFun(spec, "get", query, "json", fn);
+		
+		$(".reply-list").on("click", ".btnReplyLike", function() {
+			if(${empty sessionScope.member}) {
+				alert("댓글 좋아요는 로그인 후에만 가능합니다.")
+				return;
+			}
+			
+			let reply_num = $(this).attr("data-reply_num");
+			const btn = $(this);
+			
+			let url = "${pageContext.request.contextPath}/info/insertReplyLike";
+			let query = "reply_num="+reply_num;
+			
+			const fn = function(data) {
+				let state = data.state;
+				if(state === "true"){
+					let count = data.likeCount;
+					
+					let heart=document.querySelector("#replylikeIcon"+reply_num);
+					console.log(heart);
+					$("#replylikeIcon"+reply_num).text(count);
+
+					heart.classList.replace('bi-heart', 'bi-heart-fill');
+				} else if(state = "liked") {
+					alert("댓글 좋아요는 한번만 가능합니다");
+				} else {
+					alert("댓글 좋아요 처리가 실패했습니다");
+				}
+			};
+			
+			ajaxFun(url, "post", query, "json", fn);
+			
+		});
 	
 	function printJSON(data) {
 		if( ! $(data).find("body") ) {
 			return;
 		}
-
 		let list = data.response.body.items.item;
 		let out='<div id="carousel-thumbnail" class="carousel-item active">';
 		out +=  '	<img src="${dto.thumbnail}" class="d-block w-100" alt="...">';

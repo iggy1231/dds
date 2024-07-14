@@ -14,22 +14,15 @@ form {
 
 <div class="container">
 	<form name="loadapi" action="${pageContext.request.contextPath}/info/article" method="post">
-		<input type="text" name="title">
 		<input type="text" name="homepage">
 		<input type="text" name="tel">
 		<input type="text" name="addr1">
 		<input type="text" name="addr2">
-		<input type="text" name="zipcode">
-		<input type="text" name="areacode">
-		<input type="text" name="sigungucode">
-		<input type="text" name="cat1">
-		<input type="text" name="cat2">
-		<input type="text" name="cat3">
 		<input type="text" name="mapx">
 		<input type="text" name="mapy">
+		<input type="hidden" name="num" value="${num}">
+		<input type="hidden" name="contentId" value="${contentId}">
 		<textarea name="overview"></textarea>
-		<input type="text" name="contentId" value="${contentId}">
-		<input type="text" name="thumbnail" value="${thumbnail}">
 	</form>
 	<div class="resultLayout"></div>
 </div>
@@ -69,8 +62,6 @@ $(function(){
 	let MobileOS="ETC"; // OS
 	let MobileApp="test";
 	let contentId=${contentId}
-	let areacodeYN = "Y";
-	let catcodeYN = "Y";
 	let defaultYN = "Y";
 	let addrinfoYN = "Y";
 	let mapinfoYN = "Y";
@@ -84,8 +75,6 @@ $(function(){
 	query += "&MobileApp="+MobileApp;
 	query += "&contentId="+contentId;
 	query += "&defaultYN="+defaultYN;
-	query += "&areacodeYN="+areacodeYN;
-	query += "&catcodeYN="+catcodeYN;
 	query += "&addrinfoYN="+addrinfoYN;
 	query += "&mapinfoYN="+mapinfoYN;
 	query += "&overviewYN="+overviewYN;
@@ -97,7 +86,6 @@ $(function(){
 	ajaxFun(spec, "get", query, "json", fn);
 	
 	function printJSON(data) {
-		console.log(data);
 		if( ! $(data).find("body") ) {
 			alert("데이터가 존재하지 않습니다.");
 			return;
@@ -109,24 +97,18 @@ $(function(){
 		}
 				
 		let list = data.response.body.items.item;
+		const f=document.loadapi;
 		for(let item of list) {
-			const f=document.loadapi;
-			f.title.value=item.title;
 			f.homepage.value=item.homepage;
 			f.tel.value=item.tel
 			f.addr1.value=item.addr1;
 			f.addr2.value=item.addr2;
-			f.zipcode.value=item.zipcode;
-			f.areacode.value=item.areacode;
-			f.sigungucode.value=item.sigungucode;
-			f.cat1.value=item.cat1;
-			f.cat2.value=item.cat2;
-			f.cat3.value=item.cat3;
 			f.mapx.value=item.mapx;
 			f.mapy.value=item.mapy;
 			f.overview.value=item.overview;
+			
 			f.submit();
-		}		
+		}
 	}
 });
 
