@@ -226,7 +226,7 @@ $(function(){
 	});
 });
 
-function article(contentId, contentType, thumbnail) {
-	location.href="${pageContext.request.contextPath}/info/load?contentId="+contentId+"&contentType="+contentType+"&thumbnail="+thumbnail;
+function article(num, contentId) {
+	location.href="${pageContext.request.contextPath}/info/load?num="+num+"&contentId="+contentId;
 }
 </script>
