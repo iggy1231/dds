@@ -46,7 +46,7 @@ body {
 		<div class="body-main">
 			<p>전체글</p>
 			<div class="list-content" data-pageNo="0" data-totalPage="0"></div>
-			<div class="list-footer mt-2 text-end">
+			<div class="list-footer">
 				<span class="more-btn btn btn-light">&nbsp;더보기&nbsp;<i class="bi bi-chevron-down"></i>&nbsp;</span>
 			</div>
 		</div>
@@ -204,24 +204,21 @@ $(function(){
 		let pageNo = $('.list-content').attr('data-pageNo');
 		let total_page = $('.list-content').attr('data-totalPage');
 		pageNo++;
-		if(pageNo>=total_page) {
-			$('.list-footer .more-btn').hide();
-			listPage(pageNo);
-		} else {
-			listPage(pageNo);
-		}
-	});
-	
-	$('.popular-list-footer .more-btn').click(function(){
-		let pageNo = $('.list-content').attr('data-pageNo');
-		let total_page = $('.list-content').attr('data-totalPage');
 		
-		pageNo++;
-		if(pageNo>=total_page) {
-			$('.list-footer .more-btn').hide();
-			popularListPage(pageNo);
-		} else {
-			popularListPage(pageNo);
+		if($(".listTypebtn1").hasClass("active") === true) {
+			if(pageNo>=total_page) {
+				$('.list-footer .more-btn').hide();
+				listPage(pageNo);
+			} else {
+				listPage(pageNo);
+			}
+		} else if($(".listTypebtn2").hasClass("active") === true) {	
+			if(pageNo>=total_page) {
+				$('.list-footer .more-btn').hide();
+				popularListPage(pageNo);
+			} else {
+				popularListPage(pageNo);
+			}
 		}
 	});
 });

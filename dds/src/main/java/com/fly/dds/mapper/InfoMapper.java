@@ -24,4 +24,7 @@ public interface InfoMapper {
 	public void insertinfoReplyLike(Map<String, Object> map);
 	public int isInfoReplyLiked(Map<String, Object> map);
 	public List<Info> popularListInfo(Map<String, Object> map);
+	public void deleteInfoReply(long reply_num);
+	public void reportInfoReply(Map<String, Object> map);
+	public int isInfoReplyReported(Map<String, Object> map);
 }

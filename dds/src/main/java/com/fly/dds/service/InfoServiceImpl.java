@@ -191,6 +191,38 @@ public class InfoServiceImpl implements InfoService {
 		return list;
 	}
 
+	@Override
+	public void deleteInfoReply(long reply_num) {
+		try {
+			mapper.deleteInfoReply(reply_num);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+	}
+
+	@Override
+	public void reportInfoReply(Map<String, Object> map) {
+		try {
+			mapper.reportInfoReply(map);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+
+	@Override
+	public boolean isInfoReplyReported(Map<String, Object> map) {
+		try {
+			if(mapper.isInfoReplyReported(map)>0) {
+				return true;
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		return false;
+	}
+
 
 
 }

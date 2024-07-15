@@ -114,6 +114,9 @@ p {
 					<td width='10%'>
 						<span>좋아요</span>
 					</td>
+					<td width='10%'>
+						<span>신고/삭제</span>
+					</td>
 				</tr>
 				</thead>
 				<tbody class="reply-list"></tbody>
@@ -187,6 +190,54 @@ function insertInfoLike() {
 	ajaxFun(url, "post", query, "json", fn);
 };
 
+function replyDelete(reply_num) {
+	let url="${pageContext.request.contextPath}/info/deleteReply";
+	let query="reply_num="+reply_num;
+	
+	const fn = function(data) {
+		let state=data.state;
+		if(state === "true") {
+			listPage(1);
+		} else {
+			alert("댓글 삭제가 실패했습니다.");
+		}
+	}
+	
+	ajaxFun(url, "post", query, "json", fn);
+}
+
+function replyReport(user_num, reply_num) {
+	if(${empty sessionScope.member}) {
+		alert("댓글 신고는 로그인 후에만 가능합니다.")
+		return;
+	}
+	
+	let reason;
+	text=prompt('신고 사유를 입력해주세요 : ');
+	if(text=="") {
+		alert('신고 사유를 입력해주세요');
+		return;
+	}
+	reason=text;
+	
+	let url="${pageContext.request.contextPath}/info/reportReply";
+	let query="article_num="+reply_num+"&user_num="+user_num+"&reason="+reason;	
+	
+	const fn = function(data) {
+		let state=data.state;
+		if(state === "true") {
+			alert("댓글 신고가 완료되었습니다.")
+		} else if(state === "reported") {
+			alert("동일한 글에 신고는 1회만 가능합니다");
+			return;
+		} else {
+			alert("댓글 신고에 실패했습니다.");
+		}
+	}
+	
+	ajaxFun(url, "post", query, "json", fn);
+}
+
 $(function() {
 	$(".btnSendReply").click(function() {
 		if(${empty sessionScope.member}) {
@@ -251,6 +302,8 @@ function listPage(page) {
 	
 	const fn = function(data) {
 		let obj=JSON.parse(data);
+		let login_user_num=${empty sessionScope.member?0:sessionScope.member.user_num};
+
 		document.getElementById('replyCount').innerText="댓글 "+obj.dataCount;
 		
 		let out="";
@@ -264,7 +317,16 @@ function listPage(page) {
 			} else {
 				out+='<i id="replylikeIcon'+item.reply_num+'" class="bi bi-heart">'+item.likeCount+'</i>';
 			}
-			out+='</button></td></tr>';
+			out+='</button></td>';
+			if(login_user_num==item.user_num) {
+				out+='<td><button class="btn btn-outline-secondary" onclick="replyDelete('+item.reply_num+');">';
+				out+='<i class="bi bi-trash"></i></button>';
+			} else {
+				out+='<td><button class="btn btn-outline-secondary" onclick="replyReport('+item.user_num+','+item.reply_num+');">';
+				out+='<i class="bi bi-exclamation-octagon"></i></button>';
+			}
+			
+			out+='</td></tr>';
 			
 		}
 		out+='<tr><td><button class="btn btn-outline-secondary">더보기</button></td></tr>';
@@ -320,7 +382,6 @@ $(function(){
 					let count = data.likeCount;
 					
 					let heart=document.querySelector("#replylikeIcon"+reply_num);
-					console.log(heart);
 					$("#replylikeIcon"+reply_num).text(count);
 
 					heart.classList.replace('bi-heart', 'bi-heart-fill');

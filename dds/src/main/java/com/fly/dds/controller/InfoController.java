@@ -345,7 +345,6 @@ public class InfoController {
 		}
 		
 		for(InfoReply dto:list) {
-			System.out.println(dto.getLiked());
 			dto.setLikeCount(service.replyLikeCount(dto.getReply_num()));
 		}
 		
@@ -429,4 +428,51 @@ public class InfoController {
 		
 		return model;
 	}
+	
+	@ResponseBody
+	@PostMapping("deleteReply")
+	public Map<String, Object> infoReplyDelete(@RequestParam long reply_num) {
+		Map<String, Object> model=new HashMap<String, Object>();
+		String state="false";
+		
+		try {
+			service.deleteInfoReply(reply_num);
+			state="true";
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		model.put("state", state);
+		return model;
+	}
+	
+	@ResponseBody
+	@PostMapping("reportReply")
+	public Map<String, Object> infoReplyReport(@RequestParam long article_num,
+			@RequestParam long user_num,
+			@RequestParam String reason,
+			HttpSession session) {
+		SessionInfo info=(SessionInfo) session.getAttribute("member");
+		Map<String, Object> model=new HashMap<String, Object>();
+		String state="false";
+		
+		try {
+			Map<String, Object> map=new HashMap<String, Object>();
+			map.put("article_num", article_num);
+			map.put("user_num", user_num);
+			map.put("reporter_num", info.getUser_num());
+			if(service.isInfoReplyReported(map)) {
+				state="reported";
+				model.put("state", state);
+				return model;
+			}
+			map.put("reason", reason);
+			service.reportInfoReply(map);
+			state="true";
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		model.put("state", state);
+		return model;
+	}
+	
 }

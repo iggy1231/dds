@@ -280,8 +280,8 @@ function addNewContent(data) {
 
 $(function(){
 	$('.list-footer .more-btn').click(function(){
-		let pageNo = $('.popular-list-content').attr('data-pageNo');
-		let total_page = $('.popular-list-content').attr('data-totalPage');
+		let pageNo = $('.list-content').attr('data-pageNo');		
+		let total_page = $('.list-content').attr('data-totalPage');
 		
 		pageNo++;
 		if(pageNo>=total_page) {
@@ -293,8 +293,8 @@ $(function(){
 	});
 	
 	$('.popular-list-footer .more-btn').click(function(){
-		let pageNo = $('.list-content').attr('data-pageNo');
-		let total_page = $('.list-content').attr('data-totalPage');
+		let pageNo = $('.popular-list-content').attr('data-pageNo');
+		let total_page = $('.popular-list-content').attr('data-totalPage');
 		
 		pageNo++;
 		if(pageNo>=total_page) {
