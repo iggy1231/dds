@@ -16,7 +16,6 @@
     height: auto;
 }
 
-
     .gradient-overlay {
         position: relative;
     }

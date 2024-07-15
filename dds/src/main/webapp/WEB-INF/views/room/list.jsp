@@ -49,6 +49,7 @@ hr {
 .filter-box {
   width: 100%;
 }
+
 @media (min-width: 992px) {
   .col-lg-3 {
     flex: 0 0 auto;
@@ -196,7 +197,7 @@ hr {
                                     </div>
                                 </div>
                             </div>
-                                <!-- 필터 end -->
+                 <!-- 필터 end -->
 
 <!-- 각 숙소 정보 -->                                
 <div class="col-lg-8 mt-0">

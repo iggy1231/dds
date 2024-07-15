@@ -37,20 +37,18 @@
                     <div class="nav-item dropdown">
                         <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown"><img alt="" src="${pageContext.request.contextPath}/resources/images/menu_여행.png" style="width: 35px;">&nbsp;&nbsp;&nbsp;여행</a>
                         <div class="dropdown-menu rounded-0 m-0">
-                            <a href="${pageContext.request.contextPath}/" class="dropdown-item">여행 정보</a>
-                            <a href="${pageContext.request.contextPath}/" class="dropdown-item">여행기</a>
+                            <a href="${pageContext.request.contextPath}/info/list" class="dropdown-item">여행 정보</a>
+                            <a href="${pageContext.request.contextPath}/travelreview/list" class="dropdown-item">여행기</a>
                             <a href="${pageContext.request.contextPath}/" class="dropdown-item">플래너</a>
                         </div>
                     </div>
-                    <div class="nav-item dropdown">
-                        <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown"><img alt="" src="${pageContext.request.contextPath}/resources/images/menu_동행.png" style="width: 35px;">&nbsp;&nbsp;&nbsp;동행</a>
-                        <div class="dropdown-menu rounded-0 m-0">
-                            <a href="${pageContext.request.contextPath}/" class="dropdown-item">지역별</a>
-                            <a href="${pageContext.request.contextPath}/" class="dropdown-item">테마별</a>
-                        </div>
+                    <div class="nav-item">
+                        <a href="${pageContext.request.contextPath}/" class="nav-link"><img alt="" src="${pageContext.request.contextPath}/resources/images/menu_동행.png" style="width: 35px;">&nbsp;&nbsp;&nbsp;동행</a>
+                    </div>
+                    <div class="nav-item">
+                         <a href="${pageContext.request.contextPath}/member/login" class="btn btn-primary text-white px-3 d-none d-lg-flex">로그인 및 회원가입</a>
                     </div>
                 </div>
-                <a href="${pageContext.request.contextPath}/member/login" class="btn btn-primary text-white px-3 d-none d-lg-flex">로그인 및 회원가입</a>
             </div>
         </nav>
 </div>
