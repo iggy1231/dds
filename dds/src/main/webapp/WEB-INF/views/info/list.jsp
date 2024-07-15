@@ -17,6 +17,10 @@ body {
 .body-container {
 	max-width: 800px;
 }
+.item-list>div {
+	margin: 0px;
+	padding: 0px;
+}
 .card {
 	margin: 0 5px;
 	padding: 0px;
@@ -110,6 +114,7 @@ body {
 			</div>
 			<div>
 				<p>인기글</p>
+				
 				<div class="popular-list-content" data-pageNo="0" data-totalPage="0"></div>
 				<div class="popular-list-footer mt-2 text-end">
 					<span class="more-btn btn btn-light">&nbsp;더보기&nbsp;<i class="bi bi-chevron-down"></i>&nbsp;</span>
@@ -225,16 +230,18 @@ function nextPopularList(data) {
 		let sub_Category=item.sub_Category;
 		let tags=item.tags;
 		
-		htmlText+='	<div class="col card" onclick="article('+num+','+contentId+');">';
+		htmlText+='<div class="col">';
+		htmlText+='	<span class="card" onclick="article('+num+','+contentId+');">';
 		htmlText+='		<img src="'+thumbnail+'" class="card-img-top" alt="...">';
-		htmlText+='		<div class="card-body">';
+		htmlText+='		<span class="card-body">';
 		htmlText+='			<p>'+name+'</p>';
 		htmlText+='			<p class="card-text">'+region_Main+' '+region_Sub+'</p><footer>';
 		tags.forEach((tag)=>{
 			htmlText+='			<span>#'+tag+'</span>';		
 		})
-		htmlText+='		</footer></div>';
-		htmlText+='	</div>';
+		htmlText+='		</footer></span>';
+		htmlText+='	</span>';
+		htmlText+='</div>';
 	}
 	htmlText+='</div><br>';
 	$(".popular-list-content").append(htmlText);	
@@ -263,16 +270,18 @@ function addNewContent(data) {
 		let sub_Category=item.sub_Category;
 		let tags=item.tags;
 		
-		htmlText+='	<div class="col card" onclick="article('+num+','+contentId+');">';
+		htmlText+='<div class="col">';
+		htmlText+='	<span class="card" onclick="article('+num+','+contentId+');">';
 		htmlText+='		<img src="'+thumbnail+'" class="card-img-top" alt="...">';
-		htmlText+='		<div class="card-body">';
+		htmlText+='		<span class="card-body">';
 		htmlText+='			<p>'+name+'</p>';
 		htmlText+='			<p class="card-text">'+region_Main+' '+region_Sub+'</p><footer>';
 		tags.forEach((tag)=>{
 			htmlText+='			<span>#'+tag+'</span>';		
 		})
-		htmlText+='		</footer></div>';
-		htmlText+='	</div>';
+		htmlText+='		</footer></span>';
+		htmlText+='	</span>';
+		htmlText+='</div>';
 	}
 	htmlText+='</div><br>';
 	$(".list-content").append(htmlText);	
