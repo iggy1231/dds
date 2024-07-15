@@ -134,4 +134,5 @@
  
 <script src="${pageContext.request.contextPath}/resources/vendor/owlcarousel/owl.carousel.min.js"></script>
 
+
 </html>
