@@ -29,6 +29,12 @@ public class RoomController {
 	@GetMapping("review")
 	public String roomReview() {
 		
-		return ".room.review";
+		return "room/review";
+	}
+	
+	@GetMapping("payment")
+	public String roomPayment() {
+		
+		return ".room.payment";
 	}
 }

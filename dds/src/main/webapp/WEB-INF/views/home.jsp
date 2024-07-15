@@ -241,7 +241,13 @@
 						                </form>
 						            </div>
 						            <div class="tab-pane fade" id="overseas" role="tabpanel" aria-labelledby="overseas-tab">
-						                <!-- 해외 숙소 검색 폼 -->
+						                <form class="d-flex" name="searchForm" action="${pageContext.request.contextPath}/" method="post">
+						                    <div class="input-group mr-1 pe-2">
+						                        <span class="input-group-text"><i class="p-2 bi bi-search"></i></span>
+						                        <input name="search_term" type="text" class="p-3 form-control" placeholder="원하는 여행지를 검색해보세요">
+						                    </div>
+						                    <button type="submit" class="p-3  btn btn-primary">검색</button>
+						                </form>
 						            </div>
 						        </div>
 						    </div>
@@ -406,28 +412,28 @@
 </div>
         <!-- Property List End -->
         
-<div class="container-xxl py-3">
+<div class="container-xxl pt-4">
     <div class="container">
-	   <div id="carouselExampleCaptions" class="carousel slide">
+	   <div id="carouselExampleCaptions" class="carousel slide" data-bs-ride="carousel">
         <div class="carousel-indicators">
             <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
             <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="1" aria-label="Slide 2"></button>
             <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="2" aria-label="Slide 3"></button>
         </div>
         <div class="rounded carousel-inner">
-            <div class="carousel-item active">
+            <div class="carousel-item active" data-bs-interval="2000">
                 <img src="https://www.yeogi.com/_next/image?url=https%3A%2F%2Fstatic.yeogi.com%2F_next%2Fstatic%2Fmedia%2F03_Kv_PC_Light.c2b0d0f8.png&w=912&q=100" class="d-block w-100" alt="...">
                 <div class="carousel-caption d-none d-md-block">
                     <h3>순천시 순천만</h3>
                 </div>
             </div>
-            <div class="carousel-item">
+            <div class="carousel-item" data-bs-interval="2000">
                 <img src="https://www.yeogi.com/_next/image?url=https%3A%2F%2Fstatic.yeogi.com%2F_next%2Fstatic%2Fmedia%2F03_Kv_PC_Light.c2b0d0f8.png&w=912&q=100" class="d-block w-100" alt="...">
                 <div class="carousel-caption d-none d-md-block">
                     <h3>익산시 미륵사지 석탑</h3>
                 </div>
             </div>
-            <div class="carousel-item">
+            <div class="carousel-item" data-bs-interval="2000">
                 <img src="https://www.yeogi.com/_next/image?url=https%3A%2F%2Fstatic.yeogi.com%2F_next%2Fstatic%2Fmedia%2F03_Kv_PC_Light.c2b0d0f8.png&w=912&q=100" class="d-block w-100" alt="...">
                 <div class="carousel-caption d-none d-md-block">
                     <h3>부산 해운대</h3>
@@ -496,6 +502,27 @@
             </div>
         </div>
         <!-- Testimonial End -->
+
+<!-- 회원가입 이벤트 배너 시작 -->
+<div class="container-xxl py-3">
+    <div class="container">
+        <div class="row align-items-center rounded p-4" style="background-color: #EDEBFF;">
+            <div class="col-md-8">
+                <h4 class="mb-2" style="font-weight: 600;">회원가입만 해도 받는 멤버십 혜택</h4>
+                <h5 class="mb-3">로그인 하면 멤버십 할인으로 예약할 수 있어요.</h5>
+                <a href="${pageContext.request.contextPath}/member/login">
+                <button  type="button" class="btn btn-primary me-3">로그인/회원가입</button>
+                </a>
+            </div>
+            <div class="col-md-4 text-center">
+                <img src="${pageContext.request.contextPath}/resources/images/main_event_icon.png" alt="Membership Benefits" class="img-fluid">
+            </div>
+        </div>
+    </div>
+</div>
+<!-- 회원가입 배너 끝 -->
+
+       
 	
 <script>
 $(document).ready(function(){
