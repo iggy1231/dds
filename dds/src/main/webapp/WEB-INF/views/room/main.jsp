@@ -6,6 +6,9 @@
 <head>
 <meta charset="UTF-8">
 <link rel="icon" href="data:;base64,iVBORw0KGgo=">
+ <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+   <link href="https://stackpath.bootstrapcdn.com/bootstrap/5.3.1/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/css/bootstrap-datepicker.min.css" rel="stylesheet">
 <style>
  * {
             font-family: pretendard;
@@ -127,6 +130,21 @@
     color: var(--bs-white) !important;
 }
 
+  .input-group-text, .form-control {
+            border-radius: 0;
+        }
+        .datepicker {
+            z-index: 9999;
+        }
+        .input-group.date {
+            display: flex;
+        }
+        .input-group.date .form-control {
+            border-right: none;
+        }
+        .input-group.date .input-group-append .input-group-text {
+            border-left: none;
+        }
 /*** Gallery End ***/
 </style>
 </head>
@@ -138,6 +156,9 @@
                     <div class="col-md-12">
                         <h4 class="mb-1 text-light display-5" style="font-weight: 600;">두둥실 떠나고 싶으신 곳이 있나요?</h4>
                         <div class="container mt-5">
+                  <!-- 작업시작 -->
+                  
+<div class="container mt-5">
     <div class="search-form-container">
         <ul class="nav nav-tabs" id="myTab" role="tablist">
             <li class="nav-item" role="presentation">
@@ -148,26 +169,32 @@
             </li>
         </ul>
         <div class="tab-content mt-3" id="myTabContent">
-            <div class="tab-pane fade show active" id="domestic" role="tabpanel" aria-labelledby="domestic-tab">
-                <form class="d-flex" name="searchForm" action="${pageContext.request.contextPath}/search/main" method="post">
-                    <div class="input-group">
-                        <span class="input-group-text"><i class="p-2 bi bi-search"></i></span>
-                        <input name="search_term" type="text" class="p-3 form-control" placeholder="여행지나 숙소를 검색해보세요">
-                    </div>
-                    <button type="button" class="p-3 btn btn-outline-secondary mx-2">
-                        <i class=" bi bi-calendar"></i> 07.08 월 - 07.09 화 (1박)
-                    </button>
-                    <button type="button" class="p-3  btn btn-outline-secondary mx-2">
-                        <i class="bi bi-people"></i> 인원 2
-                    </button>
-                    <button type="submit" class="p-3  btn btn-primary">검색</button>
-                </form>
-            </div>
+           <div class="container mt-5">
+    <form class="d-flex" >
+        <div class="input-group">
+            <span class="input-group-text"><i class="bi bi-search"></i></span>
+            <input type="text" class="form-control" placeholder="여행지나 숙소를 검색해보세요">
+        </div>
+        <div class="input-group mx-2">
+            <span class="input-group-text"><i class="bi bi-calendar"></i></span>
+            <input type="text" id="startDate" class="form-control" placeholder="시작 날짜">
+            <input type="text" id="endDate" class="form-control" placeholder="종료 날짜">
+        </div>
+        <div class="input-group">
+            <span class="input-group-text"><i class="bi bi-people"></i></span>
+            <input type="text" class="form-control" placeholder="인원 입력">
+        </div>
+        <button type="submit" class="btn btn-primary ms-2">검색</button>
+    </form>
+</div>
             <div class="tab-pane fade" id="overseas" role="tabpanel" aria-labelledby="overseas-tab">
                 <!-- 해외 숙소 검색 폼 -->
             </div>
         </div>
     </div>
+</div>
+
+    
 </div>
                     </div>
                 </div>
@@ -191,11 +218,11 @@
                 <div class="row g-4">
                   <div class="col-sm-6 col-md-4 col-lg-3 col-xl-3">
                     <div class="gallery-item h-100">
-                      <img src="${pageContext.request.contextPath}/resources/images/숙소_예시.jpg" class="img-fluid w-100 h-100 rounded" alt="Image">
+                      <img src="https://mblogthumb-phinf.pstatic.net/MjAyMjA1MTZfMTkx/MDAxNjUyNjI5MDg1ODQ3.OiG9Nx0UJhOftoeGcd4UiZMOj9f3l9hw4n5Vd8FjOh4g.HVGL_VkhNwn4ngJ0CoaY-DA8vml37ZhUhHzdRelhCwwg.JPEG.lily_0901/SE-A1CCF59C-844B-4A01-A781-4FA43BFF6198.jpg?type=w800" class="img-fluid w-100 h-100 rounded" alt="Image">
                       <div class="gallery-content">
                         <div class="gallery-info">
-                          <h5 class="text-white text-uppercase mb-2">World Tour</h5>
-                          <a href="${pageContext.request.contextPath}/room/list" class="btn-hover text-white"> 숙소 보러가기! <i class="fa fa-arrow-right ms-2"></i></a>
+                          <h5 class="text-white text-uppercase mb-2">전라북도 익산</h5>
+                          <a href="${pageContext.request.contextPath}/room/list?subject=익산" class="btn-hover text-white"> 숙소 보러가기! <i class="fa fa-arrow-right ms-2"></i></a>
                         </div>
                       </div>
                       <div class="gallery-plus-icon">
@@ -205,11 +232,11 @@
                   </div>
                   <div class="col-sm-6 col-md-4 col-lg-3 col-xl-3">
                     <div class="gallery-item h-100">
-                      <img src="${pageContext.request.contextPath}/resources/images/숙소_예시.jpg" class="img-fluid w-100 h-100 rounded" alt="Image">
+                      <img src="https://res.cloudinary.com/kyte/image/upload/w_312,q_auto,f_auto,e_sharpen:50/content/shutterstock/KR/suncheon_3" class="img-fluid w-100 h-100 rounded" alt="Image">
                       <div class="gallery-content">
                         <div class="gallery-info">
-                          <h5 class="text-white text-uppercase mb-2">World Tour</h5>
-                          <a href="#" class="btn-hover text-white">View All Place <i class="fa fa-arrow-right ms-2"></i></a>
+                          <h5 class="text-white text-uppercase mb-2">전라남도 순천</h5>
+                          <a href="${pageContext.request.contextPath}/room/list?subject=순천" class="btn-hover text-white">숙소 보러가기! <i class="fa fa-arrow-right ms-2"></i></a>
                         </div>
                       </div>
                       <div class="gallery-plus-icon">
@@ -219,11 +246,11 @@
                   </div>
                   <div class="col-sm-6 col-md-4 col-lg-3 col-xl-3">
                     <div class="gallery-item h-100">
-                      <img src="${pageContext.request.contextPath}/resources/images/숙소_예시.jpg" class="img-fluid w-100 h-100 rounded" alt="Image">
+                      <img src="https://i.namu.wiki/i/DK-BcaE6wDCM-N9UJbeQTn0SD9eWgsX9YKWK827rqjbrzDz0-CxW-JFOCiAsUL3CBZ4zE0UDR-p4sLaYPiUjww.webp" class="img-fluid w-100 h-100 rounded" alt="Image">
                       <div class="gallery-content">
                         <div class="gallery-info">
-                          <h5 class="text-white text-uppercase mb-2">World Tour</h5>
-                          <a href="#" class="btn-hover text-white">View All Place <i class="fa fa-arrow-right ms-2"></i></a>
+                          <h5 class="text-white text-uppercase mb-2">서울 남산</h5>
+                          <a href="${pageContext.request.contextPath}/room/list?subject=남산" class="btn-hover text-white">숙소 보러가기! <i class="fa fa-arrow-right ms-2"></i></a>
                         </div>
                       </div>
                       <div class="gallery-plus-icon">
@@ -233,11 +260,11 @@
                   </div>
                   <div class="col-sm-6 col-md-4 col-lg-3 col-xl-3">
                     <div class="gallery-item h-100">
-                      <img src="${pageContext.request.contextPath}/resources/images/숙소_예시.jpg" class="img-fluid w-100 h-100 rounded" alt="Image">
+                      <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRBByag7QGT_-DOvBHk01vwiXdlRHnOWbvfog&s" class="img-fluid w-100 h-100 rounded" alt="Image">
                       <div class="gallery-content">
                         <div class="gallery-info">
-                          <h5 class="text-white text-uppercase mb-2">World Tour</h5>
-                          <a href="#" class="btn-hover text-white">View All Place <i class="fa fa-arrow-right ms-2"></i></a>
+                          <h5 class="text-white text-uppercase mb-2">경기도 남앙쥬시</h5>
+                          <a href="${pageContext.request.contextPath}/room/list?subject=남양주" class="btn-hover text-white">숙소 보러가기! <i class="fa fa-arrow-right ms-2"></i></a>
                         </div>
                       </div>
                       <div class="gallery-plus-icon">
@@ -247,11 +274,11 @@
                   </div>
                    <div class="col-sm-6 col-md-4 col-lg-3 col-xl-3">
                     <div class="gallery-item h-100">
-                      <img src="${pageContext.request.contextPath}/resources/images/숙소_예시.jpg" class="img-fluid w-100 h-100 rounded" alt="Image">
+                      <img src="https://i.namu.wiki/i/hkDOgJHC40yiIFKQDRz7YjHpzWrL9vCTT7mve4TF6Lj-GpGsBpvT8WlXbwOT_To1Ndl1zKrVLQ-SiwaGNFOgQA.webp" class="img-fluid w-100 h-100 rounded" alt="Image">
                       <div class="gallery-content">
                         <div class="gallery-info">
-                          <h5 class="text-white text-uppercase mb-2">World Tour</h5>
-                          <a href="#" class="btn-hover text-white">View All Place <i class="fa fa-arrow-right ms-2"></i></a>
+                          <h5 class="text-white text-uppercase mb-2">부산 해운대</h5>
+                          <a href="${pageContext.request.contextPath}/room/list?subject=해운대" class="btn-hover text-white">숙소 보러가기! <i class="fa fa-arrow-right ms-2"></i></a>
                         </div>
                       </div>
                       <div class="gallery-plus-icon">
@@ -261,11 +288,11 @@
                   </div>
                    <div class="col-sm-6 col-md-4 col-lg-3 col-xl-3">
                     <div class="gallery-item h-100">
-                      <img src="${pageContext.request.contextPath}/resources/images/숙소_예시.jpg" class="img-fluid w-100 h-100 rounded" alt="Image">
+                      <img src="https://jpassets.jobplanet.co.kr/production/uploads/company_story/contents/2023/11/17/296f61d8-3f69-458c-868d-37f2256c5e1a.jpg" class="img-fluid w-100 h-100 rounded" alt="Image">
                       <div class="gallery-content">
                         <div class="gallery-info">
-                          <h5 class="text-white text-uppercase mb-2">World Tour</h5>
-                          <a href="#" class="btn-hover text-white">View All Place <i class="fa fa-arrow-right ms-2"></i></a>
+                          <h5 class="text-white text-uppercase mb-2">서울 영등포</h5>
+                          <a href="${pageContext.request.contextPath}/room/list?subject=영등포" class="btn-hover text-white">숙소 보러가기! <i class="fa fa-arrow-right ms-2"></i></a>
                         </div>
                       </div>
                       <div class="gallery-plus-icon">
@@ -275,11 +302,11 @@
                   </div>
                    <div class="col-sm-6 col-md-4 col-lg-3 col-xl-3">
                     <div class="gallery-item h-100">
-                      <img src="${pageContext.request.contextPath}/resources/images/숙소_예시.jpg" class="img-fluid w-100 h-100 rounded" alt="Image">
+                      <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSdLGCmigqdmccLsThLn6etZgDL4XzYXkKT2A&s" class="img-fluid w-100 h-100 rounded" alt="Image">
                       <div class="gallery-content">
                         <div class="gallery-info">
-                          <h5 class="text-white text-uppercase mb-2">World Tour</h5>
-                          <a href="#" class="btn-hover text-white">View All Place <i class="fa fa-arrow-right ms-2"></i></a>
+                          <h5 class="text-white text-uppercase mb-2">서울 홍대</h5>
+                          <a href="${pageContext.request.contextPath}/room/list?subject=홍대" class="btn-hover text-white">숙소 보러가기! <i class="fa fa-arrow-right ms-2"></i></a>
                         </div>
                       </div>
                       <div class="gallery-plus-icon">
@@ -289,11 +316,11 @@
                   </div>
                    <div class="col-sm-6 col-md-4 col-lg-3 col-xl-3">
                     <div class="gallery-item h-100">
-                      <img src="${pageContext.request.contextPath}/resources/images/숙소_예시.jpg" class="img-fluid w-100 h-100 rounded" alt="Image">
+                      <img src="https://cdn.imweb.me/upload/S201712205a3a0910b89f5/9ad67bba021e8.jpg" class="img-fluid w-100 h-100 rounded" alt="Image">
                       <div class="gallery-content">
                         <div class="gallery-info">
-                          <h5 class="text-white text-uppercase mb-2">World Tour</h5>
-                          <a href="#" class="btn-hover text-white">View All Place <i class="fa fa-arrow-right ms-2"></i></a>
+                          <h5 class="text-white text-uppercase mb-2">강원도 고성</h5>
+                          <a href="${pageContext.request.contextPath}/room/list?subject=고성" class="btn-hover text-white">숙소 보러가기! <i class="fa fa-arrow-right ms-2"></i></a>
                         </div>
                       </div>
                       <div class="gallery-plus-icon">
@@ -313,5 +340,34 @@
   </div>
             
         <!-- Gallery End -->
+        
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/js/bootstrap-datepicker.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/locales/bootstrap-datepicker.ko.min.js"></script>
+<script>
+    $(document).ready(function() {
+        $('#startDate').datepicker({
+            format: 'yyyy-mm-dd',
+            autoclose: true,
+            todayHighlight: true,
+            startDate: new Date(),
+            language: 'ko'  // 한글 로케일 설정
+        }).on('changeDate', function(selected) {
+            var startDate = new Date(selected.date.valueOf());
+            $('#endDate').datepicker('setStartDate', startDate);
+        });
 
+        $('#endDate').datepicker({
+            format: 'yyyy-mm-dd',
+            autoclose: true,
+            todayHighlight: true,
+            startDate: new Date(),
+            language: 'ko'  // 한글 로케일 설정
+        }).on('changeDate', function(selected) {
+            var endDate = new Date(selected.date.valueOf());
+            $('#startDate').datepicker('setEndDate', endDate);
+        });
+    });
+</script>
 </html>	   
