@@ -16,4 +16,7 @@ public interface TravelReviewMapper {
 	public void updateHitCount(long num);
 	public void updateReview(TravelReview dto);
 	public void deleteReview(long num);
+	public void TravelReview_Like(Map<String, Object> map);
+	public int likeCount(long num);
+	public int isBoardLike(Map<String, Object> map);
 }

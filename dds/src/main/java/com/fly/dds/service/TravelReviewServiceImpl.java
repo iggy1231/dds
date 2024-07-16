@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.fly.dds.domain.TravelReview;
+import com.fly.dds.domain.TravelReviewReply;
 import com.fly.dds.mapper.TravelReviewMapper;
 
 @Service
@@ -85,4 +86,39 @@ public class TravelReviewServiceImpl implements TravelReviewService {
 			e.printStackTrace();
 		}
 	}
+
+	@Override
+	public void TravelReview_Like(Map<String, Object> map) {
+		try {
+			mapper.TravelReview_Like(map);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+
+	@Override
+	public int likeCount(long num) {
+		int result=0;
+		
+		try {
+			result=mapper.likeCount(num);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		return result;
+	}
+
+	@Override
+	public boolean isBoardLike(Map<String, Object> map) {
+		try {
+			if(mapper.isBoardLike(map)>0) {
+				return false;
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return true;
+	}
+
 }

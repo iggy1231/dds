@@ -93,8 +93,9 @@
 		select NVL(COUNT(*), 0) from info_reply_like where reply_num=#{reply_num} AND user_num=#{user_num}
 	</select>
 	
-	<select id="popularListInfo" parameterType="map" resultType="com.fly.dds.domain.Info">
-		SELECT i.NUM, REGION_MAIN, REGION_SUB, CONTENTID, CONTENTTYPE, NAME, THUMBNAIL, MAIN_CATEGORY, MIDDLE_CATEGORY, SUB_CATEGORY, COUNT
+	<select id="popularListallInfo" parameterType="map" resultType="com.fly.dds.domain.Info">
+		SELECT i.NUM, REGION_MAIN, REGION_SUB, CONTENTID, CONTENTTYPE, NAME, THUMBNAIL, 
+		MAIN_CATEGORY, MIDDLE_CATEGORY, SUB_CATEGORY, NVL(COUNT, 0) AS COUNT 
 		FROM info i
 		LEFT OUTER JOIN (SELECT NUM, COUNT(*) AS COUNT FROM INFO_LIKE GROUP BY NUM) i2	
 		ON i.NUM=i2.NUM
@@ -103,7 +104,7 @@
 				<include refid="where-list"/>
 			</if>
 		</where>
-		ORDER BY COUNT ASC, NAME ASC
+		ORDER BY COUNT DESC, NAME ASC
 		OFFSET #{offset} ROWS FETCH FIRST #{size} ROWS ONLY
 	</select>
 	
@@ -121,5 +122,21 @@
 		from DECLARATION
 		WHERE user_num=#{user_num} AND article_num=${article_num} AND reporter_num=#{reporter_num}
 		group by user_num, article_num, reporter_num, 1, 'infoReply'
+	</select>
+	
+	<select id="popularListInfo">
+		SELECT i.NUM, REGION_MAIN, REGION_SUB, CONTENTID, CONTENTTYPE, NAME, THUMBNAIL, 
+		MAIN_CATEGORY, MIDDLE_CATEGORY, SUB_CATEGORY, COUNT
+		FROM info i
+		JOIN (SELECT NUM, COUNT(*) AS COUNT FROM INFO_LIKE GROUP BY NUM) i2 ON i.NUM=i2.NUM
+		ORDER BY COUNT DESC, NAME ASC
+		OFFSET #{offset} ROWS FETCH FIRST #{size} ROWS ONLY
+	</select>
+	
+	<select id="countPopularData" resultType="Integer">
+		SELECT NVL(COUNT(*), 0)
+		FROM info i
+		JOIN (SELECT NUM, COUNT(*) AS COUNT FROM INFO_LIKE GROUP BY NUM) i2	
+		ON i.NUM=i2.NUM
 	</select>
 </mapper>

@@ -8,7 +8,7 @@
     </insert>
 
     <select id="listReplies" parameterType="long" resultType="com.fly.dds.domain.TravelReviewReply">
-        SELECT REPLY_NUM, NUM, ANSWER_NUM, NICKNAME, CONTENT, REG_DATE, USER_NUM
+        SELECT REPLY_NUM AS replyNum, NUM, ANSWER_NUM, NICKNAME, CONTENT, REG_DATE, USER_NUM
         FROM travelreview_reply
         WHERE NUM = #{num}
         ORDER BY REPLY_NUM
@@ -19,4 +19,10 @@
         VALUES (travelreview_reply_seq.NEXTVAL, #{num}, #{answerNum}, #{nickname}, #{content}, SYSDATE, #{userNum})
     </insert>
     <!-- 필요한 추가적인 SQL 문장 선언 -->
+    
+    <delete id="deleteReply" parameterType="long">
+    DELETE FROM travelreview_reply
+    WHERE REPLY_NUM = #{replyNum}
+	</delete>
+
 </mapper>

@@ -25,11 +25,31 @@ body {
 	margin: 0 5px;
 	padding: 0px;
 }
+.scroll-list {
+	height: 600px;
+	margin-top: 10px;
+	overflow-y: auto;
+}
+.scroll-list ul {
+	padding: 0px;
+}
+.scroll-list li {
+	margin-bottom: 10px;
+}
+.scroll-list .card img {
+	width: 25%;
+}
 .card p {
 	margin: 0px;
 }
+.card-body * {
+	word-break: keep-all;
+}
 .carousel-item img {
 	height: 500px;
+}
+.list-content {
+	margin-top: 10px;
 }
 .hero-header {
 	background-image: url('/dds/resources/images/숙소_예시.jpg');
@@ -112,27 +132,126 @@ body {
 			    <span class="visually-hidden">Next</span>
 			  </button>
 			</div>
+			<hr>
 			<div>
-				<p>인기글</p>
-				
-				<div class="popular-list-content" data-pageNo="0" data-totalPage="0"></div>
-				<div class="popular-list-footer mt-2 text-end">
-					<span class="more-btn btn btn-light">&nbsp;더보기&nbsp;<i class="bi bi-chevron-down"></i>&nbsp;</span>
+				<span>인기글</span>
+				<div class="scroll-list">
+					<ul>
+						<li>
+							<div class="sentinel-1" data-loading="false"></div>
+						</li>
+					</ul>
+					<p>인기순으로 보기
 				</div>
-				<br>
+				<hr>
 				<div>
-				<p>전체글</p>
+				<div class="row justify-content-between">
+					<span class="col">전체 글 ${dataCount}건</span>
+					<div class="col text-end">
+						<button type="button" class="btn listTypebtn1 active" data-bs-toggle="button">가나다순</button>
+						<button type="button" class="btn listTypebtn2" data-bs-toggle="button">인기순</button>
+					</div>
+				</div>
 				<div class="list-content" data-pageNo="0" data-totalPage="0"></div>
 				<div class="list-footer mt-2 text-end">
 					<span class="more-btn btn btn-light">&nbsp;더보기&nbsp;<i class="bi bi-chevron-down"></i>&nbsp;</span>
 				</div>
+				<br>
 			</div>
 		</div>
 	</div>
 </div>
 </div>
 
-<script>
+<script type="text/javascript">
+const sentinel_1 = document.querySelector('.sentinel-1')
+const scroll_1 = document.querySelector('.scroll-list ul');
+
+function loadContent1(page) {
+	let url="${pageContext.request.contextPath}/info/popularInfoList";
+	let query="pageNo="+page;
+	
+	const fn = function(data) {
+		scroll_1_load(data);
+	};
+	
+	ajaxFun(url, "get", query, "json", fn);
+}
+
+function scroll_1_load(data) {
+	let dataCount = data.dataCount;
+	let pageNo = data.pageNo;
+	let total_page = data.total_page;
+	
+	scroll_1.setAttribute('data-pageNo', pageNo);
+	scroll_1.setAttribute('data-totalPage', total_page);
+	
+	sentinel_1.style.display = 'none';
+	
+	for(let item of data.list) {
+		let num = item.num;
+		let region_Main = item.region_Main;
+		let region_Sub = item.region_Sub;
+		let contentId = item.contentId;
+		let contentType = item.contentType;
+		let name=item.name;
+		let thumbnail=item.thumbnail;
+		let main_Category=item.main_Category;
+		let middle_Category=item.middle_Category;
+		let sub_Category=item.sub_Category;
+		let tags=item.tags;
+		
+		htmlText='<li><div class="card flex-row" onclick="article('+num+','+contentId+');">';
+		htmlText+='	<img src="'+thumbnail+'" class="card-img-top" alt="...">';
+		htmlText+='		<div class="card-body">';
+		htmlText+='			<p>'+name+'</p>';
+		htmlText+='			<p class="card-text">'+region_Main+' '+region_Sub+'</p><footer>';
+		tags.forEach((tag)=>{
+			htmlText+='			<span>#'+tag+'</span>';		
+		})
+		htmlText+='		</footer></div>';
+		htmlText+='	</div>';
+		htmlText+='</li>';
+		
+		sentinel_1.insertAdjacentHTML('beforebegin', htmlText);
+	}
+		
+	if(pageNo < total_page) {
+		sentinel_1.setAttribute('data-loading', 'false');
+		sentinel_1.style.display = 'block';
+		
+		io1.observe(sentinel_1);
+	}
+}
+
+const ioCallback1 = (entries, io1) => {
+	entries.forEach((entry) => {
+		if(entry.isIntersecting) { // 관찰자가 화면에 보이면
+			// 현재 페이지가 로딩중이면 빠져 나감
+			let loading = sentinel_1.getAttribute('data-loading');
+			if(loading !== 'false') {
+				return;
+			}
+			
+			// 기존 관찰하던 요소는 더이상 관찰하지 않음
+			io1.unobserve(entry.target);
+			
+			let pageNo = parseInt(scroll_1.getAttribute('data-pageNo'));
+			let total_page = parseInt(scroll_1.getAttribute('data-totalPage'));
+			
+			if(pageNo === 0 || pageNo < total_page) {
+				pageNo++;
+				loadContent1(pageNo);
+			}
+		}
+	});
+};
+
+const io1 = new IntersectionObserver(ioCallback1); // 관찰자 초기화
+io1.observe(sentinel_1); // 관찰할 요소 등록 
+</script>
+
+<script type="text/javascript">
 function kwdCheck() {
 	const f=document.searchForm;
 	if(f.kwd.value=="") {
@@ -183,11 +302,14 @@ function ajaxFun(url, method, formData, dataType, fn, file = false) {
 
 
 $(function(){
+	loadContent1(1);
 	listPage(1);
-	popularListPage(1);
 });
+
 function popularListPage(page) {
-	let url='${pageContext.request.contextPath}/info/popularInfoList';
+	$('.listTypebtn2').addClass("active");
+	
+	let url='${pageContext.request.contextPath}/info/popularInfoListall';
 	let formData="dataCount=${dataCount}&pageNo="+page;
 	
 	const fn=function(data) {
@@ -198,6 +320,8 @@ function popularListPage(page) {
 
 
 function listPage(page) {
+	$('.listTypebtn1').addClass("active");
+	
 	let url='${pageContext.request.contextPath}/info/infoList';
 	let formData="dataCount=${dataCount}&pageNo="+page;
 	
@@ -212,23 +336,27 @@ function nextPopularList(data) {
 	let pageNo = data.pageNo;
 	let total_page = data.total_page;
 	
-	$('.popular-list-content').attr('data-pageNo', pageNo);
-	$('.popular-list-content').attr('data-totalPage', total_page);
+	$('.list-content').attr('data-pageNo', pageNo);
+	$('.list-content').attr('data-totalPage', total_page);
 
 	let htmlText='<div class="row item-list">';
 	
-	for(let item of data.list) {
-		let num = item.num;
-		let region_Main = item.region_Main;
-		let region_Sub = item.region_Sub;
-		let contentId = item.contentId;
-		let contentType = item.contentType;
-		let name=item.name;
-		let thumbnail=item.thumbnail;
-		let main_Category=item.main_Category;
-		let middle_Category=item.middle_Category;
-		let sub_Category=item.sub_Category;
-		let tags=item.tags;
+	for(let index=0;index<data.list.length;index++) {
+		if(index%4==0&&index>0) {
+			htmlText+='</div><br>';
+			htmlText+='<div class="row item-list">';
+		}
+		let num = data.list[index].num;
+		let region_Main = data.list[index].region_Main;
+		let region_Sub = data.list[index].region_Sub;
+		let contentId = data.list[index].contentId;
+		let contentType = data.list[index].contentType;
+		let name=data.list[index].name;
+		let thumbnail=data.list[index].thumbnail;
+		let main_Category=data.list[index].main_Category;
+		let middle_Category=data.list[index].middle_Category;
+		let sub_Category=data.list[index].sub_Category;
+		let tags=data.list[index].tags;
 		
 		htmlText+='<div class="col">';
 		htmlText+='	<span class="card" onclick="article('+num+','+contentId+');">';
@@ -244,7 +372,7 @@ function nextPopularList(data) {
 		htmlText+='</div>';
 	}
 	htmlText+='</div><br>';
-	$(".popular-list-content").append(htmlText);	
+	$(".list-content").append(htmlText);
 }
 
 function addNewContent(data) {
@@ -257,18 +385,22 @@ function addNewContent(data) {
 
 	let htmlText='<div class="row item-list">';
 	
-	for(let item of data.list) {
-		let num = item.num;
-		let region_Main = item.region_Main;
-		let region_Sub = item.region_Sub;
-		let contentId = item.contentId;
-		let contentType = item.contentType;
-		let name=item.name;
-		let thumbnail=item.thumbnail;
-		let main_Category=item.main_Category;
-		let middle_Category=item.middle_Category;
-		let sub_Category=item.sub_Category;
-		let tags=item.tags;
+	for(let index=0;index<data.list.length;index++) {
+		if(index%4==0&&index>0) {
+			htmlText+='</div><br>';
+			htmlText+='<div class="row item-list">';
+		}
+		let num = data.list[index].num;
+		let region_Main = data.list[index].region_Main;
+		let region_Sub = data.list[index].region_Sub;
+		let contentId = data.list[index].contentId;
+		let contentType = data.list[index].contentType;
+		let name=data.list[index].name;
+		let thumbnail=data.list[index].thumbnail;
+		let main_Category=data.list[index].main_Category;
+		let middle_Category=data.list[index].middle_Category;
+		let sub_Category=data.list[index].sub_Category;
+		let tags=data.list[index].tags;
 		
 		htmlText+='<div class="col">';
 		htmlText+='	<span class="card" onclick="article('+num+','+contentId+');">';
@@ -288,29 +420,37 @@ function addNewContent(data) {
 }
 
 $(function(){
-	$('.list-footer .more-btn').click(function(){
-		let pageNo = $('.list-content').attr('data-pageNo');		
-		let total_page = $('.list-content').attr('data-totalPage');
-		
-		pageNo++;
-		if(pageNo>=total_page) {
-			$('.list-footer .more-btn').hide();
-			listPage(pageNo);
-		} else {
-			listPage(pageNo);
-		}
+	$('.listTypebtn1').click(function() {
+		$('.listTypebtn2').removeClass("active");
+		$('.list-content').html("");
+		listPage(1);
 	});
 	
-	$('.popular-list-footer .more-btn').click(function(){
-		let pageNo = $('.popular-list-content').attr('data-pageNo');
-		let total_page = $('.popular-list-content').attr('data-totalPage');
-		
+	$('.listTypebtn2').click(function() {
+		$('.listTypebtn1').removeClass("active");
+		$('.list-content').html("");
+		popularListPage(1);
+	});
+	
+	$('.list-footer .more-btn').click(function(){
+		let pageNo = $('.list-content').attr('data-pageNo');
+		let total_page = $('.list-content').attr('data-totalPage');
 		pageNo++;
-		if(pageNo>=total_page) {
-			$('.popular-list-footer .more-btn').hide();
-			popularListPage(pageNo);
-		} else {
-			popularListPage(pageNo);
+		
+		if($(".listTypebtn1").hasClass("active") === true) {
+			if(pageNo>=total_page) {
+				$('.list-footer .more-btn').hide();
+				listPage(pageNo);
+			} else {
+				listPage(pageNo);
+			}
+		} else if($(".listTypebtn2").hasClass("active") === true) {	
+			if(pageNo>=total_page) {
+				$('.list-footer .more-btn').hide();
+				popularListPage(pageNo);
+			} else {
+				popularListPage(pageNo);
+			}
 		}
 	});
 });

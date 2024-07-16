@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Map;
 
 import com.fly.dds.domain.TravelReview;
+import com.fly.dds.domain.TravelReviewReply;
 
 public interface TravelReviewService {
 	public void reviewInsert(TravelReview dto, String pathname);
@@ -19,4 +20,10 @@ public interface TravelReviewService {
 	public void updateReview(TravelReview dto);
 
 	public void deleteReview(long num);
+	
+	public void TravelReview_Like(Map<String, Object> map);
+	
+	public int likeCount(long num);
+	
+	public boolean isBoardLike(Map<String, Object> map);
 }

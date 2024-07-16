@@ -32,6 +32,7 @@ p {
 .reply-table tr>td:nth-child(2) {
 	text-align: left;
 }
+
 </style>
 
 <div class="container">
@@ -72,7 +73,8 @@ p {
 				<table class="table table-borderless reply-form">
 					<tr>
 						<td colspan="2" class="text-center p-3" style="border-bottom: none;">
-							<button type="button" class="btn btn-outline-secondary btnSendBoardLike" onclick="insertInfoLike();" title="좋아요">
+							<button type="button" class="btn btn-outline-secondary btnSendBoardLike"
+								data-bs-toggle="modal" data-bs-target="#alertModal" onclick="insertInfoLike();" title="좋아요">
 								<c:if test="${liked eq 'true'}">
 									<i id="likeIcon" class="bi bi-heart-fill"></i>&nbsp;&nbsp;<span id="infoLikeCount">${likeCount}</span>
 								</c:if>
@@ -89,32 +91,32 @@ p {
 					</tr>
 					<tr>
 						<td>
-							<textarea class='form-control' name="content"></textarea>
+							<textarea class="form-control" name="content"></textarea>
 						</td>
 					</tr>
 					<tr>
-						<td align='right'>
-					   		<button type='button' class='btn btn-light btnSendReply'>댓글 등록</button>
+						<td align="right">
+					   		<button type="button" class="btn btn-light btnSendReply" data-bs-toggle="modal" data-bs-target="#alertModal">댓글 등록</button>
 						</td>
 					</tr>
 				</table>
 			</form>
-			<table class='table table-borderless reply-table'>
+			<table class="table table-borderless reply-table">
 				<thead>
 					<tr class="table-primary bold">
-					<td width='10%'>
+					<td width="10%">
 						<span>작성자</span>
 					</td>
 					<td>
 						<span>내용</span>
 					</td>
-					<td width='10%'>
+					<td width="10%">
 						<span>작성일</span>
 					</td>
-					<td width='10%'>
+					<td width="10%">
 						<span>좋아요</span>
 					</td>
-					<td width='10%'>
+					<td width="10%">
 						<span>신고/삭제</span>
 					</td>
 				</tr>
@@ -122,48 +124,51 @@ p {
 				<tbody class="reply-list"></tbody>
 				
 			</table>			
-		</div>		
+		</div>
+		<!-- Modal -->
+		<div class="modal fade" id="alertModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+		  <div class="modal-dialog">
+		    <div class="modal-content">
+		      <div class="modal-header">
+		        <h1 class="modal-title fs-5" id="staticBackdropLabel"></h1>
+		      </div>
+		      <div class="modal-footer">
+		        <button type="button" class="btn btn-primary" data-bs-dismiss="modal">확인</button>
+		      </div>
+		    </div>
+		  </div>
+		</div>
 	</div>
 </div>
-<script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=63f9640ae647d0bba0630ea1ce2eb859"></script>
+<script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=###"></script>
 <script type="text/javascript">
-	//지도를 표시할 div와  지도 옵션으로  지도를 생성합니다
 	var mapContainer = document.getElementById('map');
 	var mapOption = {
-			center: new kakao.maps.LatLng(${dto.mapy}, ${dto.mapx}), // 지도의 중심좌표
-		level: 3  // 지도의 레벨(확대, 축소 정도)
+			center: new kakao.maps.LatLng(${dto.mapy}, ${dto.mapx}), level: 3
 	};
 	
-	// 지도를 생성
 	var map = new kakao.maps.Map(mapContainer, mapOption);
-	
-	// 마커가 표시될 위치
 	var markerPosition  = new kakao.maps.LatLng(${dto.mapy}, ${dto.mapx});
-	
-	// 마커를 생성
 	var marker = new kakao.maps.Marker({
 	    position: markerPosition
 	});
 	
-	// 마커가 지도 위에 표시되도록 설정
 	marker.setMap(map);
 	
 	var iwContent = '<div style="padding:5px;">${dto.name}<br><a href="https://map.kakao.com/link/map/${dto.mapy},${dto.mapx}" style="color:blue" target="_blank">큰지도보기</a> <a href="https://map.kakao.com/link/to/${dto.addr1} ${dto.addr2},${dto.mapy},${dto.mapx}" style="color:blue" target="_blank">길찾기</a></div>', // 인포윈도우에 표출될 내용으로 HTML 문자열이나 document element가 가능합니다
     iwPosition = new kakao.maps.LatLng(${dto.mapy}, ${dto.mapx}); //인포윈도우 표시 위치입니다
 
-	// 인포윈도우를 생성합니다
 	var infowindow = new kakao.maps.InfoWindow({
 	    position : iwPosition, 
 	    content : iwContent 
 	});
 	  
-	// 마커 위에 인포윈도우를 표시합니다. 두번째 파라미터인 marker를 넣어주지 않으면 지도 위에 표시됩니다
 	infowindow.open(map, marker);
 </script>
 <script type="text/javascript">
 function insertInfoLike() {
 	if(${empty sessionScope.member}) {
-		alert("좋아요는 로그인 후에만 가능합니다.")
+		$('#alertModal .modal-title').text('좋아요는 로그인 후에만 가능합니다.');
 		return;
 	}
 	
@@ -177,13 +182,14 @@ function insertInfoLike() {
 			$("#infoLikeCount").text(count);
 			
 			let heart=document.querySelector("#likeIcon");
-		
 			heart.classList.replace('bi-heart', 'bi-heart-fill');
+			
+			$('#alertModal .modal-title').text('좋아요 처리에 성공했습니다');
 		} else if(state === "liked") {
-			alert("좋아요는 1회만 가능합니다");
+			$('#alertModal .modal-title').text('좋아요는 1회만 가능합니다.');
 				return;
 		} else {
-			alert("좋아요 처리에 실패했습니다.");
+			$('#alertModal .modal-title').text('좋아요 처리에 실패했습니다.');
 		}
 	}
 	
@@ -197,15 +203,15 @@ function replyDelete(reply_num) {
 	const fn = function(data) {
 		let state=data.state;
 		if(state === "true") {
+			$('#alertModal .modal-title').text('댓글 삭제에 성공했습니다');
 			listPage(1);
 		} else {
-			alert("댓글 삭제가 실패했습니다.");
+			$('#alertModal .modal-title').text('댓글 삭제에 실패했습니다');
 		}
 	}
 	
 	ajaxFun(url, "post", query, "json", fn);
 }
-
 function replyReport(user_num, reply_num) {
 	if(${empty sessionScope.member}) {
 		alert("댓글 신고는 로그인 후에만 가능합니다.")
@@ -241,7 +247,7 @@ function replyReport(user_num, reply_num) {
 $(function() {
 	$(".btnSendReply").click(function() {
 		if(${empty sessionScope.member}) {
-			alert("댓글 작성은 로그인 후에만 가능합니다.")
+			$('#alertModal .modal-title').text('댓글 작성은 로그인 후에만 가능합니다.');
 			return;
 		}
 		
@@ -249,9 +255,9 @@ $(function() {
 		let content = $tb.find("textarea").val().trim();
 		
 		if(! content){
-			alert("댓글 내용을 작성해주세요.");
+			$('#alertModal .modal-title').text('댓글 내용을 작성해주세요.');
 			$tb.find("textarea").focus();
-			return false;
+			return;
 		}
 		content = encodeURIComponent(content);
 		
@@ -262,9 +268,10 @@ $(function() {
 			$tb.find("textarea").val("");
 			let state = data.state;
 			if(state === "true"){
+				$('#alertModal .modal-title').text('댓글 등록에 성공했습니다');
 				listPage(1);
 			} else {
-				alert("댓글 등록이 실패했습니다");
+				$('#alertModal .modal-title').text('댓글 등록에 실패했습니다');
 			}
 		};
 		
@@ -313,23 +320,27 @@ function listPage(page) {
 			out+='<td><span>'+item.reg_date+'</td>';
 			out+='<td><button class="btn btn-outline-secondary btnReplyLike" data-reply_num='+item.reply_num+'>';
 			if(item.liked=="true") {
-				out+='<i id="replylikeIcon'+item.reply_num+'" class="bi bi-heart-fill">'+item.likeCount+'</i>';
+				out+='<i id="replylikeIcon'+item.reply_num+'" class="bi bi-heart-fill" ';
+				out+='data-bs-toggle="modal" data-bs-target="#alertModal">'+item.likeCount+'</i>';
 			} else {
-				out+='<i id="replylikeIcon'+item.reply_num+'" class="bi bi-heart">'+item.likeCount+'</i>';
+				out+='<i id="replylikeIcon'+item.reply_num+'" class="bi bi-heart" ';
+				out+='data-bs-toggle="modal" data-bs-target="#alertModal">'+item.likeCount+'</i>';
 			}
 			out+='</button></td>';
 			if(login_user_num==item.user_num) {
-				out+='<td><button class="btn btn-outline-secondary" onclick="replyDelete('+item.reply_num+');">';
+				out+='<td><button class="btn btn-outline-secondary" data-bs-toggle="modal" data-bs-target="#alertModal"';
+				out+=' onclick="replyDelete('+item.reply_num+');">';
 				out+='<i class="bi bi-trash"></i></button>';
 			} else {
-				out+='<td><button class="btn btn-outline-secondary" onclick="replyReport('+item.user_num+','+item.reply_num+');">';
+				out+='<td><button class="btn btn-outline-secondary"';
+				out+=' onclick="replyReport('+item.user_num+','+item.reply_num+');">';
 				out+='<i class="bi bi-exclamation-octagon"></i></button>';
 			}
 			
 			out+='</td></tr>';
 			
 		}
-		out+='<tr><td><button class="btn btn-outline-secondary">더보기</button></td></tr>';
+		out+='<tr><td colspan="5" class="page-navigation">'+obj.paging+'</td></tr>';
 		document.querySelector('.reply-list').innerHTML=out;
 	}
 	
@@ -339,7 +350,7 @@ $(function(){
 		listPage(1);
 		
 		let spec = "http://apis.data.go.kr/B551011/KorService1/detailImage1";
-		let serviceKey = "OXILAyifZ60FGrDoEDdcW8SLgmOUo3D%2FD%2FcndXOLSg%2B3Ig6CJbBNtpu%2BeL9LxLlFgIdpxOUhAkV3GWuZJ9rvdg%3D%3D";
+		let serviceKey = "###";
 		let numOfRows = 5;
 		let pageNo = 1;
 		let _type = "JSON";
@@ -366,7 +377,7 @@ $(function(){
 		
 		$(".reply-list").on("click", ".btnReplyLike", function() {
 			if(${empty sessionScope.member}) {
-				alert("댓글 좋아요는 로그인 후에만 가능합니다.")
+				$('#alertModal .modal-title').text('댓글 좋아요는 로그인 후에만 가능합니다.');
 				return;
 			}
 			
@@ -385,10 +396,11 @@ $(function(){
 					$("#replylikeIcon"+reply_num).text(count);
 
 					heart.classList.replace('bi-heart', 'bi-heart-fill');
+					$('#alertModal .modal-title').text('댓글 좋아요 처리에 성공했습니다');
 				} else if(state = "liked") {
-					alert("댓글 좋아요는 한번만 가능합니다");
+					$('#alertModal .modal-title').text('댓글 좋아요는 한번만 가능합니다');
 				} else {
-					alert("댓글 좋아요 처리가 실패했습니다");
+					$('#alertModal .modal-title').text('댓글 좋아요 처리가 실패했습니다');
 				}
 			};
 			

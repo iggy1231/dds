@@ -179,11 +179,11 @@ public class InfoServiceImpl implements InfoService {
 	}
 
 	@Override
-	public List<Info> popularListInfo(Map<String, Object> map) {
+	public List<Info> popularListallInfo(Map<String, Object> map) {
 		List<Info> list=null;
 		
 		try {
-			list=mapper.popularListInfo(map);
+			list=mapper.popularListallInfo(map);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -221,6 +221,30 @@ public class InfoServiceImpl implements InfoService {
 		}
 		
 		return false;
+	}
+
+	@Override
+	public int countPopularData() {
+		int result=0;
+		try {
+			result=mapper.countPopularData();
+		} catch (Exception e) {
+			e.addSuppressed(e);
+		}
+		return result;
+	}
+
+	@Override
+	public List<Info> popularListInfo(Map<String, Object> map) {
+		List<Info> list=null;
+		
+		try {
+			list=mapper.popularListInfo(map);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		return list;
 	}
 
 
