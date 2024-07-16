@@ -28,163 +28,202 @@ body {
 	height: 700px;
 }
 </style>
-</style>
-
 <div class="container">
 	<div class="body-container">	
 		<div>
-			<h3><i class="bi bi-app"></i> 검색어 보여주기 </h3>
+			<h3> ${kwd}에 대한 검색 결과 </h3>
 			<hr>
 			<div class="row justify-content-between">
-				<span class="col">검색 결과 ?건</span>
+				<span class="col">검색 결과 ${dataCount}건</span>
 				<div class="col text-end">
-					<button>가나다순</button> | <button>인기순</button>
+					<button type="button" class="btn listTypebtn1 active" data-bs-toggle="button">가나다순</button>
+					<button type="button" class="btn listTypebtn2" data-bs-toggle="button">인기순</button>
 				</div>
 			</div>
 			<br>
 		</div>
 		
 		<div class="body-main">
-			<div class="row item-list">
-				<div class="col card">
-	  				<img src="${pageContext.request.contextPath}/resources/images/숙소_예시.jpg" class="card-img-top" alt="...">
-	  				<div class="card-body">
-	     				<p>이름</p>
-	    				<p class="card-text">지역, 시군구</p>
-	    				<footer>태그(콘텐츠타입, 대분류, 중분류, 소분류)</footer>
-	  				</div>
-				</div>
-				<div class="col card">
-  					<img src="${pageContext.request.contextPath}/resources/images/숙소_예시.jpg" class="card-img-top" alt="...">
-	  				<div class="card-body">
-	      				<p>이름</p>
-	    				<p class="card-text">지역, 시군구</p>
-	    				<footer>태그(콘텐츠타입, 대분류, 중분류, 소분류)</footer>
-	  				</div>
-				</div>
-				<div class="col card">
-	  				<img src="${pageContext.request.contextPath}/resources/images/숙소_예시.jpg" class="card-img-top" alt="...">
-	  				<div class="card-body">
-	   					<p>이름</p>
-	   					<p class="card-text">지역, 시군구</p>
-	  					<footer>태그(콘텐츠타입, 대분류, 중분류, 소분류)</footer>
-					</div>
-				</div>
-				<div class="col card">
-	  				<img src="${pageContext.request.contextPath}/resources/images/숙소_예시.jpg" class="card-img-top" alt="...">
-	  				<div class="card-body">
-	   					<p>이름</p>
-	   					<p class="card-text">지역, 시군구</p>
-	   					<footer>태그(콘텐츠타입, 대분류, 중분류, 소분류)</footer>
-					</div>
-				</div>
+			<p>전체글</p>
+			<div class="list-content" data-pageNo="0" data-totalPage="0"></div>
+			<div class="list-footer">
+				<span class="more-btn btn btn-light">&nbsp;더보기&nbsp;<i class="bi bi-chevron-down"></i>&nbsp;</span>
 			</div>
-			<br>
-			<div class="row item-list">
-				<div class="col card">
-	  				<img src="${pageContext.request.contextPath}/resources/images/숙소_예시.jpg" class="card-img-top" alt="...">
-	  				<div class="card-body">
-	     				<p>이름</p>
-	    				<p class="card-text">지역, 시군구</p>
-	    				<footer>태그(콘텐츠타입, 대분류, 중분류, 소분류)</footer>
-	  				</div>
-				</div>
-				<div class="col card">
-  					<img src="${pageContext.request.contextPath}/resources/images/숙소_예시.jpg" class="card-img-top" alt="...">
-	  				<div class="card-body">
-	      				<p>이름</p>
-	    				<p class="card-text">지역, 시군구</p>
-	    				<footer>태그(콘텐츠타입, 대분류, 중분류, 소분류)</footer>
-	  				</div>
-				</div>
-				<div class="col card">
-	  				<img src="${pageContext.request.contextPath}/resources/images/숙소_예시.jpg" class="card-img-top" alt="...">
-	  				<div class="card-body">
-	   					<p>이름</p>
-	   					<p class="card-text">지역, 시군구</p>
-	  					<footer>태그(콘텐츠타입, 대분류, 중분류, 소분류)</footer>
-					</div>
-				</div>
-				<div class="col card">
-	  				<img src="${pageContext.request.contextPath}/resources/images/숙소_예시.jpg" class="card-img-top" alt="...">
-	  				<div class="card-body">
-	   					<p>이름</p>
-	   					<p class="card-text">지역, 시군구</p>
-	   					<footer>태그(콘텐츠타입, 대분류, 중분류, 소분류)</footer>
-					</div>
-				</div>
-			</div>
-			<br>
-			<div class="row item-list">
-				<div class="col card">
-	  				<img src="${pageContext.request.contextPath}/resources/images/숙소_예시.jpg" class="card-img-top" alt="...">
-	  				<div class="card-body">
-	     				<p>이름</p>
-	    				<p class="card-text">지역, 시군구</p>
-	    				<footer>태그(콘텐츠타입, 대분류, 중분류, 소분류)</footer>
-	  				</div>
-				</div>
-				<div class="col card">
-  					<img src="${pageContext.request.contextPath}/resources/images/숙소_예시.jpg" class="card-img-top" alt="...">
-	  				<div class="card-body">
-	      				<p>이름</p>
-	    				<p class="card-text">지역, 시군구</p>
-	    				<footer>태그(콘텐츠타입, 대분류, 중분류, 소분류)</footer>
-	  				</div>
-				</div>
-				<div class="col card">
-	  				<img src="${pageContext.request.contextPath}/resources/images/숙소_예시.jpg" class="card-img-top" alt="...">
-	  				<div class="card-body">
-	   					<p>이름</p>
-	   					<p class="card-text">지역, 시군구</p>
-	  					<footer>태그(콘텐츠타입, 대분류, 중분류, 소분류)</footer>
-					</div>
-				</div>
-				<div class="col card">
-	  				<img src="${pageContext.request.contextPath}/resources/images/숙소_예시.jpg" class="card-img-top" alt="...">
-	  				<div class="card-body">
-	   					<p>이름</p>
-	   					<p class="card-text">지역, 시군구</p>
-	   					<footer>태그(콘텐츠타입, 대분류, 중분류, 소분류)</footer>
-					</div>
-				</div>
-			</div>
-			<br>
-			<div class="row item-list">
-				<div class="col card">
-	  				<img src="${pageContext.request.contextPath}/resources/images/숙소_예시.jpg" class="card-img-top" alt="...">
-	  				<div class="card-body">
-	     				<p>이름</p>
-	    				<p class="card-text">지역, 시군구</p>
-	    				<footer>태그(콘텐츠타입, 대분류, 중분류, 소분류)</footer>
-	  				</div>
-				</div>
-				<div class="col card">
-  					<img src="${pageContext.request.contextPath}/resources/images/숙소_예시.jpg" class="card-img-top" alt="...">
-	  				<div class="card-body">
-	      				<p>이름</p>
-	    				<p class="card-text">지역, 시군구</p>
-	    				<footer>태그(콘텐츠타입, 대분류, 중분류, 소분류)</footer>
-	  				</div>
-				</div>
-				<div class="col card">
-	  				<img src="${pageContext.request.contextPath}/resources/images/숙소_예시.jpg" class="card-img-top" alt="...">
-	  				<div class="card-body">
-	   					<p>이름</p>
-	   					<p class="card-text">지역, 시군구</p>
-	  					<footer>태그(콘텐츠타입, 대분류, 중분류, 소분류)</footer>
-					</div>
-				</div>
-				<div class="col card">
-	  				<img src="${pageContext.request.contextPath}/resources/images/숙소_예시.jpg" class="card-img-top" alt="...">
-	  				<div class="card-body">
-	   					<p>이름</p>
-	   					<p class="card-text">지역, 시군구</p>
-	   					<footer>태그(콘텐츠타입, 대분류, 중분류, 소분류)</footer>
-					</div>
-				</div>
-			</div>
-			<br>
 		</div>
 	</div>
 </div>
+<script>
+function ajaxFun(url, method, formData, dataType, fn, file = false) {
+	const settings = {
+			type: method, 
+			data: formData,
+			success:function(data) {
+				fn(data);
+			},
+			beforeSend: function(jqXHR) {
+				jqXHR.setRequestHeader('AJAX', true);
+			},
+			complete: function () {
+			},
+			error: function(jqXHR) {
+				if(jqXHR.status === 403) {
+					return false;
+				} else if(jqXHR.status === 400) {
+					alert('요청 처리가 실패 했습니다.');
+					return false;
+		    	}
+		    	
+				console.log(jqXHR.responseText);
+			}
+	};
+	
+	if(file) {
+		settings.processData = false;
+		settings.contentType = false;
+	}
+	$.ajax(url, settings);
+}
+
+
+$(function(){
+	listPage(1);
+});
+
+function listPage(page) {
+	let url='${pageContext.request.contextPath}/info/searchList';
+	let formData="schType=${schType}&kwd=${kwd}&dataCount=${dataCount}&pageNo="+page;
+	const fn=function(data) {
+		addNewContent(data);
+	};
+	ajaxFun(url, 'get', formData, 'json', fn);
+}
+
+function popularListPage(page) {
+	let url='${pageContext.request.contextPath}/info/searchPopularList';
+	let formData="schType=${schType}&kwd=${kwd}&dataCount=${dataCount}&pageNo="+page;
+	
+	const fn=function(data) {
+		nextPopularList(data);
+	};
+	ajaxFun(url, 'get', formData, 'json', fn);
+}
+
+function addNewContent(data) {
+	let dataCount = data.dataCount;
+	let pageNo = data.pageNo;
+	let total_page = data.total_page;
+	
+	if(pageNo>=total_page) {
+		$('.list-footer .more-btn').hide();
+	}
+	
+	$('.list-content').attr('data-pageNo', pageNo);
+	$('.list-content').attr('data-totalPage', total_page);
+
+	let htmlText='<div class="row item-list">';
+	for(let item of data.list) {
+		let num = item.num;
+		let region_Main = item.region_Main;
+		let region_Sub = item.region_Sub;
+		let contentId = item.contentId;
+		let contentType = item.contentType;
+		let name=item.name;
+		let thumbnail=item.thumbnail;
+		let main_Category=item.main_Category;
+		let middle_Category=item.middle_Category;
+		let sub_Category=item.sub_Category;
+		let tags=item.tags;
+		
+		htmlText+='	<div class="col card" onclick="article('+num+','+contentId+');">';
+		htmlText+='		<img src="'+thumbnail+'" class="card-img-top" alt="...">';
+		htmlText+='		<div class="card-body">';
+		htmlText+='			<p>'+name+'</p>';
+		htmlText+='			<p class="card-text">'+region_Main+' '+region_Sub+'</p><footer>';
+		tags.forEach((tag)=>{
+			htmlText+='			<span>#'+tag+'</span>';		
+		})
+		htmlText+='		</footer></div>';
+		htmlText+='	</div>';
+	}
+	htmlText+='</div><br>';
+	$(".list-content").append(htmlText);
+}
+
+function nextPopularList(data) {
+	let dataCount = data.dataCount;
+	let pageNo = data.pageNo;
+	let total_page = data.total_page;
+	
+	$('.list-content').attr('data-pageNo', pageNo);
+	$('.list-content').attr('data-totalPage', total_page);
+
+	let htmlText='<div class="row item-list">';
+	
+	for(let item of data.list) {
+		let num = item.num;
+		let region_Main = item.region_Main;
+		let region_Sub = item.region_Sub;
+		let contentId = item.contentId;
+		let contentType = item.contentType;
+		let name=item.name;
+		let thumbnail=item.thumbnail;
+		let main_Category=item.main_Category;
+		let middle_Category=item.middle_Category;
+		let sub_Category=item.sub_Category;
+		let tags=item.tags;
+		
+		htmlText+='	<div class="col card" onclick="article('+num+','+contentId+');">';
+		htmlText+='		<img src="'+thumbnail+'" class="card-img-top" alt="...">';
+		htmlText+='		<div class="card-body">';
+		htmlText+='			<p>'+name+'</p>';
+		htmlText+='			<p class="card-text">'+region_Main+' '+region_Sub+'</p><footer>';
+		tags.forEach((tag)=>{
+			htmlText+='			<span>#'+tag+'</span>';		
+		})
+		htmlText+='		</footer></div>';
+		htmlText+='	</div>';
+	}
+	htmlText+='</div><br>';
+	$(".list-content").append(htmlText);	
+}
+
+$(function(){
+	$('.listTypebtn1').click(function() {
+		$('.listTypebtn2').removeClass("active");
+		$('.list-content').html("");
+		listPage(1);
+	});
+	
+	$('.listTypebtn2').click(function() {
+		$('.listTypebtn1').removeClass("active");
+		$('.list-content').html("");
+		popularListPage(1);
+	});
+	
+	$('.list-footer .more-btn').click(function(){
+		let pageNo = $('.list-content').attr('data-pageNo');
+		let total_page = $('.list-content').attr('data-totalPage');
+		pageNo++;
+		
+		if($(".listTypebtn1").hasClass("active") === true) {
+			if(pageNo>=total_page) {
+				$('.list-footer .more-btn').hide();
+				listPage(pageNo);
+			} else {
+				listPage(pageNo);
+			}
+		} else if($(".listTypebtn2").hasClass("active") === true) {	
+			if(pageNo>=total_page) {
+				$('.list-footer .more-btn').hide();
+				popularListPage(pageNo);
+			} else {
+				popularListPage(pageNo);
+			}
+		}
+	});
+});
+
+function article(num, contentId) {
+	location.href="${pageContext.request.contextPath}/info/load?num="+num+"&contentId="+contentId;
+}
+</script>

@@ -13,4 +13,10 @@ public class CustomerManageController {
 		
 		return ".admin.customer.review";
 	}
+	
+	@GetMapping("question")
+	public String questionList() {
+		
+		return ".admin.customer.question";
+	}
 }

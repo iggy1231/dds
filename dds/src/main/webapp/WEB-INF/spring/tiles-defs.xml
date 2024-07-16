@@ -16,6 +16,7 @@
 	<definition name=".adminLayout" template="/WEB-INF/views/admin/layout/layout2.jsp">
 	    <put-attribute name="title" value="두둥실 admin" />
 	  	<put-attribute name="left" value="/WEB-INF/views/admin/layout/left.jsp" />
+	  	<put-attribute name="top" value="/WEB-INF/views/admin/layout/top.jsp" />
 		<put-attribute name="body" value="/WEB-INF/views/admin/main/main.jsp" />
 	</definition>
 	<definition name=".admin.*.*.*" extends=".adminLayout">

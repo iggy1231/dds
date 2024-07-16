@@ -43,6 +43,7 @@
 
     <!-- Vendors CSS -->
     <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/admin/vendor/libs/perfect-scrollbar/perfect-scrollbar.css" />
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/admin/vendor/libs/datatables-bs5/datatables-bootstrap5.css"/>
     <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/admin/vendor/libs/apex-charts/apex-charts.css" />
 
     <!-- Helpers -->
@@ -54,13 +55,17 @@
 
 <body>
 
-<header>
-    <tiles:insertAttribute name="left"/>
-</header>
-
-<main>
-	<tiles:insertAttribute name="body"/>
-</main>    
+	<div class="layout-wrapper layout-content-navbar">
+		<div class="layout-container">
+				<tiles:insertAttribute name="left"/>
+			<div class="layout-page">
+				<tiles:insertAttribute name="top"/>
+				<tiles:insertAttribute name="body"/>
+			</div>
+		</div>
+		
+	
+	</div> 
 
 <div id="loadingLayout" style="display:none; position: absolute; left: 0; top:0; width: 100%; height: 100%; z-index: 9000; background: #eee;">
     <div class="loader"></div>
