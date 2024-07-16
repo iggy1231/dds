@@ -156,7 +156,7 @@
 						<td class="table-light col-sm-2">썸네일 이미지</td>
 						<td>
 							<div class="thumbnail-viewer"></div>
-							<input type="file" name="thumbnailFile" accept="image/*" class="form-control" style="display: none;">
+							<input type="file" name="thumbnailFile" accept="image/*" class="form-control">
 						</td>
 					</tr>
 					
@@ -206,6 +206,46 @@
 	</div>
 </div>
 </div>
+
+<script type="text/javascript">
+function login() {
+	location.href = '${pageContext.request.contextPath}/member/login';
+}
+
+function ajaxFun(url, method, formData, dataType, fn, file = false) {
+	const settings = {
+			type: method, 
+			data: formData,
+			dataType:dataType,
+			success:function(data) {
+				fn(data);
+			},
+			beforeSend: function(jqXHR) {
+				jqXHR.setRequestHeader('AJAX', true);
+			},
+			complete: function () {
+			},
+			error: function(jqXHR) {
+				if(jqXHR.status === 403) {
+					login();
+					return false;
+				} else if(jqXHR.status === 400) {
+					alert('요청 처리가 실패 했습니다.');
+					return false;
+		    	}
+		    	
+				console.log(jqXHR.responseText);
+			}
+	};
+	
+	if(file) {
+		settings.processData = false;  // file 전송시 필수. 서버로전송할 데이터를 쿼리문자열로 변환여부
+		settings.contentType = false;  // file 전송시 필수. 서버에전송할 데이터의 Content-Type. 기본:application/x-www-urlencoded
+	}
+	
+	$.ajax(url, settings);
+}
+</script>
 
 <script type="text/javascript">
 let optionCount = 1; // 옵션 번호를 추적하는 변수

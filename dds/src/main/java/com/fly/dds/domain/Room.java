@@ -10,7 +10,7 @@ public class Room {
 	private int post_num;
 	private String addr1;
 	private String addr2;
-	private String thumbnamil;
+	private String thumbnail;
 	private int active;
 	private long photo_num;
 	private String photo;
@@ -73,11 +73,11 @@ public class Room {
 	public void setAddr2(String addr2) {
 		this.addr2 = addr2;
 	}
-	public String getThumbnamil() {
-		return thumbnamil;
+	public String getthumbnail() {
+		return thumbnail;
 	}
-	public void setThumbnamil(String thumbnamil) {
-		this.thumbnamil = thumbnamil;
+	public void setthumbnail(String thumbnail) {
+		this.thumbnail = thumbnail;
 	}
 	public int getActive() {
 		return active;
@@ -187,6 +187,7 @@ public class Room {
 	public void setPoint(int point) {
 		this.point = point;
 	}
+	
 	private long facility_num;
 	private String facility_content;
 	private long detail_num;
