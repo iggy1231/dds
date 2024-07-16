@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.fly.dds.domain.SessionInfo;
 import com.fly.dds.domain.TravelReview;
@@ -140,11 +141,17 @@ public class TravelReviewController {
         
         // 댓글 목록 가져오기
         List<TravelReviewReply> replies = replyService.listReplies(num);
+        if(replies==null) {
+        	return ".travelreview.list";
+        }
+        
+        int likeCount=reviewService.likeCount(num);
         
         model.addAttribute("dto", dto);
         model.addAttribute("page", page);
         model.addAttribute("query", query);
         model.addAttribute("replies", replies); // 댓글 목록 추가
+        model.addAttribute("likeCount", likeCount);
         
         return ".travelreview.article";
     }
@@ -240,7 +247,6 @@ public class TravelReviewController {
     public String insertReply(TravelReviewReply reply,
     		@RequestParam String page,
             HttpSession session) {
-    	System.out.println();
         SessionInfo info = (SessionInfo) session.getAttribute("member");
         
         try {
@@ -270,5 +276,56 @@ public class TravelReviewController {
         }
 
         return "redirect:/travelreview/article?num=" + reply.getNum();
+    }
+    
+    @GetMapping("deleteReply")
+    public String deleteReply(@RequestParam long replyNum,
+    		@RequestParam long num,
+    		@RequestParam String page) {
+
+        try {
+            // 사용자가 이 댓글을 삭제할 권한이 있는지 확인하는 로직을 구현할 수 있습니다.
+
+            // 서비스 메소드를 호출하여 댓글을 삭제합니다.
+        	replyService.deleteReply(replyNum);
+
+
+        } catch (Exception e) {
+            e.printStackTrace(); // 디버깅을 위해 예외를 출력합니다.
+        }
+
+        // 해당하는 게시글 페이지로 리다이렉트하며 필요한 파라미터를 함께 전달합니다.
+        return "redirect:/travelreview/article?num="+num+"&page="+page;
+    }
+    
+    @ResponseBody
+    @PostMapping("TravelReview_Like")
+    public Map<String, Object> TravelReview_Like(@RequestParam long num,
+    		HttpSession session) {
+    	SessionInfo info = (SessionInfo) session.getAttribute("member");
+    	Map<String, Object> map=new HashMap<String, Object>();
+    	Map<String, Object> model=new HashMap<String, Object>();
+    	String state="false";
+    	int likeCount=reviewService.likeCount(num);
+    	
+    	try {
+    		map.put("num", num);
+    		map.put("user_num", info.getUser_num());
+    		
+    		if(! reviewService.isBoardLike(map)) {
+    			state="liked";
+    			model.put("state", state);
+    	    	model.put("likeCount", likeCount);
+    		} else {
+    			reviewService.TravelReview_Like(map);
+        		state="true";
+        		likeCount=reviewService.likeCount(num);
+        		model.put("state", state);
+            	model.put("likeCount", likeCount);
+    		}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return model;
     }
 }

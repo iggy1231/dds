@@ -63,4 +63,16 @@
 	<delete id="deleteReview" parameterType="Long">
 		DELETE FROM travelreview WHERE num = #{num}
 	</delete>
+	
+	<insert id="TravelReview_Like" parameterType="map">
+		INSERT INTO TravelReview_Like(num, user_num) VALUES (#{num}, #{user_num})
+	</insert>
+	
+	<select id="likeCount" parameterType="Long" resultType="Integer">
+		select COUNT(*) from travelreview_like where num=#{num}
+	</select>
+	
+	<select id="isBoardLike" parameterType="map" resultType="Integer">
+		 select count(*) from travelreview_like where num=#{num} and user_num=#{user_num}
+	</select>
 </mapper>

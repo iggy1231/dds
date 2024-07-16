@@ -82,6 +82,7 @@
 
         .action-buttons {
             display: flex;
+            align-items: center; /* 세로 중앙 정렬을 위해 추가 */
         }
 
         .action-buttons a {
@@ -97,6 +98,25 @@
             text-decoration: none;
             transition: background-color 0.3s, box-shadow 0.3s;
         }
+        
+        .like-button{
+        	display: inline-block;
+            padding: 12px 20px;
+            margin-left: 10px;
+            border: none;
+            border-radius: 25px;
+            background-color: #F0586A;
+            color: white;
+            font-size: 16px;
+            cursor: pointer;
+            text-decoration: none;
+            transition: background-color 0.3s, box-shadow 0.3s;
+        }
+        
+        .like-button:hover{
+        	background-color: #F0586A;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        }
 
         .action-buttons a:hover {
             background-color: #0d6efd;
@@ -104,16 +124,18 @@
         }
 
         .comment-section {
+            margin: 0 auto;
             margin-top: 30px;
             padding: 20px;
             background: #ffffff;
             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
             border-radius: 10px;
+            max-width: 600px; /* 댓글 작성 폼의 최대 너비를 지정 */
         }
 
         .comment-section h2 {
-            font-size: 24px;
-            margin-bottom: 15px;
+            font-size: 20px;
+            margin-bottom: 10px;
             border-bottom: 2px solid #18A8F1;
             padding-bottom: 5px;
         }
@@ -135,15 +157,14 @@
         }
 
         .comment-form textarea {
-            width: calc(100% - 20px);
-            padding: 8px;
-            margin-top: 5px;
+            width: 100%;
+            padding: 6px;
             border: 1px solid #ccc;
             border-radius: 4px;
             box-sizing: border-box;
             resize: vertical;
-            font-size: 14px;
-            line-height: 1.6;
+            font-size: 12px;
+            line-height: 1.4;
         }
 
         .comment-form input[type="submit"] {
@@ -151,8 +172,9 @@
             color: white;
             border: none;
             border-radius: 5px;
-            padding: 10px 20px;
+            padding: 8px 16px;
             cursor: pointer;
+            font-size: 14px;
             transition: background-color 0.3s, box-shadow 0.3s;
         }
 
@@ -201,10 +223,52 @@
         .back-link:hover {
             text-decoration: underline;
         }
+
+        .comment-buttons {
+            margin-top: 10px;
+        }
+
+        .comment-buttons button {
+            background-color: #18A8F1;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            padding: 5px 10px;
+            cursor: pointer;
+            font-size: 12px;
+            margin-right: 5px;
+            transition: background-color 0.3s, box-shadow 0.3s;
+        }
+
+        .comment-buttons .delete-button {
+            background-color: #f44336; /* 삭제 버튼의 배경색 (빨간색) */
+        }
+
+        .comment-buttons .delete-button:hover {
+            background-color: #d32f2f; /* 삭제 버튼의 호버 시 배경색 */
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        }
+
+        .comment-buttons .report-button {
+            background-color: #ff9800; /* 신고 버튼의 배경색 (주황색) */
+        }
+
+        .comment-buttons .report-button:hover {
+            background-color: #fb8c00; /* 신고 버튼의 호버 시 배경색 */
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        }
+
     </style>
     <script type="text/javascript">
+        function deleteReply(replyNum,num,page) {
+            if(! confirm("댓글을 삭제하시겠습니까?")) {
+                return;
+            }
+            window.location.href = "${pageContext.request.contextPath}/travelreview/deleteReply?replyNum="+replyNum+"&num="+num+"&page="+page;
+        }
+
         function confirmDelete() {
-            if (confirm("정말로 삭제하시겠습니까?")) {
+            if (confirm("게시글 을 삭제하시겠습니까?")) {
                 window.location.href = "${pageContext.request.contextPath}/travelreview/delete?num=${dto.num}&page=${page}";
             }
         }
@@ -216,6 +280,62 @@
                 return false;
             }
             return true;
+        }
+        
+        function TravelReview_Like() {
+        	if(! confirm("플러팅 하시겠습니까?")){
+        		return;
+        	}
+        	
+    		let url = "${pageContext.request.contextPath}/travelreview/TravelReview_Like";
+    		let query = "num=${dto.num}";
+    		
+    		const fn = function(data) {
+    			console.log(data);
+    			let state = data.state;
+    			if(state === "true") {
+    				let count = data.likeCount;
+    				$("#boardLikeCount").text(count);
+    			} else if(state === "liked") {
+    				alert("플러팅은 한번만 가능합니다.");
+    			}
+    		};
+    		
+    		ajaxFun(url, "post", query, "json", fn);
+    	}
+        
+        function ajaxFun(url, method, formData, dataType, fn, file = false) {
+        	const settings = {
+        			type: method, 
+        			data: formData,
+        			dataType:dataType,
+        			success:function(data) {
+        				fn(data);
+        			},
+        			beforeSend: function(jqXHR) {
+        				jqXHR.setRequestHeader('AJAX', true);
+        			},
+        			complete: function () {
+        			},
+        			error: function(jqXHR) {
+        				if(jqXHR.status === 403) {
+        					login();
+        					return false;
+        				} else if(jqXHR.status === 400) {
+        					alert('요청 처리가 실패 했습니다.');
+        					return false;
+        		    	}
+        		    	
+        				console.log(jqXHR.responseText);
+        			}
+        	};
+        	
+        	if(file) {
+        		settings.processData = false;  // file 전송시 필수. 서버로전송할 데이터를 쿼리문자열로 변환여부
+        		settings.contentType = false;  // file 전송시 필수. 서버에전송할 데이터의 Content-Type. 기본:application/x-www-urlencoded
+        	}
+        	
+        	$.ajax(url, settings);
         }
     </script>
 </head>
@@ -235,6 +355,9 @@
 
         <div class="action-buttons-container">
             <a href="${pageContext.request.contextPath}/travelreview/list" class="back-button">목록으로 돌아가기</a>
+            <button class="like-button" onclick="TravelReview_Like()">
+            <i class="bi bi-heart-fill">&nbsp;<span id="boardLikeCount">${likeCount}
+            </span>&nbsp;</i></button>
             <div class="action-buttons">
                 <a href="${pageContext.request.contextPath}/travelreview/update?num=${dto.num}&page=${page}" class="edit-button">수정</a>
                 <a href="#" onclick="confirmDelete()" class="delete-button">삭제</a>
@@ -259,7 +382,7 @@
                     </tr>
                     <tr>
                         <td colspan="2">
-                            <textarea name="content" rows="5" placeholder="댓글을 입력해주세요." required></textarea>
+                            <textarea name="content" rows="3" placeholder="댓글을 입력해주세요." required></textarea>
                         </td>
                     </tr>
                     <tr>
@@ -272,10 +395,14 @@
         </div>
 
         <div class="comment-list">
-            <c:forEach var="comment" items="${comments}">
+            <c:forEach var="comment" items="${replies}">
                 <div class="comment">
-                    <div class="comment-header">작성자: ${comment.nickname}</div>
+                    <div class="comment-header">작성자: ${comment.nickName}</div>
                     <div class="comment-content">${comment.content}</div>
+                    <div class="comment-buttons">
+                        <button class="delete-button" onclick="deleteReply('${comment.replyNum}','${dto.num}','${page}');">삭제</button>
+                        <button class="report-button">신고</button>
+                    </div>
                 </div>
             </c:forEach>
         </div>

@@ -41,5 +41,15 @@ public class TravelReviewReplyServiceImpl implements TravelReviewReplyService {
         }
     }
 
-    // 필요한 추가적인 메서드 구현
+	@Override
+	public void deleteReply(long replyNum) {
+		try {
+			
+			mapper.deleteReply(replyNum);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+	}
+	
 }
