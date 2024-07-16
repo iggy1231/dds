@@ -55,7 +55,7 @@ function ajaxFun(url, method, formData, dataType, fn, file = false) {
 
 $(function(){
 	let spec = "http://apis.data.go.kr/B551011/KorService1/detailCommon1";
-	let serviceKey = "공공데이터포털api키";
+	let serviceKey = "###";
 	let numOfRows = 10;
 	let pageNo = 1;
 	let _type = "JSON";
