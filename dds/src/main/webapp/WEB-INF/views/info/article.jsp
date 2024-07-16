@@ -122,10 +122,27 @@ p {
 				<tbody class="reply-list"></tbody>
 				
 			</table>			
-		</div>		
+		</div>
+		<!-- Modal -->
+		<div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+		  <div class="modal-dialog">
+		    <div class="modal-content">
+		      <div class="modal-header">
+		        <h1 class="modal-title fs-5" id="staticBackdropLabel"></h1>
+		        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+		      </div>
+		      <div class="modal-body">
+		      </div>
+		      <div class="modal-footer">
+		        <button type="submit" class="btn btn-secondary" data-bs-dismiss="modal">취소</button>
+		        <button type="submit" class="btn btn-primary" data-bs-dismiss="modal">확인</button>
+		      </div>
+		    </div>
+		  </div>
+		</div>
 	</div>
 </div>
-<script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=63f9640ae647d0bba0630ea1ce2eb859"></script>
+<script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=카카오api키"></script>
 <script type="text/javascript">
 	//지도를 표시할 div와  지도 옵션으로  지도를 생성합니다
 	var mapContainer = document.getElementById('map');
@@ -322,14 +339,14 @@ function listPage(page) {
 				out+='<td><button class="btn btn-outline-secondary" onclick="replyDelete('+item.reply_num+');">';
 				out+='<i class="bi bi-trash"></i></button>';
 			} else {
-				out+='<td><button class="btn btn-outline-secondary" onclick="replyReport('+item.user_num+','+item.reply_num+');">';
+				out+='<td><button class="btn btn-outline-secondary" data-bs-toggle="modal" onclick="replyReport('+item.user_num+','+item.reply_num+');">';
 				out+='<i class="bi bi-exclamation-octagon"></i></button>';
 			}
 			
 			out+='</td></tr>';
 			
 		}
-		out+='<tr><td><button class="btn btn-outline-secondary">더보기</button></td></tr>';
+		out+='<tr><td colspan="5" class="page-navigation">'+obj.paging+'</td></tr>';
 		document.querySelector('.reply-list').innerHTML=out;
 	}
 	
@@ -339,7 +356,7 @@ $(function(){
 		listPage(1);
 		
 		let spec = "http://apis.data.go.kr/B551011/KorService1/detailImage1";
-		let serviceKey = "OXILAyifZ60FGrDoEDdcW8SLgmOUo3D%2FD%2FcndXOLSg%2B3Ig6CJbBNtpu%2BeL9LxLlFgIdpxOUhAkV3GWuZJ9rvdg%3D%3D";
+		let serviceKey = "공공데이터포털api키";
 		let numOfRows = 5;
 		let pageNo = 1;
 		let _type = "JSON";

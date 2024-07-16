@@ -90,6 +90,8 @@ $(function(){
 });
 
 function listPage(page) {
+	$('.listTypebtn1').addClass("active");
+	
 	let url='${pageContext.request.contextPath}/info/searchList';
 	let formData="schType=${schType}&kwd=${kwd}&dataCount=${dataCount}&pageNo="+page;
 	const fn=function(data) {
@@ -99,6 +101,8 @@ function listPage(page) {
 }
 
 function popularListPage(page) {
+	$('.listTypebtn2').addClass("active");
+	
 	let url='${pageContext.request.contextPath}/info/searchPopularList';
 	let formData="schType=${schType}&kwd=${kwd}&dataCount=${dataCount}&pageNo="+page;
 	
@@ -121,29 +125,35 @@ function addNewContent(data) {
 	$('.list-content').attr('data-totalPage', total_page);
 
 	let htmlText='<div class="row item-list">';
-	for(let item of data.list) {
-		let num = item.num;
-		let region_Main = item.region_Main;
-		let region_Sub = item.region_Sub;
-		let contentId = item.contentId;
-		let contentType = item.contentType;
-		let name=item.name;
-		let thumbnail=item.thumbnail;
-		let main_Category=item.main_Category;
-		let middle_Category=item.middle_Category;
-		let sub_Category=item.sub_Category;
-		let tags=item.tags;
+	for(let index=0;index<data.list.length;index++) {
+		if(index%4==0&&index>0) {
+			htmlText+='</div><br>';
+			htmlText+='<div class="row item-list">';
+		}
+		let num = data.list[index].num;
+		let region_Main = data.list[index].region_Main;
+		let region_Sub = data.list[index].region_Sub;
+		let contentId = data.list[index].contentId;
+		let contentType = data.list[index].contentType;
+		let name=data.list[index].name;
+		let thumbnail=data.list[index].thumbnail;
+		let main_Category=data.list[index].main_Category;
+		let middle_Category=data.list[index].middle_Category;
+		let sub_Category=data.list[index].sub_Category;
+		let tags=data.list[index].tags;
 		
-		htmlText+='	<div class="col card" onclick="article('+num+','+contentId+');">';
+		htmlText+='<div class="col">';
+		htmlText+='	<span class="card" onclick="article('+num+','+contentId+');">';
 		htmlText+='		<img src="'+thumbnail+'" class="card-img-top" alt="...">';
-		htmlText+='		<div class="card-body">';
+		htmlText+='		<span class="card-body">';
 		htmlText+='			<p>'+name+'</p>';
 		htmlText+='			<p class="card-text">'+region_Main+' '+region_Sub+'</p><footer>';
 		tags.forEach((tag)=>{
 			htmlText+='			<span>#'+tag+'</span>';		
 		})
-		htmlText+='		</footer></div>';
-		htmlText+='	</div>';
+		htmlText+='		</footer></span>';
+		htmlText+='	</span>';
+		htmlText+='</div>';
 	}
 	htmlText+='</div><br>';
 	$(".list-content").append(htmlText);
@@ -159,29 +169,35 @@ function nextPopularList(data) {
 
 	let htmlText='<div class="row item-list">';
 	
-	for(let item of data.list) {
-		let num = item.num;
-		let region_Main = item.region_Main;
-		let region_Sub = item.region_Sub;
-		let contentId = item.contentId;
-		let contentType = item.contentType;
-		let name=item.name;
-		let thumbnail=item.thumbnail;
-		let main_Category=item.main_Category;
-		let middle_Category=item.middle_Category;
-		let sub_Category=item.sub_Category;
-		let tags=item.tags;
+	for(let index=0;index<data.list.length;index++) {
+		if(index%4==0&&index>0) {
+			htmlText+='</div><br>';
+			htmlText+='<div class="row item-list">';
+		}
+		let num = data.list[index].num;
+		let region_Main = data.list[index].region_Main;
+		let region_Sub = data.list[index].region_Sub;
+		let contentId = data.list[index].contentId;
+		let contentType = data.list[index].contentType;
+		let name=data.list[index].name;
+		let thumbnail=data.list[index].thumbnail;
+		let main_Category=data.list[index].main_Category;
+		let middle_Category=data.list[index].middle_Category;
+		let sub_Category=data.list[index].sub_Category;
+		let tags=data.list[index].tags;
 		
-		htmlText+='	<div class="col card" onclick="article('+num+','+contentId+');">';
+		htmlText+='<div class="col">';
+		htmlText+='	<span class="card" onclick="article('+num+','+contentId+');">';
 		htmlText+='		<img src="'+thumbnail+'" class="card-img-top" alt="...">';
-		htmlText+='		<div class="card-body">';
+		htmlText+='		<span class="card-body">';
 		htmlText+='			<p>'+name+'</p>';
 		htmlText+='			<p class="card-text">'+region_Main+' '+region_Sub+'</p><footer>';
 		tags.forEach((tag)=>{
 			htmlText+='			<span>#'+tag+'</span>';		
 		})
-		htmlText+='		</footer></div>';
-		htmlText+='	</div>';
+		htmlText+='		</footer></span>';
+		htmlText+='	</span>';
+		htmlText+='</div>';
 	}
 	htmlText+='</div><br>';
 	$(".list-content").append(htmlText);	

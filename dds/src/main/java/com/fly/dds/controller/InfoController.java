@@ -34,6 +34,10 @@ public class InfoController {
 	
 	@GetMapping("list")
 	public String list(Model model) {
+		Map<String, Object> map=new HashMap<String, Object>();
+		int dataCount=service.dataCount(map);
+		
+		model.addAttribute("dataCount", dataCount);
 		return ".info.list";
 	}
 	
@@ -41,7 +45,7 @@ public class InfoController {
 	@GetMapping("infoList")
 	public Map<String, Object> infoList(@RequestParam(value = "pageNo", defaultValue = "1") int current_page) throws Exception {
 		Map<String, Object> map=new HashMap<String, Object>();
-		int size=4;
+		int size=12;
 		int dataCount=service.dataCount(map);
 		int total_page=myUtil.pageCount(dataCount, size);
 		if(current_page>total_page) {
@@ -102,7 +106,7 @@ public class InfoController {
 		Map<String, Object> map=new HashMap<String, Object>();
 		map.put("schType", schType);
 		map.put("kwd",  kwd);
-		int size=4;
+		int size=12;
 		int total_page=myUtil.pageCount(dataCount, size);
 		if(current_page>total_page) {
 			current_page=total_page;
@@ -143,7 +147,7 @@ public class InfoController {
 			@RequestParam(defaultValue = "name") String schType,
 			@RequestParam(defaultValue = "") String kwd) throws Exception {
 		
-		int size=4;
+		int size=12;
 		int total_page=myUtil.pageCount(dataCount, size);
 		if(current_page>total_page) {
 			current_page=total_page;
@@ -160,7 +164,7 @@ public class InfoController {
 		map.put("offset", offset);
 		map.put("size", size);
 			
-		List<Info> list=service.popularListInfo(map);
+		List<Info> list=service.popularListallInfo(map);
 		for(Info dto:list) {
 			Set<String> set=new HashSet<String>();
 				
@@ -348,10 +352,13 @@ public class InfoController {
 			dto.setLikeCount(service.replyLikeCount(dto.getReply_num()));
 		}
 		
+		String paging=myUtil.pagingMethod(current_page, total_page, "listPage");
+		
 		model.put("dataCount", dataCount);
 		model.put("total_page", total_page);
 		model.put("pageNo", current_page);
 		model.put("list", list);
+		model.put("paging", paging);
 		
 		return model;
 	}
@@ -391,10 +398,10 @@ public class InfoController {
 	}
 	
 	@ResponseBody
-	@GetMapping("popularInfoList")
-	public Map<String, Object> popularInfoList(@RequestParam(value = "pageNo", defaultValue = "1") int current_page) throws Exception {
+	@GetMapping("popularInfoListall")
+	public Map<String, Object> popularInfoListall(@RequestParam(value = "pageNo", defaultValue = "1") int current_page) throws Exception {
 		Map<String, Object> map=new HashMap<String, Object>();
-		int size=4;
+		int size=12;
 		int dataCount=service.dataCount(map);
 		int total_page=myUtil.pageCount(dataCount, size);
 		if(current_page>total_page) {
@@ -409,7 +416,7 @@ public class InfoController {
 		map.put("offset", offset);
 		map.put("size", size);
 		
-		List<Info> list=service.popularListInfo(map);
+		List<Info> list=service.popularListallInfo(map);
 		for(Info dto:list) {
 			Set<String> set=new HashSet<String>();
 			
@@ -475,4 +482,42 @@ public class InfoController {
 		return model;
 	}
 	
+	@ResponseBody
+	@GetMapping("popularInfoList")
+	public Map<String, Object> popularInfoList(@RequestParam(value = "pageNo", defaultValue = "1") int current_page) throws Exception {
+		Map<String, Object> map=new HashMap<String, Object>();
+		int size=3;
+		int dataCount=service.countPopularData();
+		int total_page=myUtil.pageCount(dataCount, size);
+		if(current_page>total_page) {
+			current_page=total_page;
+		}
+		
+		int offset=(current_page-1)*size;
+		if(offset<0) {
+			offset=0;
+		}
+		
+		map.put("offset", offset);
+		map.put("size", size);
+		
+		List<Info> list=service.popularListInfo(map);
+		for(Info dto:list) {
+			Set<String> set=new HashSet<String>();
+			
+			set.add(dto.getContentType());
+			set.add(dto.getMain_Category());
+			set.add(dto.getMiddle_Category());
+			set.add(dto.getSub_Category());
+			
+			dto.setTags(set);
+		}
+		Map<String, Object> model=new HashMap<String, Object>();
+		model.put("dataCount", dataCount);
+		model.put("total_page", total_page);
+		model.put("pageNo", current_page);
+		model.put("list", list);
+		
+		return model;
+	}
 }
