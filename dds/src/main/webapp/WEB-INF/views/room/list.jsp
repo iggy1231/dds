@@ -1,11 +1,8 @@
 <%@ page contentType="text/html; charset=UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
-<!DOCTYPE html>
-<html>
-<head>
+
 <meta charset="UTF-8">
-<title>Insert title here</title>
 <link rel="icon" href="data:;base64,iVBORw0KGgo=">
 
 <style>
@@ -67,8 +64,7 @@ hr {
 
 
 </style>
-</head>
-<body>
+
 
  <!-- 숙소 Start-->
 <div class="container px-2 py-5">
@@ -79,14 +75,14 @@ hr {
                                 <div class="d-flex justify-content-between align-items-center mb-4">
                     <div class="search-bar d-flex align-items-center">
                         <i class="pl-2 bi bi-search"></i>
-                        <h5 class="text-gray" style="font-weight: 600;">순천</h5>
+                        <h5 class="text-gray" style="font-weight: 600;">${kwd}</h5>
                         <span>|</span>
                         <h5 class="p-1" style="font-weight: 600;">07.19 ~ 07.21</h5>
                         <span>|</span>
                         <h5 class="p-1" style="font-weight: 600;">인원 2</h5>        
                     </div>
                     <div class="text-start">
-                    	<h2 class="text-start mt-0 pb-1 bold">순천 숙소 '999'개</h2>
+                    	<h2 class="text-start mt-0 pb-1 bold">${kwd} 숙소 '${dataCount}'개</h2>
                     </div>
                     <div class="sort ps-3 py-3 rounded d-flex justify-content-between" style="background-color: #F2F2F2;">
                         <select id="sort" name="sortlist" class="border-0 form-select-sm me-3" style="background-color: #F2F2F2;" form="fruitform">
@@ -201,63 +197,31 @@ hr {
 
 <!-- 각 숙소 정보 -->                                
 <div class="col-lg-8 mt-0">
-    <div class="row justify-content-center">
-        <div class="col-md-12">
-            <div class="d-flex pt-1 p-3">
-                <div class="ratio ratio-4x3" style="width:530px; height: 200px;">
-                    <img src="https://cdn.imweb.me/thumbnail/20220827/2572710192af0.png" class="img-fluid rounded" alt="숙소 이미지">
-                </div>
-                <div class="d-flex flex-column justify-content-between w-100 pl-5">
-                    <div class="p-3">
-                        <h5 class="mb-2  fw-semibold">펜션</h5>
-                        <h4 class="mb-2 fw-semibold">신라스테이 순천</h4>
-                        <h5 class="mb-2 text-muted  fw-semibold">전라남도 순천시 OO로</h5>
-                        <div class="d-flex align-items-center mb-2">
-                            <h5 class="p-2 text-white rounded border-primary mr-2" style="background-color: #18A8F1;  font-size: 0.875rem;">★ 9.6</h5>
-                            <h6 class="px-3 text-muted">1,209명 평가</h6>
+    <c:forEach var="dto" items="${list}">
+        <div class="row justify-content-center">
+            <div class="col-md-12">
+                <div class="d-flex pt-1 p-3">
+                    <div class="ratio ratio-4x3" style="width:530px; height: 200px;">
+                        <img src="https://i.namu.wiki/i/SQLwKua_xTO96XEaWDnHv4dt4ESeqQb5a7u3BTQUSOwvAoLFUP34ACl15C-spwbFbPt_rN47Dk95YZzeb0tRlg.webp" class="img-fluid rounded" alt="숙소 이미지">
+                    </div>
+                    <div class="d-flex flex-column justify-content-between w-100 pl-5">
+                        <div class="p-3">
+                            <h5 class="mb-2 fw-semibold">${dto.room_type}</h5>
+                            <h4 class="mb-2 fw-semibold">${dto.subject}</h4>
+                            <h5 class="mb-2 text-muted fw-semibold">${dto.addr1} , ${dto.addr2}</h5>
+                            <div class="d-flex align-items-center mb-2">
+                                <h5 class="p-2 text-white rounded border-primary mr-2" style="background-color: #18A8F1; font-size: 0.875rem;">★ 10.0</h5>
+                                <h6 class="px-3 text-muted">5조5억명 평가</h6>
+                            </div>
+                            <h4 class="text-end mb-0">할인가 <strong class="text-primary">123456789원 /박</strong></h4>
                         </div>
-                        <h4 class="text-end mb-0">할인가 <strong class="text-primary">100,324원 /박</strong></h4>
                     </div>
                 </div>
+                <hr>
             </div>
-            <hr>
-            <div class="d-flex p-3">
-                <div class="ratio ratio-4x3" style="width:530px; height: 200px;">
-                    <img src="https://img1.daumcdn.net/thumb/R1280x0.fjpg/?fname=http://t1.daumcdn.net/brunch/service/user/1jPF/image/hWY6asRZFvbX9lJn4S5Jh3zn6Jo.jpeg" class="img-fluid rounded" alt="숙소 이미지">
-                </div>
-                <div class="d-flex flex-column justify-content-between w-100 pl-5">
-                    <div class="p-3">
-                        <h5 class="mb-2  fw-semibold">펜션</h5>
-                        <h4 class="mb-2  fw-semibold">신라스테이 순천</h4>
-                        <h5 class="mb-2 text-muted  fw-semibold">전라남도 순천시 OO로</h5>
-                        <div class="d-flex align-items-center mb-2">
-                            <h5 class="p-2 text-white rounded border-primary mr-2" style="background-color: #18A8F1;  font-size: 0.875rem;">★ 9.6</h5>
-                            <h6 class="px-3 text-muted">1,209명 평가</h6>
-                        </div>
-                        <h4 class="text-end mb-0">할인가 <strong class="text-primary">100,324원 /박</strong></h4>
-                    </div>
-                </div>
-            </div>
-            <hr>
-            <div class="d-flex p-3">
-                <div class="ratio ratio-4x3" style="width:530px; height: 200px;">
-                    <img src="https://cdn.imweb.me/thumbnail/20220827/2572710192af0.png" class="img-fluid rounded" alt="숙소 이미지">
-                </div>
-                <div class="d-flex flex-column justify-content-between w-100 pl-5">
-                    <div class="p-3">
-                        <h5 class="mb-2 fw-semibold">펜션</h5>
-                        <h4 class="mb-2 fw-semibold">신라스테이 순천</h4>
-                        <h5 class="mb-2 text-muted fw-semibold">전라남도 순천시 OO로</h5>
-                        <div class="d-flex align-items-center mb-2">
-                            <h5 class="p-2 text-white rounded border-primary mr-2" style="background-color: #18A8F1;  font-size: 0.875rem;">★ 9.6</h5>
-                            <h6 class="px-3 text-muted">1,209명 평가</h6> 
-                        </div>
-                        <h4 class="text-end mb-0">할인가 <strong class="text-primary">100,324원 /박</strong></h4>
-                    </div>
-                </div>
-            </div>
-            <hr>
         </div>
+    </c:forEach>
+</div>
         <!-- 더 많은 숙소 항목 추가 -->
         
         
@@ -273,5 +237,4 @@ hr {
 </div>
 
 
-</body>
-</html>
+

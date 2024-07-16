@@ -170,19 +170,19 @@
         </ul>
         <div class="tab-content mt-3" id="myTabContent">
            <div class="container mt-5">
-    <form class="d-flex" >
+    <form class="d-flex" action="${pageContext.request.contextPath}/room/search" >
         <div class="input-group">
             <span class="input-group-text"><i class="bi bi-search"></i></span>
-            <input type="text" class="form-control" placeholder="여행지나 숙소를 검색해보세요">
+            <input name="kwd" type="text" class="form-control" placeholder="여행지나 숙소를 검색해보세요">
         </div>
         <div class="input-group mx-2">
             <span class="input-group-text"><i class="bi bi-calendar"></i></span>
-            <input type="text" id="startDate" class="form-control" placeholder="시작 날짜">
-            <input type="text" id="endDate" class="form-control" placeholder="종료 날짜">
+            <input name = "sdate" type="text" id="startDate" class="form-control" placeholder="시작 날짜">
+            <input name = "edate" type="text" id="endDate" class="form-control" placeholder="종료 날짜">
         </div>
         <div class="input-group">
             <span class="input-group-text"><i class="bi bi-people"></i></span>
-            <input type="text" class="form-control" placeholder="인원 입력">
+            <input name = "people" type="text" class="form-control" placeholder="인원 입력">
         </div>
         <button type="submit" class="btn btn-primary ms-2">검색</button>
     </form>
@@ -222,7 +222,7 @@
                       <div class="gallery-content">
                         <div class="gallery-info">
                           <h5 class="text-white text-uppercase mb-2">전라북도 익산</h5>
-                          <a href="${pageContext.request.contextPath}/room/list?subject=익산" class="btn-hover text-white"> 숙소 보러가기! <i class="fa fa-arrow-right ms-2"></i></a>
+                          <a href="${pageContext.request.contextPath}/room/list?kwd=익산" class="btn-hover text-white"> 숙소 보러가기! <i class="fa fa-arrow-right ms-2"></i></a>
                         </div>
                       </div>
                       <div class="gallery-plus-icon">
@@ -236,7 +236,7 @@
                       <div class="gallery-content">
                         <div class="gallery-info">
                           <h5 class="text-white text-uppercase mb-2">전라남도 순천</h5>
-                          <a href="${pageContext.request.contextPath}/room/list?subject=순천" class="btn-hover text-white">숙소 보러가기! <i class="fa fa-arrow-right ms-2"></i></a>
+                          <a href="${pageContext.request.contextPath}/room/list?kwd=순천" class="btn-hover text-white">숙소 보러가기! <i class="fa fa-arrow-right ms-2"></i></a>
                         </div>
                       </div>
                       <div class="gallery-plus-icon">
@@ -250,7 +250,7 @@
                       <div class="gallery-content">
                         <div class="gallery-info">
                           <h5 class="text-white text-uppercase mb-2">서울 남산</h5>
-                          <a href="${pageContext.request.contextPath}/room/list?subject=남산" class="btn-hover text-white">숙소 보러가기! <i class="fa fa-arrow-right ms-2"></i></a>
+                          <a href="${pageContext.request.contextPath}/room/list?kwd=남산" class="btn-hover text-white">숙소 보러가기! <i class="fa fa-arrow-right ms-2"></i></a>
                         </div>
                       </div>
                       <div class="gallery-plus-icon">
@@ -264,7 +264,7 @@
                       <div class="gallery-content">
                         <div class="gallery-info">
                           <h5 class="text-white text-uppercase mb-2">경기도 남앙쥬시</h5>
-                          <a href="${pageContext.request.contextPath}/room/list?subject=남양주" class="btn-hover text-white">숙소 보러가기! <i class="fa fa-arrow-right ms-2"></i></a>
+                          <a href="${pageContext.request.contextPath}/room/list?kwd=남양주" class="btn-hover text-white">숙소 보러가기! <i class="fa fa-arrow-right ms-2"></i></a>
                         </div>
                       </div>
                       <div class="gallery-plus-icon">
@@ -278,7 +278,7 @@
                       <div class="gallery-content">
                         <div class="gallery-info">
                           <h5 class="text-white text-uppercase mb-2">부산 해운대</h5>
-                          <a href="${pageContext.request.contextPath}/room/list?subject=해운대" class="btn-hover text-white">숙소 보러가기! <i class="fa fa-arrow-right ms-2"></i></a>
+                          <a href="${pageContext.request.contextPath}/room/list?kwd=해운대" class="btn-hover text-white">숙소 보러가기! <i class="fa fa-arrow-right ms-2"></i></a>
                         </div>
                       </div>
                       <div class="gallery-plus-icon">
@@ -292,7 +292,7 @@
                       <div class="gallery-content">
                         <div class="gallery-info">
                           <h5 class="text-white text-uppercase mb-2">서울 영등포</h5>
-                          <a href="${pageContext.request.contextPath}/room/list?subject=영등포" class="btn-hover text-white">숙소 보러가기! <i class="fa fa-arrow-right ms-2"></i></a>
+                          <a href="${pageContext.request.contextPath}/room/list?kwd=영등포" class="btn-hover text-white">숙소 보러가기! <i class="fa fa-arrow-right ms-2"></i></a>
                         </div>
                       </div>
                       <div class="gallery-plus-icon">
@@ -306,7 +306,7 @@
                       <div class="gallery-content">
                         <div class="gallery-info">
                           <h5 class="text-white text-uppercase mb-2">서울 홍대</h5>
-                          <a href="${pageContext.request.contextPath}/room/list?subject=홍대" class="btn-hover text-white">숙소 보러가기! <i class="fa fa-arrow-right ms-2"></i></a>
+                          <a href="${pageContext.request.contextPath}/room/list?kwd=홍대" class="btn-hover text-white">숙소 보러가기! <i class="fa fa-arrow-right ms-2"></i></a>
                         </div>
                       </div>
                       <div class="gallery-plus-icon">
@@ -320,7 +320,7 @@
                       <div class="gallery-content">
                         <div class="gallery-info">
                           <h5 class="text-white text-uppercase mb-2">강원도 고성</h5>
-                          <a href="${pageContext.request.contextPath}/room/list?subject=고성" class="btn-hover text-white">숙소 보러가기! <i class="fa fa-arrow-right ms-2"></i></a>
+                          <a href="${pageContext.request.contextPath}/room/list?kwd=고성" class="btn-hover text-white">숙소 보러가기! <i class="fa fa-arrow-right ms-2"></i></a>
                         </div>
                       </div>
                       <div class="gallery-plus-icon">

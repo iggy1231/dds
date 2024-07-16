@@ -1,6 +1,50 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="temp">
+<mapper namespace="com.fly.dds.mapper.roomMapper">
+
+<sql id="where-list">
+		<choose>
+			<when test="schType == 'all' ">
+				( INSTR(subject, #{kwd}) &gt; 0
+				    OR  DBMS_LOB.INSTR(content, #{kwd}) &gt; 0 )
+			</when>
+			<when test="schType == 'reg_date' ">
+				( TO_CHAR(reg_date, 'YYYYMMDD') = #{kwd} 
+					OR TO_CHAR(reg_date, 'YYYY-MM-DD') = #{kwd} )
+			</when>
+			<when test="schType == 'content' ">
+				DBMS_LOB.INSTR(content, #{kwd}) &gt; 0 
+			</when>
+			<otherwise>
+				INSTR(subject, #{kwd}) &gt; 0
+			</otherwise>
+		</choose>
+	</sql>
+
+	<!-- 글개수 -->
+	<select id="dataCount" parameterType="map" resultType="Integer">
+		SELECT NVL(COUNT(*), 0)
+		FROM room r
+		<where>
+			<if test="kwd != null and kwd != '' ">
+				<include refid="where-list"/>
+			</if>
+		</where>
+	</select>
+	
+	<!-- 글리스트 -->
+	<select id="listRoom" parameterType="map"
+			resultType="com.fly.dds.domain.Room">
+		SELECT num , subject , addr1 , addr2 , room_type
+		FROM room r
+		<where>
+			<if test="kwd != null and kwd != '' ">
+				<include refid="where-list"/>
+			</if>
+		</where>
+		ORDER BY num DESC
+		OFFSET #{offset} ROWS FETCH FIRST #{size} ROWS ONLY		
+	</select>
 
 </mapper>
