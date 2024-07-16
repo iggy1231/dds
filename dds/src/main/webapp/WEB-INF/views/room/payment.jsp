@@ -145,7 +145,7 @@ ul.payment-info li span.total {
 <script src="https://cdn.iamport.kr/v1/iamport.js"></script>
 <script>
 var IMP = window.IMP;
-IMP.init("imp22381535");
+IMP.init("imp api 키");
 
 function requestPay() {
     IMP.request_pay({
