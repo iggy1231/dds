@@ -271,13 +271,13 @@ ol, ul {
 		</div>
 		<h2 class="css-140ci6h">자주 묻는 질문</h2>
 		<div class="css-faq">
-			<ul class="nav nav-tabs" id="myTab" role="tablist">
+                <ul class="nav nav-tabs" id="myTab" role="tablist">
 				<li class="nav-item" role="presentation">
-					<button class="nav-link active" id="tab-0" data-bs-toggle="tab" data-bs-target="#nav-content" type="button" role="tab" aria-controls="0" aria-selected="true" data-categoryNum="0">모두</button>
+					<button class="nav-link active" id="tab-0" data-bs-toggle="tab" data-bs-target="#nav-content" type="button" role="tab" aria-controls="0" aria-selected="true" data-category_Num="0">모두</button>
 				</li>
 				<c:forEach var="dto" items="${listCategory}" varStatus="status">
 					<li class="nav-item" role="presentation">
-						<button class="nav-link" id="tab-${status.count}" data-bs-toggle="tab" data-bs-target="#nav-content" type="button" role="tab" aria-controls="${status.count}" aria-selected="true" data-categoryNum="${dto.categoryNum}">${dto.category}</button>
+						<button class="nav-link" id="tab-${status.count}" data-bs-toggle="tab" data-bs-target="#nav-content" type="button" role="tab" aria-controls="${status.count}" aria-selected="true" data-category_Num="${dto.categoryNum}">${dto.category}</button>
 					</li>
 				</c:forEach>
 			</ul>
@@ -309,5 +309,96 @@ ol, ul {
 					<div class="col text-end">&nbsp;</div>
 				</div>				
 			</div>
-		</div>
+              
+     </div>
 </section>
+
+<form name="faqSearchForm" method="post">
+	<input type="hidden" name="schType" value="all">
+    <input type="hidden" name="kwd" value="">
+</form>
+
+<script type="text/javascript">
+function login() {
+	location.href = '${pageContext.request.contextPath}/member/login';
+}
+
+function ajaxFun(url, method, formData, dataType, fn, file = false) {
+	const settings = {
+			type: method, 
+			data: formData,
+			success:function(data) {
+				fn(data);
+			},
+			beforeSend: function(jqXHR) {
+				jqXHR.setRequestHeader('AJAX', true);
+			},
+			complete: function () {
+			},
+			error: function(jqXHR) {
+				if(jqXHR.status === 403) {
+					login();
+					return false;
+				} else if(jqXHR.status === 400) {
+					alert('요청 처리가 실패 했습니다.');
+					return false;
+		    	}
+		    	
+				console.log(jqXHR.responseText);
+			}
+	};
+	
+	if(file) {
+		settings.processData = false;  // file 전송시 필수. 서버로전송할 데이터를 쿼리문자열로 변환여부
+		settings.contentType = false;  // file 전송시 필수. 서버에전송할 데이터의 Content-Type. 기본:application/x-www-urlencoded
+	}
+	
+	$.ajax(url, settings);
+}
+
+$(function(){
+	listPage(1);
+	
+    $("button[role='tab']").on("click", function(e){
+		// const tab = $(this).attr("aria-controls");
+    	listPage(1);
+    	
+    });
+});
+
+// 글리스트 및 페이징 처리
+function listPage(page) {
+	const $tab = $("button[role='tab'].active");
+	let category_Num = $tab.attr("data-category_Num");
+	
+	let url = "${pageContext.request.contextPath}/faq/list";
+	let query = "pageNo="+page+"&categoryNum="+category_Num;
+	let search = $('form[name=faqSearchForm]').serialize();
+	query = query+"&"+search;
+	
+	let selector = "#nav-content";
+	
+	const fn = function(data){
+		$(selector).html(data);
+	};
+	ajaxFun(url, "get", query, "text", fn);
+}
+
+// 검색
+function searchList() {
+	const f = document.faqSearchForm;
+	f.schType.value = $("#schType").val();
+	f.kwd.value = $.trim($("#kwd").val());
+
+	listPage(1);
+}
+
+// 새로고침
+function reloadFaq() {
+	const f = document.faqSearchForm;
+	f.schType.value = "all";
+	f.kwd.value = "";
+	
+	listPage(1);
+}
+</script>

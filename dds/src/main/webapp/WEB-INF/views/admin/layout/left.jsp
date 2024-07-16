@@ -172,7 +172,7 @@
 
               <ul class="menu-sub">
                 <li class="menu-item">
-                  <a href="layouts-without-menu.html" class="menu-link">
+                  <a href="${pageContext.request.contextPath}/admin/faqManage/main" class="menu-link">
                     <div data-i18n="Without menu">FAQ</div>
                   </a>
                 </li>

@@ -2,6 +2,7 @@ package com.fly.dds.admin.controller;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
@@ -18,5 +19,12 @@ public class FaqManageController {
 	public String faqlist() {
 		
 		return ".admin.faqManage/list";
+	}
+	
+	@PostMapping("write")
+	public String writeSubmit() {
+
+
+		return ".admin.faqManage.write";
 	}
 }
