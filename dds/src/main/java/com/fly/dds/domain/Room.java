@@ -19,6 +19,18 @@ public class Room {
 	private long option_num;
 	private String option_content;
 	private int option_price;
+	
+	private long facility_num;
+	private String facility_content;
+	private long detail_num;
+	private int people;
+	private int price;
+	private int discount;
+	private String name;
+	private String detail_content;
+	private String detail_photo;
+	private int point;
+	
 	public long getNum() {
 		return num;
 	}
@@ -187,15 +199,5 @@ public class Room {
 	public void setPoint(int point) {
 		this.point = point;
 	}
-	
-	private long facility_num;
-	private String facility_content;
-	private long detail_num;
-	private int people;
-	private int price;
-	private int discount;
-	private String name;
-	private String detail_content;
-	private String detail_photo;
-	private int point;
+
 }
