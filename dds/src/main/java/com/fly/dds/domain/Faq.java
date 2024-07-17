@@ -12,6 +12,7 @@ public class Faq {
     private String category;
     private int enabled;
     private int orderNo;
+    
 	public long getNum() {
 		return num;
 	}

@@ -45,7 +45,8 @@
     <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/admin/vendor/libs/perfect-scrollbar/perfect-scrollbar.css" />
     <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/admin/vendor/libs/datatables-bs5/datatables-bootstrap5.css"/>
     <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/admin/vendor/libs/apex-charts/apex-charts.css" />
-
+	
+	<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <!-- Helpers -->
     <script src="${pageContext.request.contextPath}/resources/admin/vendor/js/helpers.js"></script>
 

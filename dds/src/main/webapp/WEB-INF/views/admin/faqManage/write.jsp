@@ -95,10 +95,13 @@ function sendOk() {
 }
 </script>
 
-<div class="body-container">
-    <div class="body-title">
-		<h2><i class="fa-solid fa-clipboard-question"></i> 자주하는 질문 </h2>
-    </div>
+<!-- Content wrapper -->
+<div class="content-wrapper">
+	<!-- Content -->
+	<div class="container-xxl flex-grow-1 container-p-y">
+		<div class="body-title">
+			<h2><i class="fa-solid fa-clipboard-question"></i> 자주하는 질문 </h2>
+    	</div>
     
     <div class="body-main">
     
@@ -181,7 +184,7 @@ function sendOk() {
 				</table>
 			</form>
 		</div>
-		
+		</div>
 	</div>
 </div>
 

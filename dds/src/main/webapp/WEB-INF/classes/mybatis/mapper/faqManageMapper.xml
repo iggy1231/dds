@@ -1,1 +1,142 @@
 <?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.fly.dds.admin.mapper.FaqManageMapper">
+
+	<insert id="insertFaq" parameterType="com.fly.dds.admin.domain.FaqManage">
+		INSERT INTO faq(num, categoryNum, user_num, subject, content, reg_date)
+		VALUES (faq_seq.NEXTVAL, #{categoryNum}, #{user_num}, #{subject}, #{content}, SYSDATE)
+	</insert>
+	
+	<sql id="where-list">
+		<choose>
+			<when test="schType == 'all' ">
+			   ( INSTR(subject, #{kwd}) &gt; 0
+		          OR DBMS_LOB.INSTR(content, #{kwd}) &gt; 0 
+		          OR INSTR(LOWER(category), LOWER(#{kwd})) &gt; 0 )
+			</when>
+			<when test="schType == 'reg_date' ">
+			   ( TO_CHAR(reg_date, 'YYYYMMDD') = #{kwd}
+		          OR TO_CHAR(reg_date, 'YYYY-MM-DD') = #{kwd} )
+			</when>
+			<otherwise>
+			    ( INSTR(${schType}, #{kwd}) &gt; 0 )
+			</otherwise>
+		</choose>
+	</sql>
+
+	<select id="dataCount" parameterType="map" resultType="Integer">
+		SELECT NVL(COUNT(*), 0)
+		FROM faq f
+		JOIN member1 m ON f.user_num=m.user_num
+		JOIN faqCategory c ON f.categoryNum = c.categoryNum
+		<where>
+			<if test="categoryNum!=0">
+				( c.categoryNum = #{categoryNum} )
+			</if>
+			<if test="kwd!=null and kwd!='' ">
+				AND <include refid="where-list"/>
+			</if>
+			AND c.enabled = 1
+		</where>
+	</select>
+
+	<select id="listFaq" parameterType="map" resultType="com.fly.dds.admin.domain.FaqManage">
+		SELECT f.num, f.user_num, userName, subject, 
+			TO_CHAR(f.reg_date, 'YYYY-MM-DD') reg_date, content,
+			c.categoryNum, category, orderNo
+		FROM faq f
+		JOIN member1 m ON f.user_num=m.user_num
+		JOIN faqCategory c ON f.categoryNum = c.categoryNum
+		<where>
+			<if test="categoryNum!=0">
+				( c.categoryNum = #{categoryNum} )
+			</if>
+			<if test="kwd!=null and kwd!='' ">
+				AND <include refid="where-list"/>
+			</if>
+			AND c.enabled = 1
+		</where>
+		ORDER BY orderNo, num DESC
+		OFFSET #{offset} ROWS FETCH FIRST #{size} ROWS ONLY
+	</select>
+	
+	<select id="findById" parameterType="Long" resultType="com.fly.dds.admin.domain.FaqManage">
+		SELECT f.num, f.user_num, userName, subject, content,
+			 f.reg_date,  
+			 f.categoryNum, c.category
+		FROM faq f
+		JOIN member1 m ON f.user_num=m.user_num
+		JOIN faqCategory c ON f.categoryNum = c.categoryNum
+		WHERE f.num = #{num}
+	</select>
+	
+	<select id="findByPrev" parameterType="map" resultType="com.fly.dds.admin.domain.FaqManage">
+		SELECT f.num, subject
+		FROM faq f
+		JOIN member1 m ON f.user_num=m.user_num
+		JOIN faqCategory c ON f.categoryNum = c.categoryNum
+		<where>
+			<if test="kwd != null and kwd != '' ">
+				<include refid="where-list"/>
+			</if>
+			AND (f.num &gt; #{num})
+		</where>
+		ORDER BY num ASC
+		FETCH FIRST 1 ROWS ONLY
+	</select>
+
+	<select id="findByNext" parameterType="map" resultType="com.fly.dds.admin.domain.FaqManage">
+		SELECT f.num, subject
+		FROM faq f
+		JOIN member1 m ON f.user_num=m.user_num
+		JOIN faqCategory c ON f.categoryNum = c.categoryNum
+		<where>
+			<if test="kwd != null and kwd != '' ">
+				<include refid="where-list"/>
+			</if>
+			AND (f.num &lt; #{num})
+		</where>
+		ORDER BY num DESC
+		FETCH FIRST 1 ROWS ONLY
+	</select>
+
+	<update id="updateFaq" parameterType="com.fly.dds.admin.domain.FaqManage">
+		UPDATE faq SET categoryNum=#{categoryNum}, subject=#{subject},
+			content=#{content}
+		WHERE num = #{num}
+	</update>
+
+	<delete id="deleteFaq" parameterType="map">
+		DELETE FROM faq WHERE num = #{num}
+	</delete>
+	
+	<!-- 카테고리 -->
+	<insert id="insertCategory" parameterType="com.fly.dds.admin.domain.FaqManage">
+		INSERT INTO faqCategory(categoryNum, category, enabled, orderNo)
+			VALUES (faqCategory_seq.NEXTVAL, #{category}, #{enabled}, #{orderNo})
+	</insert>
+	
+
+	<select id="listCategory" parameterType="map" resultType="com.fly.dds.admin.domain.FaqManage">
+		SELECT categoryNum, category, enabled, orderNo
+		FROM faqCategory
+		<where>
+			<if test="mode=='enabled'">
+				enabled = 1
+			</if>
+		</where>
+		ORDER BY orderNo
+	</select>
+	
+	<update id="updateCategory" parameterType="com.fly.dds.admin.domain.FaqManage">
+		UPDATE faqCategory SET category=#{category}, enabled=#{enabled}, orderNo=#{orderNo}
+		WHERE categoryNum = #{categoryNum}
+	</update>
+	
+	<delete id="deleteCategory" parameterType="Long">
+		DELETE FROM faqCategory
+		WHERE categoryNum = #{categoryNum}
+	</delete>
+
+</mapper>

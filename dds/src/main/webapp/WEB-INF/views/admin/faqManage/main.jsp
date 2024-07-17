@@ -4,6 +4,8 @@
 
 <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/tabs.css" type="text/css">
 
+
+
 <style type="text/css">
 .accordion {
 	box-sizing: border-box;
