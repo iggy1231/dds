@@ -19,20 +19,60 @@
     width: 35%;
 }
 
+.table-form .option-minus, .table-form .option-minus2 { cursor: pointer; }
+
+.table-form .thumbnail-viewer {
+	cursor: pointer;
+	border: 1px solid #c2c2c2;
+	width: 100px; height: 100px; border-radius: 10px;
+	background-image: url("${pageContext.request.contextPath}/resources/images/add_photo.png");
+	position: relative;
+	z-index: 9999;
+	background-repeat: no-repeat;
+	background-size: cover;
+}
+
+.table-form .img-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, 100px);
+    grid-gap: 10px; /* Adjust the gap as needed */
+}
+
+.table-form .img-grid .item {
+    object-fit: cover;
+    width: 100px;
+    height: 100px;
+    border-radius: 10px;
+    border: 1px solid #c2c2c2;
+    cursor: pointer;
+}
+
+.table-form .option-thumbnail-viewer {
+    cursor: pointer;
+    border: 1px solid #c2c2c2;
+    width: 100px;
+    height: 100px;
+    border-radius: 10px;
+    background-image: url("${pageContext.request.contextPath}/resources/images/add_photo.png");
+    position: relative;
+    z-index: 9999;
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
 
 </style>
+
 
 <!-- Content wrapper -->
 <div class="content-wrapper">
             <!-- Content -->
-            <div class="container mt-5 ">
+   <div class="container mt-5 ">
 	<div class="body-container">
 		<div class="body-title">
-			<h3><i class="bi bi-app"></i> 숙소 상품관리 </h3>
+			<h3 class="ps-1 text-primary fw-semibold"><i class="bi bi-app"></i> 숙소 상품관리 </h3>
 		</div>
-		
 		<div class="body-main">
-		
 			<form name="productForm" method="post" enctype="multipart/form-data">
 				<table class="table mt-5 table-form">
 					<tr>
@@ -40,7 +80,7 @@
 						<td>
 							<div class="row">
 								<div class="col-6 pe-1">
-									<select name="parentNum" class="form-select">
+									<select name="room_type" class="form-select">
 										<option value="">:: 숙소 카테고리 선택 ::</option>
 											<option value="pension">펜션</option>
 											<option value="camping">캠핑/글램핑</option>
@@ -52,39 +92,39 @@
 					<tr>
 						<td class="table-light col-sm-2">상품명</td>
 						<td>
-							<input type="text" name="productName" class="form-control" value="">
+							<input type="text" name="subject" class="form-control" value="">
 						</td>
 					</tr>
 					<tr>
 						<td class="table-light col-sm-2">키워드 선택</td>
 						<td>
-							<input type="checkbox" value="1" class="ms-1"> 가족여행
-							<input type="checkbox" value="2" class="ms-1"> 힙한감성
-							<input type="checkbox" value="3" class="ms-1"> 연인끼리
-							<input type="checkbox" value="4" class="ms-1"> 뷰맛집
-							<input type="checkbox" value="5" class="ms-1"> 감성숙소
-							<input type="checkbox" value="6" class="ms-1"> 친구와함께
+							<input name="key_value" type="checkbox" value="1" class="ms-1"> 가족여행
+							<input name="key_value" type="checkbox" value="2" class="ms-1"> 힙한감성
+							<input name="key_value" type="checkbox" value="3" class="ms-1"> 연인끼리
+							<input name="key_value" type="checkbox" value="4" class="ms-1"> 뷰맛집
+							<input name="key_value" type="checkbox" value="5" class="ms-1"> 감성숙소
+							<input name="key_value" type="checkbox" value="6" class="ms-1"> 친구와함께
 						</td>
 					</tr>
 					<tr>
 						<td class="table-light col-sm-2">시설 선택</td>
 						<td>
-							<input type="checkbox" value="1" class="ms-1"> 사우나
-							<input type="checkbox" value="2" class="ms-1"> 취사가능
-							<input type="checkbox" value="2" class="ms-1"> 바베큐
-							<input type="checkbox" value="3" class="ms-1"> 수영장
-							<input type="checkbox" value="4" class="ms-1"> 노래방
-							<input type="checkbox" value="5" class="ms-1"> 스파
-							<input type="checkbox" value="6" class="ms-1"> 피트니스
+							<input name="facility_content" type="checkbox" value="1" class="ms-1"> 사우나
+							<input name="facility_content" type="checkbox" value="2" class="ms-1"> 취사가능
+							<input name="facility_content" type="checkbox" value="2" class="ms-1"> 바베큐
+							<input name="facility_content"  type="checkbox" value="3" class="ms-1"> 수영장
+							<input name="facility_content" type="checkbox" value="4" class="ms-1"> 노래방
+							<input name="facility_content" type="checkbox" value="5" class="ms-1"> 스파
+							<input name="facility_content" type="checkbox" value="6" class="ms-1"> 피트니스
 						</td>
 					</tr>
 					<tr>
 						<td class="table-light col-sm-2">숙소 주소</td>
 						<td>
-							<input type="text" id="sample6_postcode" placeholder="우편번호" class="my-1 form-control address">
+							<input name="post_num" type="text" id="sample6_postcode" placeholder="우편번호" class="my-1 form-control address">
 							<input type="button" onclick="sample6_execDaumPostcode()" value="우편번호 찾기" class="my-1  btn btn-light "><br>
-							<input type="text" id="sample6_address" placeholder="주소" class="my-1  form-control address1"><br>
-							<input type="text" id="sample6_detailAddress" placeholder="상세주소" class="my-1  form-control address2">
+							<input name="addr1" type="text" id="sample6_address" placeholder="주소" class="my-1  form-control address1"><br>
+							<input name="addr2" type="text" id="sample6_detailAddress" placeholder="상세주소" class="my-1  form-control address2">
 							<input type="text" id="sample6_extraAddress" placeholder="참고항목" class="my-1  form-control address2">
 						</td>
 					</tr>
@@ -94,34 +134,34 @@
         <table class="table mb-2 option-table">
             <tr>
                 <td>객실/구역명</td>
-                <td><input type="text" name="optionName" class="form-control" placeholder="객실/구역명" value=""></td>
+                <td><input type="text" name="name" class="form-control" placeholder="객실/구역명" value=""></td>
             </tr>
             <tr>
                 <td>최대 인원수</td>
-                <td><input type="text" name="optionPeople" class="form-control" placeholder="최대 인원수" value=""></td>
+                <td><input type="text" name="people" class="form-control" placeholder="최대 인원수" value=""></td>
             </tr>
             <tr>
                 <td>옵션가격</td>
-                <td><input type="text" name="optionPrice" class="form-control" placeholder="옵션 가격" value=""></td>
+                <td><input type="text" name="price" class="form-control" placeholder="옵션 가격" value=""></td>
             </tr>
             <tr>
                 <td>상세설명</td>
-                <td><input type="text" name="optionContent" class="form-control" placeholder="옵션 상세 설명" value=""></td>
+                <td><textarea name="detail_content"  class="form-control" placeholder="옵션 상세 설명" style="height:100px; "></textarea></td>
             </tr>
             <tr>
                 <td>객실/구역 썸네일</td>
-                <td><input type="file" name="optionContent" class="form-control" placeholder="객실/구역 썸네일" value=""></td>
+                <td><input type="file" name="detail_photo" class="form-control" placeholder="객실/구역 썸네일" value=""></td>
             </tr>
             <tr>
 				<td>할인율</td>
 					<td>
-						<input type="text" name="discountRate" class="form-control" value="${dto.discountRate}">
+						<input type="text" name="discount" class="form-control" value="${dto.discountRate}">
 					</td>
 			</tr>
 			<tr>
 						<td>포인트</td>
 						<td>
-							<input type="text" name="point" class="form-control" value="point" readonly>
+							<input type="text" name="point" class="form-control" value="100" readonly>
 						</td>
 					</tr>
 			
@@ -138,9 +178,9 @@
 						<td class="table-light col-sm-2">상품 진열</td>
 						<td>
 							<div class="pt-2 pb-2">
-								<input type="radio" name="productShow" class="form-check-input" id="productShow1" value="1" ${dto.productShow==1 ? "checked='checked'" : "" }> <label class="form-check-label" for="productShow1">상품진열</label>
+								<input type="radio" name="active" class="form-check-input" id="productShow1" value="1" ${dto.productShow==1 ? "checked='checked'" : "" }> <label class="form-check-label" for="productShow1">상품진열</label>
 								&nbsp;&nbsp;
-								<input type="radio" name="productShow" class="form-check-input" id="productShow0" value="0" ${dto.productShow==0 ? "checked='checked'" : "" }> <label class="form-check-label" for="productShow0">진열안함</label>
+								<input type="radio" name="active" class="form-check-input" id="productShow0" value="0" ${dto.productShow==0 ? "checked='checked'" : "" }> <label class="form-check-label" for="productShow0">진열안함</label>
 							</div>
 						</td>
 					</tr>
@@ -153,49 +193,47 @@
 					</tr>
 					
 					<tr>
-						<td class="table-light col-sm-2">썸네일 이미지</td>
-						<td>
-							<div class="thumbnail-viewer"></div>
-							<input type="file" name="thumbnailFile" accept="image/*" class="form-control">
-						</td>
-					</tr>
-					
-					<tr>
-						<td class="table-light col-sm-2">추가이미지</td>
-						<td>
-							<div class="img-grid">
-								<img class="item img-add" src="${pageContext.request.contextPath}/resources/images/add_photo.png">
-								<c:forEach var="vo" items="${listFile}">
-									<img src="${pageContext.request.contextPath}/uploads/product/${vo.filename}"
-										class="item delete-img"
-										data-fileNum="${vo.fileNum}"
-										data-filename="${vo.filename}">
-								</c:forEach>
-							</div>
-							<input type="file" name="addFiles" accept="image/*" multiple class="form-control" style="display: none;">
-						</td>
-					</tr>
+                            <td class="table-light col-sm-2">썸네일 이미지</td>
+                            <td>
+                                <div class="thumbnail-viewer"></div>
+								<input type="file" name="thumbnail" accept="image/*" class="form-control" style="display: none;">
+                            </td>
+                        </tr>
+
+                        <tr>
+                            <td class="table-light col-sm-2">추가이미지</td>
+                            <td>
+                                <div id="additionalImageContainer" class="img-grid">
+                                    <img id="addAdditionalImage" class="item img-add" src="${pageContext.request.contextPath}/resources/images/add_photo.png">
+                                    <c:forEach var="vo" items="${listFile}">
+                                        <img name="photo" src="${pageContext.request.contextPath}/uploads/room/${vo.filename}"
+                                            class="item delete-img"
+                                            data-fileNum="${vo.fileNum}"
+                                            data-filename="${vo.filename}">
+                                    </c:forEach>
+                                </div>
+                                <input type="file" name="addFiles" accept="image/*" multiple class="form-control" style="display: none;">
+                            </td>
+                        </tr>
 					
 				</table>
 				
 				<table class="table table-borderless">
 					<tr>
 						<td class="text-center">
-							<c:url var="url" value="/admin/product/${classify}/main">
+							<c:url var="url" value="/admin/product/write">
 								<c:if test="${not empty page}">
 									<c:param name="page" value="${page}"/>
 								</c:if>
 							</c:url>
+							
 							<button type="button" class="btn btn-dark" onclick="submitContents(this.form);">${mode=="update"?"수정완료":"등록완료"}</button>
 							<button type="reset" class="btn btn-light">다시입력</button>
 							<button type="button" class="btn btn-light" onclick="location.href='${url}';">${mode=="update"?"수정취소":"등록취소"}</button>
 							<c:if test="${mode=='update'}">
-								<input type="hidden" name="productNum" value="${dto.productNum}">
+								<input type="hidden" name="num" value="${dto.num}">
 								<input type="hidden" name="thumbnail" value="${dto.thumbnail}">
 								<input type="hidden" name="page" value="${page}">
-								
-								<input type="hidden" name="prevOptionNum" value="${empty dto.optionNum ? 0 : dto.optionNum}">
-								<input type="hidden" name="prevOptionNum2" value="${empty dto.optionNum2 ? 0 : dto.optionNum2}">
 							</c:if>
 						</td>
 					</tr>
@@ -272,7 +310,7 @@ document.getElementById('addOptionBtn').addEventListener('click', function() {
                     </tr>
                     <tr>
                         <td>상세설명</td>
-                        <td><input type="text" name="optionContent" class="form-control" placeholder="옵션 상세 설명" value=""></td>
+                        <td><textarea name="optionContent"  class="form-control" placeholder="옵션 상세 설명" style="height:100px; "></textarea></td>
                     </tr>
                     <tr>
                         <td>객실/구역 썸네일</td>
@@ -302,14 +340,12 @@ document.getElementById('addOptionBtn').addEventListener('click', function() {
 
 
 
-
-
 <script type="text/javascript">
 // 대표(썸네일) 이미지
 $(function(){
 	var img = "${dto.thumbnail}";
 	if( img ) {
-		img = "${pageContext.request.contextPath}/uploads/product/"+img;
+		img = "${pageContext.request.contextPath}/uploads/room/"+img;
 		$(".table-form .thumbnail-viewer").empty();
 		$(".table-form .thumbnail-viewer").css("background-image", "url("+img+")");
 	}
@@ -325,7 +361,7 @@ $(function(){
 			$(".table-form .thumbnail-viewer").empty();
 			
 			if( img ) {
-				img = "${pageContext.request.contextPath}/uploads/product/"+img;
+				img = "${pageContext.request.contextPath}/uploads/room/"+img;
 			} else {
 				img = "${pageContext.request.contextPath}/resources/images/add_photo.png";
 			}
@@ -358,7 +394,7 @@ $(function(){
 		let $img = $(this);
 		let fileNum = $img.attr("data-fileNum");
 		let filename = $img.attr("data-filename");
-		let url="${pageContext.request.contextPath}/admin/product/deleteFile";
+		let url="${pageContext.request.contextPath}/admin/room/deleteFile";
 		$.post(url, {fileNum:fileNum, filename:filename}, function(data){
 			$img.remove();
 		}, "json");
@@ -494,17 +530,19 @@ nhn.husky.EZCreator.createInIFrame({
 	fCreator: "createSEditor2"
 });
 
-function submitContents(elClickedObj) {
-	 oEditors.getById["ir1"].exec("UPDATE_CONTENTS_FIELD", []);
-	 try {
-		if(! check()) {
-			return;
-		}
-		
-		elClickedObj.submit();
-		
-	} catch(e) {
-	}
+function submitContents(form) {
+    oEditors.getById["ir1"].exec("UPDATE_CONTENTS_FIELD", []);
+    try {
+        // 폼을 제출합니다.
+        
+    	elClickedObj.submit();
+    } catch(e) {
+        console.log(e);
+    }
+    
+    	const f = document.productForm;
+    	f.action = "${pageContext.request.contextPath}/admin/product/write";
+    	f.submit();
 }
 
 function setDefaultFont() {
