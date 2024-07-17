@@ -122,13 +122,12 @@ public class FaqManageController {
 
 	@PostMapping("write")
 	public String writeSubmit(FaqManage dto, HttpSession session) throws Exception {
-
 		SessionInfo info = (SessionInfo) session.getAttribute("member");
-
 		try {
 			dto.setUser_num(info.getUser_num());
 			service.insertFaq(dto);
 		} catch (Exception e) {
+			e.printStackTrace();
 		}
 
 		return "redirect:/admin/faqManage/main?pageNo=1";

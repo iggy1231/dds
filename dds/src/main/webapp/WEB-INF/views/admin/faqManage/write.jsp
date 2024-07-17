@@ -2,8 +2,8 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/board.css" type="text/css">
-
-
+<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js"></script>
+<link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
 <style type="text/css">
 .table-category {
 	border-spacing: 1px;
@@ -69,7 +69,6 @@
 <script type="text/javascript">
 function sendOk() {
     const f = document.faqForm;
-
     if(! f.categoryNum.value) {
         alert("카테고리를 선택하세요. ");
         f.categoryNum.focus();

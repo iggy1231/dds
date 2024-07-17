@@ -11,7 +11,9 @@
   data-admin-path="${pageContext.request.contextPath}/resources/admin/"
   data-template="vertical-menu-template-free"
 >
+
 <head>
+	<link rel="stylesheet" href="https://use.fontawesome.com/releases/v6.5.2/css/all.css">
     <meta charset="utf-8" />
     <meta
       name="viewport"
@@ -45,8 +47,12 @@
     <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/admin/vendor/libs/perfect-scrollbar/perfect-scrollbar.css" />
     <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/admin/vendor/libs/datatables-bs5/datatables-bootstrap5.css"/>
     <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/admin/vendor/libs/apex-charts/apex-charts.css" />
+    <link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+
+    <!-- jQuery and jQuery UI -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js"></script>
 	
-	<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <!-- Helpers -->
     <script src="${pageContext.request.contextPath}/resources/admin/vendor/js/helpers.js"></script>
 
@@ -58,14 +64,12 @@
 
 	<div class="layout-wrapper layout-content-navbar">
 		<div class="layout-container">
-				<tiles:insertAttribute name="left"/>
+			<tiles:insertAttribute name="left"/>
 			<div class="layout-page">
 				<tiles:insertAttribute name="top"/>
 				<tiles:insertAttribute name="body"/>
 			</div>
 		</div>
-		
-	
 	</div> 
 
 <div id="loadingLayout" style="display:none; position: absolute; left: 0; top:0; width: 100%; height: 100%; z-index: 9000; background: #eee;">
@@ -73,7 +77,6 @@
 </div>
 
 <!-- Core JS -->
-<script src="${pageContext.request.contextPath}/resources/admin/vendor/libs/jquery/jquery.js"></script>
 <script src="${pageContext.request.contextPath}/resources/admin/vendor/libs/popper/popper.js"></script>
 <script src="${pageContext.request.contextPath}/resources/admin/vendor/js/bootstrap.js"></script>
 <script src="${pageContext.request.contextPath}/resources/admin/vendor/libs/perfect-scrollbar/perfect-scrollbar.js"></script>
@@ -91,6 +94,5 @@
 
 <!-- Place this tag in your head or just before your close body tag. -->
 <script async defer src="https://buttons.github.io/buttons.js"></script>
-
 </body>
 </html>
