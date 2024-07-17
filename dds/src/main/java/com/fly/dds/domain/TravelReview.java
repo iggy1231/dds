@@ -1,5 +1,7 @@
 package com.fly.dds.domain;
 
+import org.springframework.web.multipart.MultipartFile;
+
 public class TravelReview {
 	private long num;
 	private String nickName;
@@ -8,6 +10,10 @@ public class TravelReview {
 	private String reg_date;
 	private int hitCount;
 	private long user_num;
+	
+	private String saveFilename;
+	private String originalFilename;
+	private MultipartFile selectFile;
 	
 	public long getNum() {
 		return num;
@@ -50,5 +56,23 @@ public class TravelReview {
 	}
 	public void setUser_num(long user_num) {
 		this.user_num = user_num;
-	}   
+	}
+	public String getSaveFilename() {
+		return saveFilename;
+	}
+	public void setSaveFilename(String saveFilename) {
+		this.saveFilename = saveFilename;
+	}
+	public String getOriginalFilename() {
+		return originalFilename;
+	}
+	public void setOriginalFilename(String originalFilename) {
+		this.originalFilename = originalFilename;
+	}
+	public MultipartFile getSelectFile() {
+		return selectFile;
+	}
+	public void setSelectFile(MultipartFile selectFile) {
+		this.selectFile = selectFile;
+	}
 }

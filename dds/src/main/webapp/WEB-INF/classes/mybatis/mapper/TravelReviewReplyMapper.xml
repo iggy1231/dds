@@ -8,15 +8,16 @@
     </insert>
 
     <select id="listReplies" parameterType="long" resultType="com.fly.dds.domain.TravelReviewReply">
-        SELECT REPLY_NUM AS replyNum, NUM, ANSWER_NUM, NICKNAME, CONTENT, REG_DATE, USER_NUM
-        FROM travelreview_reply
-        WHERE NUM = #{num}
-        ORDER BY REPLY_NUM
+        SELECT reply_num AS replyNum, num, answer_num AS answerNum, nickName, content, reg_date, user_num
+		FROM travelreview_reply
+		WHERE NUM = #{num}
+		START WITH answer_num IS NULL
+		CONNECT BY answer_num = PRIOR reply_num
     </select>
 
     <insert id="insertReReply" parameterType="com.fly.dds.domain.TravelReviewReply">
         INSERT INTO travelreview_reply (REPLY_NUM, NUM, ANSWER_NUM, NICKNAME, CONTENT, REG_DATE, USER_NUM)
-        VALUES (travelreview_reply_seq.NEXTVAL, #{num}, #{answerNum}, #{nickname}, #{content}, SYSDATE, #{userNum})
+        VALUES (travelreview_reply_seq.NEXTVAL, #{num}, #{answerNum}, #{nickName}, #{content}, SYSDATE, #{userNum})
     </insert>
     <!-- 필요한 추가적인 SQL 문장 선언 -->
     
@@ -24,5 +25,4 @@
     DELETE FROM travelreview_reply
     WHERE REPLY_NUM = #{replyNum}
 	</delete>
-
 </mapper>

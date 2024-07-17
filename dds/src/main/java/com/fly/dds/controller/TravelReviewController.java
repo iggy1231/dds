@@ -19,6 +19,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.fly.dds.common.FileManager;
 import com.fly.dds.domain.SessionInfo;
 import com.fly.dds.domain.TravelReview;
 import com.fly.dds.domain.TravelReviewReply;
@@ -261,23 +262,6 @@ public class TravelReviewController {
         return "redirect:/travelreview/article?num="+reply.getNum()+"&page="+page;
     }
     
-    @PostMapping("insertReReply")
-    public String insertReReply(TravelReviewReply reply,
-            HttpSession session) {
-        SessionInfo info = (SessionInfo) session.getAttribute("member");
-
-        try {
-            reply.setNickName(info.getNickName());
-            reply.setUserNum(info.getUser_num());
-            
-            replyService.insertReReply(reply);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-
-        return "redirect:/travelreview/article?num=" + reply.getNum();
-    }
-    
     @GetMapping("deleteReply")
     public String deleteReply(@RequestParam long replyNum,
     		@RequestParam long num,
@@ -327,5 +311,23 @@ public class TravelReviewController {
 			e.printStackTrace();
 		}
 		return model;
+    }
+    
+    @PostMapping("insertReReply")
+    public String insertReReply(TravelReviewReply reply,
+    		@RequestParam String page,
+            HttpSession session) {
+        SessionInfo info = (SessionInfo) session.getAttribute("member");
+        
+        try {
+            reply.setNickName(info.getNickName());
+            reply.setUserNum(info.getUser_num());
+            
+            replyService.insertReReply(reply);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        return "redirect:/travelreview/article?num="+reply.getNum()+"&page="+page;
     }
 }

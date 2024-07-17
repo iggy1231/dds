@@ -32,20 +32,21 @@ public class TravelReviewReplyServiceImpl implements TravelReviewReplyService {
         return list;
     }
 
-    @Override
-    public void insertReReply(TravelReviewReply reply) {
-        try {
-            mapper.insertReReply(reply);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-    }
-
 	@Override
 	public void deleteReply(long replyNum) {
 		try {
 			
 			mapper.deleteReply(replyNum);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+	}
+
+	@Override
+	public void insertReReply(TravelReviewReply reply) {
+		try {
+			mapper.insertReReply(reply);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

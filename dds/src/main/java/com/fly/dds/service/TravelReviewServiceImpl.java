@@ -6,6 +6,7 @@ import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.fly.dds.common.FileManager;
 import com.fly.dds.domain.TravelReview;
 import com.fly.dds.domain.TravelReviewReply;
 import com.fly.dds.mapper.TravelReviewMapper;
@@ -15,9 +16,20 @@ public class TravelReviewServiceImpl implements TravelReviewService {
 	@Autowired
 	private TravelReviewMapper mapper;
 	
+	@Autowired
+	private FileManager fileManager;
+	
 	@Override
 	public void reviewInsert(TravelReview dto, String pathname) {
 		try {
+			String saveFilename = 
+					fileManager.doFileUpload(dto.getSelectFile(), pathname);
+			if(saveFilename != null) {
+				dto.setSaveFilename(saveFilename);
+				dto.setOriginalFilename(dto.getSelectFile().getOriginalFilename());
+			}
+			
+			
 			mapper.insertReview(dto);
 		} catch (Exception e) {
 			e.printStackTrace();

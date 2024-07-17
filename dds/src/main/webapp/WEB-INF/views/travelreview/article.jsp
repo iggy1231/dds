@@ -257,7 +257,52 @@
             background-color: #fb8c00; /* 신고 버튼의 호버 시 배경색 */
             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
         }
-
+        
+        .rereply-form {
+		    margin-top: 10px;
+		    padding: 10px;
+		    background-color: #e6f7ff;
+		    border: 1px solid #91d5ff;
+		    border-radius: 5px;
+		    font-size: 14px;
+		    display: none;
+		}
+		
+		.rereply-form table td {
+		    padding: 5px;
+		}
+		
+		.rereply-form textarea {
+		    width: 100%;
+		    height: 60px;
+		    padding: 6px;
+		    border: 1px solid #ccc;
+		    border-radius: 4px;
+		    box-sizing: border-box;
+		    resize: vertical;
+		    font-size: 12px;
+		    line-height: 1.4;
+		}
+		
+		.rereply-form input[type="submit"] {
+		    background-color: #18A8F1;
+		    color: white;
+		    border: none;
+		    border-radius: 5px;
+		    padding: 8px 16px;
+		    cursor: pointer;
+		    font-size: 14px;
+		    transition: background-color 0.3s, box-shadow 0.3s;
+		}
+		
+		.rereply-form input[type="submit"]:hover {
+		    background-color: #0d6efd;
+		    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+		}
+		.reply {
+			text-align: right;
+		}
+        
     </style>
     <script type="text/javascript">
         function deleteReply(replyNum,num,page) {
@@ -337,11 +382,23 @@
         	
         	$.ajax(url, settings);
         }
+        
+        function Declaration() {
+        	if(! confirm("고소 하시겠습니까?")){
+        		return;
+        	}
+        }
+        
+        function insertReReply() {
+        	const form=document.querySelector('.rereply-form');
+        	form.style.display="block";
+        }
+        
     </script>
 </head>
 <body>
     <div class="container">
-        <div class="post">
+        <div class="post"> 
             <div class="post-title">${dto.subject}</div>
             <div class="post-content">
                 ${dto.content}
@@ -374,7 +431,6 @@
                 <input type="hidden" name="page" value="${page}">
                 <input type="hidden" name="schType" value="${schType}">
                 <input type="hidden" name="kwd" value="${kwd}">
-                
                 <table>
                     <tr>
                         <td>닉네임</td>
@@ -396,14 +452,54 @@
 
         <div class="comment-list">
             <c:forEach var="comment" items="${replies}">
-                <div class="comment">
-                    <div class="comment-header">작성자: ${comment.nickName}</div>
-                    <div class="comment-content">${comment.content}</div>
-                    <div class="comment-buttons">
-                        <button class="delete-button" onclick="deleteReply('${comment.replyNum}','${dto.num}','${page}');">삭제</button>
-                        <button class="report-button">신고</button>
-                    </div>
-                </div>
+           		<c:if test="${comment.answerNum==0}">
+	            	<div class="comment">
+	                    <div class="comment-header">작성자: ${comment.nickName}</div>
+	                    <div class="comment-content">${comment.content}</div>
+	                    <div class="comment-buttons">
+	                        <button class="delete-button" onclick="deleteReply('${comment.replyNum}','${dto.num}','${page}');">삭제</button>
+	                        <button class="report-button" onclick="Declaration();">신고</button>
+	                        <button class="hidden-button" onclick="insertReReply();">답글달기</button>
+	                    </div>
+	                </div>
+	            </c:if>
+	            <c:if test="${comment.answerNum>0}">
+	            	<div class="comment reply">
+	                    <div class="comment-header">
+	                    작성자: ${comment.nickName}</div>
+	                    <div class="comment-content">${comment.content}</div>
+	                    <div class="comment-buttons">
+	                        <button class="delete-button" onclick="deleteReply('${comment.replyNum}','${dto.num}','${page}');">삭제</button>
+	                        <button class="report-button" onclick="Declaration();">신고</button>
+	                        <button class="hidden-button" onclick="insertReReply();">답글달기</button>
+	                    </div>
+	                </div>
+	            </c:if>
+                <div class="comment-form rereply-form">
+		            <form method="post" action="${pageContext.request.contextPath}/travelreview/insertReReply" onsubmit="return validateReplyForm(this)">
+		                <input type="hidden" name="num" value="${dto.num}">
+		                <input type="hidden" name="page" value="${page}">
+		                <input type="hidden" name="schType" value="${schType}">
+		                <input type="hidden" name="kwd" value="${kwd}">
+		                <input type="hidden" name="answerNum" value="${comment.replyNum}">
+		                <table>
+		                    <tr>
+		                        <td>닉네임</td>
+		                        <td><input type="text" name="nickname" value="${sessionScope.member.nickName}" readonly></td>
+		                    </tr>
+		                    <tr>
+		                        <td colspan="2">
+		                            <textarea name="content" rows="3" placeholder="댓글을 입력해주세요." required></textarea>
+		                        </td>
+		                    </tr>
+		                    <tr>
+		                        <td colspan="2">
+		                            <input type="submit" value="등록">
+		                        </td>
+		                    </tr>
+		                </table>
+		            </form>
+		        </div>
             </c:forEach>
         </div>
     </div>
