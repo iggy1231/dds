@@ -6,7 +6,7 @@ import java.util.Map;
 import com.fly.dds.domain.Room;
 
 public interface RoomProductService {
-	public void insertProduct(Room dto, String pathname) throws Exception;
+	public void insertProduct(Room dto , String pathname) throws Exception;
 	public void updateProduct(Room  dto, String pathname) throws Exception;
 	public void deleteProduct(long productNum, String pathname) throws Exception;
 	public void deleteProductFile(long fileNum, String pathname) throws Exception;

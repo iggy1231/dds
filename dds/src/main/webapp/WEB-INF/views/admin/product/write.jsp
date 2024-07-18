@@ -111,11 +111,11 @@
 						<td>
 							<input name="facility_content" type="checkbox" value="1" class="ms-1"> 사우나
 							<input name="facility_content" type="checkbox" value="2" class="ms-1"> 취사가능
-							<input name="facility_content" type="checkbox" value="2" class="ms-1"> 바베큐
-							<input name="facility_content"  type="checkbox" value="3" class="ms-1"> 수영장
-							<input name="facility_content" type="checkbox" value="4" class="ms-1"> 노래방
-							<input name="facility_content" type="checkbox" value="5" class="ms-1"> 스파
-							<input name="facility_content" type="checkbox" value="6" class="ms-1"> 피트니스
+							<input name="facility_content" type="checkbox" value="3" class="ms-1"> 바베큐
+							<input name="facility_content"  type="checkbox" value="4" class="ms-1"> 수영장
+							<input name="facility_content" type="checkbox" value="5" class="ms-1"> 노래방
+							<input name="facility_content" type="checkbox" value="6" class="ms-1"> 스파
+							<input name="facility_content" type="checkbox" value="7" class="ms-1"> 피트니스
 						</td>
 					</tr>
 					<tr>
@@ -136,34 +136,34 @@
         <table class="table mb-2 option-table">
             <tr>
                 <td>객실/구역명</td>
-                <td><input type="text" name="name" class="form-control" placeholder="객실/구역명" value=""></td>
+                <td><input type="text" name="names" class="form-control" placeholder="객실/구역명" value=""></td>
             </tr>
             <tr>
                 <td>최대 인원수</td>
-                <td><input type="text" name="people" class="form-control" placeholder="최대 인원수" value="">
+                <td><input type="text" name="peoples" class="form-control" placeholder="최대 인원수" value="">
             </tr>
             <tr>
                 <td>옵션가격</td>
-                <td><input type="text" name="price" class="form-control" placeholder="옵션 가격" value=""></td>
+                <td><input type="text" name="prices" class="form-control" placeholder="옵션 가격" value=""></td>
             </tr>
             <tr>
                 <td>객실설명</td>
-                <td><textarea name="detail_content"  class="form-control" placeholder="옵션 상세 설명" style="height:100px; "></textarea></td>
+                <td><textarea name="detail_contents"  class="form-control" placeholder="옵션 상세 설명" style="height:100px; "></textarea></td>
             </tr>
            <tr>
    				 <td class="col-sm-2">객실/구역 썸네일</td>
-    		     <td><input type="file" name="detailPhotoFile" class="form-control" placeholder="객실/구역 썸네일"></td>
+    		     <td><input type="file" name="detailPhotoFiles" class="form-control" placeholder="객실/구역 썸네일"></td>
 			</tr>
             <tr>
 				<td>할인율</td>
 					<td>
-						<input type="text" name="discount" class="form-control" value="${dto.discountRate}">
+						<input type="text" name="discounts" class="form-control" value="${dto.discountRate}">
 					</td>
 			</tr>
 			<tr>
 						<td>포인트</td>
 						<td>
-							<input type="text" name="point" class="form-control" value="100" readonly>
+							<input type="text" name="points" class="form-control" value="100" readonly>
 						</td>
 					</tr>
 			
@@ -303,35 +303,35 @@ document.getElementById('addOptionBtn').addEventListener('click', function() {
                 <table class="table mb-2 option-table">
                     <tr>
                         <td>객실/구역명</td>
-                        <td><input type="text" name="optionName" class="form-control" placeholder="객실/구역명" value=""></td>
+                        <td><input type="text" name="names" class="form-control" placeholder="객실/구역명" value=""></td>
                     </tr>
                     <tr>
                         <td>최대 인원수</td>
-                        <td><input type="text" name="optionPeople" class="form-control" placeholder="최대 인원수" value=""></td>
+                        <td><input type="text" name="peoples" class="form-control" placeholder="최대 인원수" value=""></td>
                     </tr>
                     <tr>
                         <td>옵션가격</td>
-                        <td><input type="text" name="optionPrice" class="form-control" placeholder="옵션 가격" value=""></td>
+                        <td><input type="text" name="prices" class="form-control" placeholder="옵션 가격" value=""></td>
                     </tr>
                     <tr>
                         <td>상세설명</td>
-                        <td><textarea name="optionContent"  class="form-control" placeholder="옵션 상세 설명" style="height:100px; "></textarea></td>
+                        <td><textarea name="detail_contents"  class="form-control" placeholder="옵션 상세 설명" style="height:100px; "></textarea></td>
                     </tr>
                     <tr>
       				 <td class="col-sm-2">객실/구역 썸네일</td>
-       		         <td><input type="file" name="detailPhotoFile" class="form-control" placeholder="객실/구역 썸네일"></td>
+       		         <td><input type="file" name="detailPhotoFiles" class="form-control" placeholder="객실/구역 썸네일"></td>
    					</tr>
                     
                     <tr>
     					<td>할인율</td>
     						<td>
-    							<input type="text" name="discountRate" class="form-control" value="${dto.discountRate}">
+    							<input type="text" name="discounts" class="form-control" value="">
     						</td>
     					</tr>
     				<tr>
     						<td>포인트</td>
     						<td>
-    							<input type="text" name="point" class="form-control" value="" readonly>
+    							<input type="text" name="points" class="form-control" value="100" readonly>
     						</td>
     				</tr>
                 </table>

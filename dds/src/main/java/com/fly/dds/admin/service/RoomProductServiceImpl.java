@@ -22,18 +22,36 @@ public class RoomProductServiceImpl implements RoomProductService {
 	@Override
 	public void insertProduct(Room dto, String pathname) throws Exception {
 	    try {
-	        // 썸네일 이미지 업로드
-	        String filename = fileManager.doFileUpload(dto.getThumbnailFile(), pathname);
+	    	// 시퀀스
+	    	long roomNum = mapper.roomSeq();
+	    	dto.setNum(roomNum);
+	    	// 썸내일 이미지
+	    	String filename;
+	        filename = fileManager.doFileUpload(dto.getThumbnailFile(), pathname);
 	        dto.setThumbnail(filename);
-
-	        // 상세 이미지 업로드
-	        filename = fileManager.doFileUpload(dto.getDetailPhotoFile(), pathname);
-	        dto.setDetail_photo(filename);
-
+	    	
+	    	// 룸 테이블 추가
 	        mapper.insertRoom(dto);
-	        mapper.insertKeyword(dto);
-	        mapper.insertRoomFacility(dto);
-
+	        
+	    	
+	    	// 옵션 추가
+	    	for(int i=0; i< dto.getNames().size(); i++) {
+	    		dto.setName(dto.getNames().get(i));
+	    		dto.setPeople(dto.getPeoples().get(i));
+	    		dto.setPrice(dto.getPrices().get(i));
+	    		dto.setDetail_content(dto.getDetail_contents().get(i));
+	    		dto.setDiscount(dto.getDiscounts().get(i));
+	    		
+	    		
+	    		// 파일 처리
+	    		filename = fileManager.doFileUpload(dto.getDetailPhotoFiles().get(i), pathname);
+	    		dto.setDetail_photo(filename);
+	    		
+	    		// INSERT
+	    		mapper.insertRoomDetail(dto);
+	    	}
+	    	
+	    	
 	        // 추가 이미지 저장
 	        if (dto.getAddFiles() != null && !dto.getAddFiles().isEmpty()) {
 	            for (MultipartFile mf : dto.getAddFiles()) {
@@ -45,9 +63,8 @@ public class RoomProductServiceImpl implements RoomProductService {
 	                dto.setPhoto(filename);
 	                mapper.insertRoomFile(dto);
 	            }
-	        }
-
-	        mapper.insertRoomDetail(dto);
+	        }	        
+	    
 	    } catch (Exception e) {
 	        e.printStackTrace();
 	        throw e;

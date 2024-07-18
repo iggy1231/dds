@@ -10,17 +10,14 @@ import com.fly.dds.domain.Room;
 
 @Mapper
 public interface RoomManageMapper {
+	// 시퀀스 호출
+	public long roomSeq();
+	
 	// 숙소 등록
 	public void insertRoom(Room dto) throws SQLException;
 	
 	// 파일 등록
 	public void insertRoomFile(Room dto) throws SQLException;
-	
-	// 키워드 등록
-	public void insertKeyword(Room dto) throws SQLException;
-
-	// 시설 등록
-	public void insertRoomFacility(Room dto) throws SQLException;
 	
 	// 상세정보 등록
 	public void insertRoomDetail(Room dto) throws SQLException;

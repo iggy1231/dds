@@ -3,35 +3,26 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.fly.dds.admin.mapper.RoomManageMapper">
 
+  <select id="roomSeq" resultType="Long">
+  	SELECT room_seq.nextval FROM dual
+  </select>
+
 <!-- 숙소 등록 -->
 	<!-- public void insertRoom(Room dto) throws SQLException; -->
-	<select id="insertRoom" parameterType="com.fly.dds.domain.Room">
+	<insert id="insertRoom" parameterType="com.fly.dds.domain.Room">
 		insert into room ( num , subject , content , caution , room_type , reg_date
-		, post_num , addr1 , addr2 , thumbnail , active )
-		values ( room_seq.nextval , #{subject}, #{content} , #{caution} , #{room_type} , sysdate
-		, #{post_num} , #{addr1} , #{addr2} , #{thumbnail} , #{active} )
-	</select>
+		, post_num , addr1 , addr2 , thumbnail , key_value , facility_content ,  active )
+		values ( #{num} , #{subject}, #{content} , #{caution} , #{room_type} , sysdate
+		, #{post_num} , #{addr1} , #{addr2} , #{thumbnail} , #{key_value} , #{facility_content}, #{active} )
+	</insert>
 
 <!-- 파일(추가 이미지) 등록 -->
 	<!-- public void insertRoomFile(Room dto) throws SQLException; -->
 	<insert id="insertRoomFile" parameterType="com.fly.dds.domain.Room">
 		insert into room_photo(photo_num , photo , num ) values 
-		(room_photo_seq.nextval , #{photo} , room_seq.currval )
+		(room_photo_seq.nextval , #{photo} , #{num} )
 	</insert>
 			
-<!-- 키워드 등록 -->
-	<!-- public void insertKeyword(Room dto) throws SQLException; -->
-	<insert id="insertKeyword" parameterType="com.fly.dds.domain.Room">
-		insert into keyword(key_num , key_value , num ) values
-		(keyword_seq.nextval , #{key_value} , room_seq.currval )
-	</insert>
-		
-<!-- 시설 등록-->
-	<!-- public void insertRoomFacility(Room dto) throws SQLException; -->
-	<insert id="insertRoomFacility" parameterType ="com.fly.dds.domain.Room">
-		insert into room_facility(facility_num , content , num ) values 
-		(room_facility_seq.nextval , #{facility_content} , room_seq.currval)
-	</insert>
 	
 <!-- 상세정보 등록 -->
 	<!-- public void insertRoomDetail(Room dto) throws SQLException; -->
@@ -39,7 +30,7 @@
 		insert into room_detail(detail_num , people , price , discount , name ,
 		content , detail_photo , point , num ) values 
 		(room_detail_seq.nextval , #{people} , #{price} , #{discount} , #{name} , 
-		#{detail_content} , #{detail_photo} , #{point} , room_seq.currval )
+		#{detail_content} , #{detail_photo} , #{point} , #{num} )
 	</insert>
 
 <!-- room list -->
