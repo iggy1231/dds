@@ -7,7 +7,9 @@ import com.fly.dds.domain.Companion;
 
 public interface CompanionService {
 	public void insertCompanion(Companion dto);
-	public Companion findById(long num);
+	public Companion findByNum(long num);
 	public int dataCount();
 	public List<Companion> listCompanion(Map<String, Object> map);
+	public List<Companion> listBymainRegion(Map<String, Object> map);
+	public int dataCountByArea(String mainRegion);
 }
