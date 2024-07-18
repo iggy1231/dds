@@ -40,7 +40,7 @@ public class CompanionController {
 	@GetMapping("companionList")
 	public Map<String, Object> companionList(@RequestParam(value = "pageNo", defaultValue = "1") int current_page) {
 		Map<String, Object> model=new HashMap<String, Object>();
-		int size=10;
+		int size=5;
 		int dataCount=service.dataCount();
 		int total_page=myUtil.pageCount(dataCount, size);
 		if(current_page>total_page) {
@@ -108,6 +108,61 @@ public class CompanionController {
 			e.printStackTrace();
 		}
 		
-		return ".companion.list";
+		return "redirect:/companion/list";
+	}
+	
+	@ResponseBody
+	@GetMapping("areaCompanionList")
+	public Map<String, Object> areaCompanionList(@RequestParam(value = "pageNo", defaultValue = "1") int current_page,
+			@RequestParam String mainRegion) {
+		Map<String, Object> model=new HashMap<String, Object>();
+		int size=4;
+		int dataCount;
+		if(mainRegion.equals("전체")) {
+			dataCount=service.dataCount();
+		} else {
+			dataCount=service.dataCountByArea(mainRegion);
+		}
+		
+		int total_page=myUtil.pageCount(dataCount, size);
+		if(current_page>total_page) {
+			current_page=total_page;
+		}
+		
+		int offset=(current_page-1)*size;
+		if(offset<0) {
+			offset=0;
+		}
+		Map<String, Object> map=new HashMap<String, Object>();
+		map.put("mainRegion", mainRegion);
+		map.put("offset", offset);
+		map.put("size", size);
+		
+		List<Companion> list=null;
+		if(mainRegion.equals("전체")) {
+			list=service.listCompanion(map);
+		} else {
+			list=service.listBymainRegion(map);
+		}
+		
+		model.put("total_page", total_page);
+		model.put("pageNo", current_page);
+		model.put("list", list);
+		
+		return model;
+	}
+	
+	@GetMapping("article")
+	public String article(@RequestParam long num,
+			Model model) {
+		Companion dto=null;
+		try {
+			dto=service.findByNum(num);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		model.addAttribute("dto", dto);
+		
+		return ".companion.article";
 	}
 }

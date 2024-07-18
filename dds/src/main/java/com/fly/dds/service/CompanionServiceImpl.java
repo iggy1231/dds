@@ -1,7 +1,6 @@
 package com.fly.dds.service;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -13,6 +12,7 @@ import org.springframework.transaction.annotation.Transactional;
 import com.fly.dds.domain.Companion;
 import com.fly.dds.mapper.CompanionMapper;
 
+@Transactional(readOnly = true)
 @Service
 public class CompanionServiceImpl implements CompanionService {
 	@Autowired
@@ -25,15 +25,15 @@ public class CompanionServiceImpl implements CompanionService {
 			mapper.insertCompanion(dto);
 			mapper.insertCompanionInfo(dto);
 			
-			List<String> mainRegion=dto.getRegion_main();
-			List<String> subRegion=dto.getRegion_sub();
+			List<String> mainRegionList=dto.getRegion_main();
+			List<String> subRegionList=dto.getRegion_sub();
 			
 			int idx=0;
-			while(idx<mainRegion.size()||idx<subRegion.size()) {
+			while(idx<mainRegionList.size()||idx<subRegionList.size()) {
 				Companion c=new Companion();
 				
-				c.setMainRegion(mainRegion.get(idx));
-				c.setSubRegion(subRegion.get(idx));
+				c.setMainRegion(mainRegionList.get(idx));
+				c.setSubRegion(subRegionList.get(idx));
 				
 				mapper.insertCompanionRegion(c);
 				idx++;
@@ -49,24 +49,24 @@ public class CompanionServiceImpl implements CompanionService {
 		}
 	}
 
-	public Companion findById(long num) {
+	public Companion findByNum(long num) {
 		Companion dto=null;
 		
 		try {
-			dto=mapper.findByid(num);
-			String theme=mapper.findThemeByid(num);
-			List<Companion> region=mapper.findRegionByid(num);
-			Set<String> age=mapper.findAgeByid(num);
+			dto=mapper.findByNum(num);
+			String theme=mapper.findThemeByNum(num);
+			List<Companion> region=mapper.findRegionByNum(num);
+			Set<String> age=mapper.findAgeByNum(num);
 			
 			dto.setTheme(theme);
-			List<String> mainRegion=new ArrayList<String>();
-			List<String> subRegion=new ArrayList<String>();
+			List<String> mainRegionList=new ArrayList<String>();
+			List<String> subRegionList=new ArrayList<String>();
 			for(Companion c:region) {
-				mainRegion.add(c.getMainRegion());
-				subRegion.add(c.getSubRegion());
+				mainRegionList.add(c.getMainRegion());
+				subRegionList.add(c.getSubRegion());
 			}
-			dto.setRegion_main(mainRegion);
-			dto.setRegion_sub(subRegion);
+			dto.setRegion_main(mainRegionList);
+			dto.setRegion_sub(subRegionList);
 			dto.setAge(age);
 			
 		} catch (Exception e) {
@@ -96,19 +96,19 @@ public class CompanionServiceImpl implements CompanionService {
 		try {
 			list=mapper.listCompanion(map);
 			for(Companion dto:list) {
-				String theme=mapper.findThemeByid(dto.getNum());
-				List<Companion> region=mapper.findRegionByid(dto.getNum());
-				Set<String> age=mapper.findAgeByid(dto.getNum());
+				String theme=mapper.findThemeByNum(dto.getNum());
+				List<Companion> region=mapper.findRegionByNum(dto.getNum());
+				Set<String> age=mapper.findAgeByNum(dto.getNum());
 				
 				dto.setTheme(theme);
-				List<String> mainRegion=new ArrayList<String>();
-				List<String> subRegion=new ArrayList<String>();
+				List<String> mainRegionList=new ArrayList<String>();
+				List<String> subRegionList=new ArrayList<String>();
 				for(Companion c:region) {
-					mainRegion.add(c.getMainRegion());
-					subRegion.add(c.getSubRegion());
+					mainRegionList.add(c.getMainRegion());
+					subRegionList.add(c.getSubRegion());
 				}
-				dto.setRegion_main(mainRegion);
-				dto.setRegion_sub(subRegion);
+				dto.setRegion_main(mainRegionList);
+				dto.setRegion_sub(subRegionList);
 				dto.setAge(age);
 				
 				result.add(dto);
@@ -117,6 +117,49 @@ public class CompanionServiceImpl implements CompanionService {
 			e.printStackTrace();
 		}
 		
+		return result;
+	}
+
+	@Override
+	public List<Companion> listBymainRegion(Map<String, Object> map) {
+		List<Companion> list=null;
+		List<Companion> result=new ArrayList<Companion>();
+		try {
+			list=mapper.listBymainRegion(map);
+			for(Companion dto:list) {
+				String theme=mapper.findThemeByNum(dto.getNum());
+				List<Companion> region=mapper.findRegionByNum(dto.getNum());
+				Set<String> age=mapper.findAgeByNum(dto.getNum());
+				
+				dto.setTheme(theme);
+				List<String> mainRegionList=new ArrayList<String>();
+				List<String> subRegionList=new ArrayList<String>();
+				for(Companion c:region) {
+					mainRegionList.add(c.getMainRegion());
+					subRegionList.add(c.getSubRegion());
+				}
+				dto.setRegion_main(mainRegionList);
+				dto.setRegion_sub(subRegionList);
+				dto.setAge(age);
+				
+				result.add(dto);
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return list;
+	}
+
+	@Override
+	public int dataCountByArea(String mainRegion) {
+		int result=0;
+		
+		try {
+			result=mapper.dataCountByArea(mainRegion);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+
 		return result;
 	}
 }

@@ -16,11 +16,15 @@ public interface CompanionMapper {
 	public void insertCompanionTheme(Companion dto);
 	public void insertCompanionAge(String age);
 	
-	public Companion findByid(long num);
-	public String findThemeByid(long num);
-	public List<Companion> findRegionByid(long num);
-	public Set<String> findAgeByid(long num);
+	public Companion findByNum(long num);
+	public String findThemeByNum(long num);
+	public List<Companion> findRegionByNum(long num);
+	public Set<String> findAgeByNum(long num);
 	
 	public int dataCount();
 	public List<Companion> listCompanion(Map<String, Object> map);
+	
+	public long numBymainRegion(String mainRegion);
+	public List<Companion> listBymainRegion(Map<String, Object> map);
+	public int dataCountByArea(String mainRegion);
 }

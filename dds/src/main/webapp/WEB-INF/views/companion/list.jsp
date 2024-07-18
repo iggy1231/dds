@@ -24,169 +24,72 @@ body {
 .card p {
 	margin: 0px;
 }
+.scroll-list .card img {
+	width: 25%;
+}
 .scroll-list {
 	overflow-y: auto;
 	height: 600px;
 }
+.carousel-item {
+	text-align: center;
+}
 </style>
 
 <div class="container">
-    <div class="inner-page">
-		동행 구인 게시판 입니다.
-    </div>
     <div class="body-container">
-    	<form action="#">
-    		<p>검색창</p>
-    		<input type="text">
-    		<button>검색</button>
-    	</form>
+    		<div class="search-form-container">
+				<form class="d-flex" name="searchForm" action="${pageContext.request.contextPath}/companion/search">
+					<div class="input-group">
+						<span class="input-group-text"><i class="p-2 bi bi-search"></i></span>
+						<input name="kwd" type="text" class="p-3 form-control" placeholder="">
+						<select class="input-group-text" name="schType">
+							<option value="all" selected>전체</option>
+							<option value="name">이름</option>
+							<option value="region">지역</option>
+							<option value="tag">태그</option>
+						</select>
+						<button type="button" onclick="kwdCheck();" class="btn btn-primary">검색</button>
+					</div>
+				</form>
+			</div>
     	<hr>
-    	<p>지역 리스트 서울 경기 부산 대전 대구 강원...
-    	<p>지역 별 최신 글
-    	<div id="carouselExampleIndicators" class="carousel slide">
-		  <div class="carousel-inner">
+    	<div id="carouselExample" class="carousel slide">
+		  <div class="carousel-inner" data-pageNo="0" data-totalPage="0">
 		    <div class="carousel-item active">
-		      <div class="row item-list">
-	    	<div class="col card">
-				<img src="${pageContext.request.contextPath}/resources/images/숙소_예시.jpg" class="card-img-top" alt="...">
-				<div class="card-body">
-					<p>이름</p>
-					<p class="card-text">지역 시군구</p>
-					<footer>
-						<span>태그</span>		
-					</footer>
-				</div>
-			</div>
-			<div class="col card">
-				<img src="${pageContext.request.contextPath}/resources/images/숙소_예시.jpg" class="card-img-top" alt="...">
-				<div class="card-body">
-					<p>이름</p>
-					<p class="card-text">지역 시군구</p>
-					<footer>
-						<span>태그</span>		
-					</footer>
-				</div>
-			</div>
-			<div class="col card">
-				<img src="${pageContext.request.contextPath}/resources/images/숙소_예시.jpg" class="card-img-top" alt="...">
-				<div class="card-body">
-					<p>이름</p>
-					<p class="card-text">지역 시군구</p>
-					<footer>
-						<span>태그</span>		
-					</footer>
-				</div>
-			</div>
-			<div class="col card">
-				<img src="${pageContext.request.contextPath}/resources/images/숙소_예시.jpg" class="card-img-top" alt="...">
-				<div class="card-body">
-					<p>이름</p>
-					<p class="card-text">지역 시군구</p>
-					<footer>
-						<span>태그</span>		
-					</footer>
-				</div>
-			</div>
-		</div>
+		      <button class="btn btn-outline-secondary active" value="전체">전체</button>
+		      <button class="btn btn-outline-secondary" value="서울">서울</button>
+		      <button class="btn btn-outline-secondary" value="인천">인천</button>
+		      <button class="btn btn-outline-secondary" value="대전">대전</button>
+		      <button class="btn btn-outline-secondary" value="대구">대구</button>
+		      <button class="btn btn-outline-secondary" value="광주">광주</button>
+		      <button class="btn btn-outline-secondary" value="부산">부산</button>
+		      <button class="btn btn-outline-secondary" value="울산">울산</button>
+		      <button class="btn btn-outline-secondary" value="세종">세종</button>
 		    </div>
 		    <div class="carousel-item">
-		      <div class="row item-list">
-	    	<div class="col card">
-				<img src="${pageContext.request.contextPath}/resources/images/숙소_예시.jpg" class="card-img-top" alt="...">
-				<div class="card-body">
-					<p>이름</p>
-					<p class="card-text">지역 시군구</p>
-					<footer>
-						<span>태그</span>		
-					</footer>
-				</div>
-			</div>
-			<div class="col card">
-				<img src="${pageContext.request.contextPath}/resources/images/숙소_예시.jpg" class="card-img-top" alt="...">
-				<div class="card-body">
-					<p>이름</p>
-					<p class="card-text">지역 시군구</p>
-					<footer>
-						<span>태그</span>		
-					</footer>
-				</div>
-			</div>
-			<div class="col card">
-				<img src="${pageContext.request.contextPath}/resources/images/숙소_예시.jpg" class="card-img-top" alt="...">
-				<div class="card-body">
-					<p>이름</p>
-					<p class="card-text">지역 시군구</p>
-					<footer>
-						<span>태그</span>		
-					</footer>
-				</div>
-			</div>
-			<div class="col card">
-				<img src="${pageContext.request.contextPath}/resources/images/숙소_예시.jpg" class="card-img-top" alt="...">
-				<div class="card-body">
-					<p>이름</p>
-					<p class="card-text">지역 시군구</p>
-					<footer>
-						<span>태그</span>		
-					</footer>
-				</div>
-			</div>
-		</div>
-		    </div>
-		    <div class="carousel-item">
-		      <div class="row item-list">
-	    	<div class="col card">
-				<img src="${pageContext.request.contextPath}/resources/images/숙소_예시.jpg" class="card-img-top" alt="...">
-				<div class="card-body">
-					<p>이름</p>
-					<p class="card-text">지역 시군구</p>
-					<footer>
-						<span>태그</span>		
-					</footer>
-				</div>
-			</div>
-			<div class="col card">
-				<img src="${pageContext.request.contextPath}/resources/images/숙소_예시.jpg" class="card-img-top" alt="...">
-				<div class="card-body">
-					<p>이름</p>
-					<p class="card-text">지역 시군구</p>
-					<footer>
-						<span>태그</span>		
-					</footer>
-				</div>
-			</div>
-			<div class="col card">
-				<img src="${pageContext.request.contextPath}/resources/images/숙소_예시.jpg" class="card-img-top" alt="...">
-				<div class="card-body">
-					<p>이름</p>
-					<p class="card-text">지역 시군구</p>
-					<footer>
-						<span>태그</span>		
-					</footer>
-				</div>
-			</div>
-			<div class="col card">
-				<img src="${pageContext.request.contextPath}/resources/images/숙소_예시.jpg" class="card-img-top" alt="...">
-				<div class="card-body">
-					<p>이름</p>
-					<p class="card-text">지역 시군구</p>
-					<footer>
-						<span>태그</span>		
-					</footer>
-				</div>
-			</div>
-		</div>
+		      <button class="btn btn-outline-secondary" value="경기">경기</button>
+		      <button class="btn btn-outline-secondary" value="강원">강원</button>
+		      <button class="btn btn-outline-secondary" value="충북">충북</button>
+		      <button class="btn btn-outline-secondary" value="충남">충남</button>
+		      <button class="btn btn-outline-secondary" value="경상">경상</button>
+		      <button class="btn btn-outline-secondary" value="경남">경남</button>
+		      <button class="btn btn-outline-secondary" value="전북">전북</button>
+		      <button class="btn btn-outline-secondary" value="전남">전남</button>
+		      <button class="btn btn-outline-secondary" value="제주">제주</button>
 		    </div>
 		  </div>
-		  <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="prev">
+		  <button class="carousel-control-prev" type="button" data-bs-target="#carouselExample" data-bs-slide="prev">
 		    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
 		    <span class="visually-hidden">Previous</span>
 		  </button>
-		  <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="next">
+		  <button class="carousel-control-next" type="button" data-bs-target="#carouselExample" data-bs-slide="next">
 		    <span class="carousel-control-next-icon" aria-hidden="true"></span>
 		    <span class="visually-hidden">Next</span>
 		  </button>
 		</div>
+    	<p>지역 별 최신 글
+    	<div class="areaList" data-pageNo="0" data-totalPage="0"></div>
 		<hr>
 		<p>지역 별 인기 글
     	<div class="row item-list">
@@ -233,6 +136,8 @@ body {
 		</div>
 		<p>지역/테마 글 게시판으로 이동
 		<hr>
+		<button onclick="writeForm();">동행 구인 작성</button>
+		<hr>
 		<p>전체 글
 		<div class="scroll-list">
 			<ul class="list-group list-group-flush">
@@ -246,6 +151,57 @@ body {
 </div>
 
 <script type="text/javascript">
+$(function(){
+	$('.carousel-item .btn').click(function(){
+		let mainRegion=$(this).val();
+		let page = $('.areaList').attr('data-pageNo');
+		
+		$('.carousel-item .btn').removeClass('active');
+		$(this).addClass('active');
+		
+		console.log(mainRegion);
+		console.log(page);
+		nextPage(page, mainRegion);
+	}); 
+});
+
+function nextPage(page, mainRegion) {
+	let url="${pageContext.request.contextPath}/companion/areaCompanionList";
+	let query="pageNo="+page+"&mainRegion="+mainRegion;
+	
+	const fn=function(data) {
+		addNextPage(data);
+	};
+	
+	ajaxFun(url, 'get', query, 'json', fn);
+} 
+
+function addNextPage(data) {
+	console.log(data);
+	let pageNo = data.pageNo;
+	$(".areaList").html('');
+	
+	let htmlText='<div class="row item-list">';
+	for(let item of data.list) {
+		htmlText+='<div class="col card">';
+		htmlText+='<img src="${pageContext.request.contextPath}/resources/images/숙소_예시.jpg" class="card-img-top" alt="...">';
+		htmlText+='<div class="card-body"><p>'+item.subject+'</p>';
+		item.age.forEach((ages)=>{
+			htmlText+='<a href="#">'+ages+'대 </a>';
+			})
+			htmlText+='<a href="">'+item.gender+'</a>';
+		htmlText+='		<h3>'+item.subject+'</h2>';
+		htmlText+='		<p>'+item.content+'</p>';
+		for(let idx=0;idx<item.region_main.length;idx++) {
+			htmlText+='<span class="card-text">'+item.region_main[idx]+' '+item.region_sub[idx]+'</span>';
+		}
+		htmlText+='</div></div>';
+	}
+	htmlText+='</div>';
+	$(".areaList").append(htmlText);	
+
+}
+
 const sentinel = document.querySelector('.sentinel');
 const scroll = document.querySelector('.scroll-list ul');
 
@@ -253,6 +209,7 @@ function ajaxFun(url, method, formData, dataType, fn, file = false) {
 	const settings = {
 			type: method, 
 			data: formData,
+			contentType: "application/x-www-form-urlencoded; charset=UTF-8",
 			success:function(data) {
 				fn(data);
 			},
@@ -292,7 +249,6 @@ function listPage(page) {
 }
 
 function scroll_load(data) {
-	console.log(data);
 	let pageNo = data.pageNo;
 	let total_page = data.total_page;
 	
@@ -301,32 +257,29 @@ function scroll_load(data) {
 	
 	sentinel.style.display = 'none';
 	
-	let htmlText="";
+	
 	for(let item of data.list) {
-		htmlText+='<li class="list-group-item">';
-			htmlText+='<div>';
-				htmlText+='<p>'+item.subject+'</p>';
-				htmlText+='<p>'+item.content+'</p>';
-				htmlText+='<p>'+item.nickname+'</p>';
-				item.region_main.forEach((mainRegion)=>{
-				htmlText+='<span>'+mainRegion+'</span>';		
-				})
-				item.region_sub.forEach((subRegion)=>{
-				htmlText+='<span>'+subRegion+'</span>';		
-				})
-				htmlText+='<p>'+item.theme+'</p>';
-				htmlText+='<p>'+item.sdate+'~'+item.edate+'</p>';
-				htmlText+='<p>'+item.current_people+'/'+item.total_people+'</p>';
-				htmlText+='<p>'+item.estimate_cost+'</p>';
-				htmlText+='<p>'+item.gender+'</p>';
-				item.age.forEach((ages)=>{
-				htmlText+='<span>'+ages+'</span>';		
-				})
-				htmlText+='<p>'+item.reg_date+'</p>';
-			htmlText+='</div>';
+		let htmlText="";
+		htmlText='<li><div class="card flex-row" onclick="article('+item.num+')">';
+		htmlText+='	<img src="${pageContext.request.contextPath}/resources/images/숙소_예시.jpg" class="card-img-top" alt="...">';
+		htmlText+='		<div class="card-body">';
+		item.age.forEach((ages)=>{
+			htmlText+='<a href="#">'+ages+'대 </a>';
+			})
+			htmlText+='<a href="">'+item.gender+'</a>';
+		htmlText+='		<h3>'+item.subject+'</h2>';
+		htmlText+='		<p>'+item.content+'</p>';
+		for(let idx=0;idx<item.region_main.length;idx++) {
+			htmlText+='<span class="card-text">'+item.region_main[idx]+' '+item.region_sub[idx]+'</span>';
+		}
+		htmlText+='		<footer><p>'+item.sdate+'~'+item.edate+'</p>';
+		htmlText+='		</footer></div>';
+		htmlText+='	</div>';
 		htmlText+='</li>';
+		$(".list-group").append(htmlText);	
 	}
-	$(".list-group").append(htmlText);	
+	
+	
 	
 	if(pageNo < total_page) {
 		sentinel.setAttribute('data-loading', 'false');
@@ -351,7 +304,7 @@ const ioCallback = (entries, io) => {
 			
 			if(pageNo === 0 || pageNo < total_page) {
 				pageNo++;
-				scroll_load(pageNo);
+				listPage(pageNo);
 			}
 		}
 	});
@@ -362,5 +315,14 @@ io.observe(sentinel);
 
 $(function(){
 	listPage(1);
+	nextPage(1, '전체');
 });
+
+function writeForm() {
+	location.href='${pageContext.request.contextPath}/companion/write';
+}
+
+function article(num) {
+	location.href='${pageContext.request.contextPath}/companion/article?num='+num;
+}
 </script>
