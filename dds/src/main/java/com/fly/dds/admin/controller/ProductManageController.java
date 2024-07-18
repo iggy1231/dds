@@ -37,22 +37,18 @@ public class ProductManageController {
 	
 	@PostMapping("write")
 	public String roomWriteSubmit(Room dto,
-			HttpSession session,
-			Model model
-			) {
-		
-	String root = session.getServletContext().getRealPath("/");
-	String path = root + "upload" + File.separator + "room";
-	
-	try {
-		service.insertProduct(dto, path);
-		  model.addAttribute("message", "등록이 성공적으로 완료되었습니다.");
-	} catch (Exception e) {
-		model.addAttribute("message", "등록 실습니다.");
-	}
-	
-	String url = "redirect:/admin/product/list";
-	
-		return url;
+	                              HttpSession session,
+	                              Model model) {
+	    String root = session.getServletContext().getRealPath("/");
+	    String path = root + "uploads" + File.separator + "room";
+
+	    try {
+	        service.insertProduct(dto, path);
+	        model.addAttribute("message", "등록이 성공적으로 완료되었습니다.");
+	    } catch (Exception e) {
+	        model.addAttribute("message", "등록에 실패했습니다.");
+	    }
+
+	    return "redirect:/admin/product/list";
 	}
 }

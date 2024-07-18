@@ -73,7 +73,7 @@
 			<h3 class="ps-1 text-primary fw-semibold"><i class="bi bi-app"></i> 숙소 상품관리 </h3>
 		</div>
 		<div class="body-main">
-			<form name="productForm" method="post" enctype="multipart/form-data">
+			<form name="productForm" method="post" action="${pageContext.request.contextPath}/admin/product/write" enctype="multipart/form-data">
 				<table class="table mt-5 table-form">
 					<tr>
 						<td class="table-light col-sm-2">카테고리</td>
@@ -138,7 +138,8 @@
             </tr>
             <tr>
                 <td>최대 인원수</td>
-                <td><input type="text" name="people" class="form-control" placeholder="최대 인원수" value=""></td>
+                <td><input type="text" name="people" class="form-control" placeholder="최대 인원수" value="">
+                <input type="hidden" name="caution" value="이거하나떄문에5시간을"> </td>
             </tr>
             <tr>
                 <td>옵션가격</td>
@@ -148,10 +149,10 @@
                 <td>상세설명</td>
                 <td><textarea name="detail_content"  class="form-control" placeholder="옵션 상세 설명" style="height:100px; "></textarea></td>
             </tr>
-            <tr>
-                <td>객실/구역 썸네일</td>
-                <td><input type="file" name="detail_photo" class="form-control" placeholder="객실/구역 썸네일" value=""></td>
-            </tr>
+           <tr>
+    <td class="table-light col-sm-2">객실/구역 썸네일</td>
+    <td><input type="file" name="detailPhotoFile" class="form-control" placeholder="객실/구역 썸네일"></td>
+</tr>
             <tr>
 				<td>할인율</td>
 					<td>
@@ -193,12 +194,12 @@
 					</tr>
 					
 					<tr>
-                            <td class="table-light col-sm-2">썸네일 이미지</td>
-                            <td>
-                                <div class="thumbnail-viewer"></div>
-								<input type="file" name="thumbnail" accept="image/*" class="form-control" style="display: none;">
-                            </td>
-                        </tr>
+    <td class="table-light col-sm-2">썸네일 이미지</td>
+    <td>
+        <div class="thumbnail-viewer"></div>
+        <input type="file" name="thumbnailFile" accept="image/*" class="form-control" style="display: none;">
+    </td>
+</tr>
 
                         <tr>
                             <td class="table-light col-sm-2">추가이미지</td>
@@ -225,7 +226,7 @@
 								<c:if test="${not empty page}">
 									<c:param name="page" value="${page}"/>
 								</c:if>
-							</c:url>
+							</c:url>	
 							
 							<button type="button" class="btn btn-dark" onclick="submitContents(this.form);">${mode=="update"?"수정완료":"등록완료"}</button>
 							<button type="reset" class="btn btn-light">다시입력</button>
@@ -314,7 +315,7 @@ document.getElementById('addOptionBtn').addEventListener('click', function() {
                     </tr>
                     <tr>
                         <td>객실/구역 썸네일</td>
-                        <td><input type="file" name="optionContent" class="form-control" placeholder="객실/구역 썸네일" value=""></td>
+                        <td><input type="file" name="optionThumbnail" class="form-control" placeholder="객실/구역 썸네일" value=""></td>
                     </tr>
                     
                     <tr>

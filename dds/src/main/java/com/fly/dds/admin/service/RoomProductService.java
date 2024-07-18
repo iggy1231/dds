@@ -13,7 +13,7 @@ public interface RoomProductService {
 	public void deleteOptionDetail(long detailNum) throws Exception;
 	
 	public int dataCount(Map<String, Object> map);
-	public List<Room > listProduct(Map<String, Object> map);
+	public List<Room> listProduct(Map<String, Object> map);
 	
 	public Room findById(long productNum);
 	public Room findByPrev(Map<String, Object> map);

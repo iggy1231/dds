@@ -5,8 +5,10 @@ import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.fly.dds.admin.mapper.RoomManageMapper;
+import com.fly.dds.common.FileManager;
 import com.fly.dds.domain.Room;
 
 @Service
@@ -14,17 +16,42 @@ public class RoomProductServiceImpl implements RoomProductService {
 	@Autowired
 	private RoomManageMapper mapper;
 	
+	@Autowired
+	private FileManager fileManager;
+	
 	@Override
 	public void insertProduct(Room dto, String pathname) throws Exception {
-		try {
-			mapper.insertRoom(dto);
-			mapper.insertKeyword(dto);
-			mapper.insertRoomFacility(dto);
-			mapper.insertRoomFile(dto);
-			mapper.insertRoomDetail(dto);
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
+	    try {
+	        // 썸네일 이미지 업로드
+	        String filename = fileManager.doFileUpload(dto.getThumbnailFile(), pathname);
+	        dto.setThumbnail(filename);
+
+	        // 상세 이미지 업로드
+	        filename = fileManager.doFileUpload(dto.getDetailPhotoFile(), pathname);
+	        dto.setDetail_photo(filename);
+
+	        mapper.insertRoom(dto);
+	        mapper.insertKeyword(dto);
+	        mapper.insertRoomFacility(dto);
+
+	        // 추가 이미지 저장
+	        if (dto.getAddFiles() != null && !dto.getAddFiles().isEmpty()) {
+	            for (MultipartFile mf : dto.getAddFiles()) {
+	                filename = fileManager.doFileUpload(mf, pathname);
+	                if (filename == null) {
+	                    continue;
+	                }
+
+	                dto.setPhoto(filename);
+	                mapper.insertRoomFile(dto);
+	            }
+	        }
+
+	        mapper.insertRoomDetail(dto);
+	    } catch (Exception e) {
+	        e.printStackTrace();
+	        throw e;
+	    }
 	}
 
 	@Override
