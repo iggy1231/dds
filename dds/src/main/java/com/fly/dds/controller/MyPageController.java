@@ -11,8 +11,9 @@ public class MyPageController {
 	@GetMapping("profile")
 	public String profileList() {
 		
-		return ".mypage.profile";
+		return ".four.mypage.profile";
 	}
+	
 	
 	
 }

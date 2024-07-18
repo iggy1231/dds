@@ -29,6 +29,25 @@
     	<put-attribute name="body" value="/WEB-INF/views/admin/{1}.jsp" />
 	</definition>
 	
+	<!-- 4단 -->
+	<definition name=".mainLayout4" template="/WEB-INF/views/layout/layout4.jsp">
+	    <put-attribute name="title" value="여행의 시작 :: 두둥실" />
+	  	<put-attribute name="header" value="/WEB-INF/views/layout/header.jsp" />
+		<put-attribute name="left" value="/WEB-INF/views/layout/left.jsp" />
+		<put-attribute name="body" value="/WEB-INF/views/main/main.jsp" />
+		<put-attribute name="footer" value="/WEB-INF/views/layout/footer.jsp" />
+	</definition>
+
+	<definition name=".four.*.*.*" extends=".mainLayout4">
+		<put-attribute name="body" value="/WEB-INF/views/{1}/{2}/{3}.jsp"/>
+	</definition>
+	<definition name=".four.*.*" extends=".mainLayout4">
+		<put-attribute name="body" value="/WEB-INF/views/{1}/{2}.jsp"/>
+	</definition>
+	<definition name=".four.*" extends=".mainLayout4">
+		<put-attribute name="body" value="/WEB-INF/views/{1}.jsp"/>
+	</definition>
+	
 	<!-- 순서가 바뀌면 안됨(* 많은것이 위에) -->
 	<definition name=".*.*.*" extends=".mainLayout">
 		<put-attribute name="body" value="/WEB-INF/views/{1}/{2}/{3}.jsp"/>
