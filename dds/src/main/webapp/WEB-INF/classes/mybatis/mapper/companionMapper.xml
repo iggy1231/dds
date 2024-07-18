@@ -2,5 +2,56 @@
 
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.fly.dds.mapper.CompanionMapper">
-
+	<insert id="insertCompanion" parameterType="com.fly.dds.domain.Companion">
+		insert into companion values(companion_seq.nextval, #{nickname}, #{subject}, #{content}, SYSDATE, 0, 1, #{user_num})
+	</insert>
+	
+	<insert id="insertCompanionInfo" parameterType="com.fly.dds.domain.Companion">
+		insert into companion_info values(companion_seq.currval, #{sdate}, #{edate}, #{total_people}, 1, #{estimate_cost}, #{gender})
+	</insert>
+	
+	<insert id="insertCompanionRegion" parameterType="com.fly.dds.domain.Companion">
+		insert into companion_region values(companion_region_seq.nextval, companion_seq.currval, #{mainRegion}, #{subRegion})	
+	</insert>
+	
+	<insert id="insertCompanionTheme" parameterType="com.fly.dds.domain.Companion">
+		insert into companion_theme values(companion_theme_seq.nextval, companion_seq.currval, #{theme})
+	</insert>
+	
+	<insert id="insertCompanionAge" parameterType="String">
+		insert into companion_age values(companion_seq.currval, #{age})
+	</insert>
+	
+	<select id="findByid" parameterType="long" resultType="com.fly.dds.domain.Companion">
+		select c.num, nickname, subject, content, TO_CHAR(reg_date, 'YYYY-MM-DD') AS reg_date, hitcount, status, user_num,
+		TO_CHAR(sdate, 'YYYY-MM-DD') AS sdate, TO_CHAR(edate, 'YYYY-MM-DD') AS edate, 
+		total_people, current_people, estimate_cost
+		from companion c join companion_info ci on c.num=ci.num
+		where c.num=#{num}
+	</select>
+	
+	<select id="findThemeByid" parameterType="long" resultType="String">
+		select theme from companion_theme where num=#{num}
+	</select>
+	
+	<select id="findRegionByid" parameterType="long" resultType="com.fly.dds.domain.Companion">
+		select region_main AS mainRegion, region_sub AS subRegion from companion_region where num=#{num}
+	</select>
+	
+	<select id="findAgeByid" parameterType="long" resultType="String">
+		select age from companion_age where num=#{num}
+	</select>
+	
+	<select id="dataCount" resultType="Integer">
+		select NVL(COUNT(*), 0) from companion
+	</select>
+	
+	<select id="listCompanion" parameterType="map" resultType="com.fly.dds.domain.Companion">
+		select c.num, nickname, subject, content, TO_CHAR(reg_date, 'YYYY-MM-DD') AS reg_date, hitcount, status, user_num,
+		TO_CHAR(sdate, 'YYYY-MM-DD') AS sdate, TO_CHAR(edate, 'YYYY-MM-DD') AS edate, 
+		gender, total_people, current_people, estimate_cost
+		from companion c join companion_info ci on c.num=ci.num
+		order by reg_date DESC, subject ASC
+		OFFSET #{offset} ROWS FETCH FIRST #{size} ROWS ONLY
+	</select>
 </mapper>

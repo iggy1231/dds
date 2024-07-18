@@ -1,5 +1,12 @@
 package com.fly.dds.controller;
 
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
+
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -7,8 +14,11 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.fly.dds.common.MyUtil;
 import com.fly.dds.domain.Companion;
+import com.fly.dds.domain.SessionInfo;
 import com.fly.dds.service.CompanionService;
 
 @Controller
@@ -17,11 +27,41 @@ public class CompanionController {
 	@Autowired
 	private CompanionService service;
 	
+	@Autowired
+	private MyUtil myUtil;
 	
 	@GetMapping("list")
-	public String companionList(Model model) {
+	public String list(Model model) {
 		
 		return ".companion.list";
+	}
+	
+	@ResponseBody
+	@GetMapping("companionList")
+	public Map<String, Object> companionList(@RequestParam(value = "pageNo", defaultValue = "1") int current_page) {
+		Map<String, Object> model=new HashMap<String, Object>();
+		int size=10;
+		int dataCount=service.dataCount();
+		int total_page=myUtil.pageCount(dataCount, size);
+		if(current_page>total_page) {
+			current_page=total_page;
+		}
+		
+		int offset=(current_page-1)*size;
+		if(offset<0) {
+			offset=0;
+		}
+		Map<String, Object> map=new HashMap<String, Object>();
+		map.put("offset", offset);
+		map.put("size", size);
+		
+		List<Companion> list=service.listCompanion(map);
+		
+		model.put("total_page", total_page);
+		model.put("pageNo", current_page);
+		model.put("list", list);
+		
+		return model;
 	}
 	
 	@GetMapping("write")
@@ -31,22 +71,26 @@ public class CompanionController {
 	}
 	
 	@PostMapping("write")
-	public String writeSubmit(@RequestParam String areaCode,
-			@RequestParam String[] sigunguCode,
+	public String writeSubmit(@RequestParam List<String> areaCode,
+			@RequestParam List<String> sigunguCode,
 			@RequestParam String sdate,
 			@RequestParam String edate,
 			@RequestParam String theme,
 			@RequestParam String gender,
-			@RequestParam String[] age,
+			@RequestParam Set<String> age,
 			@RequestParam int total_people,
 			@RequestParam int estimate_cost,
 			@RequestParam String subject,
 			@RequestParam String content,
+			HttpSession session,
 			Model model) {
-		
+		SessionInfo info=(SessionInfo)session.getAttribute("member");
 		Companion dto=new Companion();
-		
+
 		try {
+			dto.setNickname(info.getNickName());
+			dto.setUser_num(info.getUser_num());
+			
 			dto.setSubject(subject);
 			dto.setContent(content);
 			dto.setRegion_main(areaCode);
@@ -59,6 +103,7 @@ public class CompanionController {
 			dto.setTotal_people(total_people);
 			dto.setEstimate_cost(estimate_cost);
 			
+			service.insertCompanion(dto);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
