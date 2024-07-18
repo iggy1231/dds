@@ -1,5 +1,8 @@
 package com.fly.dds.domain;
 
+import java.util.List;
+import java.util.Set;
+
 public class Companion {
 	private long num;
 	private String nickname;
@@ -10,15 +13,29 @@ public class Companion {
 	private long user_num;
 	private int status;
 	
-	private String region_main;
-	private String[] region_sub;
+	private List<String> region_main;
+	private List<String> region_sub;
+	private String mainRegion;
+	private String subRegion;
 	
+	public String getMainRegion() {
+		return mainRegion;
+	}
+	public void setMainRegion(String mainRegion) {
+		this.mainRegion = mainRegion;
+	}
+	public String getSubRegion() {
+		return subRegion;
+	}
+	public void setSubRegion(String subRegion) {
+		this.subRegion = subRegion;
+	}
 	private String theme;
 	
 	private String sdate;
 	private String edate;
 	private String gender;
-	private String[] age;
+	private Set<String> age;
 
 	private int total_people;
 	private int current_people;
@@ -72,17 +89,11 @@ public class Companion {
 	public void setStatus(int status) {
 		this.status = status;
 	}
-	public String getRegion_main() {
+	public List<String> getRegion_main() {
 		return region_main;
 	}
-	public void setRegion_main(String region_main) {
+	public void setRegion_main(List<String> region_main) {
 		this.region_main = region_main;
-	}
-	public String[] getRegion_sub() {
-		return region_sub;
-	}
-	public void setRegion_sub(String[] region_sub) {
-		this.region_sub = region_sub;
 	}
 	public String getTheme() {
 		return theme;
@@ -126,10 +137,16 @@ public class Companion {
 	public void setGender(String gender) {
 		this.gender = gender;
 	}
-	public String[] getAge() {
+	public List<String> getRegion_sub() {
+		return region_sub;
+	}
+	public void setRegion_sub(List<String> region_sub) {
+		this.region_sub = region_sub;
+	}
+	public Set<String> getAge() {
 		return age;
 	}
-	public void setAge(String[] age) {
+	public void setAge(Set<String> age) {
 		this.age = age;
 	}
 }
