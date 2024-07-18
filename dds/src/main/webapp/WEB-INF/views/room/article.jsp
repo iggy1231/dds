@@ -113,9 +113,29 @@
     position: relative;
     width: 95%;
 }
+
+.heart-button {
+	margin-right: 15px;
+    align-items: center;
+    justify-content: center;
+    width: 50px;
+    height: 50px;
+    border: 2px solid #ccc;
+    border-radius: 50%;
+    background-color: #f6f8fa;
+    font-size: 20px;
+    color: #333;
+    transition: background-color 0.3s ease, border-color 0.3s ease;
+    outline: none;
+}
+
+.heart-button:hover {
+    background-color: #e1e4e8;
+    border-color: #a0a0a0;
+}
 </style>
 
-<div data-bs-spy="scroll" data-bs-target="#topBox #topBox2" data-bs-offset="0" tabindex="0">
+<div data-bs-spy="scroll" data-bs-target="#topBox" data-bs-offset="0" tabindex="0">
 <!-- 상단 고정 박스 -->
 <div id="topBox" class="fixed-top-box ps-5 p-2 border-bottom">
     <ul class="nav nav-pills">
@@ -127,6 +147,9 @@
         </li>
         <li class="nav-item">
             <a class="nav-link" href="#facility">시설 정보</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" href="#caution">주의 사항</a>
         </li>
         <li class="nav-item">
             <a class="nav-link" href="#rooms">객실 선택</a>
@@ -175,7 +198,10 @@
             <h2 class="py-2 text-primary fw-semibold">100,324원 / 박</h2>
         </div>
         <div class="col-md-4 text-end p-3">
+        	<div class="d-flex justify-content-end align-items-center">
+        	<button class="heart-button"><i class="bi bi-heart" style="color: #A6A6A6;"></i></button>
            <button class="fs-5 btn btn-primary">예약하기</button>
+           </div>
         </div>
     </div>
     <hr>
@@ -206,15 +232,24 @@
 </div>
 
     <!-- 시설 정보 섹션 -->
-    <div id="facility" class="row mb-5 mt-3 p-1">
+    <div id="facility" class="row mb-5 mt-4 p-1">
         <div class="col-12">
             <h3 class="fw-semibold pb-2">시설 정보</h3>
             <p class="fs-5 fw-medium py-3"> ● TV, 취식 가능, 바베큐 시설 이용 가능, 와이파이 </p>
         </div>
     </div>
+    
+    <!-- 주의 사항 섹션 -->
+    <div id="caution" class="row mb-5 mt-4 p-1">
+        <div class="col-12">
+            <h3 class="fw-semibold pb-2">주의 사항</h3>
+            <p class="fs-5 fw-medium"> ● 체크인 시간 | 15시  </p>
+            <p class="fs-5 fw-medium"> ● 체크아웃 시간 | 11시  </p>
+        </div>
+    </div>
 
     <!-- 객실 선택 섹션 -->
-<div id="rooms" class="row mb-5 mt-3 p-1">
+<div id="rooms" class="row mb-5 mt-4 p-1">
     <div class="col-12">
         <h3 class="fw-semibold pb-3">객실 선택</h3>
         <div class="card mb-3">
@@ -326,7 +361,7 @@ document.querySelectorAll('a.nav-link').forEach(anchor => {
     anchor.addEventListener('click', function(e) {
         e.preventDefault();
         var target = document.querySelector(this.getAttribute('href'));
-        var offset = target.getBoundingClientRect().top + window.scrollY - 100;
+        var offset = target.getBoundingClientRect().top + window.scrollY - 120;
         window.scrollTo({
             top: offset,
             behavior: 'smooth'

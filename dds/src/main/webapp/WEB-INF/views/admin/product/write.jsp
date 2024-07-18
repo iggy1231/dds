@@ -128,6 +128,8 @@
 							<input type="text" id="sample6_extraAddress" placeholder="참고항목" class="my-1  form-control address2">
 						</td>
 					</tr>
+					
+				<!-- 객실 옵션 -->
 	<tr class="product-option-1">
     <td class="table-light col-sm-2">객실 옵션</td>
     <td>
@@ -139,20 +141,19 @@
             <tr>
                 <td>최대 인원수</td>
                 <td><input type="text" name="people" class="form-control" placeholder="최대 인원수" value="">
-                <input type="hidden" name="caution" value="이거하나떄문에5시간을"> </td>
             </tr>
             <tr>
                 <td>옵션가격</td>
                 <td><input type="text" name="price" class="form-control" placeholder="옵션 가격" value=""></td>
             </tr>
             <tr>
-                <td>상세설명</td>
+                <td>객실설명</td>
                 <td><textarea name="detail_content"  class="form-control" placeholder="옵션 상세 설명" style="height:100px; "></textarea></td>
             </tr>
            <tr>
-    <td class="table-light col-sm-2">객실/구역 썸네일</td>
-    <td><input type="file" name="detailPhotoFile" class="form-control" placeholder="객실/구역 썸네일"></td>
-</tr>
+   				 <td class="col-sm-2">객실/구역 썸네일</td>
+    		     <td><input type="file" name="detailPhotoFile" class="form-control" placeholder="객실/구역 썸네일"></td>
+			</tr>
             <tr>
 				<td>할인율</td>
 					<td>
@@ -172,7 +173,10 @@
 <tr id="addOptionRow">
            <td colspan="2" class="text-center"><button type="button" id="addOptionBtn" class="btn btn-primary">+ 옵션 추가하기</button></td>
 </tr>
-					
+			<tr>
+                <td class="table-light col-sm-2">주의사항</td>
+                <td> <textarea  name="caution" class="form-control" style="height:100px;"></textarea> </td>
+            </tr>					
 					
 					
 					<tr>
@@ -314,9 +318,9 @@ document.getElementById('addOptionBtn').addEventListener('click', function() {
                         <td><textarea name="optionContent"  class="form-control" placeholder="옵션 상세 설명" style="height:100px; "></textarea></td>
                     </tr>
                     <tr>
-                        <td>객실/구역 썸네일</td>
-                        <td><input type="file" name="optionThumbnail" class="form-control" placeholder="객실/구역 썸네일" value=""></td>
-                    </tr>
+      				 <td class="col-sm-2">객실/구역 썸네일</td>
+       		         <td><input type="file" name="detailPhotoFile" class="form-control" placeholder="객실/구역 썸네일"></td>
+   					</tr>
                     
                     <tr>
     					<td>할인율</td>
