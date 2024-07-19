@@ -11,5 +11,5 @@ public interface RoomService {
 
 	public List<Room> listRoom(Map<String, Object> map);
 	
-	public List<Room> searchRoom(String kwd, String sdate, String edate, int people);
+	public List<Room> searchRoom(Map<String, Object> map);
 }

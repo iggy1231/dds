@@ -45,8 +45,8 @@ List<Room> list = null;
 
 
     @Override
-    public List<Room> searchRoom(String kwd, String sdate, String edate, int people) {
-        return mapper.searchRoom(kwd, sdate, edate, people);
+    public List<Room> searchRoom(Map<String, Object> map) {
+        return mapper.searchRoom(map);
     }
 
 }

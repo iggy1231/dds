@@ -50,12 +50,15 @@
 	
 	<!-- 숙소 검색 -->
 	<!-- public List<Room> searchRoom(String kwd, String sdate, String edate, int people);  -->
-	<select id="searchRoom" resultType="com.fly.dds.domain.Room">
+	<select id="searchRoom" parameterType="map" resultType="com.fly.dds.domain.Room">
 		SELECT r.num, r.subject, r.addr1, r.addr2, r.room_type, NVL(AVG(rr.rating), 0) AS avg_rating, NVL(COUNT(rr.review_num), 0) AS review_count, 
 				MIN(d.price) AS min_price, r.facility_content AS facilities, r.key_value AS keywords
 		FROM room r
 		JOIN room_detail d ON r.num = d.num
 		LEFT OUTER JOIN room_review rr ON r.num = rr.num
+		
+		WHERE INSTR(r.subject, #{kwd} ) > 0
+		 AND d.people &gt;= #{people}
 		<where>
 			<!--  
 			  <if test="sdate != null and sdate != '' ">
@@ -64,13 +67,15 @@
         	<if test="edate != null and edate != '' ">
            	 AND d.end_date &lt;= #{edate}
         	</if>
-        	-->
         	<if test="subject != null and subject > 0">
-        		AND INSTR(r.subject, #{kwd} ) > 0
+        		
         	</if>
+ 
+        	
         	<if test="people != null and people > 0">
            	 AND d.people &gt;= #{people}
-      		  </if>
+      		</if>
+      		-->
 		</where>
 		GROUP BY r.num, r.subject, r.addr1, r.addr2, r.room_type, r.facility_content, r.key_value
 		ORDER BY min_price DESC

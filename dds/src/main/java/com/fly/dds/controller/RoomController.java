@@ -148,7 +148,13 @@ public class RoomController {
              @RequestParam(required = false) String edate, 
              @RequestParam int people, 
              Model model) {
-			List<Room> roomList = service.searchRoom(kwd, sdate, edate, people);
+			Map<String, Object> map=new HashMap<String, Object>();
+			map.put("kwd", kwd);
+			map.put("sdate", sdate);
+			map.put("edate", edate);
+			map.put("people", people);
+			
+			List<Room> roomList = service.searchRoom(map);
 			model.addAttribute("rooms", roomList);
 			model.addAttribute("kwd", kwd);
 			model.addAttribute("sdate", sdate);
@@ -156,6 +162,6 @@ public class RoomController {
 			model.addAttribute("people", people);
 			model.addAttribute("dataCount", roomList.size());
 			
-			return "list";
+			return ".room.list";
 				}
 }

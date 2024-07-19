@@ -168,7 +168,7 @@
         </ul>
         <div class="tab-content mt-3" id="myTabContent">
            <div class="container mt-5">
-    <form class="d-flex" action="${pageContext.request.contextPath}/room/search" me>
+    <form class="d-flex" action="${pageContext.request.contextPath}/room/search">
         <div class="input-group">
             <span class="input-group-text"><i class="bi bi-search"></i></span>
             <input name="kwd" type="text" class="form-control" placeholder="여행지나 숙소를 검색해보세요">
