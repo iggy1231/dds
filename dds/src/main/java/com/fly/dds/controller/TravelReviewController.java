@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.fly.dds.common.FileManager;
 import com.fly.dds.domain.SessionInfo;
@@ -95,7 +96,8 @@ public class TravelReviewController {
     @PostMapping("create")
     public String createReview(HttpSession session,
             @RequestParam String subject,
-            @RequestParam String content) {
+            @RequestParam String content,
+            @RequestParam List<MultipartFile> selectFile) {
         SessionInfo info = (SessionInfo) session.getAttribute("member");
 
         String root = session.getServletContext().getRealPath("/");
@@ -106,6 +108,7 @@ public class TravelReviewController {
             
             dto.setSubject(subject);
             dto.setContent(content);
+            dto.setSelectFile(selectFile);
             dto.setNickName(info.getNickName());
             dto.setUser_num(info.getUser_num());
             
@@ -140,6 +143,8 @@ public class TravelReviewController {
             return "redirect:/travelreview/list?" + query;
         }
         
+        List<TravelReview> fileList=reviewService.listFile(num);
+        
         // 댓글 목록 가져오기
         List<TravelReviewReply> replies = replyService.listReplies(num);
         if(replies==null) {
@@ -151,6 +156,7 @@ public class TravelReviewController {
         model.addAttribute("dto", dto);
         model.addAttribute("page", page);
         model.addAttribute("query", query);
+        model.addAttribute("fileList", fileList);
         model.addAttribute("replies", replies); // 댓글 목록 추가
         model.addAttribute("likeCount", likeCount);
         

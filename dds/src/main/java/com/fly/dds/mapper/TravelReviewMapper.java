@@ -19,4 +19,7 @@ public interface TravelReviewMapper {
 	public void TravelReview_Like(Map<String, Object> map);
 	public int likeCount(long num);
 	public int isBoardLike(Map<String, Object> map);
+	public void insertFile(TravelReview dto);
+	public long travelreviewSeq();
+	public List<TravelReview> listFile(long num);
 }

@@ -90,7 +90,7 @@
                 <form action="${pageContext.request.contextPath}/travelreview/${mode}" method="post" enctype="multipart/form-data">
                     <input type="text" name="subject" placeholder="제목을 입력하세요" required value='${mode=="create"?"":dto.subject}'>
                     <textarea name="content" placeholder="내용을 입력하세요" required>${mode=="create"?"":dto.content}</textarea>
-                    <input type="file" name="files" multiple >
+                    <input type="file" name="selectFile"  accept="image/*" multiple >
                     <input type="hidden" name="num" value="${dto.num}">
                     <input type="hidden" name="page" value="${page}">
                     <button type="submit">${mode=="create"?"작성하기":"수정하기"}</button>
@@ -98,5 +98,8 @@
             </div>
         </div>
     </div>
+    
+    
+    
 </body>
 </html>

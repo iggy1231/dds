@@ -5,7 +5,7 @@
 	<insert id="insertReview" parameterType="com.fly.dds.domain.TravelReview">
 		INSERT INTO travelreview(num, nickName, subject, content, 
 			 reg_date, hitcount, user_num)
-		VALUES (travelreview_seq.NEXTVAL, #{nickName}, #{subject}, #{content},
+		VALUES (#{num}, #{nickName}, #{subject}, #{content},
 			 SYSDATE, 0, #{user_num} )
 	</insert>
 	
@@ -75,4 +75,20 @@
 	<select id="isBoardLike" parameterType="map" resultType="Integer">
 		 select count(*) from travelreview_like where num=#{num} and user_num=#{user_num}
 	</select>
+	
+	<insert id="insertFile" parameterType="com.fly.dds.domain.TravelReview">
+		INSERT INTO TravelReview_File(file_Num, num, imageFilename)
+		VALUES(TRAVELREVIEW_FILE_SEQ.NEXTVAL, #{num}, #{imageFilename})
+	</insert>
+	
+	<select id="travelreviewSeq" resultType="Long">
+		SELECT travelreview_seq.NEXTVAL FROM dual
+	</select>
+	
+	<select id="listFile" parameterType="long" resultType="com.fly.dds.domain.TravelReview">
+		SELECT file_Num, num, imageFilename
+		FROM travelreview_file
+		WHERE num=#{num}
+	</select>
+
 </mapper>
