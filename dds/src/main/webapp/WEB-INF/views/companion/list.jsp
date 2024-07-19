@@ -54,7 +54,7 @@ body {
 				</form>
 			</div>
     	<hr>
-    	<div id="carouselExample" class="carousel slide">
+    	<div id="selectAreabtn" class="carousel slide">
 		  <div class="carousel-inner" data-pageNo="0" data-totalPage="0">
 		    <div class="carousel-item active">
 		      <button class="btn btn-outline-secondary active" value="전체">전체</button>
@@ -89,51 +89,31 @@ body {
 		  </button>
 		</div>
     	<p>지역 별 최신 글
-    	<div class="areaList" data-pageNo="0" data-totalPage="0"></div>
+    		<div id="areaList-carousel" class="carousel slide">
+				<div class="carousel-inner">
+					<div class="carousel-item active">
+				      
+				    </div>
+				    <div class="carousel-item">
+				      
+				    </div>
+				    <div class="carousel-item">
+				      
+				    </div>
+				</div>
+				<button class="carousel-control-prev" type="button" data-bs-target="#areaList-carousel" data-bs-slide="prev">
+					<span class="carousel-control-prev-icon" aria-hidden="true"></span>
+					<span class="visually-hidden">Previous</span>
+				</button>
+				<button class="carousel-control-next" type="button" data-bs-target="#areaList-carousel" data-bs-slide="next">
+					<span class="carousel-control-next-icon" aria-hidden="true"></span>
+				    <span class="visually-hidden">Next</span>
+				</button>
+			</div>
 		<hr>
 		<p>지역 별 인기 글
-    	<div class="row item-list">
-	    	<div class="col card">
-				<img src="${pageContext.request.contextPath}/resources/images/숙소_예시.jpg" class="card-img-top" alt="...">
-				<div class="card-body">
-					<p>이름</p>
-					<p class="card-text">지역 시군구</p>
-					<footer>
-						<span>태그</span>		
-					</footer>
-				</div>
-			</div>
-			<div class="col card">
-				<img src="${pageContext.request.contextPath}/resources/images/숙소_예시.jpg" class="card-img-top" alt="...">
-				<div class="card-body">
-					<p>이름</p>
-					<p class="card-text">지역 시군구</p>
-					<footer>
-						<span>태그</span>		
-					</footer>
-				</div>
-			</div>
-			<div class="col card">
-				<img src="${pageContext.request.contextPath}/resources/images/숙소_예시.jpg" class="card-img-top" alt="...">
-				<div class="card-body">
-					<p>이름</p>
-					<p class="card-text">지역 시군구</p>
-					<footer>
-						<span>태그</span>		
-					</footer>
-				</div>
-			</div>
-			<div class="col card">
-				<img src="${pageContext.request.contextPath}/resources/images/숙소_예시.jpg" class="card-img-top" alt="...">
-				<div class="card-body">
-					<p>이름</p>
-					<p class="card-text">지역 시군구</p>
-					<footer>
-						<span>태그</span>		
-					</footer>
-				</div>
-			</div>
-		</div>
+    	  <div class="areaPopularList">
+		  </div>
 		<p>지역/테마 글 게시판으로 이동
 		<hr>
 		<button onclick="writeForm();">동행 구인 작성</button>
@@ -154,20 +134,17 @@ body {
 $(function(){
 	$('.carousel-item .btn').click(function(){
 		let mainRegion=$(this).val();
-		let page = $('.areaList').attr('data-pageNo');
 		
 		$('.carousel-item .btn').removeClass('active');
 		$(this).addClass('active');
 		
-		console.log(mainRegion);
-		console.log(page);
-		nextPage(page, mainRegion);
+		nextPage(mainRegion);
 	}); 
 });
 
-function nextPage(page, mainRegion) {
+function nextPage(mainRegion) {
 	let url="${pageContext.request.contextPath}/companion/areaCompanionList";
-	let query="pageNo="+page+"&mainRegion="+mainRegion;
+	let query="&mainRegion="+mainRegion;
 	
 	const fn=function(data) {
 		addNextPage(data);
@@ -178,28 +155,43 @@ function nextPage(page, mainRegion) {
 
 function addNextPage(data) {
 	console.log(data);
-	let pageNo = data.pageNo;
-	$(".areaList").html('');
+	$("#areaList-carousel .carousel-item:first").addClass('areaNewList');
+	$("#areaList-carousel .carousel-item").html("");
 	
-	let htmlText='<div class="row item-list">';
-	for(let item of data.list) {
-		htmlText+='<div class="col card">';
-		htmlText+='<img src="${pageContext.request.contextPath}/resources/images/숙소_예시.jpg" class="card-img-top" alt="...">';
-		htmlText+='<div class="card-body"><p>'+item.subject+'</p>';
-		item.age.forEach((ages)=>{
-			htmlText+='<a href="#">'+ages+'대 </a>';
-			})
-			htmlText+='<a href="">'+item.gender+'</a>';
-		htmlText+='		<h3>'+item.subject+'</h2>';
-		htmlText+='		<p>'+item.content+'</p>';
-		for(let idx=0;idx<item.region_main.length;idx++) {
-			htmlText+='<span class="card-text">'+item.region_main[idx]+' '+item.region_sub[idx]+'</span>';
+	let htmlText='<div class="row">';
+	for(let i=0;i<12;i++) {
+		if(i%4==0&&i>=data.list.length) {
+			break;
 		}
-		htmlText+='</div></div>';
+		if(i%4==0&&i!=0) {
+			htmlText+='</div>';
+			$(".areaNewList").append(htmlText);
+			htmlText="";
+			$(".areaNewList").next().addClass('areaNewList');
+			$(".areaNewList:first").removeClass('areaNewList');
+			htmlText+='<div class="row">';
+		}
+		if(i<data.list.length) {
+			htmlText+='<div class="col card" onclick="article('+data.list[i].num+')">';
+			htmlText+='<img src="${pageContext.request.contextPath}/resources/images/숙소_예시.jpg" class="card-img-top" alt="...">';
+			htmlText+='<div class="card-body"><p>'+data.list[i].subject+'</p>';
+			data.list[i].age.forEach((ages)=>{
+				htmlText+='<a href="#">'+ages+'대 </a>';
+				})
+				htmlText+='<a href="">'+data.list[i].gender+'</a>';
+			htmlText+='		<h3>'+data.list[i].subject+'</h2>';
+			htmlText+='		<p>'+data.list[i].content+'</p>';
+			for(let j=0;j<data.list[i].region_main.length;j++) {
+				htmlText+='<span class="card-text">'+data.list[i].region_main[j]+' '+data.list[i].region_sub[j]+'</span>';
+			}
+			htmlText+='</div></div>';
+		} else {
+			htmlText+='<div class="col"></div>';
+		}
 	}
 	htmlText+='</div>';
-	$(".areaList").append(htmlText);	
-
+	$(".areaNewList").append(htmlText);
+	$(".areaNewList:first").removeClass('areaNewList');
 }
 
 const sentinel = document.querySelector('.sentinel');
@@ -315,7 +307,7 @@ io.observe(sentinel);
 
 $(function(){
 	listPage(1);
-	nextPage(1, '전체');
+	nextPage('전체');
 });
 
 function writeForm() {

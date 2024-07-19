@@ -69,8 +69,62 @@
 	    OFFSET #{offset} ROWS FETCH FIRST #{size} ROWS ONLY
 	</select>
 	
-	<select id="dataCountByArea" parameterType="String" resultType="Integer">
-		select COUNT(*) FROM companion c
-    	join (select distinct num from companion_region where region_main=#{mainRegion}) r ON c.num=r.num
+	<select id="similiarList" parameterType="map" resultType="com.fly.dds.domain.Companion">
+		select c.num, nickname, subject, content, TO_CHAR(reg_date, 'YYYY-MM-DD') AS reg_date, hitcount, status, user_num,
+		TO_CHAR(sdate, 'YYYY-MM-DD') AS sdate, TO_CHAR(edate, 'YYYY-MM-DD') AS edate, 
+	    gender, total_people, current_people, estimate_cost
+		from companion c
+	    join companion_info ci on c.num=ci.num
+	    join (select distinct num from companion_region where region_main=#{mainRegion}) r ON c.num=r.num
+	    where c.num!=#{num}
+	    OFFSET #{offset} ROWS FETCH FIRST #{size} ROWS ONLY
+	</select>
+	
+	<select id="likeCount" parameterType="Long" resultType="Integer">
+		select NVL(COUNT(*), 0) from COMPANION_LIKE where num=#{num}
+	</select>
+	
+	<insert id="insertCompanionLike" parameterType="map">
+		INSERT INTO COMPANION_LIKE(num, user_num) VALUES(#{num}, #{user_num})
+	</insert>
+	
+	<select id="isCompanionLiked" parameterType="map"  resultType="Integer">
+		select NVL(COUNT(*), 0) from COMPANION_LIKE where num=#{num} AND user_num=#{user_num}
+	</select>
+	
+	<insert id="insertCompanionReply" parameterType="map">
+		INSERT INTO COMPANION_REPLY(REPLY_NUM, NUM, USER_NUM, NICKNAME, CONTENT, REG_DATE)
+		VALUES(COMPANION_REPLY_SEQ.NEXTVAL, #{num}, #{user_num}, #{nickName}, #{content}, SYSDATE)
+	</insert>
+	
+	<select id="replyCount" parameterType="Long" resultType="Integer">
+		select NVL(COUNT(*), 0) from COMPANION_REPLY where num=#{num}
+	</select>
+	
+	<select id="replyLikeCount" parameterType="Long" resultType="Integer">
+		select NVL(COUNT(*), 0) from COMPANION_REPLY_LIKE where reply_num=#{reply_num}
+	</select>
+	
+	<select id="listCompanionReply" parameterType="map" resultType="com.fly.dds.domain.InfoReply">
+		SELECT REPLY_NUM, NUM, USER_NUM, NICKNAME, CONTENT, TO_CHAR(REG_DATE, 'YYYY-MM-DD') AS REG_DATE
+		FROM COMPANION_REPLY
+		WHERE num=#{num}
+		OFFSET #{offset} ROWS FETCH FIRST #{size} ROWS ONLY
+	</select>
+	
+	<select id="isCompnaionReplyLiked" parameterType="map" resultType="Integer">
+		select NVL(COUNT(*), 0) from COMPANION_REPLY_LIKE where reply_num=#{reply_num} AND user_num=#{user_num}
+	</select>
+	
+	<delete id="deleteCompanionReply" parameterType="Long">
+		delete from COMPANION_REPLY where reply_num=#{reply_num}
+	</delete>
+	
+	<insert id="insertCompanionReplyLike" parameterType="map">
+		insert into COMPANION_REPLY_LIKE(reply_num, user_num) values(#{reply_num}, #{user_num})
+	</insert>
+	
+	<select id="isCompanionReplyLiked" parameterType="map" resultType="Integer">
+		select NVL(COUNT(*), 0) from COMPANION_REPLY_LIKE where reply_num=#{reply_num} AND user_num=#{user_num}
 	</select>
 </mapper>
