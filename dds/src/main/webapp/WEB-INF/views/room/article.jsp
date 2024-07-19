@@ -167,7 +167,7 @@
 <!-- 이미지 갤러리 섹션 -->
 <div class="image-gallery row mb-4">
     <div class="col-md-6 d-flex align-items-stretch">
-        <img src="${pageContext.request.contextPath}/resources/images/product_default.png" class="img-fluid rounded w-100 left-img" alt="메인 이미지">
+        <img src="${pageContext.request.contextPath}/uploads/room/${dto.thumbnail}" class="img-fluid rounded w-100 left-img" alt="메인 이미지">
     </div>
     <div class="col-md-6 right-col">
         <div class="row mb-2">
@@ -192,10 +192,10 @@
     <!-- 가격 및 예약 버튼 섹션 -->
     <div  class="row my-4 p-1 pt-4">
         <div class="col-md-8">
-            <h5>캠핑/글램핑</h5>
-            <h3 class="fw-semibold py-1">익산 함께해요 캠핑장</h3>
-            <h5 class="py-1"><i class="text-primary bi bi-geo-alt-fill fw-semibold"></i>&nbsp;전라북도 익산시</h5>
-            <h2 class="py-2 text-primary fw-semibold">100,324원 / 박</h2>
+            <h5>${dto.room_type }</h5>
+            <h3 class="fw-semibold py-1">${dto.subject}</h3>
+            <h5 class="py-1"><i class="text-primary bi bi-geo-alt-fill fw-semibold"></i>&nbsp;${dto.addr1}</h5>
+            <h2 class="py-2 text-primary fw-semibold">${dto.price} / 박</h2>
         </div>
         <div class="col-md-4 text-end p-3">
         	<div class="d-flex justify-content-end align-items-center">
@@ -211,7 +211,7 @@
         <div class="col-8 row g-0">
             <h3 class="fw-semibold pb-2">숙소 위치</h3>
             <img src="https://maps.googleapis.com/maps/api/staticmap?size=400x200&scale=2&zoom=14&center=37.58128019999999,128.3273444&key=AIzaSyBAoo822AgkqBDrPE5nr4w_ZRIAF1lISEQ&signature=D0IXZNk-o2YOmLcFYH1FwSRphf8%3D" class="rounded img-fluid" alt="지도">
-        	<h5 class="fw-semibold py-3">전라북도 익산시 ooo로 123-12 </h5>
+        	<h5 class="fw-semibold py-3">${dto.addr1} / ${dto.addr2}</h5>
         </div>
     </div>
     
@@ -220,7 +220,7 @@
     <div class="col-12">
         <h3 class="fw-semibold pb-2">상세 설명</h3>
         <div id="collapseImageContainer" class="collapse-image-container position-relative">
-            <img src="https://shop-phinf.pstatic.net/20230412_49/1681266662977k8PCS_PNG/%EC%82%B0%EB%A6%AC%EC%98%A4%ED%82%A4%EB%A7%81%EC%98%B5%EC%85%98-005.png?type=w860" class="img-fluid w-100" alt="상세 설명 이미지">
+            ${dto.content}
             <div id="gradientOverlay" class="position-absolute w-100 bottom-0 start-0" style="height: 100px; background: linear-gradient(to top, white, transparent);"></div>
         </div>
         <div class="d-flex justify-content-center">
@@ -235,7 +235,7 @@
     <div id="facility" class="row mb-5 mt-4 p-1">
         <div class="col-12">
             <h3 class="fw-semibold pb-2">시설 정보</h3>
-            <p class="fs-5 fw-medium py-3"> ● TV, 취식 가능, 바베큐 시설 이용 가능, 와이파이 </p>
+            <p class="fs-5 fw-medium py-3">${dto.facility_content} </p>
         </div>
     </div>
     
@@ -243,8 +243,8 @@
     <div id="caution" class="row mb-5 mt-4 p-1">
         <div class="col-12">
             <h3 class="fw-semibold pb-2">주의 사항</h3>
-            <p class="fs-5 fw-medium"> ● 체크인 시간 | 15시  </p>
-            <p class="fs-5 fw-medium"> ● 체크아웃 시간 | 11시  </p>
+            <p class="fs-5 fw-medium"> ${dto.caution} </p>
+           
         </div>
     </div>
 
@@ -256,18 +256,18 @@
             <div class="row g-0 align-items-center">
                 <div class="col-md-4">
                     <div class="ratio ratio-4x3">
-                        <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTnhCKvICLEqkPoPv0qfoWKDRRsVHVg1US3RA&s" class="img-fluid rounded-start" alt="객실 이미지">
+                        <img src="${pageContext.request.contextPath}/uploads/room/${dto.detail_photo}" class="img-fluid rounded-start" alt="객실 이미지">
                     </div>
                 </div>
                 <div class="col-md-5">
                     <div class="card-body p-2">
-                        <h2 class="card-title fw-semibold pb-2">A101</h2>
-                        <h5 class="card-text py-1 fw-medium">🛏️ 싱글 침대 2개</h5>
-                        <h5 class="card-text py-2 fw-medium">👥 성인 2명</h5>
+                        <h2 class="card-title fw-semibold pb-2">${dto.name}</h2>
+                        <h5 class="card-text py-1 fw-medium">🛏️ ${dto.detail_content}</h5>
+                        <h5 class="card-text py-2 fw-medium">👥 ${dto.people}인실</h5>
                     </div>
                 </div>
                 <div class="col-md-3 text-end p-3 pe-4">
-                    <h4 class="text-primary fw-semibold">114,700원 / 박</h4>
+                    <h4 class="text-primary fw-semibold">${dto.price}원 / 박</h4>
                     <button class="btn btn-primary fs-5 pt-1">예약하기</button>
                 </div>
             </div>

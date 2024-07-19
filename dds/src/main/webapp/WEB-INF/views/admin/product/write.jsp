@@ -82,8 +82,8 @@
 								<div class="col-6 pe-1">
 									<select name="room_type" class="form-select">
 										<option value="">:: 숙소 카테고리 선택 ::</option>
-											<option value="pension">펜션</option>
-											<option value="camping">캠핑/글램핑</option>
+											<option value="펜션">펜션</option>
+											<option value="캠핑/글램핑">캠핑/글램핑</option>
 									</select>
 								</div>
 							</div>
@@ -98,24 +98,24 @@
 					<tr>
 						<td class="table-light col-sm-2">키워드 선택</td>
 						<td>
-							<input name="key_value" type="checkbox" value="1" class="ms-1"> 가족여행
-							<input name="key_value" type="checkbox" value="2" class="ms-1"> 힙한감성
-							<input name="key_value" type="checkbox" value="3" class="ms-1"> 연인끼리
-							<input name="key_value" type="checkbox" value="4" class="ms-1"> 뷰맛집
-							<input name="key_value" type="checkbox" value="5" class="ms-1"> 감성숙소
-							<input name="key_value" type="checkbox" value="6" class="ms-1"> 친구와함께
+							<input name="key_value" type="checkbox" value="가족여행" class="ms-1"> 가족여행
+							<input name="key_value" type="checkbox" value="힙한감성" class="ms-1"> 힙한감성
+							<input name="key_value" type="checkbox" value="연인끼리" class="ms-1"> 연인끼리
+							<input name="key_value" type="checkbox" value="뷰맛집" class="ms-1"> 뷰맛집
+							<input name="key_value" type="checkbox" value="감성숙소" class="ms-1"> 감성숙소
+							<input name="key_value" type="checkbox" value="친구와함께" class="ms-1"> 친구와함께
 						</td>
 					</tr>
 					<tr>
 						<td class="table-light col-sm-2">시설 선택</td>
 						<td>
-							<input name="facility_content" type="checkbox" value="1" class="ms-1"> 사우나
-							<input name="facility_content" type="checkbox" value="2" class="ms-1"> 취사가능
-							<input name="facility_content" type="checkbox" value="3" class="ms-1"> 바베큐
-							<input name="facility_content"  type="checkbox" value="4" class="ms-1"> 수영장
-							<input name="facility_content" type="checkbox" value="5" class="ms-1"> 노래방
-							<input name="facility_content" type="checkbox" value="6" class="ms-1"> 스파
-							<input name="facility_content" type="checkbox" value="7" class="ms-1"> 피트니스
+							<input name="facility_content" type="checkbox" value="사우나" class="ms-1"> 사우나
+							<input name="facility_content" type="checkbox" value="취사가능" class="ms-1"> 취사가능
+							<input name="facility_content" type="checkbox" value="바베큐" class="ms-1"> 바베큐
+							<input name="facility_content"  type="checkbox" value="수영장" class="ms-1"> 수영장
+							<input name="facility_content" type="checkbox" value="노래방" class="ms-1"> 노래방
+							<input name="facility_content" type="checkbox" value="스파" class="ms-1"> 스파
+							<input name="facility_content" type="checkbox" value="피트니스" class="ms-1"> 피트니스
 						</td>
 					</tr>
 					<tr>
