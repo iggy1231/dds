@@ -30,11 +30,13 @@
                                         <h4 class="mb-4 pb-3">Log In</h4>
                                         <form action="${pageContext.request.contextPath}/member/login" method="post" name="loginForm">
                                             <div class="form-group">
-                                                <input type="text" name="userId" class="form-style" placeholder="Your Id" id="logemail" autocomplete="off"/>
+                                            	<!-- 나중에 value="admin" 지울것! -->
+                                                <input value="admin" type="text" name="userId" class="form-style" placeholder="Your Id" id="logemail" autocomplete="off"/>
                                                 <i class="input-icon bi bi-box-arrow-in-right"></i>
                                             </div>    
                                             <div class="form-group mt-2">
-                                                <input type="password" name="userPwd" class="form-style" placeholder="Your Password" id="logpass" autocomplete="off">
+                                            	<!-- 나중에 value="admin" 지울것! -->
+                                                <input value="admin" type="password" name="userPwd" class="form-style" placeholder="Your Password" id="logpass" autocomplete="off">
                                                 <i class="input-icon bi bi-lock-fill"></i>
                                             </div>
                                             <button type="button" onclick="sendLogin();" class="btn mt-4">submit</button>
