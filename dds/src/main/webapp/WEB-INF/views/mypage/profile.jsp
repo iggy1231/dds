@@ -43,7 +43,7 @@ margin : 30px;
 			 			  </c:choose>
 			 		</div>  
 			 		<div class="good">
-						<div>그러시든가요:)</div>
+						<div><i class="bi bi-heart-fill"></i>그러시든가요:)</div>
 						<div>싫어요! 니 똥 굵다!</div>
 					</div>
 			 			

@@ -43,9 +43,20 @@
                     <a href="${pageContext.request.contextPath}/" class="nav-link text-start"><img alt="" src="${pageContext.request.contextPath}/resources/images/menu_동행.png" style="width: 35px;">&nbsp;&nbsp;&nbsp;동행</a>
                 </div>
             </div>
-            <div class="mt-2 d-lg-none text-start my-2">
-                <a href="${pageContext.request.contextPath}/member/login" class="btn btn-primary text-white">로그인 및 회원가입</a>
-            </div>
+            <c:choose>
+            	<c:when test="${empty sessionScope.member}">
+		            <div class="mt-2 d-lg-none text-start my-2">
+		                <a href="${pageContext.request.contextPath}/member/login" class="btn btn-primary text-white">로그인 및 회원가입</a>
+		            </div>
+            	</c:when>
+            	<c:otherwise>
+            		<c:if test="${sessionScope.member.activity>50}">
+	        			<div class="d-none d-lg-flex ms-lg-3">
+		        			<a href="${pageContext.request.contextPath}/admin" title="관리자"><i class="bi bi-gear-fill" style="font-size: 24px; color: #5e6576;"></i></a>
+	        			</div>
+	        		</c:if>
+            	</c:otherwise>
+            </c:choose>
             <c:choose>
         	<c:when test="${empty sessionScope.member}">
 			    <div class="d-none d-lg-flex ms-lg-3">
@@ -53,11 +64,7 @@
 			    </div>
         	</c:when>
         	<c:otherwise>
-	        		<c:if test="${sessionScope.member.activity>50}">
-	        			<div class="d-none d-lg-flex ms-lg-3">
-		        			<a href="${pageContext.request.contextPath}/admin" title="관리자"><i class="bi bi-gear-fill" style="font-size: 24px; color: #5e6576;"></i></a>
-	        			</div>
-	        		</c:if>
+	        		
         	</c:otherwise>
         </c:choose>
         
