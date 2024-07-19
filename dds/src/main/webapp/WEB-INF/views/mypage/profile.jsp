@@ -11,12 +11,6 @@
 	height: 300px; 
 
 }
-
-.good {
-margin : 30px;
-}
-
-
 </style>
 
 
@@ -25,10 +19,9 @@ margin : 30px;
 	<div class="page-title">
 		<div class="spacing-top"></div>
 		 <div class="content"> 
-		 	<div class="">
-		 	 
+		 	<div class="title-row">
 		 		<div class="title title--show">
-		 			<h3 style="font-weight: bold; color: #18A8F1;"><i>내 정보 관리</i></h3>
+		 			<h1 class="text">프로필</h1>
 			 	</div> 
 			 	
 			 	<div class="profile-container" style="display: flex">
