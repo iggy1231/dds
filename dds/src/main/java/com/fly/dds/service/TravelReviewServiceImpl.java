@@ -5,10 +5,10 @@ import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.fly.dds.common.FileManager;
 import com.fly.dds.domain.TravelReview;
-import com.fly.dds.domain.TravelReviewReply;
 import com.fly.dds.mapper.TravelReviewMapper;
 
 @Service
@@ -22,15 +22,26 @@ public class TravelReviewServiceImpl implements TravelReviewService {
 	@Override
 	public void reviewInsert(TravelReview dto, String pathname) {
 		try {
-			String saveFilename = 
-					fileManager.doFileUpload(dto.getSelectFile(), pathname);
-			if(saveFilename != null) {
-				dto.setSaveFilename(saveFilename);
-				dto.setOriginalFilename(dto.getSelectFile().getOriginalFilename());
-			}
-			
+			long seq=mapper.travelreviewSeq();
+			dto.setNum(seq);
 			
 			mapper.insertReview(dto);
+			
+			if (!dto.getSelectFile().isEmpty()) {
+				for (MultipartFile mf : dto.getSelectFile()) {
+					String imageFilename = fileManager.doFileUpload(mf, pathname);
+					if (imageFilename == null) {
+						continue;
+					}
+
+					dto.setImageFilename(imageFilename);
+
+					mapper.insertFile(dto);
+				}
+			}	
+			
+			
+			
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -133,4 +144,18 @@ public class TravelReviewServiceImpl implements TravelReviewService {
 		return true;
 	}
 
+	@Override
+	public List<TravelReview> listFile(long num) {
+		List<TravelReview> list=null;
+		
+		try {
+			list=mapper.listFile(num);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		return list;
+	}
+	
+	
 }

@@ -1,5 +1,7 @@
 package com.fly.dds.domain;
 
+import java.util.List;
+
 import org.springframework.web.multipart.MultipartFile;
 
 public class TravelReview {
@@ -11,9 +13,10 @@ public class TravelReview {
 	private int hitCount;
 	private long user_num;
 	
-	private String saveFilename;
-	private String originalFilename;
-	private MultipartFile selectFile;
+	private List<MultipartFile> selectFile;
+	
+	private long fileNum;
+	private String imageFilename;
 	
 	public long getNum() {
 		return num;
@@ -57,22 +60,22 @@ public class TravelReview {
 	public void setUser_num(long user_num) {
 		this.user_num = user_num;
 	}
-	public String getSaveFilename() {
-		return saveFilename;
-	}
-	public void setSaveFilename(String saveFilename) {
-		this.saveFilename = saveFilename;
-	}
-	public String getOriginalFilename() {
-		return originalFilename;
-	}
-	public void setOriginalFilename(String originalFilename) {
-		this.originalFilename = originalFilename;
-	}
-	public MultipartFile getSelectFile() {
+	public List<MultipartFile> getSelectFile() {
 		return selectFile;
 	}
-	public void setSelectFile(MultipartFile selectFile) {
+	public void setSelectFile(List<MultipartFile> selectFile) {
 		this.selectFile = selectFile;
+	}
+	public long getFileNum() {
+		return fileNum;
+	}
+	public void setFileNum(long fileNum) {
+		this.fileNum = fileNum;
+	}
+	public String getImageFilename() {
+		return imageFilename;
+	}
+	public void setImageFilename(String imageFilename) {
+		this.imageFilename = imageFilename;
 	}
 }

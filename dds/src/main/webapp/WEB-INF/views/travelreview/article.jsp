@@ -402,6 +402,9 @@
             <div class="post-title">${dto.subject}</div>
             <div class="post-content">
                 ${dto.content}
+                <c:forEach var="imageFile" items="${fileList}">
+                	<img src="${pageContext.request.contextPath}/uploads/travelreview/${imageFile.imageFilename}">
+                </c:forEach>
             </div>
             <div class="post-info">
                 <div>작성자: ${dto.nickName}</div>
