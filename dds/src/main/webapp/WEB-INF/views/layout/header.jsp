@@ -46,8 +46,7 @@
             <div class="mt-2 d-lg-none text-start my-2">
                 <a href="${pageContext.request.contextPath}/member/login" class="btn btn-primary text-white">로그인 및 회원가입</a>
             </div>
-        </div>
-        <c:choose>
+            <c:choose>
         	<c:when test="${empty sessionScope.member}">
 			    <div class="d-none d-lg-flex ms-lg-3">
 			        <a href="${pageContext.request.contextPath}/member/login" class="btn btn-primary text-white px-3">로그인 및 회원가입</a>
@@ -61,5 +60,59 @@
 	        		</c:if>
         	</c:otherwise>
         </c:choose>
+        
+        <c:if test="${sessionScope.member != null}">
+					<c:choose>
+						<c:when test="${not empty sessionScope.member_profile.photo}">
+							<c:set var="profileImage"
+								value="${pageContext.request.contextPath}/uploads/member/${sessionScope.member_profile.photo}" />
+						</c:when>
+						<c:otherwise>
+							<c:set var="profileImage"
+								value="${pageContext.request.contextPath}/resources/images/profile_image_default.png" />
+						</c:otherwise>
+					</c:choose>
+
+					<nav class="ms-lg-3">
+						<div class="container-fluid">
+							<a class="navbar-brand" href="#"></a>
+							<div class="dropdown">
+								<a class="nav-link dropdown-toggle" href="#"
+									id="profileDropdown" role="button" data-bs-toggle="dropdown"
+									aria-expanded="false"> <img src="${profileImage}"
+									alt="Profile Picture" class="profile-pic">
+								</a>
+								<ul class="dropdown-menu dropdown-menu-end"
+									aria-labelledby="profileDropdown">
+									<li class="dropdown-header"><img src="${profileImage}"
+										alt="Profile Picture" class="profile-pic">
+										<div class="user-info">
+											<span class="user-name">${sessionScope.member.userName}</span>
+										</div></li>
+									<li><hr class="dropdown-divider"></li>
+									<li><a class="dropdown-item"
+										href="${pageContext.request.contextPath}/"><i
+											class="fas fa-user-cog me-2"></i>포인트</a></li>
+									<li><a class="dropdown-item"
+										href="${pageContext.request.contextPath}/"><i
+											class="fas fa-users me-2"></i>쿠폰</a></li>
+									<li><a class="dropdown-item"
+										href="${pageContext.request.contextPath}/"><i
+											class="fas fa-file-alt me-2"></i>위시리스트</a></li>
+									<li><a class="dropdown-item"
+										href="${pageContext.request.contextPath}/"><i
+											class="fas fa-file-alt me-2"></i>내여행</a></li>
+									<li><a class="dropdown-item"
+										href="${pageContext.request.contextPath}/"><i
+											class="fas fa-file-alt me-2"></i>메시지</a></li>
+									<li><a class="dropdown-item" href="#"
+										onclick="confirmLogout()"><i
+											class="fas fa-sign-out-alt me-2"></i> 로그아웃</a></li>
+								</ul>
+							</div>
+						</div>
+					</nav>
+		</c:if>
     </nav>
-</div>
+        </div>
+        
