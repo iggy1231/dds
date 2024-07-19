@@ -4,10 +4,12 @@ import java.util.List;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import com.fly.dds.domain.RoomQnA;
 import com.fly.dds.mapper.RoomQnAMapper;
 
+@Service
 public class RoomQnAServiceImpl implements RoomQnAService {
 	@Autowired
 	private RoomQnAMapper mapper;

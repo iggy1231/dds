@@ -238,7 +238,7 @@
 								<h5>제목 :</h5>
 							</div>
 							<div class="col-10">
-								<input type="text" placeholder="문의사항 제목 입력" class="form-control">
+								<input name="subject" type="text" placeholder="문의사항 제목 입력" class="form-control">
 							</div>
 						</div>
 						<div class="row mt-3">
@@ -246,10 +246,10 @@
 								<h5>내용 :</h5>
 							</div>
 							<div class="col-10">
-								<textarea name="question" id="question" class="form-control" rows="5"></textarea>
+								<textarea name="content" id="question" class="form-control" rows="5"></textarea>
 							</div>
 						</div>
-						<input type="hidden" name="productNum" value="${dto.num}">
+						<input type="hidden" name="num" value="${dto.num}">
 					</form>
 				</div>
 
@@ -501,7 +501,7 @@ $(function(){
 		}
 		
 		
-		let url = "${pageContext.request.contextPath}/room/article/review";
+		let url = "${pageContext.request.contextPath}/room/review";
 		// FormData : form 필드와 그 값을 나타내는 일련의 key/value 쌍을 쉽게 생성하는 방법을 제공 
 		// FormData는 Content-Type을 명시하지 않으면 multipart/form-data로 전송
 		let query = new FormData(f); 

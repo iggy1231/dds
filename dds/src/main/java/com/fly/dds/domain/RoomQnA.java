@@ -1,25 +1,16 @@
 package com.fly.dds.domain;
 
 public class RoomQnA {
-	private long qnaNum;
-	private String subject;
-	private String content; // 질문 내용(content)
-	private String reg_date;
-	private String answer; // 답변 내용 (question)
-	private String answer_date; // 답변일
-	private long num; // room 상품 넘버
-	private long userNum;
-	private String userName;
-	private int anonymous; // 공개/비공개 여부(secret)
-	
-	
-	
-	public String getUserName() {
-		return userName;
-	}
-	public void setUserName(String userName) {
-		this.userName = userName;
-	}
+    private long qnaNum;
+    private String subject;
+    private String content;
+    private String reg_date;
+    private String answer;
+    private String answer_date;
+    private long num; // 필드 이름 변경
+    private long userNum;
+    private String userName;
+    private int anonymous;
 	public long getQnaNum() {
 		return qnaNum;
 	}
@@ -68,13 +59,18 @@ public class RoomQnA {
 	public void setUserNum(long userNum) {
 		this.userNum = userNum;
 	}
+	public String getUserName() {
+		return userName;
+	}
+	public void setUserName(String userName) {
+		this.userName = userName;
+	}
 	public int getAnonymous() {
 		return anonymous;
 	}
 	public void setAnonymous(int anonymous) {
 		this.anonymous = anonymous;
-	} 
-	
-	
+	}
+    
 	
 }

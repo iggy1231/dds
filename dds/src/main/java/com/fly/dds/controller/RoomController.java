@@ -7,17 +7,22 @@ import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.fly.dds.common.FileManager;
 import com.fly.dds.common.MyUtil;
 import com.fly.dds.domain.Room;
+import com.fly.dds.domain.RoomQnA;
+import com.fly.dds.domain.SessionInfo;
+import com.fly.dds.service.RoomQnAService;
 import com.fly.dds.service.RoomService;
 
 @Controller
@@ -27,6 +32,9 @@ public class RoomController {
 	private RoomService service;
 	
 	@Autowired
+	private RoomQnAService qnaService;
+	
+	@Autowired
 	private MyUtil myUtil;
 	
 	@Autowired
@@ -34,13 +42,11 @@ public class RoomController {
 	
 	@GetMapping("main")
 	public String roomMain() {
-		
 		return ".room.main";
 	}
 	
 	@RequestMapping("article")
 	public String roomArticle() {
-		
 		return ".room.article";
 	}
 	
@@ -112,17 +118,27 @@ public class RoomController {
 	
 	@GetMapping("review")
 	public String roomReview() {
-		
 		return "room/review";
 	}
 	
-	
-	
-	@GetMapping("payment")
-	public String roomPayment() {
-		
-		return ".room.payment";
+	@PostMapping("writeQnA")
+	public String writeQnA(RoomQnA qna, HttpSession session,Model model) {
+	    SessionInfo info = (SessionInfo) session.getAttribute("member");
+	    
+	    try {
+	        qna.setUserName(info.getUserName());
+	        qna.setUserNum(info.getUser_num());
+	        
+	        qnaService.insertQnA(qna);
+	        System.out.println("확인 " + qna.getNum());
+	        if (qna.getNum() == 0) {
+	            // 에러 메시지를 설정하고 폼을 다시 표시하도록 처리
+	            model.addAttribute("message", "상품 번호가 필요합니다.");
+	            return ".room.article"; // 폼으로 다시 돌아가도록 설정
+	        }
+	    } catch (Exception e) {
+	        e.printStackTrace();
+	    }
+	    return "redirect:/room/article?num=" + qna.getNum();
 	}
-	
-
 }

@@ -6,7 +6,7 @@
 	<!--public void insertQnA(RoomQnA dto) throws SQLException;  -->
 	<insert id="insertQnA" parameterType="com.fly.dds.domain.RoomQnA">
 		INSERT INTO room_qna(qna_num, num, user_num, subject, content, reg_date, answer, answer_date, anonymous) 
-		VALUES(room_qna_seq.NEXTVAL, #{num} , #{user_num}, #{subject}, #{content}, SYSDATE, #{answer}, SYSDATE, 0 )
+		VALUES(room_qna_seq.NEXTVAL, #{num} , #{userNum}, #{subject}, #{content}, SYSDATE, #{answer ,jdbcType=VARCHAR}, SYSDATE, 0 )
 	</insert>
 	
 	<!-- QnA 개수 -->
@@ -27,8 +27,6 @@
 		ORDER BY q.num DESC
 		OFFSET #{offset} ROWS FETCH FIRST #{size} ROWS ONLY		
 	</select>
-	
-	
 	
 	
 </mapper>
