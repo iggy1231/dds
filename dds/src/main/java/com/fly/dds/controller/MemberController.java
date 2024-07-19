@@ -45,6 +45,7 @@ public class MemberController {
 		info.setNickName(dto.getNickName());
 		info.setGrade(dto.getGrade());
 		info.setStatus(dto.getStatus());
+		info.setActivity(dto.getActivity());
 		
 		session.setMaxInactiveInterval(30 * 60); // 세션유지시간 30분, 기본:30분
 

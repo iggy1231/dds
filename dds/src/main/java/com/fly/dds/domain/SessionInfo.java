@@ -7,6 +7,7 @@ public class SessionInfo {
 	private String nickName;
 	private int grade;
 	private int status;
+	private int activity;
 	
 	public long getUser_num() {
 		return user_num;
@@ -44,4 +45,12 @@ public class SessionInfo {
 	public void setStatus(int status) {
 		this.status = status;
 	}
+	public int getActivity() {
+		return activity;
+	}
+	public void setActivity(int activity) {
+		this.activity = activity;
+	}
+	
+	
 }
