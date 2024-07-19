@@ -10,4 +10,6 @@ public interface RoomService {
 	public int dataCount(Map<String, Object> map);
 
 	public List<Room> listRoom(Map<String, Object> map);
+	
+	public List<Room> searchRoom(String kwd, String sdate, String edate, int people);
 }

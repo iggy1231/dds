@@ -141,4 +141,21 @@ public class RoomController {
 	    }
 	    return "redirect:/room/article?num=" + qna.getNum();
 	}
+	
+	@GetMapping("search")
+	 public String searchRoomList(@RequestParam String kwd, 
+             @RequestParam(required = false) String sdate, 
+             @RequestParam(required = false) String edate, 
+             @RequestParam int people, 
+             Model model) {
+			List<Room> roomList = service.searchRoom(kwd, sdate, edate, people);
+			model.addAttribute("rooms", roomList);
+			model.addAttribute("kwd", kwd);
+			model.addAttribute("sdate", sdate);
+			model.addAttribute("edate", edate);
+			model.addAttribute("people", people);
+			model.addAttribute("dataCount", roomList.size());
+			
+			return "list";
+				}
 }

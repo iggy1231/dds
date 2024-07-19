@@ -6,8 +6,6 @@
 <head>
 <meta charset="UTF-8">
 <link rel="icon" href="data:;base64,iVBORw0KGgo=">
- <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-   <link href="https://stackpath.bootstrapcdn.com/bootstrap/5.3.1/css/bootstrap.min.css" rel="stylesheet">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/css/bootstrap-datepicker.min.css" rel="stylesheet">
 <style>
  * {
@@ -170,7 +168,7 @@
         </ul>
         <div class="tab-content mt-3" id="myTabContent">
            <div class="container mt-5">
-    <form class="d-flex" action="${pageContext.request.contextPath}/room/search" >
+    <form class="d-flex" action="${pageContext.request.contextPath}/room/search" me>
         <div class="input-group">
             <span class="input-group-text"><i class="bi bi-search"></i></span>
             <input name="kwd" type="text" class="form-control" placeholder="여행지나 숙소를 검색해보세요">
@@ -194,7 +192,6 @@
     </div>
 </div>
 
-    
 </div>
                     </div>
                 </div>
@@ -225,9 +222,6 @@
                           <a href="${pageContext.request.contextPath}/room/list?kwd=익산" class="btn-hover text-white"> 숙소 보러가기! <i class="fa fa-arrow-right ms-2"></i></a>
                         </div>
                       </div>
-                      <div class="gallery-plus-icon">
-                        <a href="img/gallery-1.jpg" data-lightbox="gallery-1" class="my-auto"><i class="fas fa-plus fa-2x text-white"></i></a>
-                      </div>
                     </div>
                   </div>
                   <div class="col-sm-6 col-md-4 col-lg-3 col-xl-3">
@@ -238,9 +232,6 @@
                           <h5 class="text-white text-uppercase mb-2">전라남도 순천</h5>
                           <a href="${pageContext.request.contextPath}/room/list?kwd=순천" class="btn-hover text-white">숙소 보러가기! <i class="fa fa-arrow-right ms-2"></i></a>
                         </div>
-                      </div>
-                      <div class="gallery-plus-icon">
-                        <a href="img/gallery-1.jpg" data-lightbox="gallery-1" class="my-auto"><i class="fas fa-plus fa-2x text-white"></i></a>
                       </div>
                     </div>
                   </div>
@@ -253,9 +244,6 @@
                           <a href="${pageContext.request.contextPath}/room/list?kwd=남산" class="btn-hover text-white">숙소 보러가기! <i class="fa fa-arrow-right ms-2"></i></a>
                         </div>
                       </div>
-                      <div class="gallery-plus-icon">
-                        <a href="img/gallery-1.jpg" data-lightbox="gallery-1" class="my-auto"><i class="fas fa-plus fa-2x text-white"></i></a>
-                      </div>
                     </div>
                   </div>
                   <div class="col-sm-6 col-md-4 col-lg-3 col-xl-3">
@@ -263,12 +251,9 @@
                       <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRBByag7QGT_-DOvBHk01vwiXdlRHnOWbvfog&s" class="img-fluid w-100 h-100 rounded" alt="Image">
                       <div class="gallery-content">
                         <div class="gallery-info">
-                          <h5 class="text-white text-uppercase mb-2">경기도 남앙쥬시</h5>
+                          <h5 class="text-white text-uppercase mb-2">경기도 남앙주시</h5>
                           <a href="${pageContext.request.contextPath}/room/list?kwd=남양주" class="btn-hover text-white">숙소 보러가기! <i class="fa fa-arrow-right ms-2"></i></a>
                         </div>
-                      </div>
-                      <div class="gallery-plus-icon">
-                        <a href="img/gallery-1.jpg" data-lightbox="gallery-1" class="my-auto"><i class="fas fa-plus fa-2x text-white"></i></a>
                       </div>
                     </div>
                   </div>
@@ -281,9 +266,6 @@
                           <a href="${pageContext.request.contextPath}/room/list?kwd=해운대" class="btn-hover text-white">숙소 보러가기! <i class="fa fa-arrow-right ms-2"></i></a>
                         </div>
                       </div>
-                      <div class="gallery-plus-icon">
-                        <a href="img/gallery-1.jpg" data-lightbox="gallery-1" class="my-auto"><i class="fas fa-plus fa-2x text-white"></i></a>
-                      </div>
                     </div>
                   </div>
                    <div class="col-sm-6 col-md-4 col-lg-3 col-xl-3">
@@ -294,9 +276,6 @@
                           <h5 class="text-white text-uppercase mb-2">서울 영등포</h5>
                           <a href="${pageContext.request.contextPath}/room/list?kwd=영등포" class="btn-hover text-white">숙소 보러가기! <i class="fa fa-arrow-right ms-2"></i></a>
                         </div>
-                      </div>
-                      <div class="gallery-plus-icon">
-                        <a href="img/gallery-1.jpg" data-lightbox="gallery-1" class="my-auto"><i class="fas fa-plus fa-2x text-white"></i></a>
                       </div>
                     </div>
                   </div>
@@ -309,9 +288,6 @@
                           <a href="${pageContext.request.contextPath}/room/list?kwd=홍대" class="btn-hover text-white">숙소 보러가기! <i class="fa fa-arrow-right ms-2"></i></a>
                         </div>
                       </div>
-                      <div class="gallery-plus-icon">
-                        <a href="img/gallery-1.jpg" data-lightbox="gallery-1" class="my-auto"><i class="fas fa-plus fa-2x text-white"></i></a>
-                      </div>
                     </div>
                   </div>
                    <div class="col-sm-6 col-md-4 col-lg-3 col-xl-3">
@@ -322,9 +298,6 @@
                           <h5 class="text-white text-uppercase mb-2">강원도 고성</h5>
                           <a href="${pageContext.request.contextPath}/room/list?kwd=고성" class="btn-hover text-white">숙소 보러가기! <i class="fa fa-arrow-right ms-2"></i></a>
                         </div>
-                      </div>
-                      <div class="gallery-plus-icon">
-                        <a href="img/gallery-1.jpg" data-lightbox="gallery-1" class="my-auto"><i class="fas fa-plus fa-2x text-white"></i></a>
                       </div>
                     </div>
                   </div>
@@ -341,8 +314,6 @@
             
         <!-- Gallery End -->
         
-<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/js/bootstrap-datepicker.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/locales/bootstrap-datepicker.ko.min.js"></script>
 <script>
