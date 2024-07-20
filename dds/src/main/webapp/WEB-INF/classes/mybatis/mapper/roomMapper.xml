@@ -24,13 +24,11 @@
 
 	<!-- 글개수 -->
 	<select id="dataCount" parameterType="map" resultType="Integer">
-		SELECT NVL(COUNT(*), 0)
+		SELECT NVL(COUNT(distinct r.num), 0)
 		FROM room r
-		<where>
-			<if test="kwd != null and kwd != '' ">
-				<include refid="where-list"/>
-			</if>
-		</where>
+		join room_detail d on r.num = d.num
+		where instr(subject , #{kwd}) &gt; 0
+		and people &gt;= #{people}
 	</select>
 	
 	<!-- 글리스트 -->
@@ -70,6 +68,7 @@
 	        </when>
 	        <otherwise>
 	          INSTR(subject, #{kwd}) &gt; 0
+	          and people &gt;= #{people}
 	        </otherwise>
 	      </choose>
 	    </when>
@@ -84,13 +83,12 @@
 	<!-- public List<Room> searchRoom(String kwd, String sdate, String edate, int people);  -->
 	<select id="listRoom" parameterType="map" resultType="com.fly.dds.domain.Room">
 		SELECT r.num, r.subject, r.addr1, r.addr2, r.room_type, NVL(AVG(rr.rating), 0) AS rating, NVL(COUNT(rr.review_num), 0) AS review_count, 
-				MIN(d.price) AS price, r.facility_content AS facility_content, r.key_value AS key_value , r.thumbnail
+				MIN(d.price) AS price, r.facility_content AS facility_content, r.key_value AS key_value , r.thumbnail , MIN(d.people) as people
 		FROM room r
 		LEFT OUTER JOIN room_detail d ON r.num = d.num
 		LEFT OUTER JOIN room_review rr ON r.num = rr.num
-		<where>
-			<include refid="search-where-list"/>
-		</where>
+		where instr(subject , #{kwd}) &gt; 0
+		and people &gt;= #{people}
 		GROUP BY r.num, r.subject, r.addr1, r.addr2, r.room_type, r.facility_content, r.key_value , r.thumbnail
 		ORDER BY price DESC
 	</select>

@@ -76,9 +76,9 @@ hr {
                         <i class="pl-2 bi bi-search"></i>
                         <h5 class="text-gray" style="font-weight: 600;">${kwd}</h5>
                         <span>|</span>
-                        <h5 class="p-1" style="font-weight: 600;">07.19 ~ 07.21</h5>
+                        <h5 class="p-1" style="font-weight: 600;">${sdate} ~ ${edate}</h5>
                         <span>|</span>
-                        <h5 class="p-1" style="font-weight: 600;">인원 2</h5>        
+                        <h5 class="p-1" style="font-weight: 600;">인원 ${people}</h5>        
                     </div>
                     <div class="text-start">
                     	<h2 class="text-start mt-0 pb-1 bold">${kwd} 숙소 '${dataCount}'개</h2>
