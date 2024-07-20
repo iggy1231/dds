@@ -1,12 +1,8 @@
 <%@ page contentType="text/html; charset=UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
-<!DOCTYPE html>
-<html>
-<head>
-<meta charset="UTF-8">
 <link rel="icon" href="data:;base64,iVBORw0KGgo=">
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/css/bootstrap-datepicker.min.css" rel="stylesheet">
+<link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/css/bootstrap-datepicker.min.css" rel="stylesheet">
 <style>
  * {
             font-family: pretendard;
@@ -143,6 +139,53 @@
         .input-group.date .input-group-append .input-group-text {
             border-left: none;
         }
+        
+        /* Datepicker 전체 컨테이너 스타일 */
+.datepicker {
+    border: 1px solid #ddd; /* 기본 테두리 색상 */
+    border-radius: 0.375rem; /* 모서리 둥글기 */
+    background-color: #fff; /* 배경색 */
+}
+
+/* Datepicker 헤더 스타일 */
+.datepicker-header {
+    background-color: #007bff; /* 헤더 배경색 */
+    color: #fff; /* 헤더 텍스트 색상 */
+    border-bottom: 1px solid #0056b3; /* 헤더 하단 테두리 색상 */
+}
+
+/* Datepicker 테이블 스타일 */
+.datepicker-days {
+    border: none; /* 테이블 테두리 제거 */
+}
+
+.datepicker-days td, .datepicker-days th {
+    padding: 0.5rem; /* 셀 내 여백 */
+    text-align: center; /* 셀 텍스트 정렬 */
+}
+
+/* 선택된 날짜 스타일 */
+.datepicker-days .active {
+    background-color: #18A8F1; /* 선택된 날짜 배경색 */
+    color: #fff; /* 선택된 날짜 텍스트 색상 */
+    border-radius: 0.375rem; /* 선택된 날짜의 둥글기 */
+}
+
+/* 날짜 선택 버튼 스타일 */
+.datepicker-buttons {
+    background-color: #007bff; /* 버튼 배경색 */
+    color: #fff; /* 버튼 텍스트 색상 */
+    border: none; /* 버튼 테두리 제거 */
+    border-radius: 0.375rem; /* 버튼 모서리 둥글기 */
+}
+
+/* 날짜 선택 버튼 호버 스타일 */
+.datepicker-buttons:hover {
+    background-color: #0056b3; /* 호버 시 버튼 배경색 */
+}
+        
+        
+        
 /*** Gallery End ***/
 </style>
 </head>
@@ -166,10 +209,10 @@
                 <a class="nav-link" id="overseas-tab" data-bs-toggle="tab" href="#overseas" role="tab" aria-controls="overseas" aria-selected="false">여행 정보</a>
             </li>
         </ul>
-        <div class="tab-content mt-3" id="myTabContent">
+        <div class="tab-content mt-1" id="myTabContent">
            <div class="container mt-5">
     <form class="d-flex" action="${pageContext.request.contextPath}/room/list">
-        <div class="input-group">
+        <div class="py-3 input-group">
             <span class="input-group-text"><i class="bi bi-search"></i></span>
             <input name="kwd" type="text" class="form-control" placeholder="여행지나 숙소를 검색해보세요">
         </div>
@@ -316,7 +359,8 @@
         
 <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/js/bootstrap-datepicker.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/locales/bootstrap-datepicker.ko.min.js"></script>
-<script>
+<script type="text/javascript">
+
     $(document).ready(function() {
         $('#startDate').datepicker({
             format: 'yyyy-mm-dd',
@@ -341,4 +385,3 @@
         });
     });
 </script>
-</html>	   
