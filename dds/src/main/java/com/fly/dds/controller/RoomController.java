@@ -54,6 +54,10 @@ public class RoomController {
 	public String list(
 			@RequestParam(value = "page", defaultValue = "1") int current_page,
 			@RequestParam(defaultValue = "") String kwd,
+			@RequestParam(defaultValue = "") String sdate,
+			@RequestParam(defaultValue = "") String edate,
+			@RequestParam(defaultValue = "") String people,
+			
 			HttpServletRequest req,
 			Model model) throws Exception {
 		
@@ -111,6 +115,9 @@ public class RoomController {
 		model.addAttribute("dataCount", dataCount);
 		model.addAttribute("size", size);
 		model.addAttribute("kwd", kwd);
+		model.addAttribute("sdate", sdate);
+		model.addAttribute("edate", edate);
+		model.addAttribute("people", people);
 		model.addAttribute("paging", paging);
 		
 		return ".room.list";
@@ -142,6 +149,7 @@ public class RoomController {
 	    return "redirect:/room/article?num=" + qna.getNum();
 	}
 	
+	/*
 	@GetMapping("search")
 	 public String searchRoomList(@RequestParam String kwd, 
              @RequestParam(required = false) String sdate, 
@@ -164,4 +172,7 @@ public class RoomController {
 			
 			return ".room.list";
 				}
+	*/
+	
+	
 }

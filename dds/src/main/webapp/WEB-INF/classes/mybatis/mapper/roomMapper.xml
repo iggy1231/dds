@@ -34,6 +34,7 @@
 	</select>
 	
 	<!-- 글리스트 -->
+	<!--  
 	<select id="listRoom" parameterType="map"
 			resultType="com.fly.dds.domain.Room">
 		SELECT num , subject , addr1 , addr2 , room_type
@@ -46,39 +47,52 @@
 		ORDER BY num DESC
 		OFFSET #{offset} ROWS FETCH FIRST #{size} ROWS ONLY		
 	</select>
+	-->
 	
+	<sql id="search-where-list">
+	  <choose>
+	    <when test="kwd != null and kwd != ''">
+	      <choose>
+	        <when test="people != null and sdate != null and edate != null">
+	          INSTR(subject, #{kwd}) &gt; 0
+	          AND people &gt;= #{people}
+	          AND sdate &lt; #{sdate}
+	          AND edate &gt; #{edate}
+	        </when>
+	        <when test="people != null and (sdate == null or edate == null)">
+	          INSTR(subject, #{kwd}) &gt; 0
+	          AND people &gt;= #{people}
+	        </when>
+	        <when test="sdate != null and edate != null and people == null">
+	          INSTR(subject, #{kwd}) &gt; 0
+	          AND sdate &lt; #{sdate}
+	          AND edate &gt; #{edate}
+	        </when>
+	        <otherwise>
+	          INSTR(subject, #{kwd}) &gt; 0
+	        </otherwise>
+	      </choose>
+	    </when>
+	    <otherwise>
+	      1 = 0
+	    </otherwise>
+	  </choose>
+	</sql>
+
 	
 	<!-- 숙소 검색 -->
 	<!-- public List<Room> searchRoom(String kwd, String sdate, String edate, int people);  -->
-	<select id="searchRoom" parameterType="map" resultType="com.fly.dds.domain.Room">
-		SELECT r.num, r.subject, r.addr1, r.addr2, r.room_type, NVL(AVG(rr.rating), 0) AS avg_rating, NVL(COUNT(rr.review_num), 0) AS review_count, 
-				MIN(d.price) AS min_price, r.facility_content AS facilities, r.key_value AS keywords
+	<select id="listRoom" parameterType="map" resultType="com.fly.dds.domain.Room">
+		SELECT r.num, r.subject, r.addr1, r.addr2, r.room_type, NVL(AVG(rr.rating), 0) AS rating, NVL(COUNT(rr.review_num), 0) AS review_count, 
+				MIN(d.price) AS price, r.facility_content AS facility_content, r.key_value AS key_value
 		FROM room r
-		JOIN room_detail d ON r.num = d.num
+		LEFT OUTER JOIN room_detail d ON r.num = d.num
 		LEFT OUTER JOIN room_review rr ON r.num = rr.num
-		
-		WHERE INSTR(r.subject, #{kwd} ) > 0
-		 AND d.people &gt;= #{people}
 		<where>
-			<!--  
-			  <if test="sdate != null and sdate != '' ">
-          	  AND d.start_date &gt;= #{sdate}
-        	</if>
-        	<if test="edate != null and edate != '' ">
-           	 AND d.end_date &lt;= #{edate}
-        	</if>
-        	<if test="subject != null and subject > 0">
-        		
-        	</if>
- 
-        	
-        	<if test="people != null and people > 0">
-           	 AND d.people &gt;= #{people}
-      		</if>
-      		-->
+			<include refid="search-where-list"/>
 		</where>
 		GROUP BY r.num, r.subject, r.addr1, r.addr2, r.room_type, r.facility_content, r.key_value
-		ORDER BY min_price DESC
+		ORDER BY price DESC
 	</select>
 	
 </mapper>

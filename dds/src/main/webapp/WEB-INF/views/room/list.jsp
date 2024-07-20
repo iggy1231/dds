@@ -213,7 +213,7 @@ hr {
                                 <h5 class="p-2 text-white rounded border-primary mr-2" style="background-color: #18A8F1; font-size: 0.875rem;">★ 10.0</h5>
                                 <h6 class="px-3 text-muted">5조5억명 평가</h6>
                             </div>
-                            <h4 class="text-end mb-0">할인가 <strong class="text-primary">123456789원 /박</strong></h4>
+                            <h4 class="text-end mb-0">할인가 <strong class="text-primary">${dto.price}원 /박</strong></h4>
                         </div>
                     </div>
                 </div>

@@ -17,7 +17,7 @@ public class RoomServiceImpl implements RoomService{
 	
 	@Override
 	public int dataCount(Map<String, Object> map) {
-int result = 0;
+		int result = 0;
 		
 		try {
 			result = mapper.dataCount(map);
@@ -30,7 +30,7 @@ int result = 0;
 
 	@Override
 	public List<Room> listRoom(Map<String, Object> map) {
-List<Room> list = null;
+		List<Room> list = null;
 		
 		try {
 			list = mapper.listRoom(map);
@@ -43,10 +43,13 @@ List<Room> list = null;
 		return list;
 	}
 
-
+	
+	/*
     @Override
     public List<Room> searchRoom(Map<String, Object> map) {
         return mapper.searchRoom(map);
     }
+    */
+	
 
 }
