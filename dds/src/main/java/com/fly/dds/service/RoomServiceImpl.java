@@ -43,6 +43,19 @@ public class RoomServiceImpl implements RoomService{
 		return list;
 	}
 
+	@Override
+	public Room findByNum(long num) {
+		Room dto = null;
+
+		try {
+			dto = mapper.findByNum(num);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		return dto;
+	}
+
 	
 	/*
     @Override

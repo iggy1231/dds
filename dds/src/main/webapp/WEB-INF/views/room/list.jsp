@@ -201,12 +201,15 @@ hr {
             <div class="col-md-12">
                 <div class="d-flex pt-1 p-3">
                     <div class="ratio ratio-4x3" style="width:530px; height: 200px;">
-                        <img src="https://i.namu.wiki/i/SQLwKua_xTO96XEaWDnHv4dt4ESeqQb5a7u3BTQUSOwvAoLFUP34ACl15C-spwbFbPt_rN47Dk95YZzeb0tRlg.webp" class="img-fluid rounded" alt="숙소 이미지">
+                        <img src="${pageContext.request.contextPath}/uploads/room/${dto.thumbnail}" class="img-fluid rounded" alt="숙소 이미지">
                     </div>
                     <div class="d-flex flex-column justify-content-between w-100 pl-5">
                         <div class="p-3">
                             <h5 class="mb-2 fw-semibold">${dto.room_type}</h5>
-                            <h4 class="mb-2 fw-semibold">${dto.subject}</h4>
+                            <a href="${pageContext.request.contextPath}/room/article?num=${dto.num}&page=${page}">
+    						<h4 class="mb-2 fw-semibold">${dto.subject}</h4>
+							</a>
+
                             <h5 class="mb-2 text-muted fw-semibold">${dto.addr1} , ${dto.addr2}</h5>
                             <div class="d-flex align-items-center mb-2">
                                 <h5 class="p-2 text-white rounded border-primary mr-2" style="background-color: #18A8F1; font-size: 0.875rem;">★ 10.0</h5>

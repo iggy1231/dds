@@ -84,15 +84,23 @@
 	<!-- public List<Room> searchRoom(String kwd, String sdate, String edate, int people);  -->
 	<select id="listRoom" parameterType="map" resultType="com.fly.dds.domain.Room">
 		SELECT r.num, r.subject, r.addr1, r.addr2, r.room_type, NVL(AVG(rr.rating), 0) AS rating, NVL(COUNT(rr.review_num), 0) AS review_count, 
-				MIN(d.price) AS price, r.facility_content AS facility_content, r.key_value AS key_value
+				MIN(d.price) AS price, r.facility_content AS facility_content, r.key_value AS key_value , r.thumbnail
 		FROM room r
 		LEFT OUTER JOIN room_detail d ON r.num = d.num
 		LEFT OUTER JOIN room_review rr ON r.num = rr.num
 		<where>
 			<include refid="search-where-list"/>
 		</where>
-		GROUP BY r.num, r.subject, r.addr1, r.addr2, r.room_type, r.facility_content, r.key_value
+		GROUP BY r.num, r.subject, r.addr1, r.addr2, r.room_type, r.facility_content, r.key_value , r.thumbnail
 		ORDER BY price DESC
 	</select>
+	
+	<select id="findByNum" parameterType="Long" resultType="com.fly.dds.domain.Room">
+		SELECT num , subject , room_type , addr1 , addr2 , content , facility_content , caution , thumbnail
+		FROM room 
+		WHERE num = #{num}
+	</select>
+	
+	
 	
 </mapper>

@@ -46,9 +46,33 @@ public class RoomController {
 	}
 	
 	@RequestMapping("article")
-	public String roomArticle() {
-		return ".room.article";
-	}
+	public String roomArticle(@RequestParam long num,
+            @RequestParam String page,
+            @RequestParam(defaultValue = "") String kwd,
+            HttpSession session,
+            Model model) throws Exception {
+        
+        kwd = URLDecoder.decode(kwd, "utf-8");
+
+        String query = "page=" + page;
+        if (kwd.length() != 0) {
+            query += 
+                    "&kwd=" + URLEncoder.encode(kwd, "UTF-8");
+        }
+
+        // 해당 레코드 가져 오기
+        Room dto = service.findByNum(num);
+        if (dto == null) {
+            return "redirect:/room/list?" + query;
+        }
+        
+        model.addAttribute("dto", dto);
+        model.addAttribute("page", page);
+        model.addAttribute("kwd", kwd);
+        model.addAttribute("query", query);
+       
+        return ".room.article";
+    }
 	
 	@RequestMapping("list")
 	public String list(

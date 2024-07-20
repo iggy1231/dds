@@ -11,5 +11,6 @@ public interface RoomService {
 
 	public List<Room> listRoom(Map<String, Object> map);
 	
+	public Room findByNum(long num);
 	// public List<Room> searchRoom(Map<String, Object> map);
 }

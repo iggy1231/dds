@@ -11,6 +11,6 @@ import com.fly.dds.domain.Room;
 public interface roomMapper {
 	public int dataCount(Map<String, Object> map);
 	public List<Room> listRoom(Map<String, Object> map);
-	
+	public Room findByNum(long num);
 	public List<Room> searchRoom(Map<String, Object> map);
 }
