@@ -20,12 +20,6 @@ body {
 </style>
 
 <script type="text/javascript">
-function sendOk() {
-	const f=document.companionForm;
-	f.action='${pageContext.request.contextPath}/companion/write';
-	f.submit();
-}
-
 $(function(){
 	$(document).on("change", "select[name=areaCode]", function(){
 		let area=$(this).val();
@@ -135,7 +129,7 @@ $(function(){
 	<div class="body-container">
 		<div class="body-title">
 	    	<h3>동행 구인 작성</h3>
-			<form name="companionForm" method="post">
+			<form name="companionForm" action="${pageContext.request.contextPath}/companion/write" method="post" enctype="multipart/form-data">
 				<table class="table table-border table-form">
 					<tr> 
 						<td>지역을 선택하세요</td>
@@ -234,7 +228,7 @@ $(function(){
 					<tr> 
 						<td>이미지를 선택하세요</td>
 						<td>
-							<input type="file">
+							<input type="file" name="imgFiles" accept="image/*" multiple>
 						</td>
 					</tr>
 				</table>
@@ -242,7 +236,7 @@ $(function(){
 				<table class="table">
 					<tr> 
 						<td align="center">
-							<button type="button" class="btn" onclick="sendOk();">${mode=='update'?'수정완료':'등록하기'}</button>
+							<button type="submit" class="btn">${mode=='update'?'수정완료':'등록하기'}</button>
 							<button type="reset" class="btn">다시입력</button>
 							<button type="button" class="btn" onclick="location.href='${pageContext.request.contextPath}/companion/list';">${mode=='update'?'수정취소':'등록취소'}</button>
 							<c:if test="${mode=='update'}">

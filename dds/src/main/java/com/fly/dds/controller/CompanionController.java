@@ -1,5 +1,6 @@
 package com.fly.dds.controller;
 
+import java.io.File;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -15,10 +16,11 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.fly.dds.common.MyUtil;
 import com.fly.dds.domain.Companion;
-import com.fly.dds.domain.InfoReply;
+import com.fly.dds.domain.CompanionReply;
 import com.fly.dds.domain.SessionInfo;
 import com.fly.dds.service.CompanionService;
 
@@ -83,10 +85,14 @@ public class CompanionController {
 			@RequestParam int estimate_cost,
 			@RequestParam String subject,
 			@RequestParam String content,
+			@RequestParam List<MultipartFile> imgFiles,
 			HttpSession session,
 			Model model) {
 		SessionInfo info=(SessionInfo)session.getAttribute("member");
 		Companion dto=new Companion();
+		
+		String root = session.getServletContext().getRealPath("/");
+		String pathname = root + "uploads" + File.separator + "companion";
 
 		try {
 			dto.setNickname(info.getNickName());
@@ -103,8 +109,9 @@ public class CompanionController {
 			dto.setAge(age);
 			dto.setTotal_people(total_people);
 			dto.setEstimate_cost(estimate_cost);
+			dto.setImgFiles(imgFiles);
 			
-			service.insertCompanion(dto);
+			service.insertCompanion(dto, pathname);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -127,6 +134,28 @@ public class CompanionController {
 			list=service.listCompanion(map);
 		} else {
 			list=service.listBymainRegion(map);
+		}
+
+		model.put("list", list);
+		
+		return model;
+	}
+	
+	@ResponseBody
+	@GetMapping("areaPopularList")
+	public Map<String, Object> areaPopularList(@RequestParam String mainRegion) {
+		Map<String, Object> model=new HashMap<String, Object>();
+		
+		Map<String, Object> map=new HashMap<String, Object>();
+		map.put("mainRegion", mainRegion);
+		map.put("size", 12);
+		map.put("offset", 0);
+		
+		List<Companion> list=null;
+		if(mainRegion.equals("전체")) {
+			list=service.PopularList(map);
+		} else {
+			list=service.areaPopularList(map);
 		}
 
 		model.put("list", list);
@@ -160,9 +189,10 @@ public class CompanionController {
 			Model model) {
 		SessionInfo info = (SessionInfo) session.getAttribute("member");
 		Companion dto=null;
-		
+		List<Companion> imgFiles=null;
 		try {
 			dto=service.findByNum(num);
+			imgFiles=service.listFile(num);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -177,7 +207,7 @@ public class CompanionController {
 				model.addAttribute("liked", "true");
 			}
 		}
-		
+		model.addAttribute("imgFiles", imgFiles);
 		model.addAttribute("likeCount", likeCount);
 		model.addAttribute("dto", dto);
 		
@@ -255,9 +285,9 @@ public class CompanionController {
 		Map<String, Object> model = new HashMap<String, Object>();
 		Map<String, Object> map=new HashMap<String, Object>();
 		SessionInfo info=(SessionInfo) session.getAttribute("member");
-		List<InfoReply> list=null;
+		List<CompanionReply> list=null;
 
-		int size=5;
+		int size=10;
 		int dataCount=service.replyCount(num);
 		int total_page=myUtil.pageCount(dataCount, size);
 		if(current_page>total_page) {
@@ -281,7 +311,7 @@ public class CompanionController {
 			return model;
 		}
 		
-		for(InfoReply dto:list) {
+		for(CompanionReply dto:list) {
 			dto.setLikeCount(service.replyLikeCount(dto.getReply_num()));
 		}
 		
@@ -344,5 +374,60 @@ public class CompanionController {
 		model.put("state", state);
 		
 		return model;
+	}
+	
+	@ResponseBody
+	@PostMapping("insertReplyAnswer")
+	public Map<String, Object> insertReplyAnswer(@RequestParam long num,
+			@RequestParam long reply_num,
+			@RequestParam String content,
+			HttpSession session) {
+		SessionInfo info=(SessionInfo)session.getAttribute("member");
+		Map<String, Object> model=new HashMap<String, Object>();
+		
+		String state = "false";
+		
+		try {
+			Map<String, Object> map=new HashMap<String, Object>();
+			map.put("num", num);
+			map.put("answer_num", reply_num);
+			map.put("user_num", info.getUser_num());
+			map.put("nickName", info.getNickName());
+			map.put("content", content);
+			
+			service.insertCompanionAnswer(map);
+			state="true";
+		} catch (Exception e) {
+			// TODO: handle exception
+		}
+		model.put("state", state);
+		return model;
+	}
+	
+	@GetMapping("search")
+	public String searchPage(@RequestParam(defaultValue = "subject") String schType,
+			@RequestParam(defaultValue = "") String kwd,
+			@RequestParam String mainRegion,
+			Model model) {
+		Map<String, Object> map=new HashMap<String, Object>();
+		map.put("kwd", kwd);
+		map.put("schType", schType);
+		map.put("mainRegion", mainRegion);
+		int dataCount=0;
+		
+		if(mainRegion.equals("전체")) {
+			dataCount=service.dataCount(map);
+		} else {
+			dataCount=service.areaDataCount(map);
+		}
+		model.addAttribute("dataCount", dataCount);
+		model.addAttribute("kwd", kwd);
+		return ".companion.search";
+	}
+	
+	@PostMapping("search")
+	public Map<String, Object> searchList() {
+		
+		return null;
 	}
 }

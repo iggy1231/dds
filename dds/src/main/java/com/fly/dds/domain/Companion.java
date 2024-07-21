@@ -3,6 +3,8 @@ package com.fly.dds.domain;
 import java.util.List;
 import java.util.Set;
 
+import org.springframework.web.multipart.MultipartFile;
+
 public class Companion {
 	private long num;
 	private String nickname;
@@ -18,18 +20,10 @@ public class Companion {
 	private String mainRegion;
 	private String subRegion;
 	
-	public String getMainRegion() {
-		return mainRegion;
-	}
-	public void setMainRegion(String mainRegion) {
-		this.mainRegion = mainRegion;
-	}
-	public String getSubRegion() {
-		return subRegion;
-	}
-	public void setSubRegion(String subRegion) {
-		this.subRegion = subRegion;
-	}
+	private List<MultipartFile> imgFiles;
+	private long file_num;
+	private String saveFilename;
+	
 	private String theme;
 	
 	private String sdate;
@@ -148,5 +142,35 @@ public class Companion {
 	}
 	public void setAge(Set<String> age) {
 		this.age = age;
+	}
+	public long getFile_num() {
+		return file_num;
+	}
+	public void setFile_num(long file_num) {
+		this.file_num = file_num;
+	}
+	public String getSaveFilename() {
+		return saveFilename;
+	}
+	public void setSaveFilename(String saveFilename) {
+		this.saveFilename = saveFilename;
+	}
+	public String getMainRegion() {
+		return mainRegion;
+	}
+	public void setMainRegion(String mainRegion) {
+		this.mainRegion = mainRegion;
+	}
+	public String getSubRegion() {
+		return subRegion;
+	}
+	public void setSubRegion(String subRegion) {
+		this.subRegion = subRegion;
+	}
+	public List<MultipartFile> getImgFiles() {
+		return imgFiles;
+	}
+	public void setImgFiles(List<MultipartFile> imgFiles) {
+		this.imgFiles = imgFiles;
 	}
 }

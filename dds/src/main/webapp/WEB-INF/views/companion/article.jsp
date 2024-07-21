@@ -30,11 +30,33 @@ p {
 table tr>td:nth-child(2) {
 	text-align: left;
 }
+.replyAnswer {
+	display: none;
+}
+.replyAnswer textarea {
+	width: 100%;
+}
 </style>
 
 <div class="container">
-	<div class="body-container">	
-		<img class="headerImage" src="${pageContext.request.contextPath}/resources/images/숙소_예시.jpg" alt="...">
+	<div class="body-container">
+		<div id="imgFiles" class="carousel slide">
+		  <div class="carousel-inner">
+		  <c:forEach var="imgFile" items="${imgFiles}">
+		  	<div class="carousel-item">
+		      <img src="${pageContext.request.contextPath}/uploads/companion/${imgFile.saveFilename}" class="d-block w-100" alt="...">
+		    </div>
+		  </c:forEach>
+		  </div>
+		  <button class="carousel-control-prev" type="button" data-bs-target="#imgFiles" data-bs-slide="prev">
+		    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+		    <span class="visually-hidden">Previous</span>
+		  </button>
+		  <button class="carousel-control-next" type="button" data-bs-target="#imgFiles" data-bs-slide="next">
+		    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+		    <span class="visually-hidden">Next</span>
+		  </button>
+		</div>	
 		<div class="body-title">
 			<h3>${dto.subject}</h3>
 			<p>조회수 :${dto.hitcount} 작성일 :${dto.reg_date}
@@ -258,7 +280,7 @@ function replyDelete(reply_num) {
 		let state=data.state;
 		if(state === "true") {
 			$('#alertModal .modal-title').text('댓글 삭제에 성공했습니다');
-			listReply(1);
+			listPage(1);
 		} else {
 			$('#alertModal .modal-title').text('댓글 삭제에 실패했습니다');
 		}
@@ -266,59 +288,89 @@ function replyDelete(reply_num) {
 	
 	ajaxFun(url, "post", query, "json", fn);
 }
-
 function insertReplyAnswer(reply_num) {
 	let url="${pageContext.request.contextPath}/companion/insertReplyAnswer";
-	let query="reply_num="+reply_num;
+	let content=document.getElementById(reply_num).value;
+	let query="num=${dto.num}&reply_num="+reply_num+"&content="+content;
 	
 	const fn = function(data) {
+		$('.replyAnswer textarea').text("");
 		
+		let state = data.state;
+		if(state === "true"){
+			listPage(1);
+		} else {
+		}
 	}
 	
 	ajaxFun(url, "post", query, "json", fn);
 }
 
-function listReply(page) {
+function listPage(page) {
 	let url = "${pageContext.request.contextPath}/companion/listReply";
 	let query = "num=${dto.num}&pageNo="+page;
-	
-	const fn = function(data) {
-		console.log(data);
-		let login_user_num=${empty sessionScope.member?0:sessionScope.member.user_num};
 
+	const fn = function(data) {
+		let login_user_num=${empty sessionScope.member?0:sessionScope.member.user_num};
 		document.getElementById('replyCount').innerText="댓글 "+data.dataCount;
 		
 		let out="";
 		for(let item of data.list) {
-			out+='<tr><td><span>'+item.nickName+'</td>';
-			out+='<td><span>'+item.content+'</td>';
-			out+='<td><span>'+item.reg_date+'</td>';
-			out+='<td><button class="btn btn-outline-secondary btnReplyLike" data-reply_num='+item.reply_num+'>';
-			if(item.liked=="true") {
-				out+='<i id="replylikeIcon'+item.reply_num+'" class="bi bi-heart-fill" ';
-				out+='data-bs-toggle="modal" data-bs-target="#alertModal">'+item.likeCount+'</i>';
+			if(item.answer_num==0) {
+				out+='<tr><td><span>'+item.nickname+'</span></td>';
+				out+='<td><span>'+item.content+'</span></td>';
+				out+='<td><span>'+item.reg_date+'</span></td>';
+				out+='<td><button class="btn btn-outline-secondary btnReplyLike" data-reply_num='+item.reply_num+'>';
+				if(item.liked=="true") {
+					out+='<i id="replylikeIcon'+item.reply_num+'" class="bi bi-heart-fill" ';
+					out+='data-bs-toggle="modal" data-bs-target="#alertModal">'+item.likeCount+'</i>';
+				} else {
+					out+='<i id="replylikeIcon'+item.reply_num+'" class="bi bi-heart" ';
+					out+='data-bs-toggle="modal" data-bs-target="#alertModal">'+item.likeCount+'</i>';
+				}
+				out+='</button></td>';
+				if(login_user_num==item.user_num) {
+					out+='<td><button class="btn btn-outline-secondary" data-bs-toggle="modal" data-bs-target="#alertModal"';
+					out+=' onclick="replyDelete('+item.reply_num+');">';
+					out+='<i class="bi bi-trash"></i></button>';
+				} else {
+					out+='<td><button class="btn btn-outline-secondary"';
+					out+=' onclick="replyReport('+item.user_num+','+item.reply_num+');">';
+					out+='<i class="bi bi-exclamation-octagon"></i></button>';
+				}
+				out+='</td>';
+				out+='<td><button class="btn btn-outline-secondary btnReplyAnswer" data-bs-toggle="modal" data-bs-target="#alertModal">';
+				out+='<i class="bi bi-chat-dots"></i></button></td></tr>';
+				out+='<tr class="replyAnswer"><td colspan="5"><textarea id='+item.reply_num+' placeholder="답글을 작성하세요"></textarea></td>';
+				out+='<td><button class="btn btn-outline-secondary" onclick="insertReplyAnswer('+item.reply_num+')">답글 작성</button></td></tr>';
 			} else {
-				out+='<i id="replylikeIcon'+item.reply_num+'" class="bi bi-heart" ';
-				out+='data-bs-toggle="modal" data-bs-target="#alertModal">'+item.likeCount+'</i>';
+				out+='<tr><td><span>'+item.nickname+'</span></td>';
+				out+='<td><span>'+item.content+'</span></td>';
+				out+='<td><span>'+item.reg_date+'</span></td>';
+				out+='<td><button class="btn btn-outline-secondary btnReplyLike" data-reply_num='+item.reply_num+'>';
+				if(item.liked=="true") {
+					out+='<i id="replylikeIcon'+item.reply_num+'" class="bi bi-heart-fill" ';
+					out+='data-bs-toggle="modal" data-bs-target="#alertModal">'+item.likeCount+'</i>';
+				} else {
+					out+='<i id="replylikeIcon'+item.reply_num+'" class="bi bi-heart" ';
+					out+='data-bs-toggle="modal" data-bs-target="#alertModal">'+item.likeCount+'</i>';
+				}
+				out+='</button></td>';
+				if(login_user_num==item.user_num) {
+					out+='<td><button class="btn btn-outline-secondary" data-bs-toggle="modal" data-bs-target="#alertModal"';
+					out+=' onclick="replyDelete('+item.reply_num+');">';
+					out+='<i class="bi bi-trash"></i></button>';
+				} else {
+					out+='<td><button class="btn btn-outline-secondary"';
+					out+=' onclick="replyReport('+item.user_num+','+item.reply_num+');">';
+					out+='<i class="bi bi-exclamation-octagon"></i></button>';
+				}
+				out+='</td><td>답글</td></tr>';
 			}
-			out+='</button></td>';
-			if(login_user_num==item.user_num) {
-				out+='<td><button class="btn btn-outline-secondary" data-bs-toggle="modal" data-bs-target="#alertModal"';
-				out+=' onclick="replyDelete('+item.reply_num+');">';
-				out+='<i class="bi bi-trash"></i></button>';
-			} else {
-				out+='<td><button class="btn btn-outline-secondary"';
-				out+=' onclick="replyReport('+item.user_num+','+item.reply_num+');">';
-				out+='<i class="bi bi-exclamation-octagon"></i></button>';
-			}
-			out+='</td>';
-			out+='<td><button class="btn btn-outline-secondary" onclick="insertReplyAnswer('+item.reply_num+');">';
-			out+='<i class="bi bi-chat-dots"></i></button></td></tr>';
 		}
-		out+='<tr><td colspan="5" class="page-navigation">'+data.paging+'</td></tr>';
+		out+='<tr><td colspan="6" class="page-navigation">'+data.paging+'</td></tr>';
 		document.querySelector('.reply-list').innerHTML=out;
 	}
-	
 	ajaxFun(url, "get", query, "text", fn);
 }
 
@@ -359,8 +411,9 @@ function article(num) {
 }
 
 $(function(){
-	listReply(1);
+	listPage(1);
 	similiarList('${dto.region_main[0]}');
+	$('#imgFiles .carousel-item:first').addClass('active');
 	
 	$(".btnSendReply").click(function() {
 		if(${empty sessionScope.member}) {
@@ -386,7 +439,7 @@ $(function(){
 			let state = data.state;
 			if(state === "true"){
 				$('#alertModal .modal-title').text('댓글 등록에 성공했습니다');
-				listReply(1);
+				listPage(1);
 			} else {
 				$('#alertModal .modal-title').text('댓글 등록에 실패했습니다');
 			}
@@ -426,6 +479,23 @@ $(function(){
 		
 		ajaxFun(url, "post", query, "json", fn);
 		
+	});
+	
+	$(".reply-list").on("click", ".btnReplyAnswer", function(){
+		$('.replyAnswer').hide();
+		if(${empty sessionScope.member}) {
+			$('#alertModal .modal-title').text('답글 작성은 로그인 후에만 가능합니다.');
+			return;
+		}
+
+		if($(this).hasClass('active')) {
+			$('.btnReplyAnswer').removeClass('active');
+			$(this).closest("tr").next().hide();
+		} else {
+			$('.btnReplyAnswer').removeClass('active');
+			$(this).addClass('active');
+			$(this).closest("tr").next().show();
+		}
 	});
 });
 </script>
