@@ -2,266 +2,421 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <!-- Content wrapper -->
-          <div class="content-wrapper">
-            <!-- Content -->
-            <div class="container-xxl flex-grow-1 container-p-y">
-            	<h4 class="py-3 mb-4">
-            		<span class="text-muted fw-light">상품관리 /</span>
-            		 상품 리스트
-            	</h4>
-            	<div class="card mb-4">
-            		<div class="card-widget-separator-wrapper">
-            			<div class="card-body card-widget-separator">
-            				<div class="row gy-4 gy-sm-1">
-            					<div class="col-sm-6 col-lg-3">
-            						<div class="d-flex justify-content-between align-items-start card-widget-1 border-end pb-3 pb-sm-0">
-            							<div>
-            								<p class="mb-1">In-store Sales</p>
-            								<h4 class="mb-1">$5,132.34</h4>
-            								<p class="mb-0">
-            									<span class="me-2">5k orders</span>
-            									<span class="badge bg-label-success">+5.7%</span>
-            								</p>
-            							</div>
-            							<span class="avatar me-sm-6">
-            								<span class="avatar-initial rounded w-px-44 h-px-44">
-            									<i class="bi bi-shop"></i>
-            								</span>
-            							</span>
-            						</div>
-            						<hr class="d-none d-sm-block d-lg-none me-6">
-            					</div>
-            					<div class="col-sm-6 col-lg-3">
-            						<div class="d-flex justify-content-between align-items-start card-widget-2 border-end pb-4 pb-sm-0">
-            							<div>
-            								<p class="mb-1">Website Sales</p>
-            								<h4 class="mb-1">$674,347.12</h4>
-            								<p class="mb-0">
-            									<span class="me-2">21k orders</span>
-            									<span class="badge bg-label-success">+12.4%</span>
-            								</p>
-            							</div>
-            							<span class="avatar p-2 me-lg-6">
-            								<span class="avatar-initial rounded w-px-44 h-px-44">
-            									<i class="bi bi-shop"></i>
-            								</span>
-            							</span>
-            						</div>
-            						<hr class="d-none d-sm-block d-lg-none">
-            					</div>
-            					<div class="col-sm-6 col-lg-3">
-            						<div class="d-flex justify-content-between align-items-start border-end pb-4 pb-sm-0 card-widget-3">
-            							<div>
-            								<p class="mb-1">Discount</p>
-            								<h4 class="mb-1">$14,132.34</h4>
-            								<p class="mb-0">
-            									<span class="me-2">6k orders</span>
-            									<span class="badge bg-label-success">+5.7%</span>
-            								</p>
-            							</div>
-            							<span class="avatar p-2 me-sm-6">
-            								<span class="avatar-initial rounded w-px-44 h-px-44">
-            									<i class="bi bi-shop"></i>
-            								</span>
-            							</span>
-            						</div>
-            					</div>
-            					<div class="col-sm-6 col-lg-3">
-            						<div class="d-flex justify-content-between align-items-start">
-            							<div>
-            								<p class="mb-1">Affiliate</p>
-            								<h4 class="mb-1">$8,132.34</h4>
-            								<p class="mb-0">
-            									<span class="me-2">150 orders</span>
-            									<span class="badge bg-label-danger">-3.5%</span>
-            								</p>
-            							</div>
-            							<span class="avatar p-2">
-            								<span class="avatar-initial rounded w-px-44 h-px-44">
-            									<i class="bi bi-shop"></i>
-            								</span>
-            							</span>
-            						</div>
-            					</div>
-            				</div>
-            			</div>
-            		</div>
-            	</div>
-            	<div class="card">
-            		<div class="card-header">
-            			<h5 class="card-title">Filter</h5>
-            			<div class="d-flex justify-content-between align-items-center row pt-4 gap-6 gap-md-0 g-md-6">
-            				<div class="col-md-4 product_status">
-            					<select id="ProductStatus" class="form-select text-capitalize">
-            						<option value>Status</option>
-            						<option value="Scheduled">Scheduled</option>
-            						<option value="Publish">Publish</option>
-            						<option value="Inactive">Inactive</option>
-            					</select>
-            				</div>
-            				<div class="col-md-4 product_category">
-            					<select id="ProductCategory" class="form-select text-capitalize">
-            						<option value>Category</option>
-            						<option value="Room">숙소</option>
-            						<option value="Tour">투어</option>
-            					</select>
-            				</div>
-            				<div class="col-md-4 product_stock">
-            					<select id="ProductStock" class="form-select text-capitalize">
-            						<option value>Stock</option>
-            						<option value="Room">Room</option>
-            						<option value="Tour">Tour</option>
-            					</select>
-            				</div>
-            			</div>
-            		</div>
-            		<div class="card-datatable table-responsive">
-            			<div id="DataTables_Table_0_wrapper" class="dataTables_wrapper dt-bootstrap5 no-footer">
-            				<div class="card-header d-flex border-top rounded-0 flex-wrap py-0 flex-column flex-md-row align-items-start">
-            					<div class="me-5 ms-n4 pe-5 mb-n6 mb-md-0">
-            						<div id="DataTables_Table_0_filter" class="dataTables_filter">
-            							<label>
-            								<input type="search" class="form-control" placeholder="Search Product" aria-controls="DataTables_Table_0">
-            							</label>
-            						</div>
-            					</div>
-            					<div class="d-flex justify-content-start justify-content-md-end align-items-baseline">
-            						<div class="dt-action-buttons d-flex flex-column align-items-start align-items-sm-center justify-content-sm-center pt-0 gap-sm-4 gap-sm-0 flex-sm-row">
-            							<div class="dataTables_length mx-n2" id="DataTables_Table_0_length">
-            								<label>
-            									<select name="DataTables_Table_0_length" aria-controls="DataTables_Table_0" class="form-select">
-            										<option value="7">7</option>
-            										<option value="10">10</option>
-            										<option value="20">20</option>
-            										<option value="50">50</option>
-            										<option value="70">70</option>
-            										<option value="100">100</option>
-            									</select>
-            								</label>
-            							</div>
-            							<div class="dt-buttons btn-group flex-wrap d-flex mb-6 mb-sm-0">
-            								<div class="btn-group">
-            									<button class="btn btn-secondary buttons-collection dropdown-toggle btn-label-secondary me-4" tabindex="0" aria-controls="DataTables_Table_0" type="button" aria-haspopup="dialog" aria-expanded="false">
-            										<span>
-            											<i class="bx bx-export me-2 bx-xs"></i>
-            											Export
-            										</span>
-            									</button>
-            									<div class="dt-button-background" style></div>
-            									<div class="dropdown-menu dt-button-collection" aria-model="true" role="dialog" style="display: block; top: 184.832px; left: 24px;">
-            										<div role="menu">
-            											<a class="dt-button dropdown-item buttons-print" tabindex="0" aria-controls="DataTables_Table_0" href="#">
-            												<span>
-            													<i class="bx bx-printer me-2">
-            													</i>
-            													Print
-            												</span>
-            											</a>
-            											<a class="dt-button dropdown-item buttons-csv buttons-html5 " tabindex="0" aria-controls="DataTables_Table_0" href="#">
-            												<span>
-            													<i class="bx bx-file me-2">
-            													</i>
-            													Csv
-            												</span>
-            											</a>
-            											<a class="dt-button dropdown-item buttons-excel buttons-html5 " tabindex="0" aria-controls="DataTables_Table_0" href="#">
-            												<span>
-            													<i class="bx bx-file-export me-2">
-            													</i>
-            													Excel
-            												</span>
-            											</a>
-            											<a class="dt-button dropdown-item buttons-excel buttons-html5 " tabindex="0" aria-controls="DataTables_Table_0" href="#">
-            												<span>
-            													<i class="bx bx-file-pdf me-2">
-            													</i>
-            													Pdf
-            												</span>
-            											</a>
-            											<a class="dt-button dropdown-item buttons-copy buttons-html5 " tabindex="0" aria-controls="DataTables_Table_0" href="#">
-            												<span>
-            													<i class="bx bx-copy me-2">
-            													</i>
-            													Copy
-            												</span>
-            											</a>
-            										</div>
-            									</div>
-            								</div>
-            								<button class="btn btn-secondary add-new btn-primary" tabindex="0" aria-controls=DataTables_Table_0" type="button">
-            									<span>
-            										<i class="bx bx-plus me-0 me-sm-1 bx-xs"></i>
-            										<span class="d-done d-sm-inline-block">상품 추가</span>
-            									</span>
-            								</button>
-            							</div>
-            						</div>
-            					</div>
-            				</div>
-            				<table class="datatables-products table dataTable no-footer dtr-column collapsed" id="DataTables_Table_0" aria-describedby="DataTables_Table_0_info" style="width: 398px;">
-            					<thead class="border-top">
-            						<tr>
-            							<th class="control sorting_disabled" rowspan="1" colspan="1" style="width: 14px;" aria-label></th>
-            							<th class="sorting_disabled dt-checkboxes-cell dt-checkboxes-select-all dtr-hidden" rowspan="1" colspan="1" style="width: 0px; display: none;" data-col="1" aria-label>
-            								<input type="checkbox" class="form-check-input">
-            							</th>
-            							<th class="sorting sorting_asc" tabindex="0" aria-controls="DataTables_Table_0" rowspan="1" colspan="1" style="width: 433px;" aria-label="product: activate to sort column descending" aria-sort="ascending">
-            							product
-            							</th>
-            							<th class="sorting dtr-hidden" tabindex="0" aria-controls="DataTables_Table_0" rowspan="1" colspan="1" style="width: 137px; display:none;" aria-label="category:activate to sort column ascending">
-            							category
-            							</th>
-            							<th class="sorting dtr-hidden" tabindex="0" aria-controls="DataTables_Table_0" rowspan="1" colspan="1" style="width: 55px; display:none;" aria-label="stock">
-            							stock
-            							</th>
-            							<th class="sorting dtr-hidden" tabindex="0" aria-controls="DataTables_Table_0" rowspan="1" colspan="1" style="width: 0px; display:none;" aria-label="sku: activate to sort column ascending">
-            							sku
-            							</th>
-            							<th class="sorting dtr-hidden" tabindex="0" aria-controls="DataTables_Table_0" rowspan="1" colspan="1" style="width: 0px; display:none;" aria-label="price: activate to sort column ascending">
-            							price
-            							</th>
-            							<th class="sorting dtr-hidden" tabindex="0" aria-controls="DataTables_Table_0" rowspan="1" colspan="1" style="width: 36px; display:none;" aria-label="qty: activate to sort column ascending">
-            							qty
-            							</th>
-            							<th class="sorting dtr-hidden" tabindex="0" aria-controls="DataTables_Table_0" rowspan="1" colspan="1" style="width: 36px; display:none;" aria-label="status: activate to sort column ascending">
-            							status
-            							</th>
-            							<th class="sorting_disabled dtr-hidden" rowspan="1" colspan="1" style="width: 0px; display:none;" aria-label="Actions">
-            							Actions
-            							</th>
-            						</tr>
-            					</thead>
-            					<tbody>
-            						<tr class="odd parent">
-            							<td class="control" tabindex="0" style></td>
-            							<td class="dt-checkboxes-cell dtr-hidden" style="display:none;">
-            								<input type="checkbox" class="dt-checkboxes form-check-input">
-            							</td>
-            							<td class="sorting_1 dtr-hidden" style="display: none;">
-            								<div class="d-flex justify-content-start align-items-center product-name">
-            									<div class="avatar-wrapper">
-            										<div class="avatar avatar me-4 rounded-2 bg-label-secondary">
-            											<img src="" alt="Product-9" class="rounded">
-            										</div>
-            									</div>
-            									<div class="d-flex flex-column">
-            										<h6 class="text-nowrap mb-0">Air Jordan</h6>
-            										<small class="text-truncate d-none d-sm-block">Air Jordan is a line of basketball shoes produced by Nike</small>
-            									</div>
-            								</div>
-            							</td>
-            						</tr>
-            					</tbody>
-            				</table>
-            				<div class="row">
-            					<div class="col-sm-12 col-md-6">
-            						<div class="dataTables_info" id="DataTables_Table_0_info" role="status" aria-live="polite">Displaying 1 to 7 of 100 entries</div>
-            					</div>
-            				</div>
-            			</div>
-            		
-            		</div>
-            	
-            	</div>
-            </div>
-          </div>
+<div class="content-wrapper">
+	<!-- Content -->
+	<div class="container-xxl flex-grow-1 container-p-y">
+		<h4 class="py-3 mb-4">
+			<span class="text-muted fw-light">상품관리 /</span> 상품 리스트
+		</h4>
+		<div class="card mb-4">
+			<div class="card-widget-separator-wrapper">
+				<div class="card-body card-widget-separator">
+					<div class="row gy-4 gy-sm-1">
+						<div class="col-sm-6 col-lg-3">
+							<div
+								class="d-flex justify-content-between align-items-start card-widget-1 border-end pb-3 pb-sm-0">
+								<div>
+									<p class="mb-1">In-store Sales</p>
+									<h4 class="mb-1">$5,132.34</h4>
+									<p class="mb-0">
+										<span class="me-2">5k orders</span> <span
+											class="badge bg-label-success">+5.7%</span>
+									</p>
+								</div>
+								<span class="avatar me-sm-6"> <span
+									class="avatar-initial rounded w-px-44 h-px-44"> <i
+										class="bi bi-shop"></i>
+								</span>
+								</span>
+							</div>
+							<hr class="d-none d-sm-block d-lg-none me-6">
+						</div>
+						<div class="col-sm-6 col-lg-3">
+							<div
+								class="d-flex justify-content-between align-items-start card-widget-2 border-end pb-4 pb-sm-0">
+								<div>
+									<p class="mb-1">Website Sales</p>
+									<h4 class="mb-1">$674,347.12</h4>
+									<p class="mb-0">
+										<span class="me-2">21k orders</span> <span
+											class="badge bg-label-success">+12.4%</span>
+									</p>
+								</div>
+								<span class="avatar p-2 me-lg-6"> <span
+									class="avatar-initial rounded w-px-44 h-px-44"> <i
+										class="bi bi-shop"></i>
+								</span>
+								</span>
+							</div>
+							<hr class="d-none d-sm-block d-lg-none">
+						</div>
+						<div class="col-sm-6 col-lg-3">
+							<div
+								class="d-flex justify-content-between align-items-start border-end pb-4 pb-sm-0 card-widget-3">
+								<div>
+									<p class="mb-1">Discount</p>
+									<h4 class="mb-1">$14,132.34</h4>
+									<p class="mb-0">
+										<span class="me-2">6k orders</span> <span
+											class="badge bg-label-success">+5.7%</span>
+									</p>
+								</div>
+								<span class="avatar p-2 me-sm-6"> <span
+									class="avatar-initial rounded w-px-44 h-px-44"> <i
+										class="bi bi-shop"></i>
+								</span>
+								</span>
+							</div>
+						</div>
+						<div class="col-sm-6 col-lg-3">
+							<div class="d-flex justify-content-between align-items-start">
+								<div>
+									<p class="mb-1">Affiliate</p>
+									<h4 class="mb-1">$8,132.34</h4>
+									<p class="mb-0">
+										<span class="me-2">150 orders</span> <span
+											class="badge bg-label-danger">-3.5%</span>
+									</p>
+								</div>
+								<span class="avatar p-2"> <span
+									class="avatar-initial rounded w-px-44 h-px-44"> <i
+										class="bi bi-shop"></i>
+								</span>
+								</span>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="card">
+			<div class="card-header">
+				<h5 class="card-title">Filter</h5>
+			</div>
+
+			<div class="card">
+				<ul class="nav nav-pills ms-4" id="myTab" role="tablist">
+					<li class="nav-item" role="presentation">
+						<button class="nav-link ${classify==100?'active':''}" id="tab-1"
+							data-bs-toggle="tab" data-bs-target="#tab-pane" type="button"
+							role="tab" aria-controls="1"
+							aria-selected="${classify==0?'true':'false'}">숙소</button>
+					</li>
+					<li class="nav-item" role="presentation">
+						<button class="nav-link ${classify==200?'active':''}" id="tab-2"
+							data-bs-toggle="tab" data-bs-target="#tab-pane" type="button"
+							role="tab" aria-controls="2"
+							aria-selected="${classify==1?'true':'false'}">투어</button>
+					</li>
+				</ul>
+
+				<div class="tab-content pt-4" id="myTabContent">
+					<div class="tab-pane fade show active" id="tab-pane"
+						role="tabpanel" aria-labelledby="tab-1" tabindex="0">
+						<div class="row mb-2">
+							<div class="col">
+								<div class="row text-end">
+									<div class="col-auto pe-1">
+										<select id="changeCategory" class="form-select"
+											onchange="changeList();">
+											<c:if test="${listCategory.size() == 0}">
+												<option value="0">:: 메인카테고리 ::</option>
+											</c:if>
+											<c:forEach var="vo" items="${listCategory}">
+												<option value="${vo.categoryNum}"
+													${parentNum==vo.categoryNum?"selected":""}>${vo.categoryName}</option>
+											</c:forEach>
+										</select>
+									</div>
+									<div class="col-auto pe-1">
+										<select id="changeSubCategory" class="form-select"
+											onchange="changeSubList();">
+											<c:if test="${listSubCategory.size() == 0}">
+												<option value="0">:: 카테고리 ::</option>
+											</c:if>
+											<c:forEach var="vo" items="${listSubCategory}">
+												<option value="${vo.categoryNum}"
+													${categoryNum==vo.categoryNum?"selected":""}>${vo.categoryName}</option>
+											</c:forEach>
+										</select>
+									</div>
+									<div class="col-auto ps-1">
+										<select id="changeShowProduct" class="form-select"
+											onchange="changeList();">
+											<option value="-1">:: 진열 여부 ::</option>
+											<option value="1" ${productShow==1?"selected":""}>상품
+												진열</option>
+											<option value="0" ${productShow==0?"selected":""}>상품
+												숨김</option>
+										</select>
+									</div>
+								</div>
+							</div>
+							<div class="col-auto pt-2 text-end">
+								${dataCount}개(${page}/${total_page} 페이지)</div>
+						</div>
+
+						<table class="table table-border table-list">
+							<thead>
+								<tr class="border-top border-dark table-light">
+									<th width="130">상품코드</th>
+									<th>상품명</th>
+									<th width="100">가격</th>
+									<th width="60">할인율</th>
+									<th width="60">재고</th>
+									<th width="60">진열</th>
+									<th width="80">수정일</th>
+									<th width="120">변경</th>
+								</tr>
+							</thead>
+							<tbody>
+								<c:forEach var="dto" items="${list}" varStatus="status">
+									<tr valign="middle">
+										<td>${dto.productNum}</td>
+										<td class="product-subject left"><img
+											src="${pageContext.request.contextPath}/uploads/product/${dto.thumbnail}">
+											<a href="#"><label>${dto.productName}</label></a></td>
+										<td>${dto.price}</td>
+										<td>${dto.discountRate}%</td>
+										<td>${dto.totalStock}</td>
+										<td>${dto.productShow==1?"표시":"숨김"}</td>
+										<td>${dto.update_date}</td>
+										<td><c:url var="updateUrl"
+												value="/admin/product/${classify}/update">
+												<c:param name="productNum" value="${dto.productNum}" />
+												<c:param name="parentNum" value="${parentNum}" />
+												<c:param name="categoryNum" value="${categoryNum}" />
+												<c:param name="page" value="${page}" />
+											</c:url>
+											<button type="button" class="btn border btn-productStock"
+												data-productNum="${dto.productNum}"
+												data-optionCount="${dto.optionCount}">재고</button>
+											<button type="button" class="btn border"
+												onclick="location.href='${updateUrl}';">수정</button></td>
+									</tr>
+								</c:forEach>
+							</tbody>
+						</table>
+
+						<div class="page-navigation">${dataCount == 0 ? "등록된 상품이 없습니다." : paging}
+						</div>
+
+						<table class="table table-borderless">
+							<tr>
+								<td width="150">
+									<button type="button" class="btn btn-light"
+										onclick="location.href='${pageContext.request.contextPath}/admin/product/${classify}/main';">
+										<i class="bi bi-arrow-clockwise"></i>
+									</button>
+								</td>
+								<td align="center">
+									<form class="row justify-content-center" name="searchForm"
+										action="${pageContext.request.contextPath}/admin/product/${classify}/main"
+										method="post">
+										<div class="col-auto p-1">
+											<select name="schType" class="form-select">
+												<option value="all" ${schType=="all"?"selected":""}>상품명+설명</option>
+												<option value="productNum"
+													${schType=="productNum"?"selected":""}>상품코드</option>
+												<option value="productName"
+													${schType=="productName"?"selected":""}>상품명</option>
+												<option value="content" ${schType=="content"?"selected":""}>설명</option>
+											</select>
+										</div>
+										<div class="col-auto p-1">
+											<input type="text" name="kwd" value="${kwd}"
+												class="form-control"> <input type="hidden"
+												name="size" value="${size}"> <input type="hidden"
+												name="parentNum" value="${parentNum}"> <input
+												type="hidden" name="categoryNum" value="${categoryNum}">
+											<input type="hidden" name="productShow"
+												value="${productShow}">
+										</div>
+										<div class="col-auto p-1">
+											<button type="button" class="btn btn-light"
+												onclick="searchList()">
+												<i class="bi bi-search"></i>
+											</button>
+										</div>
+									</form>
+
+								</td>
+								<td width="150" align="right"><c:url var="url"
+										value="/admin/product/${classify}/write" />
+									<button type="button" class="btn btn-light"
+										onclick="location.href='${url}';">상품등록</button></td>
+							</tr>
+						</table>
+
+					</div>
+				</div>
+				<!-- tab-content _ end -->
+
+			</div>
+			<!-- body-main -->
+		</div>
+	</div>
+
+	<!-- 재고 관리 대화상자  -->
+	<div class="modal fade" id="productStockDialogModal" tabindex="-1"
+		aria-labelledby="productStockDialogModalLabel" aria-hidden="true">
+		<div class="modal-dialog modal-lg">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h5 class="modal-title" id="productStockDialogModalLabel">재고관리</h5>
+					<button type="button" class="btn-close" data-bs-dismiss="modal"
+						aria-label="Close"></button>
+				</div>
+				<div class="modal-body pt-1">
+					<div class="modal-productStock"></div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+</div>
+
+<script type="text/javascript">
+function login() {
+	location.href = '${pageContext.request.contextPath}/member/login';
+}
+
+function ajaxFun(url, method, formData, dataType, fn, file = false) {
+	const settings = {
+			type: method, 
+			data: formData,
+			dataType:dataType,
+			success:function(data) {
+				fn(data);
+			},
+			beforeSend: function(jqXHR) {
+				jqXHR.setRequestHeader('AJAX', true);
+			},
+			complete: function () {
+			},
+			error: function(jqXHR) {
+				if(jqXHR.status === 403) {
+					login();
+					return false;
+				} else if(jqXHR.status === 400) {
+					alert('요청 처리가 실패 했습니다.');
+					return false;
+		    	}
+		    	
+				console.log(jqXHR.responseText);
+			}
+	};
+	
+	if(file) {
+		settings.processData = false;  // file 전송시 필수. 서버로전송할 데이터를 쿼리문자열로 변환여부
+		settings.contentType = false;  // file 전송시 필수. 서버에전송할 데이터의 Content-Type. 기본:application/x-www-urlencoded
+	}
+	
+	$.ajax(url, settings);
+}
+
+$(function(){
+	$('.btn-productStock').click(function(){
+		// 재고 관리 대화상자
+		let productNum = $(this).attr('data-productNum');
+		let optionCount = $(this).attr('data-optionCount');
+		let url = '${pageContext.request.contextPath}/admin/product/listProductStock?productNum='+productNum+'&optionCount='+optionCount;
+		
+		$('.modal-productStock').load(url);
+		
+		$('#productStockDialogModal').modal('show');
+	});
+	
+	$('.modal-productStock').on('click', '.btn-allStockUpdate', function(){
+		// 재고 일괄 변경
+		if(! confirm('재고를 일괄 변경 하시겠습니까 ? ')) {
+			return false;
+		}
+		
+		let productNum = $(this).attr('data-productNum');
+		let url = '${pageContext.request.contextPath}/admin/product/updateProductStock';
+		let query = 'productNum='+productNum;
+		
+		let isValid = true;
+		$('.productStcok-list tr').each(function(){
+			let $input = $(this).find('input[name=totalStock]');
+			let $btn = $(this).find('.btn-stockUpdate');
+			
+			if(!/^\d+$/.test($input.val().trim())) {
+				alert('재고량은 숫자만 가능합니다.');
+				$input.focus();
+				isValid = false;
+				return false;
+			}
+			
+			let stockNum = $btn.attr('data-stockNum');
+			let detailNum = $btn.attr('data-detailNum');
+			detailNum = detailNum ? detailNum : 0;
+			let detailNum2 = $btn.attr('data-detailNum2');
+			detailNum2 = detailNum2 ? detailNum2 : 0;
+			let totalStock = $input.val().trim();
+			
+			query += '&stockNums=' + stockNum;
+			query += '&detailNums=' + detailNum;
+			query += '&detailNums2=' + detailNum2;
+			query += '&totalStocks=' + totalStock;
+		});
+		
+		if( ! isValid ) {
+			return false;
+		}
+		
+		const fn = function(data) {
+			if(data.state === "true") {
+				alert("재고가 일괄 변경 되었습니다.");
+			} else {
+				alert("재고 일괄 변경이 실패 했습니다.");
+			}
+		};
+		
+		ajaxFun(url, "post", query, "json", fn);		
+	});
+	
+	$('.modal-productStock').on('click', '.btn-stockUpdate', function(){
+		// 재고 변경	
+		let productNum = $(this).attr('data-productNum');
+		let stockNum = $(this).attr('data-stockNum');
+		let detailNum = $(this).attr('data-detailNum');
+		detailNum = detailNum ? detailNum : 0;
+		let detailNum2 = $(this).attr('data-detailNum2');
+		detailNum2 = detailNum2 ? detailNum2 : 0;
+		let totalStock = $(this).closest('tr').find('input[name=totalStock]').val().trim();
+		
+		if(!/^\d+$/.test(totalStock)) {
+			alert('재고량은 숫자만 가능합니다.');
+			$(this).closest('tr').find('input[name=totalStock]').focus();
+			return false;
+		}
+	
+		let url = '${pageContext.request.contextPath}/admin/product/updateProductStock';
+		let query = {productNum:productNum, stockNums:stockNum, detailNums:detailNum, detailNums2:detailNum2, totalStocks:totalStock};
+		
+		const fn = function(data) {
+			if(data.state === "true") {
+				alert("재고가 변경 되었습니다.");
+			} else {
+				alert("재고 변경이 실패 했습니다.");
+			}
+		};
+		
+		ajaxFun(url, "post", query, "json", fn);		
+		
+	});
+});
+
+const productStockModalEl = document.getElementById('productStockDialogModal');
+productStockModalEl.addEventListener('show.bs.modal', function(){
+	// 모달 대화상자가 보일때
+});
+
+productStockModalEl.addEventListener('hidden.bs.modal', function(){
+	// 모달 대화상자가 안보일때
+	searchList();
+});
+
+</script>
