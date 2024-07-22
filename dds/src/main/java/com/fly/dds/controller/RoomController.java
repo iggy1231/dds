@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.fly.dds.common.FileManager;
 import com.fly.dds.common.MyUtil;
@@ -181,7 +182,7 @@ public class RoomController {
 	    return "redirect:/room/article?num=" + qna.getNum() + "&page=1";
 	}
 	
-	
+	@ResponseBody
 	@GetMapping("qnalist")
 	public Map<String, Object> listQnA(
 	        @RequestParam long num,
@@ -237,6 +238,12 @@ public class RoomController {
 	    }
 	    
 	    return model;
+	}
+	
+	@GetMapping("payment") 
+	public String roomPayment() {
+		
+		return ".room.payment";
 	}
 
 	
