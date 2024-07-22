@@ -13,6 +13,7 @@ public interface RoomQnAMapper {
 	public void insertQnA(RoomQnA dto) throws SQLException;
 	public int dataCount(Map<String, Object> map);
 	public List<RoomQnA> listQnA(Map<String, Object> map);
+	public void updateQnA(RoomQnA dto) throws SQLException;
 	
 	
 

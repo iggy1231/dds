@@ -68,5 +68,16 @@ public class RoomQnAServiceImpl implements RoomQnAService {
 		
 		return list;
 	}
+
+	@Override
+	public void updateQnA(RoomQnA dto) throws Exception {
+		try {
+			mapper.updateQnA(dto);
+		} catch (Exception e) {
+			e.printStackTrace();
+			throw e;
+		}
+		
+	}
 	
 }

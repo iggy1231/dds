@@ -180,20 +180,12 @@
     </div>
     <div class="col-md-6 right-col">
         <div class="row mb-2">
+    <c:forEach var="photo" items="${photo}" begin="0" end="3">
             <div class="col-6 d-flex align-items-stretch">
-                <img src="${pageContext.request.contextPath}/resources/images/product_default.png" class="img-fluid rounded w-100 right-img" alt="이미지 2">
+                <img src="${pageContext.request.contextPath}/uploads/room/${photo.photo}" class="img-fluid rounded w-100 right-img" alt="이미지">
             </div>
-            <div class="col-6 d-flex align-items-stretch">
-                <img src="${pageContext.request.contextPath}/resources/images/product_default.png" class="img-fluid rounded w-100 right-img" alt="이미지 3">
-            </div>
-        </div>
-        <div class="row">
-            <div class="col-6 d-flex align-items-stretch">
-                <img src="https://item.kakaocdn.net/do/992fcaa6397634d180a621bfbc9075b6ff1cf2d4e1bdc11c5e3dd410963d18c7" class="img-fluid rounded w-100 right-img" alt="이미지 4">
-            </div>
-            <div class="col-6 d-flex align-items-stretch">
-                <img src="${pageContext.request.contextPath}/resources/images/숙소_예시.jpg" class="img-fluid rounded w-100 right-img" alt="이미지 5">
-            </div>
+    </c:forEach>
+          
         </div>
     </div>
 </div>
@@ -261,66 +253,29 @@
 <div id="rooms" class="row mb-5 mt-4 p-1">
     <div class="col-12">
         <h3 class="fw-semibold pb-3">객실 선택</h3>
+        <c:forEach var="detail" items="${detail}">
         <div class="card mb-3">
             <div class="row g-0 align-items-center">
                 <div class="col-md-4">
                     <div class="ratio ratio-4x3">
-                        <img src="${pageContext.request.contextPath}/uploads/room/${dto.detail_photo}" class="img-fluid rounded-start" alt="객실 이미지">
+                        <img src="${pageContext.request.contextPath}/uploads/room/${detail.detail_photo}" class="img-fluid rounded-start" alt="객실 이미지">
                     </div>
                 </div>
                 <div class="col-md-5">
                     <div class="card-body p-2">
-                        <h2 class="card-title fw-semibold pb-2">${dto.name}</h2>
-                        <h5 class="card-text py-1 fw-medium">🛏️ ${dto.detail_content}</h5>
-                        <h5 class="card-text py-2 fw-medium">👥 ${dto.people}인실</h5>
+                        <h2 class="card-title fw-semibold pb-2">${detail.name}</h2>
+                        <h5 class="card-text py-1 fw-medium">🛏️ ${detail.content}</h5>
+                        <h5 class="card-text py-2 fw-medium">👥 ${detail.people}인실</h5>
                     </div>
                 </div>
                 <div class="col-md-3 text-end p-3 pe-4">
-                    <h4 class="text-primary fw-semibold">${dto.price}원 / 박</h4>
+                    <h4 class="text-primary fw-semibold">${detail.price}원 / 박</h4>
                     <button class="btn btn-primary fs-5 pt-1">예약하기</button>
                 </div>
             </div>
         </div>
-        <div class="card mb-3">
-            <div class="row g-0 align-items-center">
-                <div class="col-md-4">
-                    <div class="ratio ratio-4x3">
-                        <img src="${pageContext.request.contextPath}/resources/images/product_default.png" class="img-fluid rounded-start" alt="객실 이미지">
-                    </div>
-                </div>
-                <div class="col-md-5">
-                    <div class="card-body p-2">
-                        <h2 class="card-title fw-semibold pb-2">A101</h2>
-                        <h5 class="card-text py-1 fw-medium">🛏️ 싱글 침대 2개</h5>
-                        <h5 class="card-text py-2 fw-medium">👥 성인 2명</h5>
-                    </div>
-                </div>
-                <div class="col-md-3 text-end p-3 pe-4">
-                    <h4 class="text-primary fw-semibold">114,700원 / 박</h4>
-                    <button class="btn btn-primary fs-5 pt-1">예약하기</button>
-                </div>
-            </div>
-        </div>
-        <div class="card mb-3">
-            <div class="row g-0 align-items-center">
-                <div class="col-md-4">
-                    <div class="ratio ratio-4x3">
-                        <img src="https://yaimg.yanolja.com/v5/2021/03/29/15/6061f2a92f9b87.94225506.png" class="img-fluid rounded-start" alt="객실 이미지">
-                    </div>
-                </div>
-                <div class="col-md-5">
-                    <div class="card-body p-2">
-                        <h2 class="card-title fw-semibold pb-2">B101</h2>
-                        <h5 class="card-text py-1 fw-medium">🛏️ 싱글 침대 2개</h5>
-                        <h5 class="card-text py-2 fw-medium">👥 성인 2명</h5>
-                    </div>
-                </div>
-                <div class="col-md-3 text-end p-3 pe-4">
-                    <h4 class="text-primary fw-semibold">114,700원 / 박</h4>
-                    <button class="btn btn-primary fs-5 pt-1">예약하기</button>
-                </div>
-            </div>
-        </div>
+        </c:forEach>
+    
     </div>
 </div>
 
@@ -598,7 +553,7 @@ function printQuestion(data) {
         let question_date = item.reg_date;
         let answer = item.answer;
         let answer_date = item.answer_date;
-        let answerState = answer_date ? '<span class="text-primary">답변완료</span>' : '<span class="text-secondary">답변대기</span>';
+        let answerState = answer ? '<span class="text-primary">답변완료</span>' : '<span class="text-secondary">답변대기</span>';
         let anonymous = item.anonymous;
 
         out += '<div class="mt-1 border-bottom">';

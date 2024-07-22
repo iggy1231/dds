@@ -67,10 +67,22 @@ public class RoomController {
             return "redirect:/room/list?" + query;
         }
         
+        // 상세정보 출력
+        Map<String, Object> map = new HashMap<>();
+        map.put("num", num);
+        List<Room> detail = service.listDetail(map);
+        
+        // 사진 출력
+        List<Room> photo = service.listPhoto(map);
+        
+        
+        model.addAttribute("detail" , detail);
+        model.addAttribute("photo" , photo);
         model.addAttribute("dto", dto);
         model.addAttribute("page", page);
         model.addAttribute("kwd", kwd);
         model.addAttribute("query", query);
+        
        
         return ".room.article";
     }

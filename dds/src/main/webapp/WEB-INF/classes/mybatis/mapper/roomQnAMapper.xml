@@ -5,9 +5,14 @@
 	<!-- QnA 등록 -->
 	<!--public void insertQnA(RoomQnA dto) throws SQLException;  -->
 	<insert id="insertQnA" parameterType="com.fly.dds.domain.RoomQnA">
-		INSERT INTO room_qna(qna_num, num, user_num, subject, content, reg_date, answer, answer_date, anonymous) 
-		VALUES(room_qna_seq.NEXTVAL, #{num} , #{userNum}, #{subject}, #{content}, SYSDATE, #{answer ,jdbcType=VARCHAR}, SYSDATE, 0 )
+		INSERT INTO room_qna(qna_num, num, user_num, subject, content, reg_date,  anonymous) 
+		VALUES(room_qna_seq.NEXTVAL, #{num} , #{userNum}, #{subject}, #{content}, SYSDATE, 0 )
 	</insert>
+	
+		<update id="updateQnA" parameterType="com.fly.dds.domain.RoomQnA">
+		UPDATE room_qna SET answer = #{answer}, answer_date = SYSDATE
+		WHERE num = #{num}
+	</update>
 	
 	<!-- QnA 개수 -->
 	<!-- public int dataCount(Map<String, Object> map); -->

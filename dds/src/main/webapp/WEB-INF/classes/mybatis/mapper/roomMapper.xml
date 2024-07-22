@@ -93,10 +93,25 @@
 		ORDER BY price DESC
 	</select>
 	
+	<select id="listDetail" parameterType="map" resultType="com.fly.dds.domain.Room">
+	select detail_num , people , price , name , d.content , point , r.num , discount , detail_photo 
+	from room_detail d
+	join room r on d.num = r.num
+	where r.num=#{num}
+	</select>
+	
+	<select id="listPhoto" parameterType="map" resultType="com.fly.dds.domain.Room">
+	select photo_num , photo , p.num
+	from room_photo p
+	join room r on p.num = r.num
+	where p.num = #{num}
+	</select>
+	
 	<select id="findByNum" parameterType="Long" resultType="com.fly.dds.domain.Room">
-		SELECT num , subject , room_type , addr1 , addr2 , content , facility_content , caution , thumbnail
-		FROM room 
-		WHERE num = #{num}
+		SELECT r.num, subject, room_type, addr1, addr2, r.content, facility_content, caution, thumbnail , price
+		FROM room r
+		left outer join ( select num , min(price) as price from room_detail group by num ) d on r.num = d.num
+		WHERE r.num = #{num}
 	</select>
 	
 	
