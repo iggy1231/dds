@@ -8,9 +8,10 @@
 .search-bar {
   background-color: #F2F2F2;
   border-radius: 30px;
-  padding: 15px 25px;
+  padding: 10px 20px;
   display: flex;
   align-items: center;
+  margin-left: 0 !important;
 }
 .search-bar input[type="text"] {
   border: none;
@@ -60,25 +61,32 @@ hr {
 	color: #18A8F1 !important;
 }
 
+.img-fluid {
+    transition: 0.3s ease; /* 부드러운 전환 효과 추가 */
+}
+
+.img-fluid:hover {
+    filter: brightness(70%); /* 호버 시 이미지 밝기를 70%로 낮춤 */
+}
+
 
 
 </style>
 
-
  <!-- 숙소 Start-->
 <div class="container px-2 py-5">
-                <h3 class="mb-4">✅ 선택한 여정</h3>
+                <h3 class="mb-4 fw-semibold">✅ 선택한 여정</h3>
                 <div class="row g-4">
                     <div class="col-lg-12">
                         <div class="row g-4">
                                 <div class="d-flex justify-content-between align-items-center mb-4">
                     <div class="search-bar d-flex align-items-center">
                         <i class="pl-2 bi bi-search"></i>
-                        <h5 class="text-gray" style="font-weight: 600;">${kwd}</h5>
+                        <h6 class="text-gray" style="font-weight: 600;">${kwd}</h6>
                         <span>|</span>
-                        <h5 class="p-1" style="font-weight: 600;">${sdate} ~ ${edate}</h5>
+                        <h6 class="p-1" style="font-weight: 600;">${sdate} ~ ${edate}</h6>
                         <span>|</span>
-                        <h5 class="p-1" style="font-weight: 600;">인원 ${people}</h5>        
+                        <h6 class="p-1" style="font-weight: 600;">인원 ${people}</h6>        
                     </div>
                     <div class="text-start">
                     	<h2 class="text-start mt-0 pb-1 bold">${kwd} 숙소 '${dataCount}'개</h2>
@@ -90,8 +98,6 @@ hr {
                             <option value="opel">높은 가격순</option>
                         </select>
                     </div>
-                 
-                    
                 </div>
 
                         <div class="row g-4">

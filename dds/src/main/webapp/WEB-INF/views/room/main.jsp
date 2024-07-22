@@ -128,7 +128,7 @@
             border-radius: 0;
         }
         .datepicker {
-            z-index: 9999;
+            z-index: -9999;
         }
         .input-group.date {
             display: flex;
@@ -140,40 +140,29 @@
             border-left: none;
         }
         
-        /* Datepicker 전체 컨테이너 스타일 */
-.datepicker {
-    border: 1px solid #ddd; /* 기본 테두리 색상 */
-    border-radius: 0.375rem; /* 모서리 둥글기 */
-    background-color: #fff; /* 배경색 */
-}
-
-/* Datepicker 헤더 스타일 */
-.datepicker-header {
-    background-color: #007bff; /* 헤더 배경색 */
-    color: #fff; /* 헤더 텍스트 색상 */
-    border-bottom: 1px solid #0056b3; /* 헤더 하단 테두리 색상 */
-}
-
-/* Datepicker 테이블 스타일 */
-.datepicker-days {
-    border: none; /* 테이블 테두리 제거 */
-}
-
+/* Datepicker 셀 스타일 수정 */
 .datepicker-days td, .datepicker-days th {
-    padding: 0.5rem; /* 셀 내 여백 */
+    border-radius: 50% !important; /* 완벽한 원형으로 변경 */
+    padding: 0.75em; /* 셀 내 여백 */
     text-align: center; /* 셀 텍스트 정렬 */
 }
 
+/* 오늘 날짜 스타일 */
+.datepicker-days .today {
+    background-color: #D5D5D5; /* 오늘 날짜 배경색 */
+    color: #fff; /* 오늘 날짜 텍스트 색상 */
+    background-image : #D5D5D5;
+}
+
 /* 선택된 날짜 스타일 */
-.datepicker-days .active {
+.datepicker-days .active {s
     background-color: #18A8F1; /* 선택된 날짜 배경색 */
     color: #fff; /* 선택된 날짜 텍스트 색상 */
-    border-radius: 0.375rem; /* 선택된 날짜의 둥글기 */
 }
 
 /* 날짜 선택 버튼 스타일 */
 .datepicker-buttons {
-    background-color: #007bff; /* 버튼 배경색 */
+    background-color: #18A8F1; /* 버튼 배경색 */
     color: #fff; /* 버튼 텍스트 색상 */
     border: none; /* 버튼 테두리 제거 */
     border-radius: 0.375rem; /* 버튼 모서리 둥글기 */
@@ -184,8 +173,34 @@
     background-color: #0056b3; /* 호버 시 버튼 배경색 */
 }
         
+.datepicker .datepicker-switch {
+    width: 145px;
+    background: #f8f9fa; /* 배경색 수정 */
+}
+
+.datepicker table tr td.day.focused,
+.datepicker table tr td.day:hover {
+    background: #e9ecef; /* 날짜 선택 시 배경 색상 */
+    cursor: pointer;
+}
+
+.datepicker table tr td.today {
+    background-color: #ffc107; /* 오늘 날짜 강조 색상 */
+}
+
+.datepicker table tr td.selected {
+    background-color: #007bff; /* 선택된 날짜 색상 */
+    color: #fff; /* 선택된 날짜 텍스트 색상 */
+}        
         
         
+        
+ .custom-height {
+    height: 60px; /* 원하는 높이값으로 수정하세요 */
+}    
+
+
+
 /*** Gallery End ***/
 </style>
 </head>
@@ -203,34 +218,28 @@
     <div class="search-form-container">
         <ul class="nav nav-tabs" id="myTab" role="tablist">
             <li class="nav-item" role="presentation">
-                <a class="nav-link active" id="domestic-tab" data-bs-toggle="tab" href="#domestic" role="tab" aria-controls="domestic" aria-selected="true">국내 숙소</a>
-            </li>
-            <li class="nav-item" role="presentation">
-                <a class="nav-link" id="overseas-tab" data-bs-toggle="tab" href="#overseas" role="tab" aria-controls="overseas" aria-selected="false">여행 정보</a>
+                <a class="nav-link active" id="domestic-tab" data-bs-toggle="tab" href="#domestic" role="tab" aria-controls="domestic" aria-selected="true">국내 숙소 검색</a>
             </li>
         </ul>
-        <div class="tab-content mt-1" id="myTabContent">
-           <div class="container mt-5">
-    <form class="d-flex" action="${pageContext.request.contextPath}/room/list">
-        <div class="py-3 input-group">
-            <span class="input-group-text"><i class="bi bi-search"></i></span>
-            <input name="kwd" type="text" class="form-control" placeholder="여행지나 숙소를 검색해보세요">
-        </div>
-        <div class="input-group mx-2">
-            <span class="input-group-text"><i class="bi bi-calendar"></i></span>
-            <input name = "sdate" type="text" id="startDate" class="form-control" placeholder="시작 날짜">
-            <input name = "edate" type="text" id="endDate" class="form-control" placeholder="종료 날짜">
-        </div>
-        <div class="input-group">
-            <span class="input-group-text"><i class="bi bi-people"></i></span>
-            <input name = "people" type="text" class="form-control" placeholder="인원 입력">
-        </div>
-        <button type="submit" class="btn btn-primary ms-2">검색</button>
-    </form>
+        <div class="tab-content mt-2" id="myTabContent">
+           <div class="container my-3">
+    <form class="d-flex " action="${pageContext.request.contextPath}/room/list">
+    <div class="py-3 input-group custom-height">
+        <span class="input-group-text custom-height rounded-start"><i class="bi bi-search"></i></span> <!-- 여기에 클래스 추가 -->
+        <input name="kwd" type="text" class="form-control custom-height rounded-end" placeholder="여행지나 숙소를 검색해보세요" autocomplete='off'>
+    </div>
+    <div class="py-3 input-group mx-1 custom-height"> 
+        <span class="input-group-text custom-height rounded-start"><i class="bi bi-calendar"></i></span>
+        <input name="sdate" type="text" id="startDate" class="form-control custom-height" placeholder="시작 날짜" autocomplete='off'>
+        <input name="edate" type="text" id="endDate" class="form-control custom-height rounded-end" placeholder="종료 날짜" autocomplete='off'>
+    </div>
+    <div class="py-3 input-group custom-height"> 
+        <span class="input-group-text custom-height rounded-start"><i class="bi bi-people"></i></span>
+        <input name="people" type="text" class="form-control custom-height" placeholder="인원 입력" autocomplete='off'>
+    <button type="submit" class="btn btn-primary ms-1 custom-height rounded-end">검색</button>
+    </div>
+</form>
 </div>
-            <div class="tab-pane fade" id="overseas" role="tabpanel" aria-labelledby="overseas-tab">
-                <!-- 해외 숙소 검색 폼 -->
-            </div>
         </div>
     </div>
 </div>
@@ -262,7 +271,7 @@
                       <div class="gallery-content">
                         <div class="gallery-info">
                           <h5 class="text-white text-uppercase mb-2">전라북도 익산</h5>
-                          <a href="${pageContext.request.contextPath}/room/list?kwd=익산" class="btn-hover text-white"> 숙소 보러가기! <i class="fa fa-arrow-right ms-2"></i></a>
+							<a href="#" class="btn-hover text-white destination-link" data-kwd="익산">숙소 보러가기! <i class="fa fa-arrow-right ms-2"></i></a>
                         </div>
                       </div>
                     </div>
@@ -273,7 +282,7 @@
                       <div class="gallery-content">
                         <div class="gallery-info">
                           <h5 class="text-white text-uppercase mb-2">전라남도 순천</h5>
-                          <a href="${pageContext.request.contextPath}/room/list?kwd=순천" class="btn-hover text-white">숙소 보러가기! <i class="fa fa-arrow-right ms-2"></i></a>
+							<a href="#" class="btn-hover text-white destination-link" data-kwd="순천">숙소 보러가기! <i class="fa fa-arrow-right ms-2"></i></a>
                         </div>
                       </div>
                     </div>
@@ -284,7 +293,7 @@
                       <div class="gallery-content">
                         <div class="gallery-info">
                           <h5 class="text-white text-uppercase mb-2">서울 남산</h5>
-                          <a href="${pageContext.request.contextPath}/room/list?kwd=남산" class="btn-hover text-white">숙소 보러가기! <i class="fa fa-arrow-right ms-2"></i></a>
+							<a href="#" class="btn-hover text-white destination-link" data-kwd="남산">숙소 보러가기! <i class="fa fa-arrow-right ms-2"></i></a>
                         </div>
                       </div>
                     </div>
@@ -294,8 +303,8 @@
                       <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRBByag7QGT_-DOvBHk01vwiXdlRHnOWbvfog&s" class="img-fluid w-100 h-100 rounded" alt="Image">
                       <div class="gallery-content">
                         <div class="gallery-info">
-                          <h5 class="text-white text-uppercase mb-2">경기도 남앙주시</h5>
-                          <a href="${pageContext.request.contextPath}/room/list?kwd=남양주" class="btn-hover text-white">숙소 보러가기! <i class="fa fa-arrow-right ms-2"></i></a>
+                          <h5 class="text-white text-uppercase mb-2">경기도 남앙주</h5>
+							<a href="#" class="btn-hover text-white destination-link" data-kwd="남양주">숙소 보러가기! <i class="fa fa-arrow-right ms-2"></i></a>
                         </div>
                       </div>
                     </div>
@@ -306,7 +315,7 @@
                       <div class="gallery-content">
                         <div class="gallery-info">
                           <h5 class="text-white text-uppercase mb-2">부산 해운대</h5>
-                          <a href="${pageContext.request.contextPath}/room/list?kwd=해운대" class="btn-hover text-white">숙소 보러가기! <i class="fa fa-arrow-right ms-2"></i></a>
+							<a href="#" class="btn-hover text-white destination-link" data-kwd="해운대">숙소 보러가기! <i class="fa fa-arrow-right ms-2"></i></a>
                         </div>
                       </div>
                     </div>
@@ -317,18 +326,18 @@
                       <div class="gallery-content">
                         <div class="gallery-info">
                           <h5 class="text-white text-uppercase mb-2">서울 영등포</h5>
-                          <a href="${pageContext.request.contextPath}/room/list?kwd=영등포" class="btn-hover text-white">숙소 보러가기! <i class="fa fa-arrow-right ms-2"></i></a>
+							<a href="#" class="btn-hover text-white destination-link" data-kwd="영등포">숙소 보러가기! <i class="fa fa-arrow-right ms-2"></i></a>
                         </div>
                       </div>
                     </div>
                   </div>
                    <div class="col-sm-6 col-md-4 col-lg-3 col-xl-3">
                     <div class="gallery-item h-100">
-                      <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSdLGCmigqdmccLsThLn6etZgDL4XzYXkKT2A&s" class="img-fluid w-100 h-100 rounded" alt="Image">
+                      <img src="https://www.maybugs.com/news/photo/201901/659445_538877_5247.jpg" class="img-fluid w-100 h-100 rounded" alt="Image">
                       <div class="gallery-content">
                         <div class="gallery-info">
                           <h5 class="text-white text-uppercase mb-2">서울 홍대</h5>
-                          <a href="${pageContext.request.contextPath}/room/list?kwd=홍대" class="btn-hover text-white">숙소 보러가기! <i class="fa fa-arrow-right ms-2"></i></a>
+							<a href="#" class="btn-hover text-white destination-link" data-kwd="홍대">숙소 보러가기! <i class="fa fa-arrow-right ms-2"></i></a>
                         </div>
                       </div>
                     </div>
@@ -339,7 +348,7 @@
                       <div class="gallery-content">
                         <div class="gallery-info">
                           <h5 class="text-white text-uppercase mb-2">강원도 고성</h5>
-                          <a href="${pageContext.request.contextPath}/room/list?kwd=고성" class="btn-hover text-white">숙소 보러가기! <i class="fa fa-arrow-right ms-2"></i></a>
+							<a href="#" class="btn-hover text-white destination-link" data-kwd="고성">숙소 보러가기! <i class="fa fa-arrow-right ms-2"></i></a>
                         </div>
                       </div>
                     </div>
@@ -360,8 +369,8 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/js/bootstrap-datepicker.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/locales/bootstrap-datepicker.ko.min.js"></script>
 <script type="text/javascript">
-
     $(document).ready(function() {
+        // Datepicker 초기화 코드
         $('#startDate').datepicker({
             format: 'yyyy-mm-dd',
             autoclose: true,
@@ -383,5 +392,30 @@
             var endDate = new Date(selected.date.valueOf());
             $('#startDate').datepicker('setEndDate', endDate);
         });
+
+        // 공통 링크 클릭 이벤트
+        $('.destination-link').click(function(e) {
+            e.preventDefault();  // 기본 동작 방지
+
+            // 클릭한 링크의 data-kwd 속성 값 가져오기
+            var kwd = $(this).data('kwd');
+
+            // 오늘 날짜와 오늘 날짜 +2 계산
+            var today = new Date();
+            var dd = String(today.getDate()).padStart(2, '0');
+            var mm = String(today.getMonth() + 1).padStart(2, '0'); // January is 0!
+            var yyyy = today.getFullYear();
+
+            var startDate = yyyy + '-' + mm + '-' + dd;
+            today.setDate(today.getDate() + 2);
+            var dd2 = String(today.getDate()).padStart(2, '0');
+            var mm2 = String(today.getMonth() + 1).padStart(2, '0'); // January is 0!
+            var endDate = yyyy + '-' + mm2 + '-' + dd2;
+
+            // 링크 생성
+            var url = "${pageContext.request.contextPath}/room/list?kwd=" + kwd + "&sdate=" + startDate + "&edate=" + endDate + "&people=2";
+            window.location.href = url;
+        });
     });
 </script>
+

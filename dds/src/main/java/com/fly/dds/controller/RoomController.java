@@ -157,25 +157,88 @@ public class RoomController {
 	}
 	
 	@PostMapping("writeQnA")
-	public String writeQnA(RoomQnA qna, HttpSession session,Model model) {
+	public String writeQnA(RoomQnA qna, HttpSession session, Model model) {
 	    SessionInfo info = (SessionInfo) session.getAttribute("member");
 	    
 	    try {
 	        qna.setUserName(info.getUserName());
 	        qna.setUserNum(info.getUser_num());
 	        
-	        qnaService.insertQnA(qna);
-	        System.out.println("확인 " + qna.getNum());
 	        if (qna.getNum() == 0) {
 	            // 에러 메시지를 설정하고 폼을 다시 표시하도록 처리
 	            model.addAttribute("message", "상품 번호가 필요합니다.");
 	            return ".room.article"; // 폼으로 다시 돌아가도록 설정
 	        }
+
+	        qnaService.insertQnA(qna);
+	        System.out.println("확인 " + qna.getNum());
+	        
+	    } catch (Exception e) {
+	        e.printStackTrace();
+	        model.addAttribute("message", "문의 등록 중 오류가 발생했습니다.");
+	        return ".room.article";
+	    }
+	    return "redirect:/room/article?num=" + qna.getNum() + "&page=1";
+	}
+	
+	
+	@GetMapping("qnalist")
+	public Map<String, Object> listQnA(
+	        @RequestParam long num,
+	        @RequestParam(value = "page", defaultValue = "1") int current_page,
+	        HttpSession session) throws Exception {
+	    SessionInfo info = (SessionInfo)session.getAttribute("member");
+	    
+	    Map<String, Object> model = new HashMap<>();
+	    
+	    try {
+	        Map<String, Object> map = new HashMap<>();
+	        
+	        int size = 5;
+	        int dataCount = 0;
+	        
+	        map.put("num", num);
+	        
+	        dataCount = qnaService.dataCount(map);
+	        int total_page = myUtil.pageCount(dataCount, size);
+	        if (current_page > total_page) {
+	            current_page = total_page;
+	        }
+
+	        int offset = (current_page - 1) * size;
+	        if(offset < 0) offset = 0;
+
+	        map.put("offset", offset);
+	        map.put("size", size);
+
+	        List<RoomQnA> list = qnaService.listQnA(map);
+	        for(RoomQnA dto : list) {
+	            if(dto.getAnonymous() == 1 && (info == null || (info.getActivity()) < 50 && dto.getUserNum() != info.getUser_num())) {
+	                dto.setContent("비밀글 입니다. <i class='bi bi-file-lock2'></i>");
+	                dto.setAnswer("");
+	            }
+	        }
+	        
+	        String paging = myUtil.pagingFunc(current_page, total_page, "listQuestion");
+	        
+	        model.put("list", list);
+	        model.put("dataCount", dataCount);
+	        model.put("size", size);
+	        model.put("page", current_page);
+	        model.put("paging", paging);
+	        model.put("total_page", total_page);
+	        
+	        // System.out.println("QnA List: " + list);
+	        // System.out.println("Paging: " + paging);
+	        // System.out.println("Data Count: " + dataCount);
+	        
 	    } catch (Exception e) {
 	        e.printStackTrace();
 	    }
-	    return "redirect:/room/article?num=" + qna.getNum();
+	    
+	    return model;
 	}
+
 	
 	/*
 	@GetMapping("search")

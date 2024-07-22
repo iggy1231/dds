@@ -182,6 +182,7 @@
     background: var(--bs-primary);
 }
 
+
 .testimonial .testimonial-carousel .owl-nav .owl-prev:hover i,
 .testimonial .testimonial-carousel .owl-nav .owl-next:hover i {
     color: var(--bs-white);
@@ -199,8 +200,15 @@
     transition: 0.5s;
 }
 
-
 /*** Testimonial End ***/
+
+.img-fluid-hover {
+    transition: 0.3s ease; /* 부드러운 전환 효과 추가 */
+}
+
+.img-fluid-hover:hover {
+    filter: brightness(75%); /* 호버 시 이미지 밝기를 70%로 낮춤 */
+}
 
 
         
@@ -318,7 +326,7 @@
                     <div class="col-lg-4 col-md-6 wow fadeInUp" data-wow-delay="0.3s">
                         <div class="property-item rounded overflow-hidden">
                             <div class="position-relative overflow-hidden">
-                                <a href=""><img class="ratio ratio-4x3 img-fluid" src="https://ppss.kr/wp-content/uploads/2023/02/1-2.jpeg" alt=""></a>
+                                <a href=""><img class="ratio ratio-4x3 img-fluid img-fluid-hover" src="https://ppss.kr/wp-content/uploads/2023/02/1-2.jpeg" alt=""></a>
                                 <div class="bg-primary rounded text-white position-absolute start-0 top-0 m-4 py-1 px-3">★ 9.6</div>
                                 <div class="display-9 bg-white rounded-top text-primary position-absolute start-0 bottom-0 mx-4 pt-1 px-3"><h5 style="font-weight: 600;">펜션</h5></div>
                             </div>
@@ -333,7 +341,7 @@
                     <div class="col-lg-4 col-md-6 wow fadeInUp" data-wow-delay="0.3s">
                         <div class="property-item rounded overflow-hidden">
                             <div class="position-relative overflow-hidden">
-                                <a href=""><img class="ratio ratio-4x3 img-fluid" src="${pageContext.request.contextPath}/resources/images/숙소_예시.jpg" alt=""></a>
+                                <a href=""><img class="ratio ratio-4x3 img-fluid img-fluid-hover" src="${pageContext.request.contextPath}/resources/images/숙소_예시.jpg" alt=""></a>
                                 <div class="bg-primary rounded text-white position-absolute start-0 top-0 m-4 py-1 px-3">★ 9.6</div>
                                 <div class="display-9 bg-white rounded-top text-primary position-absolute start-0 bottom-0 mx-4 pt-1 px-3"><h5 style="font-weight: 600;">펜션</h5></div>
                             </div>
@@ -348,7 +356,7 @@
                     <div class="col-lg-4 col-md-6 wow fadeInUp" data-wow-delay="0.3s">
                         <div class="property-item rounded overflow-hidden">
                             <div class="position-relative overflow-hidden">
-                                <a href=""><img class="ratio ratio-4x3 img-fluid" src="${pageContext.request.contextPath}/resources/images/숙소_예시.jpg" alt=""></a>
+                                <a href=""><img class="ratio ratio-4x3 img-fluid img-fluid-hover" src="${pageContext.request.contextPath}/resources/images/숙소_예시.jpg" alt=""></a>
                                 <div class="bg-primary rounded text-white position-absolute start-0 top-0 m-4 py-1 px-3">★ 9.6</div>
                                 <div class="display-9 bg-white rounded-top text-primary position-absolute start-0 bottom-0 mx-4 pt-1 px-3"><h5 style="font-weight: 600;">펜션</h5></div>
                             </div>
@@ -363,7 +371,7 @@
                     <div class="col-lg-4 col-md-6 wow fadeInUp" data-wow-delay="0.3s">
                         <div class="property-item rounded overflow-hidden">
                             <div class="position-relative overflow-hidden">
-                                <a href=""><img class="ratio ratio-4x3  img-fluid" src="${pageContext.request.contextPath}/resources/images/숙소_예시.jpg" alt=""></a>
+                                <a href=""><img class="ratio ratio-4x3  img-fluid img-fluid-hover" src="${pageContext.request.contextPath}/resources/images/숙소_예시.jpg" alt=""></a>
                                 <div class="bg-primary rounded text-white position-absolute start-0 top-0 m-4 py-1 px-3">★ 9.6</div>
                                 <div class="display-9 bg-white rounded-top text-primary position-absolute start-0 bottom-0 mx-4 pt-1 px-3"><h5 style="font-weight: 600;">펜션</h5></div>
                             </div>
@@ -378,7 +386,7 @@
                     <div class="col-lg-4 col-md-6 wow fadeInUp" data-wow-delay="0.3s">
                         <div class="property-item rounded overflow-hidden">
                             <div class="position-relative overflow-hidden">
-                                <a href=""><img class="ratio ratio-4x3  img-fluid" src="${pageContext.request.contextPath}/resources/images/숙소_예시.jpg" alt=""></a>
+                                <a href=""><img class="ratio ratio-4x3  img-fluid img-fluid-hover" src="${pageContext.request.contextPath}/resources/images/숙소_예시.jpg" alt=""></a>
                                 <div class="bg-primary rounded text-white position-absolute start-0 top-0 m-4 py-1 px-3">★ 9.6</div>
                                 <div class="display-9 bg-white rounded-top text-primary position-absolute start-0 bottom-0 mx-4 pt-1 px-3"><h5 style="font-weight: 600;">펜션</h5></div>
                             </div>
@@ -393,7 +401,7 @@
                     <div class="col-lg-4 col-md-6 wow fadeInUp" data-wow-delay="0.3s">
                         <div class="property-item rounded overflow-hidden">
                             <div class="position-relative overflow-hidden">
-                                <a href=""><img class="ratio ratio-4x3  img-fluid" src="${pageContext.request.contextPath}/resources/images/숙소_예시.jpg" alt=""></a>
+                                <a href=""><img class="ratio ratio-4x3  img-fluid img-fluid-hover" src="${pageContext.request.contextPath}/resources/images/숙소_예시.jpg" alt=""></a>
                                 <div class="bg-primary rounded text-white position-absolute start-0 top-0 m-4 py-1 px-3">★ 9.6</div>
                                 <div class="display-9 bg-white rounded-top text-primary position-absolute start-0 bottom-0 mx-4 pt-1 px-3"><h5 style="font-weight: 600;">펜션</h5></div>
                             </div>

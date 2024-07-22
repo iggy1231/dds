@@ -109,6 +109,15 @@
     .ratio-4x3 {
     --bs-aspect-ratio: 65%;
 }
+
+.image-gallery img {
+    transition: 0.3s ease; /* 부드러운 전환 효과 추가 */
+}
+
+.image-gallery img:hover {
+    filter: brightness(70%); /* 호버 시 이미지 밝기를 70%로 낮춤 */
+}
+
 .ratio {
     position: relative;
     width: 95%;
@@ -315,7 +324,7 @@
     </div>
 </div>
 
-
+<!-- 리뷰 -->
 <div class="body-main">
                 <ul class="nav nav-tabs mt-5" id="myTab" role="tablist">
                     <li class="nav-item" role="presentation">
@@ -337,12 +346,12 @@
 								<div class="fs-6 fw-semibold">상품만족도</div>
 								<div class="score-star review-score-star">
 									<c:forEach var="n" begin="1" end="5">
-										<c:set var="score" value="${dto.score + ((dto.score%1>=0.5) ? (1-dto.score%1)%1 : -(dto.score%1))}"/>
-										<span class="item fs-2 ${dto.score>=n?'on':''}"><i class="bi bi-star-fill"></i></span>
+										<c:set var="score" value=""/>
+										<span class="item fs-2"><i class="bi bi-star-fill"></i></span>
 									</c:forEach>
 								</div>
 								<div class="fs-2">
-									<label class="review-score">${dto.score} 4 / 5</label> 
+									<label class="review-score">4 / 5</label> 
 								</div>
 							</div>
 						
@@ -424,25 +433,6 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="mt-1 border-bottom">
-                                <div class="row p-2">
-                                <h6 class="p-2 pb-1 fw-semibold fs-4">고*이</h6>
-                                    <div class="col-auto pt-0 ps-2 pe-1 score-star">
-                                        <span class="item fs-6 on"><i class="bi bi-star-fill"></i></span>
-                                        <span class="item fs-6 on"><i class="bi bi-star-fill"></i></span>
-                                        <span class="item fs-6 on"><i class="bi bi-star-fill"></i></span>
-                                        <span class="item fs-6 on"><i class="bi bi-star-fill"></i></span>
-                                        <span class="item fs-6"><i class="bi bi-star-fill"></i></span>
-                                    </div>
-                                    <div class="col text-end fs-5"><span>2024-07-12</span> |<span class="deleteReview" data-num="1">삭제</span></div>    
-                                </div>
-                                <h5 class="p-1 fs-4">리뷰 내용입니다. 리뷰 내용입니다.</h5>
-                                <div class="row gx-1 mt-2 mb-3 p-1">
-                                    <div class="col-md-auto md-img">
-                                        <img class="border rounded" src="https://via.placeholder.com/150">
-                                    </div>
-                                </div>
-                            </div>
                             <div class="page-navigation">Pagination</div>
                         </div>
                     </div>
@@ -457,31 +447,6 @@
 					        </div>
 					    </div>
 					</div>
-
-					
-					
-					<div class="mt-1 p-2 list-question"></div>
-                        <div class="mt-1 p-2 list-question">
-                            <div class="mt-1 border-bottom">
-                                <h5 class="p-1 fw-semibold fs-4">반려동물 동반 가능한가요?</h5>
-                                <h6 class="p-1 pb-1 fs-5">고*이</h6>
-                                <h6 class="p-1 fs-4">문의 내용입니다. </h6>
-                                <div class="row p-2 fs-5">
-                                    <div class="col-auto pt-2 pe-0"><span class="text-secondary">답변대기</span></div>
-                                    <div class="col-auto pt-2 px-0">&nbsp;|&nbsp;<span>2024-07-12</span> |<span class="deleteQuestion" data-num="1">삭제</span></div>
-                                    <div class="col pt-2 text-end"><button class="btn btnAnswWerView"> <i class="bi bi-chevron-down"></i> </button></div>
-                                </div>
-                                <div class="p-4 pt-0 answer-content">
-                                    <div class="bg-light">
-                                        <div class="p-3 pb-0">
-                                            <label class="bg-primary text-white px-3 fs-5"> 관리자 </label> <label class="ps-2 fs-4">2024-07-12</label>
-                                        </div>
-                                        <div class="p-3 pt-2 fs-4">문의사항에 대한 답변입니다.</div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="page-navigation">Pagination</div>
-                        </div>
                     </div>
                 </div>
 </div>
@@ -496,6 +461,7 @@
 				<h5 class="modal-title" id="questionDialogModalLabel">상품 문의 하기</h5>
 				<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
 			</div>
+			
 <div class="modal-body">
 	<div class="qna-form p-2">
 		<form name="questionForm" action="${pageContext.request.contextPath}/room/writeQnA" method="post">
@@ -524,7 +490,8 @@
 					<textarea name="content" id="question" class="form-control" rows="5"></textarea>
 				</div>
 			</div>
-			<input type="hidden" name="num" value="1">
+			<input type="hidden" name="num" value="${dto.num}">
+			<input type="hidden" name="page" value="1">
 		</form>
 	</div>
 </div>
@@ -539,7 +506,7 @@
 
 <script>
 $(function(){
-	$("#reviews").load("${pageContext.request.contextPath}/room/review");
+	$("#reviews").load("${pageContext.request.contextPath}/room/article/review");
 });
 
 function toggleCollapseImage() {
@@ -596,133 +563,123 @@ $(function(){
 			listQuestion(1);
 		}
 	});
-	
-	let mode = "${mode}";
-	if(mode === "qna") {
-		listQuestion(1);
-	} else {
-		listReview(1);
-	}
-	
 });
 
 function login() {
 	location.href = '${pageContext.request.contextPath}/member/login';
 }
 
-function ajaxFun(url, method, formData, dataType, fn, file = false) {
-	const settings = {
-			type: method, 
-			data: formData,
-			dataType:dataType,
-			success:function(data) {
-				fn(data);
-			},
-			beforeSend: function(jqXHR) {
-				jqXHR.setRequestHeader('AJAX', true);
-			},
-			complete: function () {
-			},
-			error: function(jqXHR) {
-				if(jqXHR.status === 403) {
-					login(); 
-					return false;
-				} else if(jqXHR.status === 400) {
-					alert('요청 처리가 실패 했습니다.');
-					return false;
-		    	}
-		    	
-				console.log(jqXHR.responseText);
-			}
-	};
-	
-	if(file) {
-		settings.processData = false;  // file 전송시 필수. 서버로전송할 데이터를 쿼리문자열로 변환여부
-		settings.contentType = false;  // file 전송시 필수. 서버에전송할 데이터의 Content-Type. 기본:application/x-www-urlencoded
-	}
-	
-	$.ajax(url, settings);
-}
-
-</script>
-
-<script type="text/javascript">
-
 //문의하기 -----
 function listQuestion(page) {
-	let num = '${dto.num}';
-	let url = '${pageContext.request.contextPath}/qna/list';
-	let query = 'num='+num+'&pageNo='+page;
-	
-	const fn = function(data) {
-		printQuestion(data);
-	};
-	ajaxFun(url, 'get', query, 'json', fn);
+    let num = '${dto.num}';
+    let url = '${pageContext.request.contextPath}/room/qnalist';
+    let query = 'num=' + num + '&page=' + page;
+
+    const fn = function(data) {
+        printQuestion(data);
+    };
+    ajaxFun(url, 'get', query, 'json', fn);
 }
 
 function printQuestion(data) {
-	let dataCount = data.dataCount;
-	let pageNo = data.pageNo;
-	let total_page = data.total_page;
-	let size = data.size;
-	let paging = data.paging;
-	
-	$('.title-qnaCount').html('(' + dataCount + ')');
-	let out = '';
-	for(let item of data.list) {
-		let num = item.num;
-		let userName = item.userName;
-		let question = item.question;
-		let question_date = item.question_date;
-		let answer = item.answer;
-		let answer_date = item.answer_date;
-		let answerState = answer_date ? '<span class="text-primary">답변완료</span>' : '<span class="text-secondary">답변대기</span>';
-		let listFilename = item.listFilename;
-		let secret = item.secret;
+    let dataCount = data.dataCount;
+    let pageNo = data.page;
+    let total_page = data.total_page;
+    let size = data.size;
+    let paging = data.paging;
 
-		out += '<div class="mt-1 border-bottom">';
-		out += '  <div class="mt-2 p-2">' + question + '</div>';
+    $('.title-qnaCount').html('(' + dataCount + ')');
+    let out = '';
+    for (let item of data.list) {
+        let num = item.qna_num;
+        let userName = item.userName;
+        let question = item.content;
+        let question_date = item.reg_date;
+        let answer = item.answer;
+        let answer_date = item.answer_date;
+        let answerState = answer_date ? '<span class="text-primary">답변완료</span>' : '<span class="text-secondary">답변대기</span>';
+        let listFilename = item.listFilename;
+        let secret = item.secret;
 
-		if(listFilename && listFilename.length > 0) {
-			out += '<div class="row gx-1 mt-2 mb-1 p-1">';
-				for(let f of listFilename) {
-					out += '<div class="col-md-auto md-img">';
-					out += '  <img class="border rounded" src="${pageContext.request.contextPath}/uploads/qna/'+f+'">';
-					out += '</div>';
-				}
-			out += '</div>';
-		}
-		out += '  <div class="row p-2">';
-		out += '     <div class="col-auto pt-2 pe-0">' + answerState + '</div>';
-		out += '     <div class="col-auto pt-2 px-0">&nbsp;|&nbsp;'+userName+'</div>';
-		out += '     <div class="col-auto pt-2 px-0">&nbsp;|&nbsp;<span>'+question_date+'</span>';
-		if(secret === 0) {
-			out += '       |<span class="notifyQuestion" data-num="' + num + '">신고</span>';
-		}
-		out += '      </div>';
-		if(answer) {
-			out += '  <div class="col pt-2 text-end"><button class="btn btnAnswerView"> <i class="bi bi-chevron-down"></i> </button></div>';
-		}
-		out += '  </div>';
-		if(answer) {
-			out += '  <div class="p-3 pt-0 answer-content" style="display: none;">';
-			out += '    <div class="bg-light">';
-			out += '      <div class="p-3 pb-0">';
-			out += '        <label class="text-bg-primary px-2"> 관리자 </label> <label>' + answer_date + '</label>';
-			out += '      </div>';
-			out += '      <div class="p-3 pt-1">' + answer + '</div>';
-			out += '    </div>';
-			out += '  </div>';
-		}
-		out += '</div>';
-	}
-	
-	if(dataCount > 0) {
-		out += '<div class="page-navigation">' + paging + '</div>';
-	}
+        out += '<div class="mt-1 border-bottom">';
+        out += '  <div class="mt-2 p-2">' + question + '</div>';
 
-	$('.list-question').html(out);
+        out += '  <div class="row p-2">';
+        out += '     <div class="col-auto pt-2 pe-0">' + answerState + '</div>';
+        out += '     <div class="col-auto pt-2 px-0">&nbsp;|&nbsp;' + userName + '</div>';
+        out += '     <div class="col-auto pt-2 px-0">&nbsp;|&nbsp;<span>' + question_date + '</span>';
+        if (secret === 0) {
+            out += '       |<span class="notifyQuestion" data-num="' + num + '">신고</span>';
+        }
+        out += '      </div>';
+        if (answer) {
+            out += '  <div class="col pt-2 text-end"><button class="btn btnAnswerView"> <i class="bi bi-chevron-down"></i> </button></div>';
+        }
+        out += '  </div>';
+        if (answer) {
+            out += '  <div class="p-3 pt-0 answer-content" style="display: none;">';
+            out += '    <div class="bg-light">';
+            out += '      <div class="p-3 pb-0">';
+            out += '        <label class="text-bg-primary px-2"> 관리자 </label> <label>' + answer_date + '</label>';
+            out += '      </div>';
+            out += '      <div class="p-3 pt-1">' + answer + '</div>';
+            out += '    </div>';
+            out += '  </div>';
+        }
+        out += '</div>';
+    }
+
+    if (dataCount > 0) {
+        out += '<div class="page-navigation">' + paging + '</div>';
+    }
+
+    $('.list-question').html(out);
 }
+
+
+$(function(){
+	$('.list-question').on('click', '.btnAnswerView', function(){
+		const $btn = $(this);
+		const $EL = $(this).closest('.row').next('.answer-content');
+		if($EL.is(':visible')) {
+			$btn.html(' <i class="bi bi-chevron-down"></i> ');
+			$EL.hide(100);
+		} else {
+			$btn.html(' <i class="bi bi-chevron-up"></i> ');
+			$EL.show(100);
+		}
+	});
+});
+
+
+function ajaxFun(url, method, query, dataType, fn, file = false) {
+    $.ajax({
+        url: url,
+        type: method,
+        data: query,
+        dataType: dataType,
+        success: fn,
+        beforeSend: function(jqXHR) {
+            jqXHR.setRequestHeader('AJAX', true);
+        },
+        complete: function() {},
+        error: function(jqXHR) {
+            if(jqXHR.status === 403) {
+                alert('로그인이 필요합니다.');
+                location.href = '${pageContext.request.contextPath}/member/login';
+            } else if(jqXHR.status === 400) {
+                alert('요청 처리 실패');
+            } else {
+                console.log(jqXHR.responseText);
+            }
+        }
+    });
+}
+
+$(document).ready(function() {
+    // 페이지 로드 시 기본적으로 listQuestion 함수를 호출
+    listQuestion(1);
+});
 
 $(function(){
 	$('.list-question').on('click', '.btnAnswerView', function(){
@@ -811,12 +768,13 @@ $(function(){
 	$('.btnQuestion').click(function(){
 		$("#questionDialogModal").modal("show");
 	});
-
+	
+	// 문의하기 등록
 	$('.btnQuestionSendOk').click(function(){
 		const f = document.questionForm;
 		let s;
 		s = f.content.value.trim();
-		alert(${dto.num});
+		//alert(${dto.num});
 		if( ! s ) {
 			alert("문의 사항을 입력하세요.")	;
 			f.content.focus();
@@ -826,9 +784,7 @@ $(function(){
 		f.submit();
 		
 		
-		let url = "${pageContext.request.contextPath}/room/review";
-		// FormData : form 필드와 그 값을 나타내는 일련의 key/value 쌍을 쉽게 생성하는 방법을 제공 
-		// FormData는 Content-Type을 명시하지 않으면 multipart/form-data로 전송
+		let url = "${pageContext.request.contextPath}/room/writeQnA";
 		let query = new FormData(f); 
 		
 		const fn = function(data) {

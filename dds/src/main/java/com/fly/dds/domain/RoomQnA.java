@@ -7,10 +7,11 @@ public class RoomQnA {
     private String reg_date;
     private String answer;
     private String answer_date;
-    private long num; // 필드 이름 변경
+    private long num; // 상품 넘버
     private long userNum;
     private String userName;
     private int anonymous;
+    
 	public long getQnaNum() {
 		return qnaNum;
 	}
