@@ -124,7 +124,7 @@
 		group by user_num, article_num, reporter_num, 1, 'infoReply'
 	</select>
 	
-	<select id="popularListInfo">
+	<select id="popularListInfo" resultType="com.fly.dds.domain.Info">
 		SELECT i.NUM, REGION_MAIN, REGION_SUB, CONTENTID, CONTENTTYPE, NAME, THUMBNAIL, 
 		MAIN_CATEGORY, MIDDLE_CATEGORY, SUB_CATEGORY, COUNT
 		FROM info i

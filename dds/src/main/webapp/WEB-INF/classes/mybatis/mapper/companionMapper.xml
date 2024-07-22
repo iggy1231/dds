@@ -3,23 +3,23 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.fly.dds.mapper.CompanionMapper">
 	<insert id="insertCompanion" parameterType="com.fly.dds.domain.Companion">
-		insert into companion values(companion_seq.nextval, #{nickname}, #{subject}, #{content}, SYSDATE, 0, 1, #{user_num})
+		insert into companion values(#{num}, #{nickname}, #{subject}, #{content}, SYSDATE, 0, 1, #{user_num})
 	</insert>
 	
 	<insert id="insertCompanionInfo" parameterType="com.fly.dds.domain.Companion">
-		insert into companion_info values(companion_seq.currval, #{sdate}, #{edate}, #{total_people}, 1, #{estimate_cost}, #{gender})
+		insert into companion_info values(#{num}, #{sdate}, #{edate}, #{total_people}, 1, #{estimate_cost}, #{gender})
 	</insert>
 	
 	<insert id="insertCompanionRegion" parameterType="com.fly.dds.domain.Companion">
-		insert into companion_region values(companion_region_seq.nextval, companion_seq.currval, #{mainRegion}, #{subRegion})	
+		insert into companion_region values(companion_region_seq.nextval, #{num}, #{mainRegion}, #{subRegion})	
 	</insert>
 	
 	<insert id="insertCompanionTheme" parameterType="com.fly.dds.domain.Companion">
-		insert into companion_theme values(companion_theme_seq.nextval, companion_seq.currval, #{theme})
+		insert into companion_theme values(companion_theme_seq.nextval, #{num}, #{theme})
 	</insert>
 	
 	<insert id="insertCompanionAge" parameterType="String">
-		insert into companion_age values(companion_seq.currval, #{age})
+		insert into companion_age values(#{num}, #{age})
 	</insert>
 	
 	<select id="findByNum" parameterType="long" resultType="com.fly.dds.domain.Companion">
@@ -42,16 +42,17 @@
 		select age from companion_age where num=#{num}
 	</select>
 	
-	<select id="dataCount" resultType="Integer">
-		select NVL(COUNT(*), 0) from companion
-	</select>
-	
 	<select id="listCompanion" parameterType="map" resultType="com.fly.dds.domain.Companion">
 		select c.num, nickname, subject, content, TO_CHAR(reg_date, 'YYYY-MM-DD') AS reg_date, hitcount, status, user_num,
 		TO_CHAR(sdate, 'YYYY-MM-DD') AS sdate, TO_CHAR(edate, 'YYYY-MM-DD') AS edate, 
 		gender, total_people, current_people, estimate_cost
 		from companion c join companion_info ci on c.num=ci.num
 		order by reg_date DESC, subject ASC
+		<where>
+			<if test="kwd != null and kwd != ''">
+				<include refid="where-list"/>
+			</if>
+		</where>
 		OFFSET #{offset} ROWS FETCH FIRST #{size} ROWS ONLY
 	</select>
 	
@@ -65,7 +66,13 @@
 	    gender, total_people, current_people, estimate_cost
 		from companion c
 	    join companion_info ci on c.num=ci.num
-	    join (select distinct num from companion_region where region_main=#{mainRegion}) r ON c.num=r.num
+	    join (select distinct num from companion_region
+	    where region_main=#{mainRegion}) r ON c.num=r.num
+		<where>
+			<if test="kwd != null and kwd != ''">
+				<include refid="where-list"/>
+			</if>
+		</where>
 	    OFFSET #{offset} ROWS FETCH FIRST #{size} ROWS ONLY
 	</select>
 	
@@ -105,10 +112,12 @@
 		select NVL(COUNT(*), 0) from COMPANION_REPLY_LIKE where reply_num=#{reply_num}
 	</select>
 	
-	<select id="listCompanionReply" parameterType="map" resultType="com.fly.dds.domain.InfoReply">
-		SELECT REPLY_NUM, NUM, USER_NUM, NICKNAME, CONTENT, TO_CHAR(REG_DATE, 'YYYY-MM-DD') AS REG_DATE
+	<select id="listCompanionReply" parameterType="map" resultType="com.fly.dds.domain.CompanionReply">
+		SELECT REPLY_NUM, ANSWER_NUM, NUM, USER_NUM, NICKNAME, CONTENT, TO_CHAR(REG_DATE, 'YYYY-MM-DD') AS REG_DATE
 		FROM COMPANION_REPLY
 		WHERE num=#{num}
+        START WITH ANSWER_NUM IS NULL
+        CONNECT BY PRIOR REPLY_NUM=ANSWER_NUM
 		OFFSET #{offset} ROWS FETCH FIRST #{size} ROWS ONLY
 	</select>
 	
@@ -126,5 +135,87 @@
 	
 	<select id="isCompanionReplyLiked" parameterType="map" resultType="Integer">
 		select NVL(COUNT(*), 0) from COMPANION_REPLY_LIKE where reply_num=#{reply_num} AND user_num=#{user_num}
+	</select>
+	
+	<insert id="insertCompanionAnswer" parameterType="map">
+		INSERT INTO COMPANION_REPLY(REPLY_NUM, NUM, USER_NUM, ANSWER_NUM, NICKNAME, CONTENT, REG_DATE)
+		VALUES(COMPANION_REPLY_SEQ.NEXTVAL, #{num}, #{user_num}, #{answer_num}, #{nickName}, #{content}, SYSDATE)
+	</insert>
+	
+	<select id="getSeq_num" resultType="long">
+		select companion_seq.nextval from dual
+	</select>
+	
+	<insert id="insertCompanion_File" parameterType="com.fly.dds.domain.Companion">
+		insert into companion_file(file_num, num, filename) values(companion_file_seq.nextval, #{num}, #{saveFilename})
+	</insert>
+	
+	<select id="listImgFile" parameterType="long" resultType="com.fly.dds.domain.Companion">
+		select file_num, num, filename as saveFilename from companion_file where num=#{num}
+	</select>
+	
+	<select id="PopularList" parameterType="map" resultType="com.fly.dds.domain.Companion">
+		select c.num, nickname, subject, content, TO_CHAR(reg_date, 'YYYY-MM-DD') AS reg_date, hitcount, status, user_num,
+		TO_CHAR(sdate, 'YYYY-MM-DD') AS sdate, TO_CHAR(edate, 'YYYY-MM-DD') AS edate, 
+		gender, total_people, current_people, estimate_cost
+		from companion c join companion_info ci on c.num=ci.num
+        join (select num, count(*) from companion_like group by num) c2 ON ci.num=c2.num
+		order by reg_date DESC, subject ASC
+		OFFSET #{offset} ROWS FETCH FIRST #{size} ROWS ONLY
+	</select>
+	
+	<select id="areaPopularList" parameterType="map" resultType="com.fly.dds.domain.Companion">
+		select c.num, nickname, subject, content, TO_CHAR(reg_date, 'YYYY-MM-DD') AS reg_date, hitcount, status, user_num,
+		TO_CHAR(sdate, 'YYYY-MM-DD') AS sdate, TO_CHAR(edate, 'YYYY-MM-DD') AS edate, 
+		gender, total_people, current_people, estimate_cost
+		from companion c join companion_info ci on c.num=ci.num
+        join (select num, count(*) from companion_like group by num) c2 ON ci.num=c2.num
+        join (select distinct num from companion_region where region_main=#{mainRegion}) r ON c.num=r.num
+		order by reg_date DESC, subject ASC
+		OFFSET #{offset} ROWS FETCH FIRST #{size} ROWS ONLY
+	</select>
+	
+	<sql id="where-list">
+		<choose>
+			<when test="schType == 'subject'">
+				INSTR(subject, #{kwd}) &gt; 0
+			</when>
+			<when test="schType == 'region'">
+			    INSTR(region_main||region_sub, #{kwd}) &gt; 0
+			</when>
+			<when test="schType == 'tag'">
+			    INSTR(contentType, #{kwd}) &gt; 0
+				OR INSTR(main_category, #{kwd}) &gt; 0
+				OR INSTR(middle_category, #{kwd}) &gt; 0
+				OR INSTR(sub_category, #{kwd}) &gt; 0
+			</when>
+			<otherwise>
+			    INSTR(name, #{kwd}) &gt; 0
+			    OR INSTR(region_main||region_sub, #{kwd}) &gt; 0
+			    OR INSTR(contentType, #{kwd}) &gt; 0
+				OR INSTR(main_category, #{kwd}) &gt; 0
+				OR INSTR(middle_category, #{kwd}) &gt; 0
+				OR INSTR(sub_category, #{kwd}) &gt; 0
+			</otherwise>
+		</choose>
+	</sql>
+	
+	<select id="dataCount" parameterType="map" resultType="Integer">
+		SELECT NVL(COUNT(*), 0) FROM companion
+		<where>
+			<if test="kwd != null and kwd != ''">
+				<include refid="where-list"/>
+			</if>
+		</where>
+	</select>
+	
+	<select id="areaDataCount" parameterType="map" resultType="Integer">
+		SELECT NVL(COUNT(*), 0) FROM companion c
+		join (select distinct num from companion_region where region_main=#{mainRegion}) r ON c.num=r.num
+		<where>
+			<if test="kwd != null and kwd != ''">
+				<include refid="where-list"/>
+			</if>
+		</where>
 	</select>
 </mapper>

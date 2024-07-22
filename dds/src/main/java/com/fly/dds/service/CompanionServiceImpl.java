@@ -9,9 +9,11 @@ import java.util.Set;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.multipart.MultipartFile;
 
+import com.fly.dds.common.FileManager;
 import com.fly.dds.domain.Companion;
-import com.fly.dds.domain.InfoReply;
+import com.fly.dds.domain.CompanionReply;
 import com.fly.dds.mapper.CompanionMapper;
 
 @Transactional(readOnly = true)
@@ -20,11 +22,27 @@ public class CompanionServiceImpl implements CompanionService {
 	@Autowired
 	private CompanionMapper mapper;
 	
+	@Autowired
+	private FileManager fileManager;
+	
 	@Transactional
 	@Override
-	public void insertCompanion(Companion dto) {
+	public void insertCompanion(Companion dto, String pathname) {
 		try {
+			long seq=mapper.getSeq_num();
+			dto.setNum(seq);
 			mapper.insertCompanion(dto);
+			
+			if(!dto.getImgFiles().isEmpty()) {
+				for(MultipartFile mf:dto.getImgFiles()) {
+					String saveFilename = fileManager.doFileUpload(mf, pathname);
+					if (saveFilename == null) {
+						continue;
+					}
+					dto.setSaveFilename(saveFilename);
+					mapper.insertCompanion_File(dto);
+				}
+			}
 			mapper.insertCompanionInfo(dto);
 			
 			List<String> mainRegionList=dto.getRegion_main();
@@ -33,7 +51,7 @@ public class CompanionServiceImpl implements CompanionService {
 			int idx=0;
 			while(idx<mainRegionList.size()||idx<subRegionList.size()) {
 				Companion c=new Companion();
-				
+				c.setNum(seq);
 				c.setMainRegion(mainRegionList.get(idx));
 				c.setSubRegion(subRegionList.get(idx));
 				
@@ -70,7 +88,6 @@ public class CompanionServiceImpl implements CompanionService {
 			dto.setRegion_main(mainRegionList);
 			dto.setRegion_sub(subRegionList);
 			dto.setAge(age);
-			
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -253,12 +270,12 @@ public class CompanionServiceImpl implements CompanionService {
 	}
 
 	@Override
-	public List<InfoReply> listCompanionReply(Map<String, Object> map) {
-		List<InfoReply> list=null;
+	public List<CompanionReply> listCompanionReply(Map<String, Object> map) {
+		List<CompanionReply> list=null;
 		
 		try {
 			list=mapper.listCompanionReply(map);
-			for(InfoReply dto:list) {
+			for(CompanionReply dto:list) {
 				if(map.get("login_user_num")==null) {
 					dto.setLiked("false");
 					continue;
@@ -310,4 +327,104 @@ public class CompanionServiceImpl implements CompanionService {
 		
 		return false;
 	}
+
+	@Override
+	public void insertCompanionAnswer(Map<String, Object> map) {
+		try {
+			mapper.insertCompanionAnswer(map);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+
+	@Override
+	public List<Companion> listFile(long num) {
+		List<Companion> list=null;
+		
+		try {
+			list=mapper.listImgFile(num);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		return list;
+	}
+
+	@Override
+	public List<Companion> PopularList(Map<String, Object> map) {
+		List<Companion> list=null;
+		List<Companion> result=new ArrayList<Companion>();
+		try {
+			list=mapper.PopularList(map);
+			for(Companion dto:list) {
+				String theme=mapper.findThemeByNum(dto.getNum());
+				List<Companion> region=mapper.findRegionByNum(dto.getNum());
+				Set<String> age=mapper.findAgeByNum(dto.getNum());
+				
+				dto.setTheme(theme);
+				List<String> mainRegionList=new ArrayList<String>();
+				List<String> subRegionList=new ArrayList<String>();
+				for(Companion c:region) {
+					mainRegionList.add(c.getMainRegion());
+					subRegionList.add(c.getSubRegion());
+				}
+				dto.setRegion_main(mainRegionList);
+				dto.setRegion_sub(subRegionList);
+				dto.setAge(age);
+				
+				result.add(dto);
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		return result;
+	}
+
+	@Override
+	public List<Companion> areaPopularList(Map<String, Object> map) {
+		List<Companion> list=null;
+		List<Companion> result=new ArrayList<Companion>();
+		try {
+			list=mapper.areaPopularList(map);
+			for(Companion dto:list) {
+				String theme=mapper.findThemeByNum(dto.getNum());
+				List<Companion> region=mapper.findRegionByNum(dto.getNum());
+				Set<String> age=mapper.findAgeByNum(dto.getNum());
+				
+				dto.setTheme(theme);
+				List<String> mainRegionList=new ArrayList<String>();
+				List<String> subRegionList=new ArrayList<String>();
+				for(Companion c:region) {
+					mainRegionList.add(c.getMainRegion());
+					subRegionList.add(c.getSubRegion());
+				}
+				dto.setRegion_main(mainRegionList);
+				dto.setRegion_sub(subRegionList);
+				dto.setAge(age);
+				
+				result.add(dto);
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		return result;
+	}
+
+	@Override
+	public int dataCount(Map<String, Object> map) {
+		int result=0;
+		result=mapper.dataCount(map);
+		return result;
+	}
+
+	@Override
+	public int areaDataCount(Map<String, Object> map) {
+		int result=0;
+		result=mapper.areaDataCount(map);
+		return result;
+	}
+	
+	
 }
