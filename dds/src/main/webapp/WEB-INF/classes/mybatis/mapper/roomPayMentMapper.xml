@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.fly.dds.mapper.RoomPaymentMapper">
+	<select id="findBySaleNum" resultType="String" >
+		SELECT sale_num
+		FROM  room_sale 
+		ORDER BY reg_date DESC
+		FETCH FIRST 1 ROWS ONLY
+	 </select>
+	 
+	 <!-- 주문 등록 -->
+	<insert id="insertPayment" parameterType="com.fly.dds.domain.RoomPayment">
+	 	INSERT INTO room_sale(sale_num, reg_date, sdate, edate, total_price, coupon_price, point_price, discount, final_price, name, detail_num, user_num )
+		VALUES(room_sale_seq.NEXTVAL, SYSDATE, TO_DATE(#{sdate}, 'YYYY-MM-DD HH24:MI:SS'), TO_DATE(#{edate}, 'YYYY-MM-DD HH24:MI:SS'),
+    		#{total_price} , #{coupon_price} , #{point_price} , #{discount} , #{final_price} , #{name} , #{detail_num} , #{user_num} );
+	 </insert>
+	 
+<!-- // sale_num
+	public String findBySaleNum();
+	
+	public void insertPayment(RoomPayment dto) throws SQLException;
+	public void insertPayDetail(RoomPayment dto) throws SQLException;
+	 -->
+	 
+	 
+	 
+
+</mapper>

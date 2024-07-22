@@ -6,7 +6,7 @@
     <div class="thin-blue-bar"></div>
 
     <nav class="px-5 navbar navbar-expand-lg navbar-light bg-white py-0 px-4">
-        <a href="${pageContext.request.contextPath}/" class="px-2 navbar-brand d-flex align-items-center text-center">
+        <a href="${pageContext.request.contextPath}/" class="px-2 navbar-brand d-flex align-items-center text-center  text-nowrap">
             <div class="icon p-2 me-2 pb-3">
                 <img class="pt-2 img-fluid" src="${pageContext.request.contextPath}/resources/images/두둥실_logo.png" alt="Icon" style="width: 86px;">
             </div>
@@ -40,7 +40,7 @@
                     </div>
                 </div>
                 <div class="nav-item">
-                    <a href="${pageContext.request.contextPath}/" class="nav-link text-start"><img alt="" src="${pageContext.request.contextPath}/resources/images/menu_동행.png" style="width: 35px;">&nbsp;&nbsp;&nbsp;동행</a>
+                    <a href="${pageContext.request.contextPath}/" class="nav-link text-start text-nowrap"><img alt="" src="${pageContext.request.contextPath}/resources/images/menu_동행.png" style="width: 35px;">&nbsp;&nbsp;&nbsp;동행</a>
                 </div>
             </div>
             <c:choose>

@@ -142,7 +142,20 @@
     background-color: #e1e4e8;
     border-color: #a0a0a0;
 }
+
+#map {
+	height: 400px; 
+}
+
 </style>
+
+<script type="text/javascript">
+
+
+
+
+
+</script>
 
 <div data-bs-spy="scroll" data-bs-target="#topBox" data-bs-offset="0" tabindex="0">
 <!-- 상단 고정 박스 -->
@@ -211,8 +224,8 @@
     <div id="address" class="row g-0 mb-5 mt-3 p-1">
         <div class="col-8 row g-0">
             <h3 class="fw-semibold pb-2">숙소 위치</h3>
-            <img src="https://maps.googleapis.com/maps/api/staticmap?size=400x200&scale=2&zoom=14&center=37.58128019999999,128.3273444&key=AIzaSyBAoo822AgkqBDrPE5nr4w_ZRIAF1lISEQ&signature=D0IXZNk-o2YOmLcFYH1FwSRphf8%3D" class="rounded img-fluid" alt="지도">
-        	<h5 class="fw-semibold py-3">${dto.addr1} / ${dto.addr2}</h5>
+            <div id="map" class="rounded"></div>
+        	<h5 class="fw-semibold py-3">📍 ${dto.addr1} / ${dto.addr2}</h5>
         </div>
     </div>
     
@@ -270,17 +283,19 @@
                 </div>
                 <div class="col-md-3 text-end p-3 pe-4">
                     <h4 class="text-primary fw-semibold">${detail.price}원 / 박</h4>
-                    <button class="btn btn-primary fs-5 pt-1">예약하기</button>
+                    <form name="buyForm">
+                   	 	<button type="button" class="btn btn-primary fs-5 pt-1" onclick="sendOk();">예약하기</button>
+                    </form>
                 </div>
             </div>
         </div>
         </c:forEach>
-    
     </div>
 </div>
 
 <!-- 리뷰 -->
-<div class="body-main">
+<hr class="m-4 mt-5" style="border-color: #c7c7c7;">
+<div id="reviews" class="body-main">
                 <ul class="nav nav-tabs mt-5" id="myTab" role="tablist">
                     <li class="nav-item" role="presentation">
                         <button class="nav-link active" id="tab-1" data-bs-toggle="tab" data-bs-target="#tab-pane-1" type="button" role="tab" aria-controls="1" aria-selected="false"> 리뷰 </button>
@@ -460,7 +475,48 @@
 	</div>
 </div>
 
-<script>
+<!-- 지도 -->
+<script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=0b59618d7930e511d9920498a877b177&libraries=services"></script>
+<script type="text/javascript">
+var mapContainer = document.getElementById('map'), // 지도를 표시할 div 
+mapOption = {
+    center: new window.kakao.maps.LatLng(33.450701, 126.570667), // 지도의 중심좌표
+    level: 3 // 지도의 확대 레벨
+};  
+
+//지도를 생성합니다    
+var map = new window.kakao.maps.Map(mapContainer, mapOption); 
+
+//주소-좌표 변환 객체를 생성합니다
+var geocoder = new window.kakao.maps.services.Geocoder();
+
+//주소로 좌표를 검색합니다
+geocoder.addressSearch('${dto.addr1}', function(result, status) {
+
+// 정상적으로 검색이 완료됐으면 
+ if (status === kakao.maps.services.Status.OK) {
+
+    var coords = new kakao.maps.LatLng(result[0].y, result[0].x);
+	console.log(coords);
+    // 결과값으로 받은 위치를 마커로 표시합니다
+    var marker = new kakao.maps.Marker({
+        map: map,
+        position: coords
+    });
+
+    // 인포윈도우로 장소에 대한 설명을 표시합니다
+    var infowindow = new kakao.maps.InfoWindow({
+        content: '<div style="width:150px;text-align:center;padding:6px 0;">${dto.subject}</div>'
+    });
+    infowindow.open(map, marker);
+
+    // 지도의 중심을 결과값으로 받은 위치로 이동시킵니다
+    map.setCenter(coords);
+} 
+});    
+</script>
+
+<script type="text/javascript">
 $(function(){
 	$("#reviews").load("${pageContext.request.contextPath}/room/article/review");
 });
@@ -751,6 +807,11 @@ $(function(){
 	});
 });
 
-
+function sendOk() {
+    const f = document.buyForm;
+    f.method = "get";
+    f.action = "${pageContext.request.contextPath}/room/payment";
+    f.submit();
+};
 
 </script>

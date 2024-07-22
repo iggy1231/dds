@@ -253,36 +253,11 @@ public class RoomController {
 	}
 	
 	@GetMapping("payment") 
-	public String roomPayment() {
+	public String roomPayment(Model model) throws Exception {
 		
 		return ".room.payment";
 	}
 
-	
-	/*
-	@GetMapping("search")
-	 public String searchRoomList(@RequestParam String kwd, 
-             @RequestParam(required = false) String sdate, 
-             @RequestParam(required = false) String edate, 
-             @RequestParam int people, 
-             Model model) {
-			Map<String, Object> map=new HashMap<String, Object>();
-			map.put("kwd", kwd);
-			map.put("sdate", sdate);
-			map.put("edate", edate);
-			map.put("people", people);
-			
-			List<Room> roomList = service.searchRoom(map);
-			model.addAttribute("rooms", roomList);
-			model.addAttribute("kwd", kwd);
-			model.addAttribute("sdate", sdate);
-			model.addAttribute("edate", edate);
-			model.addAttribute("people", people);
-			model.addAttribute("dataCount", roomList.size());
-			
-			return ".room.list";
-				}
-	*/
 	
 	
 }

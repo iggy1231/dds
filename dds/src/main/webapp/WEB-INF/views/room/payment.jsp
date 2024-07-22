@@ -56,6 +56,10 @@ ul.payment-info li span.total {
 </style>
 
 <div class="container px-1 py-5">
+
+<input type="hidden" name="num" value="${dto.num}">
+<input type="hidden" name="page" value="1">
+
   <div class="row g-4">
     <div class="col-lg-8">
       <h4 style="font-weight: 700;" class="ps-2 pb-0">✅ 예약 확인 및 결제</h4>
@@ -72,7 +76,7 @@ ul.payment-info li span.total {
         </div>
       </div>
       
-        <hr class="pb-3">
+      <hr class="m-3 my-4">
       <!-- 할인 사용 -->
       <div class="px-3 rounded row gx-4 gy-3 mb-3 pt-3">
         <h5 class="ps-2 pb-0 fw-semibold fs-5">할인 적용</h5>
@@ -85,12 +89,19 @@ ul.payment-info li span.total {
         </div>
         
         <div class="col-8">
-          <label for="coupon" class="form-label">쿠폰</label>
-          <select class="ps-3 px-3 py-2">
-          	<option class="px-3 py-2">:: 쿠폰 선택 ::</option>
-          	<option class="px-3 py-2">회원가입 축하 쿠폰(10% 할인)</option>
+          <label for="coupon" class="form-label pe-2">쿠폰</label>
+          <select class="form-select" id="coupon-select" onchange="updateCoupon()">
+            <option value="">:: 쿠폰 선택 ::</option>
+            <option value="회원가입 축하 쿠폰(10% 할인)">회원가입 축하 쿠폰(10% 할인)</option>
           </select>
-          <input type="text" class="form-control" id="point" value="0">
+        </div>
+      </div>
+      <!-- 최종 가격 -->
+      <hr class="m-3 my-4">
+     <div class="px-3 rounded row gx-4 gy-3 mb-3 pt-3 d-flex justify-content-between align-items-center">
+        <h3 class="flex-grow-1 col">최종 가격</h3>
+        <div class="col-3 d-flex align-items-end">
+        <h5 class="total fw-semibold" style="color: #f45858;">245,000원</h5>
         </div>
       </div>
       
@@ -105,15 +116,15 @@ ul.payment-info li span.total {
     <div class="p-2 mt-2">
       <table>
         <tr>
-          <td class="fw-semibold fs-6">객실</td>
+          <td class="fw-semibold fs-6 text-nowrap ">객실</td>
           <td class="ps-3 fs-6">디럭스 패밀리트윈</td>
         </tr>
         <tr>
-          <td class="fw-semibold fs-6"><strong>일정</strong></td>
+          <td class="fw-semibold fs-6 text-nowrap "><strong>일정</strong></td>
           <td class="ps-3 fs-6">07.15 15:00 - 07.16 11:00 (1박)</td>
         </tr>
         <tr>
-          <td class="fw-semibold fs-6"><strong>기준인원</strong></td>
+          <td class="fw-semibold fs-6 text-nowrap "><strong>인원</strong></td>
           <td class="ps-3 fs-6">2인 기준, 최대 3인(유료)</td>
         </tr>
       </table>
