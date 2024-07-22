@@ -13,6 +13,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import com.fly.dds.common.FileManager;
 import com.fly.dds.domain.Companion;
+import com.fly.dds.domain.CompanionApply;
 import com.fly.dds.domain.CompanionReply;
 import com.fly.dds.mapper.CompanionMapper;
 
@@ -43,6 +44,15 @@ public class CompanionServiceImpl implements CompanionService {
 					mapper.insertCompanion_File(dto);
 				}
 			}
+			Map<String, Object> map=new HashMap<String, Object>();
+			map.put("num", dto.getNum());
+			map.put("user_num", dto.getUser_num());
+			map.put("nickname", dto.getNickname());
+			map.put("status", "참여");
+			mapper.apply(map);
+			
+			dto.setCurrent_people(mapper.applyCount(dto.getNum()));
+			
 			mapper.insertCompanionInfo(dto);
 			
 			List<String> mainRegionList=dto.getRegion_main();
@@ -96,11 +106,11 @@ public class CompanionServiceImpl implements CompanionService {
 	}
 
 	@Override
-	public int dataCount() {
+	public int dataCountall() {
 		int result=0;
 		
 		try {
-			result=mapper.dataCount();
+			result=mapper.dataCountall();
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -425,6 +435,148 @@ public class CompanionServiceImpl implements CompanionService {
 		result=mapper.areaDataCount(map);
 		return result;
 	}
+
+	@Override
+	public void apply(Map<String, Object> map) {
+		try {
+			mapper.apply(map);
+		} catch (Exception e) {
+			// TODO: handle exception
+		}
+	}
 	
+	public int applyCount(long num) {
+		int result=0;
+		
+		try {
+			result=mapper.applyCount(num);
+		} catch (Exception e) {
+			// TODO: handle exception
+		}
+		
+		return result;
+	}
+
+	@Override
+	public void updateHitCount(long num) {
+		mapper.updateHitCount(num);
+	}
+
+	@Override
+	public List<CompanionApply> waitingList(long num) {
+		List<CompanionApply> list=null;
+		
+		try {
+			list=mapper.waitingList(num);
+		} catch (Exception e) {
+			// TODO: handle exception
+		}
+		
+		return list;
+	}
+
+	@Override
+	public List<CompanionApply> partyList(long num) {
+		List<CompanionApply> list=null;
 	
+		try {
+			list=mapper.partyList(num);
+		} catch (Exception e) {
+			// TODO: handle exception
+		}
+		
+		return list;
+	}
+
+	@Override
+	public void accept(Map<String, Object> map) {
+		mapper.accept(map);
+		mapper.updateCurrentPeople(map);
+	}
+
+	@Override
+	public void reject(Map<String, Object> map) {
+		mapper.reject(map);
+	}
+
+	@Override
+	public void vanish(Map<String, Object> map) {
+		mapper.vanish(map);
+		mapper.updateCurrentPeople(map);
+	}
+
+	@Override
+	public boolean isApplied(Map<String, Object> map) {
+		try {
+			if(mapper.isApplied(map)>0) {
+				return true;
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		return false;
+	}
+
+	@Override
+	public List<Companion> popularListCompanion(Map<String, Object> map) {
+		List<Companion> list=null;
+		List<Companion> result=new ArrayList<Companion>();
+		try {
+			list=mapper.popularListCompanion(map);
+			for(Companion dto:list) {
+				String theme=mapper.findThemeByNum(dto.getNum());
+				List<Companion> region=mapper.findRegionByNum(dto.getNum());
+				Set<String> age=mapper.findAgeByNum(dto.getNum());
+				
+				dto.setTheme(theme);
+				List<String> mainRegionList=new ArrayList<String>();
+				List<String> subRegionList=new ArrayList<String>();
+				for(Companion c:region) {
+					mainRegionList.add(c.getMainRegion());
+					subRegionList.add(c.getSubRegion());
+				}
+				dto.setRegion_main(mainRegionList);
+				dto.setRegion_sub(subRegionList);
+				dto.setAge(age);
+				
+				result.add(dto);
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		return result;
+	}
+
+	@Override
+	public List<Companion> popularListBymainRegion(Map<String, Object> map) {
+		List<Companion> list=null;
+		List<Companion> result=new ArrayList<Companion>();
+		try {
+			list=mapper.popularListBymainRegion(map);
+			for(Companion dto:list) {
+				String theme=mapper.findThemeByNum(dto.getNum());
+				List<Companion> region=mapper.findRegionByNum(dto.getNum());
+				Set<String> age=mapper.findAgeByNum(dto.getNum());
+				
+				dto.setTheme(theme);
+				List<String> mainRegionList=new ArrayList<String>();
+				List<String> subRegionList=new ArrayList<String>();
+				for(Companion c:region) {
+					mainRegionList.add(c.getMainRegion());
+					subRegionList.add(c.getSubRegion());
+				}
+				dto.setRegion_main(mainRegionList);
+				dto.setRegion_sub(subRegionList);
+				dto.setAge(age);
+				
+				result.add(dto);
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		return result;
+	}
 }

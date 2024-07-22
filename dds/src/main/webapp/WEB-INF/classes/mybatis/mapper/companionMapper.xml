@@ -7,7 +7,7 @@
 	</insert>
 	
 	<insert id="insertCompanionInfo" parameterType="com.fly.dds.domain.Companion">
-		insert into companion_info values(#{num}, #{sdate}, #{edate}, #{total_people}, 1, #{estimate_cost}, #{gender})
+		insert into companion_info values(#{num}, #{sdate}, #{edate}, #{total_people}, #{current_people}, #{estimate_cost}, #{gender})
 	</insert>
 	
 	<insert id="insertCompanionRegion" parameterType="com.fly.dds.domain.Companion">
@@ -47,12 +47,12 @@
 		TO_CHAR(sdate, 'YYYY-MM-DD') AS sdate, TO_CHAR(edate, 'YYYY-MM-DD') AS edate, 
 		gender, total_people, current_people, estimate_cost
 		from companion c join companion_info ci on c.num=ci.num
-		order by reg_date DESC, subject ASC
 		<where>
 			<if test="kwd != null and kwd != ''">
 				<include refid="where-list"/>
 			</if>
 		</where>
+		order by reg_date DESC, subject ASC
 		OFFSET #{offset} ROWS FETCH FIRST #{size} ROWS ONLY
 	</select>
 	
@@ -66,8 +66,7 @@
 	    gender, total_people, current_people, estimate_cost
 		from companion c
 	    join companion_info ci on c.num=ci.num
-	    join (select distinct num from companion_region
-	    where region_main=#{mainRegion}) r ON c.num=r.num
+	    join (select distinct num from companion_region where region_main=#{mainRegion}) r ON c.num=r.num
 		<where>
 			<if test="kwd != null and kwd != ''">
 				<include refid="where-list"/>
@@ -174,29 +173,12 @@
 		order by reg_date DESC, subject ASC
 		OFFSET #{offset} ROWS FETCH FIRST #{size} ROWS ONLY
 	</select>
-	
+
 	<sql id="where-list">
 		<choose>
 			<when test="schType == 'subject'">
 				INSTR(subject, #{kwd}) &gt; 0
 			</when>
-			<when test="schType == 'region'">
-			    INSTR(region_main||region_sub, #{kwd}) &gt; 0
-			</when>
-			<when test="schType == 'tag'">
-			    INSTR(contentType, #{kwd}) &gt; 0
-				OR INSTR(main_category, #{kwd}) &gt; 0
-				OR INSTR(middle_category, #{kwd}) &gt; 0
-				OR INSTR(sub_category, #{kwd}) &gt; 0
-			</when>
-			<otherwise>
-			    INSTR(name, #{kwd}) &gt; 0
-			    OR INSTR(region_main||region_sub, #{kwd}) &gt; 0
-			    OR INSTR(contentType, #{kwd}) &gt; 0
-				OR INSTR(main_category, #{kwd}) &gt; 0
-				OR INSTR(middle_category, #{kwd}) &gt; 0
-				OR INSTR(sub_category, #{kwd}) &gt; 0
-			</otherwise>
 		</choose>
 	</sql>
 	
@@ -218,4 +200,95 @@
 			</if>
 		</where>
 	</select>
+	
+	<update id="updateHitCount" parameterType="long">
+		update companion set hitcount=hitcount+1 where num=#{num}
+	</update>
+	
+	<insert id="apply" parameterType="map">
+		insert into member_companioninfo(num, user_num, nickname, status)
+		values(#{num}, #{user_num}, #{nickname}, #{status})
+	</insert>
+	
+	<select id="applyCount" parameterType="long" resultType="Integer">
+		 select count(*) from member_companioninfo
+		 where num=#{num}
+	</select>
+	
+	<select id="waitingList" parameterType="long" resultType="com.fly.dds.domain.CompanionApply">
+		 select num, user_num, nickname, status from member_companioninfo where num=#{num} AND status='대기'
+	</select>
+	
+	<select id="partyList" parameterType="long" resultType="com.fly.dds.domain.CompanionApply">
+		 select num, user_num, nickname, status from member_companioninfo where num=#{num} AND status='참여'
+	</select>
+	
+	<update id="accept" parameterType="map">
+		update member_companioninfo set status='참여'
+		where num=#{num} AND status='대기' AND user_num=#{user_num}
+	</update>
+	
+	<delete id="reject" parameterType="map">
+		delete from member_companioninfo
+		where num=#{num} AND status='대기' AND user_num=#{user_num}
+	</delete>
+	
+	<delete id="vanish" parameterType="map">
+		delete from member_companioninfo
+		where num=#{num} AND status='참여' AND user_num=#{user_num}
+	</delete>
+	
+	<select id="isApplied" parameterType="map" resultType="Integer">
+		select NVL(COUNT(*), 0) from member_companioninfo
+		where num=#{num} AND user_num=#{user_num}
+	</select>
+	
+	<update id="updateCurrentPeople" parameterType="map">
+		<choose>
+			<when test="mode == 'add'">
+				update companion_info set current_people=current_people+1
+			</when>
+			<when test="mode == 'sub'">
+				update companion_info set current_people=current_people-1
+			</when>
+		</choose>
+		where num=#{num}
+	</update>
+	
+	<select id="dataCountall" resultType="Integer">
+		select NVL(COUNT(*), 0) from companion
+	</select>
+	
+	<select id="popularListCompanion" parameterType="map" resultType="com.fly.dds.domain.Companion">
+		select c.num, nickname, subject, content, TO_CHAR(reg_date, 'YYYY-MM-DD') AS reg_date, hitcount, status, user_num,
+		TO_CHAR(sdate, 'YYYY-MM-DD') AS sdate, TO_CHAR(edate, 'YYYY-MM-DD') AS edate, 
+		gender, total_people, current_people, estimate_cost, count
+		from companion c
+		join companion_info ci on c.num=ci.num
+        left outer join (select num, count(*) AS count from companion_like group by num) c2 ON ci.num=c2.num
+        <where>
+			<if test="kwd != null and kwd != ''">
+				<include refid="where-list"/>
+			</if>
+		</where>
+		order by COUNT ASC, reg_date DESC, subject ASC
+		OFFSET #{offset} ROWS FETCH FIRST #{size} ROWS ONLY
+	</select>
+
+	<select id="popularListBymainRegion" parameterType="map" resultType="com.fly.dds.domain.Companion">
+		select c.num, nickname, subject, content, TO_CHAR(reg_date, 'YYYY-MM-DD') AS reg_date, hitcount, status, user_num,
+		TO_CHAR(sdate, 'YYYY-MM-DD') AS sdate, TO_CHAR(edate, 'YYYY-MM-DD') AS edate, 
+	    gender, total_people, current_people, estimate_cost
+		from companion c
+	    join companion_info ci on c.num=ci.num
+	    join (select distinct num from companion_region where region_main=#{mainRegion}) r ON c.num=r.num
+	    left outer join (select num, count(*) AS count from companion_like group by num) c2 ON ci.num=c2.num
+		<where>
+			<if test="kwd != null and kwd != ''">
+				<include refid="where-list"/>
+			</if>
+		</where>
+	    OFFSET #{offset} ROWS FETCH FIRST #{size} ROWS ONLY
+	</select>
+	
 </mapper>

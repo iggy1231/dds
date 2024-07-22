@@ -43,8 +43,6 @@ body {
 					<div class="input-group">
 						<span class="input-group-text"><i class="p-2 bi bi-search"></i></span>
 						<input name="kwd" type="text" class="p-3 form-control" placeholder="">
-						<select class="input-group-text" name="schType">
-						</select>
 						<input name="mainRegion" type="hidden" value="전체">
 						<button type="button" onclick="kwdCheck();" class="btn btn-primary">검색</button>
 					</div>
@@ -188,7 +186,6 @@ function nextPage2(mainRegion) {
 } 
 
 function addNextPage(data) {
-	console.log(data);
 	$("#areaList-carousel .carousel-item:first").addClass('areaNewList');
 	$("#areaList-carousel .carousel-item").html("");
 	
@@ -229,7 +226,6 @@ function addNextPage(data) {
 }
 
 function addNextPage2(data) {
-	console.log(data);
 	$("#areaPopularList-carousel .carousel-item:first").addClass('popularNewList');
 	$("#areaPopularList-carousel .carousel-item").html("");
 	

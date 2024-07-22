@@ -86,14 +86,15 @@ function ajaxFun(url, method, formData, dataType, fn, file = false) {
 
 
 $(function(){
-	//listPage(1);
+	listPage(1);
 });
 
 function listPage(page) {
 	$('.listTypebtn1').addClass("active");
+
+	let url='${pageContext.request.contextPath}/companion/searchList';
+	let formData="mainRegion=${mainRegion}&schType=${schType}&kwd=${kwd}&dataCount=${dataCount}&pageNo="+page;
 	
-	let url='${pageContext.request.contextPath}/companion/search';
-	let formData="schType=${schType}&kwd=${kwd}&dataCount=${dataCount}&pageNo="+page;
 	const fn=function(data) {
 		addNewContent(data);
 	};
@@ -103,8 +104,8 @@ function listPage(page) {
 function popularListPage(page) {
 	$('.listTypebtn2').addClass("active");
 	
-	let url='${pageContext.request.contextPath}/info/searchPopularList';
-	let formData="schType=${schType}&kwd=${kwd}&dataCount=${dataCount}&pageNo="+page;
+	let url='${pageContext.request.contextPath}/companion/searchPopularList';
+	let formData="mainRegion=${mainRegion}&schType=${schType}&kwd=${kwd}&dataCount=${dataCount}&pageNo="+page;
 	
 	const fn=function(data) {
 		nextPopularList(data);
@@ -124,36 +125,29 @@ function addNewContent(data) {
 	$('.list-content').attr('data-pageNo', pageNo);
 	$('.list-content').attr('data-totalPage', total_page);
 
-	let htmlText='<div class="row item-list">';
+	let htmlText='<div class="row item-list">';	
+	
 	for(let index=0;index<data.list.length;index++) {
 		if(index%4==0&&index>0) {
 			htmlText+='</div><br>';
 			htmlText+='<div class="row item-list">';
 		}
-		let num = data.list[index].num;
-		let region_Main = data.list[index].region_Main;
-		let region_Sub = data.list[index].region_Sub;
-		let contentId = data.list[index].contentId;
-		let contentType = data.list[index].contentType;
-		let name=data.list[index].name;
-		let thumbnail=data.list[index].thumbnail;
-		let main_Category=data.list[index].main_Category;
-		let middle_Category=data.list[index].middle_Category;
-		let sub_Category=data.list[index].sub_Category;
-		let tags=data.list[index].tags;
 		
 		htmlText+='<div class="col">';
-		htmlText+='	<span class="card" onclick="article('+num+','+contentId+');">';
-		htmlText+='		<img src="'+thumbnail+'" class="card-img-top" alt="...">';
+		htmlText+='	<span class="card" onclick="article('+data.list[index].num+');">';
+		htmlText+='	<img src="${pageContext.request.contextPath}/resources/images/숙소_예시.jpg" class="card-img-top" alt="...">';
 		htmlText+='		<span class="card-body">';
-		htmlText+='			<p>'+name+'</p>';
-		htmlText+='			<p class="card-text">'+region_Main+' '+region_Sub+'</p><footer>';
-		tags.forEach((tag)=>{
-			htmlText+='			<span>#'+tag+'</span>';		
-		})
-		htmlText+='		</footer></span>';
-		htmlText+='	</span>';
-		htmlText+='</div>';
+		data.list[index].age.forEach((ages)=>{
+			 htmlText+='<a href="#">'+ages+'대 </a>';
+		});
+			 htmlText+='<a href="">'+data.list[index].gender+'</a>';
+		htmlText+='		<h3>'+data.list[index].subject+'</h2>';
+		htmlText+='		<p>'+data.list[index].content+'</p>';
+		for(let idx=0;idx<data.list[index].region_main.length;idx++) {
+			 htmlText+='<span class="card-text">'+data.list[index].region_main[idx]+' '+data.list[index].region_sub[idx]+'</span>';
+		}
+		htmlText+='		<footer><p>'+data.list[index].sdate+'~'+data.list[index].edate+'</p>';
+		htmlText+='		</footer></div>';
 	}
 	htmlText+='</div><br>';
 	$(".list-content").append(htmlText);
@@ -164,43 +158,39 @@ function nextPopularList(data) {
 	let pageNo = data.pageNo;
 	let total_page = data.total_page;
 	
+	if(pageNo>=total_page) {
+		$('.list-footer .more-btn').hide();
+	}
+	
 	$('.list-content').attr('data-pageNo', pageNo);
 	$('.list-content').attr('data-totalPage', total_page);
 
-	let htmlText='<div class="row item-list">';
+	let htmlText='<div class="row item-list">';	
 	
 	for(let index=0;index<data.list.length;index++) {
 		if(index%4==0&&index>0) {
 			htmlText+='</div><br>';
 			htmlText+='<div class="row item-list">';
 		}
-		let num = data.list[index].num;
-		let region_Main = data.list[index].region_Main;
-		let region_Sub = data.list[index].region_Sub;
-		let contentId = data.list[index].contentId;
-		let contentType = data.list[index].contentType;
-		let name=data.list[index].name;
-		let thumbnail=data.list[index].thumbnail;
-		let main_Category=data.list[index].main_Category;
-		let middle_Category=data.list[index].middle_Category;
-		let sub_Category=data.list[index].sub_Category;
-		let tags=data.list[index].tags;
 		
 		htmlText+='<div class="col">';
-		htmlText+='	<span class="card" onclick="article('+num+','+contentId+');">';
-		htmlText+='		<img src="'+thumbnail+'" class="card-img-top" alt="...">';
+		htmlText+='	<span class="card" onclick="article('+data.list[index].num+');">';
+		htmlText+='	<img src="${pageContext.request.contextPath}/resources/images/숙소_예시.jpg" class="card-img-top" alt="...">';
 		htmlText+='		<span class="card-body">';
-		htmlText+='			<p>'+name+'</p>';
-		htmlText+='			<p class="card-text">'+region_Main+' '+region_Sub+'</p><footer>';
-		tags.forEach((tag)=>{
-			htmlText+='			<span>#'+tag+'</span>';		
-		})
-		htmlText+='		</footer></span>';
-		htmlText+='	</span>';
-		htmlText+='</div>';
+		data.list[index].age.forEach((ages)=>{
+			 htmlText+='<a href="#">'+ages+'대 </a>';
+		});
+			 htmlText+='<a href="">'+data.list[index].gender+'</a>';
+		htmlText+='		<h3>'+data.list[index].subject+'</h2>';
+		htmlText+='		<p>'+data.list[index].content+'</p>';
+		for(let idx=0;idx<data.list[index].region_main.length;idx++) {
+			 htmlText+='<span class="card-text">'+data.list[index].region_main[idx]+' '+data.list[index].region_sub[idx]+'</span>';
+		}
+		htmlText+='		<footer><p>'+data.list[index].sdate+'~'+data.list[index].edate+'</p>';
+		htmlText+='		</footer></div>';
 	}
 	htmlText+='</div><br>';
-	$(".list-content").append(htmlText);	
+	$(".list-content").append(htmlText);
 }
 
 $(function(){
@@ -239,7 +229,7 @@ $(function(){
 	});
 });
 
-function article(num, contentId) {
-	location.href="${pageContext.request.contextPath}/info/load?num="+num+"&contentId="+contentId;
+function article(num) {
+	location.href='${pageContext.request.contextPath}/companion/article?num='+num;
 }
 </script>

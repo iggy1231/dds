@@ -20,6 +20,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import com.fly.dds.common.MyUtil;
 import com.fly.dds.domain.Companion;
+import com.fly.dds.domain.CompanionApply;
 import com.fly.dds.domain.CompanionReply;
 import com.fly.dds.domain.SessionInfo;
 import com.fly.dds.service.CompanionService;
@@ -44,7 +45,7 @@ public class CompanionController {
 	public Map<String, Object> companionList(@RequestParam(value = "pageNo", defaultValue = "1") int current_page) {
 		Map<String, Object> model=new HashMap<String, Object>();
 		int size=5;
-		int dataCount=service.dataCount();
+		int dataCount=service.dataCountall();
 		int total_page=myUtil.pageCount(dataCount, size);
 		if(current_page>total_page) {
 			current_page=total_page;
@@ -190,9 +191,11 @@ public class CompanionController {
 		SessionInfo info = (SessionInfo) session.getAttribute("member");
 		Companion dto=null;
 		List<Companion> imgFiles=null;
+				
 		try {
 			dto=service.findByNum(num);
 			imgFiles=service.listFile(num);
+			service.updateHitCount(num);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -207,6 +210,12 @@ public class CompanionController {
 				model.addAttribute("liked", "true");
 			}
 		}
+		
+		List<CompanionApply> waitingList=service.waitingList(num);
+		List<CompanionApply> partyList=service.partyList(num);
+		
+		model.addAttribute("waitingList", waitingList);
+		model.addAttribute("partyList", partyList);
 		model.addAttribute("imgFiles", imgFiles);
 		model.addAttribute("likeCount", likeCount);
 		model.addAttribute("dto", dto);
@@ -281,7 +290,6 @@ public class CompanionController {
 	public Map<String, Object> listCompanionReply(@RequestParam long num,
 			@RequestParam(value = "pageNo", defaultValue = "1") int current_page,
 			HttpSession session) {
-		System.out.println("??????");
 		Map<String, Object> model = new HashMap<String, Object>();
 		Map<String, Object> map=new HashMap<String, Object>();
 		SessionInfo info=(SessionInfo) session.getAttribute("member");
@@ -420,14 +428,165 @@ public class CompanionController {
 		} else {
 			dataCount=service.areaDataCount(map);
 		}
+		
+		model.addAttribute("mainRegion", mainRegion);
 		model.addAttribute("dataCount", dataCount);
 		model.addAttribute("kwd", kwd);
 		return ".companion.search";
 	}
 	
-	@PostMapping("search")
-	public Map<String, Object> searchList() {
+	@ResponseBody
+	@GetMapping("searchList")
+	public Map<String, Object> searchList(@RequestParam(value = "pageNo", defaultValue = "1") int current_page,
+			@RequestParam int dataCount,
+			@RequestParam(defaultValue = "subject") String schType,
+			@RequestParam(defaultValue = "") String kwd,
+			@RequestParam String mainRegion) {
+		Map<String, Object> model=new HashMap<String, Object>();
 		
-		return null;
+		int size=12;
+		int total_page=myUtil.pageCount(dataCount, size);
+		if(current_page>total_page) {
+			current_page=total_page;
+		}
+			
+		int offset=(current_page-1)*size;
+		if(offset<0) {
+			offset=0;
+		}
+		
+		Map<String, Object> map=new HashMap<String, Object>();
+		map.put("schType", schType);
+		map.put("kwd",  kwd);
+		map.put("offset", offset);
+		map.put("size", size);
+		map.put("mainRegion", mainRegion);
+		List<Companion> list=null;
+		
+		if(mainRegion.equals("전체")) {
+			list=service.listCompanion(map);
+		} else {
+			list=service.listBymainRegion(map);
+		}
+		
+		model.put("dataCount", dataCount);
+		model.put("total_page", total_page);
+		model.put("pageNo", current_page);
+		model.put("list", list);
+		return model;
+	}
+	
+	@ResponseBody
+	@GetMapping("searchPopularList")
+	public Map<String, Object> searchPopularList(@RequestParam(value = "pageNo", defaultValue = "1") int current_page,
+			@RequestParam int dataCount,
+			@RequestParam(defaultValue = "subject") String schType,
+			@RequestParam(defaultValue = "") String kwd,
+			@RequestParam String mainRegion) {
+		Map<String, Object> model=new HashMap<String, Object>();
+		
+		int size=12;
+		int total_page=myUtil.pageCount(dataCount, size);
+		if(current_page>total_page) {
+			current_page=total_page;
+		}
+
+		int offset=(current_page-1)*size;
+		if(offset<0) {
+			offset=0;
+		}
+			
+		Map<String, Object> map=new HashMap<String, Object>();
+		map.put("schType", schType);
+		map.put("kwd",  kwd);
+		map.put("offset", offset);
+		map.put("size", size);
+		map.put("mainRegion", mainRegion);
+		
+		List<Companion> list=null;
+		
+		if(mainRegion.equals("전체")) {
+			list=service.popularListCompanion(map);
+		} else {
+			list=service.popularListBymainRegion(map);
+		}
+		
+		model.put("dataCount", dataCount);
+		model.put("total_page", total_page);
+		model.put("pageNo", current_page);
+		model.put("list", list);
+		
+		return model;
+	}
+	
+	@ResponseBody
+	@PostMapping("apply")
+	public Map<String, Object> apply(@RequestParam long num,
+			HttpSession session) {
+		Map<String, Object> model=new HashMap<String, Object>();
+		Map<String, Object> map=new HashMap<String, Object>();
+		SessionInfo info=(SessionInfo) session.getAttribute("member");
+		
+		map.put("num", num);
+		map.put("user_num", info.getUser_num());
+		map.put("nickname", info.getNickName());
+		map.put("status", "대기");
+		String state="false";
+		try {
+			if(service.isApplied(map)) {
+				state="applied";
+			} else {
+				service.apply(map);
+				state="true";
+			}
+		} catch (Exception e) {
+			// TODO: handle exception
+		}
+		model.put("state", state);
+		return model;
+	}
+	
+	@PostMapping("accept")
+	public String accept(@RequestParam long num, @RequestParam long user_num) {
+		Map<String, Object> map=new HashMap<String, Object>();
+		map.put("num", num);
+		map.put("user_num", user_num);
+		map.put("mode", "add");
+		try {
+			service.accept(map);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+
+		return "redirect:/companion/article?num="+num;
+	}
+	
+	@PostMapping("reject")
+	public String reject(@RequestParam long num, @RequestParam long user_num) {
+		Map<String, Object> map=new HashMap<String, Object>();
+		map.put("num", num);
+		map.put("user_num", user_num);
+		try {
+			service.reject(map);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	
+		return "redirect:/companion/article?num="+num;
+	}
+	
+	@PostMapping("vanish")
+	public String vanish(@RequestParam long num, @RequestParam long user_num) {
+		Map<String, Object> map=new HashMap<String, Object>();
+		map.put("num", num);
+		map.put("user_num", user_num);
+		map.put("mode", "sub");
+		try {
+			service.vanish(map);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	
+		return "redirect:/companion/article?num="+num;
 	}
 }
