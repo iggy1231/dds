@@ -110,9 +110,9 @@
 										href="${pageContext.request.contextPath}/"><i
 											class="fas fa-file-alt me-2"></i>내여행</a></li>
 									<li><a class="dropdown-item"
-										href="${pageContext.request.contextPath}/"><i
-											class="fas fa-file-alt me-2"></i>메시지</a></li>
-									<li><a class="dropdown-item" href="#"
+										href="${pageContext.request.contextPath}/mypage/profile"><i
+											class="fas fa-file-alt me-2"></i>프로필</a></li>
+									<li><a class="dropdown-item" href="${pageContext.request.contextPath}/member/logout"
 										onclick="confirmLogout()"><i
 											class="fas fa-sign-out-alt me-2"></i> 로그아웃</a></li>
 								</ul>
