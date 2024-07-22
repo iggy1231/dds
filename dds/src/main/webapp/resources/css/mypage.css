@@ -71,6 +71,10 @@
 	height: 5px;
 }
 
+.page-title .spacing-top1 {
+	height: 10px; 
+}
+
 .page-title .content .title-row {
 	display: flex;
 	justify-content: space-between;
@@ -114,11 +118,10 @@
 	border: 1px solid #fff;
 	border-radius: 20px;
 	box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
-	width: 100%;
+	width: 100%; 
 	height: auto; 
 	padding: 20px; 
 	box-sizing: border-box;
-	display: flex;
 	align-items: center;
 	justify-content: space-between;
 }
@@ -126,6 +129,50 @@
 .profile-info {
 	display: flex;
 	align-items: center;
+	justify-content: space-between;
+	
+}
+
+.profile-intro {
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	margin: 15px;
+	font-size: 16px;
+}
+
+.profile-quatro {
+	display: flex;
+	align-items: center;
+	justify-content: flex-end;
+	
+	
+}
+
+.profile-update{
+	background-color: #18A8F1 ;
+	border: none;
+	border-radius: 12px;
+	color: #fff;  
+	font-size: 14px;
+	font-weight: bold; 
+	cursor: pointer;
+	padding: 0 10px; 
+	height: 40px; 
+	width: 80px;  
+}
+
+@keyframes move {
+	0% {transform: translateY(0);}
+	100% {transform: translateY(2px);} 
+} 
+
+.profile-update:hover {
+	color: #18A8F1;
+	background-color: white;
+	border: 2px solid #bee8fd;
+	transition: 0.3s;
+	animation: move 0.3s forwards;
 }
 
 .profile-image {
@@ -158,14 +205,22 @@
 }
 
 .mbti-button {
-	background-color: #97e8b0;
+	background-color: #82EEBA;
 	border: none;
-	border-radius: 12px;
+	border-radius: 30px;
 	color: #fff;
 	font-size: 14px;
 	font-weight: bold;
 	padding: 10px 20px;
-	cursor: pointer;
+	cursor: pointer; 
+}
+
+.mbti-button:hover {
+	background-color: white;
+	color: #82EEBA;
+	border: 2px solid #82EEBA;
+	transition: 0.3s; 
+	animation: move 0.3s forwards; 
 }
 
 @media (max-width: 768px) {
@@ -184,8 +239,6 @@
 		align-self: flex-start;
 	}
 }
-
-
 
 
 
