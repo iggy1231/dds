@@ -4,12 +4,13 @@ import java.util.List;
 import java.util.Map;
 
 import com.fly.dds.domain.Companion;
+import com.fly.dds.domain.CompanionApply;
 import com.fly.dds.domain.CompanionReply;
 
 public interface CompanionService {
 	public void insertCompanion(Companion dto, String pathname);
 	public Companion findByNum(long num);
-	public int dataCount();
+	public int dataCountall();
 	public List<Companion> listCompanion(Map<String, Object> map);
 	public List<Companion> listBymainRegion(Map<String, Object> map);
 	public List<Companion> similiarList(Map<String, Object> map);
@@ -29,4 +30,14 @@ public interface CompanionService {
 	public List<Companion> areaPopularList(Map<String, Object> map);
 	public int dataCount(Map<String, Object> map);
 	public int areaDataCount(Map<String, Object> map);
+	public void apply(Map<String, Object> map);
+	public void updateHitCount(long num);
+	public List<CompanionApply> waitingList(long num);
+	public List<CompanionApply> partyList(long num);
+	public void accept(Map<String, Object> map);
+	public void reject(Map<String, Object> map);
+	public void vanish(Map<String, Object> map);
+	public boolean isApplied(Map<String, Object> map);
+	public List<Companion> popularListCompanion(Map<String, Object> map);
+	public List<Companion> popularListBymainRegion(Map<String, Object> map);
 }

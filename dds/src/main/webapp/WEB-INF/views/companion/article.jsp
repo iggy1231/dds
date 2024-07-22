@@ -87,11 +87,42 @@ table tr>td:nth-child(2) {
 				<p>예상 비용 : ${dto.estimate_cost} 원
 			</div>
 			<hr>
-			<h3>동행자 정보</h3>
-			<div>
-				<p>${dto.nickname}
-				<p>현재 동행에 참여중인 사람 정보
-			</div>
+			<c:if test="${dto.user_num==sessionScope.member.user_num}">
+				<h3>동행 신청 확인하기</h3>
+				<c:forEach var="item" items="${partyList}">
+					<span>${item.nickname} 참여중</span>
+					<form action="${pageContext.request.contextPath}/companion/vanish" method="post">
+						<input type="hidden" name="num" value="${dto.num}">
+						<input type="hidden" name="user_num" value="${item.user_num}">
+						<button type="submit">추방</button>
+					</form>
+				</c:forEach>
+				<div>
+					<c:forEach var="item" items="${waitingList}">
+						<span>${item.nickname}</span>
+						<form action="${pageContext.request.contextPath}/companion/accept" method="post">
+							<input type="hidden" name="num" value="${dto.num}">
+							<input type="hidden" name="user_num" value="${item.user_num}">
+							<button type="submit">수락</button>
+						</form>
+						<form action="${pageContext.request.contextPath}/companion/reject" method="post">
+							<input type="hidden" name="num" value="{${dto.num}">
+							<input type="hidden" name="user_num" value="{${item.user_num}">
+							<button type="submit">거절</button>
+						</form>
+						<br>
+					</c:forEach>
+				</div>
+			</c:if>
+			<c:if test="${dto.user_num!=sessionScope.member.user_num}">
+				<h3>동행자 정보</h3>
+				<div>
+					<c:forEach var="item" items="${partyList}">
+						<p>${item.nickname} 참여중
+					</c:forEach>
+				</div>
+				<button class="btn btn-outline-secondary" onclick="apply();" data-bs-toggle="modal" data-bs-target="#alertModal">동행 참여하기</button>
+			</c:if>
 			<hr>
 			<div>
 			<form name="replyForm" method="post">
@@ -193,6 +224,29 @@ table tr>td:nth-child(2) {
 </div>
 
 <script type="text/javascript">
+function apply() {
+	if(${empty sessionScope.member}) {
+		$('#alertModal .modal-title').text('동행 참여는 로그인 후에만 가능합니다.');
+		return;
+	}
+	
+	let url="${pageContext.request.contextPath}/companion/apply";
+	let query="num=${dto.num}&user_num=${sessionScope.member.user_num}";
+	
+	const fn=function(data) {
+		let state=data.state;
+		if(state === "true") {
+			$('#alertModal .modal-title').text('동행 요청에 성공했습니다');
+		} else if(state === "applied") {
+			$('#alertModal .modal-title').text('동행 요청은 1회만 가능합니다.');
+			return;
+		} else {
+			$('#alertModal .modal-title').text('동행 요청에 실패했습니다.');
+		}
+	}
+	
+	ajaxFun(url, "post", query, "json", fn);
+}
 function insertCompanionLike() {
 	if(${empty sessionScope.member}) {
 		$('#alertModal .modal-title').text('좋아요는 로그인 후에만 가능합니다.');

@@ -7,6 +7,7 @@ import java.util.Set;
 import org.apache.ibatis.annotations.Mapper;
 
 import com.fly.dds.domain.Companion;
+import com.fly.dds.domain.CompanionApply;
 import com.fly.dds.domain.CompanionReply;
 
 @Mapper
@@ -22,7 +23,7 @@ public interface CompanionMapper {
 	public List<Companion> findRegionByNum(long num);
 	public Set<String> findAgeByNum(long num);
 	
-	public int dataCount();
+	public int dataCountall();
 	public List<Companion> listCompanion(Map<String, Object> map);
 	
 	public long numBymainRegion(String mainRegion);
@@ -50,4 +51,17 @@ public interface CompanionMapper {
 	public List<Companion> areaPopularList(Map<String, Object> map);
 	public int dataCount(Map<String, Object> map);
 	public int areaDataCount(Map<String, Object> map);
+	public void apply(Map<String, Object> map);
+	public int applyCount(long num);
+	public void updateHitCount(long num);
+	
+	public List<CompanionApply> waitingList(long num);
+	public List<CompanionApply> partyList(long num);
+	public void accept(Map<String, Object> map);
+	public void reject(Map<String, Object> map);
+	public void vanish(Map<String, Object> map);
+	public int isApplied(Map<String, Object> map);
+	public void updateCurrentPeople(Map<String, Object> map);
+	public List<Companion> popularListCompanion(Map<String, Object> map);
+	public List<Companion> popularListBymainRegion(Map<String, Object> map);
 }

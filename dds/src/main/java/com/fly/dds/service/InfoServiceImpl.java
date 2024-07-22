@@ -71,7 +71,6 @@ public class InfoServiceImpl implements InfoService {
 
 	@Override
 	public boolean isInfoLiked(Map<String, Object> map) {
-		
 		try {
 			if(mapper.isInfoLiked(map)>0) {
 				return true;
@@ -90,7 +89,6 @@ public class InfoServiceImpl implements InfoService {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		
 	}
 
 	@Override
