@@ -90,12 +90,12 @@
 			</div>
 		</div>
 		<div class="card">
-			<div class="card-header">
+			<div class="card-header pb-1">
 				<h5 class="card-title">Filter</h5>
 			</div>
 
 			<div class="card">
-				<ul class="nav nav-pills ms-4" id="myTab" role="tablist">
+				<ul class="nav nav-pills ms-2" id="myTab" role="tablist">
 					<li class="nav-item" role="presentation">
 						<button class="nav-link ${classify==100?'active':''}" id="tab-1"
 							data-bs-toggle="tab" data-bs-target="#tab-pane" type="button"
@@ -110,93 +110,60 @@
 					</li>
 				</ul>
 
-				<div class="tab-content pt-4" id="myTabContent">
+				<div class="tab-content pt-0" id="myTabContent">
 					<div class="tab-pane fade show active" id="tab-pane"
 						role="tabpanel" aria-labelledby="tab-1" tabindex="0">
 						<div class="row mb-2">
 							<div class="col">
-								<div class="row text-end">
-									<div class="col-auto pe-1">
-										<select id="changeCategory" class="form-select"
-											onchange="changeList();">
-											<c:if test="${listCategory.size() == 0}">
-												<option value="0">:: 메인카테고리 ::</option>
-											</c:if>
-											<c:forEach var="vo" items="${listCategory}">
-												<option value="${vo.categoryNum}"
-													${parentNum==vo.categoryNum?"selected":""}>${vo.categoryName}</option>
-											</c:forEach>
-										</select>
-									</div>
-									<div class="col-auto pe-1">
-										<select id="changeSubCategory" class="form-select"
-											onchange="changeSubList();">
-											<c:if test="${listSubCategory.size() == 0}">
-												<option value="0">:: 카테고리 ::</option>
-											</c:if>
-											<c:forEach var="vo" items="${listSubCategory}">
-												<option value="${vo.categoryNum}"
-													${categoryNum==vo.categoryNum?"selected":""}>${vo.categoryName}</option>
-											</c:forEach>
-										</select>
-									</div>
-									<div class="col-auto ps-1">
-										<select id="changeShowProduct" class="form-select"
-											onchange="changeList();">
-											<option value="-1">:: 진열 여부 ::</option>
-											<option value="1" ${productShow==1?"selected":""}>상품
-												진열</option>
-											<option value="0" ${productShow==0?"selected":""}>상품
-												숨김</option>
-										</select>
-									</div>
-								</div>
+								<div class="row text-end"></div>
 							</div>
 							<div class="col-auto pt-2 text-end">
 								${dataCount}개(${page}/${total_page} 페이지)</div>
 						</div>
 
-						<table class="table table-border table-list">
-							<thead>
-								<tr class="border-top border-dark table-light">
-									<th width="130">상품코드</th>
-									<th>상품명</th>
-									<th width="100">가격</th>
-									<th width="60">할인율</th>
-									<th width="60">재고</th>
-									<th width="60">진열</th>
-									<th width="80">수정일</th>
-									<th width="120">변경</th>
-								</tr>
-							</thead>
-							<tbody>
-								<c:forEach var="dto" items="${list}" varStatus="status">
-									<tr valign="middle">
-										<td>${dto.productNum}</td>
-										<td class="product-subject left"><img
-											src="${pageContext.request.contextPath}/uploads/product/${dto.thumbnail}">
-											<a href="#"><label>${dto.productName}</label></a></td>
-										<td>${dto.price}</td>
-										<td>${dto.discountRate}%</td>
-										<td>${dto.totalStock}</td>
-										<td>${dto.productShow==1?"표시":"숨김"}</td>
-										<td>${dto.update_date}</td>
-										<td><c:url var="updateUrl"
-												value="/admin/product/${classify}/update">
-												<c:param name="productNum" value="${dto.productNum}" />
-												<c:param name="parentNum" value="${parentNum}" />
-												<c:param name="categoryNum" value="${categoryNum}" />
-												<c:param name="page" value="${page}" />
-											</c:url>
-											<button type="button" class="btn border btn-productStock"
-												data-productNum="${dto.productNum}"
-												data-optionCount="${dto.optionCount}">재고</button>
-											<button type="button" class="btn border"
-												onclick="location.href='${updateUrl}';">수정</button></td>
+						<div class="table-responsice text-nowrap">
+							<table class="table">
+								<thead>
+									<tr>
+										<th>상품코드</th>
+										<th>상품명</th>
+										<th>가격</th>
+										<th>할인율</th>
+										<th>재고</th>
+										<th>진열</th>
+										<th>수정일</th>
+										<th>변경</th>
 									</tr>
-								</c:forEach>
-							</tbody>
-						</table>
+								</thead>
+								<tbody class="table-border-bottom-0">
+									<c:forEach var="dto" items="${list}" varStatus="status">
+										<tr valign="middle">
+											<td>${dto.productNum}</td>
+											<td class="product-subject left"><img
+												src="${pageContext.request.contextPath}/uploads/product/${dto.thumbnail}">
+												<a href="#"><label>${dto.productName}</label></a></td>
+											<td>${dto.price}</td>
+											<td>${dto.discountRate}%</td>
+											<td>${dto.totalStock}</td>
+											<td>${dto.productShow==1?"표시":"숨김"}</td>
+											<td>${dto.update_date}</td>
+											<td><c:url var="updateUrl"
+													value="/admin/product/${classify}/update">
+													<c:param name="productNum" value="${dto.productNum}" />
+													<c:param name="parentNum" value="${parentNum}" />
+													<c:param name="categoryNum" value="${categoryNum}" />
+													<c:param name="page" value="${page}" />
+												</c:url>
+												<button type="button" class="btn border btn-productStock"
+													data-productNum="${dto.productNum}"
+													data-optionCount="${dto.optionCount}">재고</button>
+												<button type="button" class="btn border"
+													onclick="location.href='${updateUrl}';">수정</button></td>
+										</tr>
+									</c:forEach>
+								</tbody>
+							</table>
+						</div>
 
 						<div class="page-navigation">${dataCount == 0 ? "등록된 상품이 없습니다." : paging}
 						</div>
@@ -246,6 +213,7 @@
 									<button type="button" class="btn btn-light"
 										onclick="location.href='${url}';">상품등록</button></td>
 							</tr>
+							</tbody>
 						</table>
 
 					</div>
