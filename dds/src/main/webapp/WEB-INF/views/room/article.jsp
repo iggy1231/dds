@@ -445,6 +445,7 @@
 					            <button type="button" class="btnMyQuestion btn btn-dark" ${empty sessionScope.member ? "disabled" : ""}> 내 Q&amp;A 보기 </button>
 					            <button type="button" class="btnQuestion btn btn-dark" ${empty sessionScope.member ? "disabled" : ""}> 상품 Q&amp;A 작성 </button>
 					        </div>
+					        <div class="mt-1 p-2 list-question"></div>
 					    </div>
 					</div>
                     </div>
@@ -598,8 +599,7 @@ function printQuestion(data) {
         let answer = item.answer;
         let answer_date = item.answer_date;
         let answerState = answer_date ? '<span class="text-primary">답변완료</span>' : '<span class="text-secondary">답변대기</span>';
-        let listFilename = item.listFilename;
-        let secret = item.secret;
+        let anonymous = item.anonymous;
 
         out += '<div class="mt-1 border-bottom">';
         out += '  <div class="mt-2 p-2">' + question + '</div>';
@@ -740,30 +740,6 @@ $(function(){
 		this.files = dt.files;
 	});
 	
-	$("body").on("click", ".qna-form .img-item", function(){
-		if(! confirm("선택한 파일을 삭제 하시겠습니까 ? ")) {
-			return false;
-		}
-		
-		let filename = $(this).attr("data-filename");
-		
-		for(let i=0; i<sel_files.length; i++) {
-			if(filename === sel_files[i].name) {
-				sel_files.splice(i, 1);
-				break;
-			}
-		}
-		
-		let dt = new DataTransfer();
-		for(let f of sel_files) {
-			dt.items.add(f);
-		}
-		
-		const f = this.closest("form");
-		f.selectFile.files = dt.files;
-		
-		$(this).remove();
-	});
 	
 	$('.btnQuestion').click(function(){
 		$("#questionDialogModal").modal("show");
