@@ -113,6 +113,19 @@ table tr>td:nth-child(2) {
 						<br>
 					</c:forEach>
 				</div>
+				<hr>
+				<div>
+				<form action="${pageContext.request.contextPath}/companion/updateCompanion">
+					<input type="hidden" name="num" value="${dto.num}">
+					<button type="submit">수정</button>
+				</form>
+				<form name="articleForm" action="#" method="post">
+					
+					<button onclick="deleteCompanion();">삭제</button>
+					<button onclick="endCompanion();">마감</button>
+				</form>
+					
+				</div>
 			</c:if>
 			<c:if test="${dto.user_num!=sessionScope.member.user_num}">
 				<h3>동행자 정보</h3>
@@ -224,6 +237,18 @@ table tr>td:nth-child(2) {
 </div>
 
 <script type="text/javascript">
+function deleteCompanion() {
+	const f=document.articleForm;
+	f.action="${pageContext.request.contextPath}/companion/deleteCompanion";
+	f.submit;
+}
+
+function endCompanion() {
+	const f=document.articleForm;
+	f.action="${pageContext.request.contextPath}/companion/endCompanion";
+	f.submit;
+}
+
 function apply() {
 	if(${empty sessionScope.member}) {
 		$('#alertModal .modal-title').text('동행 참여는 로그인 후에만 가능합니다.');

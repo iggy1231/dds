@@ -129,7 +129,7 @@ $(function(){
 	<div class="body-container">
 		<div class="body-title">
 	    	<h3>동행 구인 작성</h3>
-			<form name="companionForm" action="${pageContext.request.contextPath}/companion/write" method="post" enctype="multipart/form-data">
+			<form name="companionForm" action="${pageContext.request.contextPath}/companion/${mode}" method="post" enctype="multipart/form-data">
 				<table class="table table-border table-form">
 					<tr> 
 						<td>지역을 선택하세요</td>
@@ -204,25 +204,25 @@ $(function(){
 					<tr> 
 						<td>참가 인원 수를 선택하세요</td>
 						<td>
-							<input type="number" name="total_people" placeholder="0">
+							<input type="number" name="total_people" placeholder="0" value="${dto.total_people}">
 						</td>
 					</tr>
 					<tr> 
 						<td>예상 경비를 입력하세요</td>
 						<td>
-							<input type="text" name="estimate_cost">
+							<input type="text" name="estimate_cost" value=${dto.estimate_cost}>
 						</td>
 					</tr>
 					<tr> 
 						<td>제목을 입력하세요</td>
 						<td>
-							<input type="text" name="subject">
+							<input type="text" name="subject" value="${dto.subject}">
 						</td>
 					</tr>
 					<tr> 
 						<td>내용을 입력하세요</td>
 						<td>
-							<textarea rows="" cols="" name="content"></textarea>
+							<textarea rows="" cols="" name="content">${dto.content}</textarea>
 						</td>
 					</tr>
 					<tr> 
