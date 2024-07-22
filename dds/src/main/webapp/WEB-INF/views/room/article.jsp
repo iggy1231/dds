@@ -445,8 +445,8 @@
 					            <button type="button" class="btnMyQuestion btn btn-dark" ${empty sessionScope.member ? "disabled" : ""}> 내 Q&amp;A 보기 </button>
 					            <button type="button" class="btnQuestion btn btn-dark" ${empty sessionScope.member ? "disabled" : ""}> 상품 Q&amp;A 작성 </button>
 					        </div>
-					        <div class="mt-1 p-2 list-question"></div>
 					    </div>
+					   <div class="mt-1 p-2 list-question"></div>
 					</div>
                     </div>
                 </div>
@@ -608,7 +608,7 @@ function printQuestion(data) {
         out += '     <div class="col-auto pt-2 pe-0">' + answerState + '</div>';
         out += '     <div class="col-auto pt-2 px-0">&nbsp;|&nbsp;' + userName + '</div>';
         out += '     <div class="col-auto pt-2 px-0">&nbsp;|&nbsp;<span>' + question_date + '</span>';
-        if (secret === 0) {
+        if (anonymous === 0) {
             out += '       |<span class="notifyQuestion" data-num="' + num + '">신고</span>';
         }
         out += '      </div>';
