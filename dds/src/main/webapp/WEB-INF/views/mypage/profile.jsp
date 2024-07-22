@@ -356,7 +356,32 @@ $(document).ready(function(){
     // 선택 완료 버튼 클릭 시 모달 닫기
     $('#mbtiSelectBtn').on('click', function () {
         $('#mbtiModal').modal('hide');
+        
+        // 선택된 MBTI 값을 가져옵니다.
+        var selectedMbti = $('.mbti-option.btn-primary').text();
+
+        // 사용자 번호를 가져옵니다.
+        var userNum = $('#userNum').val();  // 예: input 태그에 있는 user_num 값
+
+        // POST 요청을 보냅니다.
+        $.ajax({
+            type: 'POST',
+            url: '${pageContext.request.contextPath}/mypage/mbtiUpdate',
+            data: {
+                mbti: selectedMbti,
+                user_num: userNum
+            },
+            success: function(response) {
+                // 성공적으로 업데이트된 후의 동작을 정의합니다.
+                alert('MBTI가 성공적으로 업데이트되었습니다.');
+            },
+            error: function(error) {
+                // 오류 발생 시의 동작을 정의합니다.
+                alert('MBTI 업데이트에 실패했습니다.');
+            }
+        });
     });
 });
+
 </script>
 

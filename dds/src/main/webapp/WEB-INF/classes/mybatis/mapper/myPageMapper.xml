@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.fly.dds.mapper.MyPageMapper">
+
+	<select id="findById" parameterType="Long" resultType="com.fly.dds.domain.Member">
+		select m.user_num , userId , pwd , userName , nickName , birth , gender , email , 
+		tel , content , photo , mbti
+		from member1 m
+		join member_info i on m.user_num = i.user_num
+		join member_profile p on m.user_num = p.user_num
+		where m.user_num = #{user_num}
+	</select>
+
+	<update id="updateMbti" parameterType="com.fly.dds.domain.Member">
+		UPDATE member_profile SET mbti = #{mbti}
+		WHERE user_num = #{user_num}
+	</update>
+	
+	<update id="updateProfile" parameterType="com.fly.dds.domain.Member">
+		UPDATE member_profile SET content = #{content} , photo = #{photo}
+		WHERE user_num = #{user_num}
+	</update>
+
+	<update id="updateInfo" parameterType="com.fly.dds.domain.Member">
+		UPDATE member1 SET nickname=#{nickName} , gender=#{gender} , tel=#{tel} , modify_date = sysdate
+		WHERE user_num = #{user_num}
+	</update>
+	
+	<update id="updateMember" parameterType="com.fly.dds.domain.Member">
+		UPDATE member1 SET name = #{name}
+		WHERE user_num = #{user_num}
+	</update>
+	
+	<update id="deleteMember" parameterType="Long">
+		UPDATE member1 SET enabled = 0
+		WHERE user_num = #{user_num}
+	</update>
+	
+	<delete id="deleteInfo" parameterType="Long">
+		DELETE member_info where user_num = #{user_num}
+	</delete>
+	
+	<delete id="deleteProfile" parameterType="Long">
+		DELETE member_profile where user_num = #{user_num}
+	</delete>
+	
+	
+</mapper>

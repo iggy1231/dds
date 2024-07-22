@@ -2,6 +2,8 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 
+
+
 <div class="card mb-4">
 	<h5 class="card-header">프로필 상세</h5>
 	<!-- Account -->
@@ -23,34 +25,34 @@
 				<div class="mb-3 col-md-6">
 					<label for="self-introduction" class="form-label mb-1 mt-2">자기소개</label> <input
 							class="form-control" type="text" id="self-introduction" name="self-introduction"
-							value="안녕하세요"/>
+							value="${dto.content}"/>
 				</div>
 			</div>
 		</div>
 	</div>
 	<hr class="my-0" />
 	<div class="card-body">
-		<form id="formAccountSettings" method="POST" onsubmit="return false">
+		<form  action="${pageContext.request.contextPath}/mypage/profileUpdate" id="formAccountSettings" method="POST">
 			<div class="row">
 				<div class="mb-3 col-md-6">
 					<label for="Id" class="form-label">아이디</label> <input
 						class="form-control" type="text" id="Id" name="Id"
-						value="dodoongsil" autofocus />
+						value="${dto.userId}" autofocus />
 				</div>
 				<div class="mb-3 col-md-6">
 					<label for="Name" class="form-label">이름</label> <input
 						class="form-control" type="text" name="Name" id="Name"
-						value="두둥실" />
+						value="${dto.userName}" />
 				</div>
 				<div class="mb-3 col-md-6">
 					<label for="password" class="form-label">패스워드</label> <input
 						class="form-control" type="text" id="password" name="password"
-						value="john.doe@example.com" placeholder="john.doe@example.com" />
+						value="${dto.pwd}" placeholder="패스워드입력하쇼" />
 				</div>
 				<div class="mb-3 col-md-6">
 					<label for="nickName" class="form-label">닉네임</label> <input
 						type="text" class="form-control" id="nickName"
-						name="nickName" value="ThemeSelection" />
+						name="nickName" value="${dto.nickName}" />
 				</div>
 				<div class="mb-3 col-md-6">
 					<label for="passwordCheck" class="form-label">패스워드 확인</label> <input
@@ -62,21 +64,21 @@
 					<div class="input-group input-group-merge">
 						<span class="input-group-text">KOR (+82)</span> <input type="text"
 							id="phoneNumber" name="phoneNumber" class="form-control"
-							placeholder="010 1234 5678" />
+							placeholder="010 1234 5678" value="${dto.tel}" />
 					</div>
 				</div>
 				<div class="mb-3 col-md-6">
 					<label for="gender" class="form-label">성별</label> <select
 						id="gender" class="select2 form-select">
-						<option value="female">여성</option>
-						<option value="male">남성</option>
+						<option value="여성">여성</option>
+						<option value="남성">남성</option>
 						<option value="x">제 3의 성</option>
 					</select>
 				</div>
 				<div class="mb-3 col-md-6">
 					<label for="birth" class="form-label">생년월일</label> <input
 						class="form-control" type="date" id="birth" name="birth"
-						placeholder="생년월일" />
+						placeholder="생년월일"/>
 				</div>
 			</div>
 			<div class="mt-2">
@@ -96,7 +98,7 @@
 				<p class="mb-0">한 번 계정을 삭제하면 되돌릴 수 없습니다. 신중히 결정해 주세요.</p>
 			</div>
 		</div>
-		<form id="formAccountDeactivation" onsubmit="return false">
+		<form action="${pageContext.request.contextPath}/mypage/deleteMember" id="formAccountDeactivation" method="post">
 			<div class="form-check mb-3">
 				<input class="form-check-input" type="checkbox"
 					name="accountActivation" id="accountActivation" />
