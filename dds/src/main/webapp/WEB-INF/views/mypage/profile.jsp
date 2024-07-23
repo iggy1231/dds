@@ -276,7 +276,7 @@
    		 <div class="col-lg-4 col-md-6 wow fadeInUp" data-wow-delay="0.3s">
         <div class="property-item rounded overflow-hidden">
             <div class="position-relative overflow-hidden">
-                <a href=""><img class="ratio ratio-4x3 img-fluid" src="빈값" alt=""></a>
+                <a href=""><img class="ratio ratio-4x3 img-fluid" src="${pageContext.request.contextPath}/uploads/travelreview/${list.imageFilename}" alt=""></a>
                 <div class="d-inline-flex position-absolute start-0 top-0 m-4">
                     <div class="bg-primary rounded text-white py-1 px-3 me-2"><i class="bi bi-heart-fill"></i>&nbsp;${list.likeCount}개</div> 
                     <div class="bg-primary rounded text-white py-1 px-3"><i class="bi bi-eye"></i>&nbsp;${list.hitCount}개</div>

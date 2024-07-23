@@ -47,10 +47,11 @@
 	</delete>
 	
 	<select id="listReview" parameterType="map" resultType="com.fly.dds.domain.TravelReview">
-	    SELECT t.NUM,SUBJECT,TO_CHAR(REG_DATE, 'YYYY-MM-dd') REG_DATE, HITCOUNT,LIKECOUNT,REPLYCOUNT
+	    SELECT t.NUM,SUBJECT,TO_CHAR(REG_DATE, 'YYYY-MM-dd') REG_DATE, HITCOUNT,LIKECOUNT,REPLYCOUNT, imageFileName
 		FROM TRAVELREVIEW t
 		left outer join ( select num , count(*) as likecount from travelReview_like group by num) l on t.num = l.num
 		left outer join ( select num , count(*) as replycount from travelReview_reply group by num ) r on t.num = r.num
+		left outer join TravelReview_File f ON t.num = f.num 
 		where user_num = #{user_num}
 		ORDER BY NUM DESC
 		OFFSET #{offset} ROWS FETCH FIRST #{size} ROWS ONLY
