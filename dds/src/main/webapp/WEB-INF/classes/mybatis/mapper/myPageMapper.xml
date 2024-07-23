@@ -46,5 +46,22 @@
 		DELETE member_profile where user_num = #{user_num}
 	</delete>
 	
+	<select id="listReview" parameterType="map" resultType="com.fly.dds.domain.TravelReview">
+	    SELECT t.NUM,SUBJECT,TO_CHAR(REG_DATE, 'YYYY-MM-dd') REG_DATE, HITCOUNT,LIKECOUNT,REPLYCOUNT
+		FROM TRAVELREVIEW t
+		left outer join ( select num , count(*) as likecount from travelReview_like group by num) l on t.num = l.num
+		left outer join ( select num , count(*) as replycount from travelReview_reply group by num ) r on t.num = r.num
+		where user_num = #{user_num}
+		ORDER BY NUM DESC
+		OFFSET #{offset} ROWS FETCH FIRST #{size} ROWS ONLY
+	</select>
+	
+	<!-- 글개수 -->
+	<select id="dataCount" parameterType="map" resultType="Integer">
+		SELECT NVL(COUNT(distinct t.num), 0)
+		FROM travelReview t
+		JOIN member1 m on t.user_num = m.user_num
+		WHERE m.user_num = #{user_num}
+	</select>
 	
 </mapper>

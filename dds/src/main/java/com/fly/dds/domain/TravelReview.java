@@ -10,6 +10,8 @@ public class TravelReview {
 	private String subject;
 	private String content;
 	private String reg_date;
+	private int likeCount;
+	private int replyCount;
 	private int hitCount;
 	private long user_num;
 	
@@ -17,7 +19,6 @@ public class TravelReview {
 	
 	private long fileNum;
 	private String imageFilename;
-	
 	public long getNum() {
 		return num;
 	}
@@ -47,6 +48,18 @@ public class TravelReview {
 	}
 	public void setReg_date(String reg_date) {
 		this.reg_date = reg_date;
+	}
+	public int getLikeCount() {
+		return likeCount;
+	}
+	public void setLikeCount(int likeCount) {
+		this.likeCount = likeCount;
+	}
+	public int getReplyCount() {
+		return replyCount;
+	}
+	public void setReplyCount(int replyCount) {
+		this.replyCount = replyCount;
 	}
 	public int getHitCount() {
 		return hitCount;
@@ -78,4 +91,6 @@ public class TravelReview {
 	public void setImageFilename(String imageFilename) {
 		this.imageFilename = imageFilename;
 	}
+	
+
 }

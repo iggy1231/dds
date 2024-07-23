@@ -1,6 +1,9 @@
 package com.fly.dds.controller;
 
 import java.io.File;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 import javax.servlet.http.HttpSession;
 
@@ -10,12 +13,13 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
-import com.fly.dds.HomeController;
 import com.fly.dds.common.FileManager;
 import com.fly.dds.common.MyUtil;
 import com.fly.dds.domain.Member;
 import com.fly.dds.domain.SessionInfo;
+import com.fly.dds.domain.TravelReview;
 import com.fly.dds.service.MyPageService;
 
 @Controller
@@ -32,20 +36,44 @@ public class MyPageController {
 	
 	@GetMapping("profile")
 	public String profileList(
+			 @RequestParam(value = "page", defaultValue = "1") int current_page,
 			Member dto,
     		HttpSession session,
     		Model model
     		) {
-		
-		SessionInfo info = (SessionInfo)session.getAttribute("member");
+			 
+		    
+		    Map<String, Object> map = new HashMap<>();
+		    int size = 10;
+		    int total_page = 0;
+		    int dataCount = 0;
+		    
+		    
+		    SessionInfo Info = (SessionInfo)session.getAttribute("member");
+		    
+		    Long user_num = Info.getUser_num();
+		    
+		    map.put("user_num", user_num);
+		    
+		    dataCount = service.dataCount(map);
+		    total_page = dataCount != 0 ? myUtil.pageCount(size, dataCount) : 0;
+		    if(total_page < current_page) current_page = total_page;
+		    
+		    int offset = (current_page - 1) * size;
+		    map.put("offset", offset);
+		    map.put("size", size);
+		    List<TravelReview> list = service.listReview(map);
 		try {
-			dto = service.findById(info.getUser_num());
+			dto = service.findById(user_num);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
 		
 		
 		System.out.println("진명아 확인할땐 이렇게하는거야 " + dto.getAge());
+		model.addAttribute("list",list);
+		model.addAttribute("page",current_page);
+		model.addAttribute("total_page",total_page);
 		model.addAttribute("dto" , dto);
 		return ".four.mypage.profile";
 	}
