@@ -3,6 +3,7 @@ package com.fly.dds.service;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.fly.dds.common.FileManager;
 import com.fly.dds.domain.Member;
 import com.fly.dds.mapper.MyPageMapper;
 
@@ -10,6 +11,9 @@ import com.fly.dds.mapper.MyPageMapper;
 public class MyPageServiceImpl implements MyPageService {
 	@Autowired
 	private MyPageMapper mapper;
+	
+	@Autowired
+	private FileManager fileManager;
 	
 	@Override
 	public void updateMbti(Member dto) throws Exception {
@@ -23,9 +27,12 @@ public class MyPageServiceImpl implements MyPageService {
 	}
 
 	@Override
-	public void updatProfile(Member dto) throws Exception {
+	public void updateProfile(Member dto , String pathname) throws Exception {
 		try {
-			mapper.updatProfile(dto);
+		
+			String filename = fileManager.doFileUpload(dto.getPhotoFile(), pathname);
+			dto.setPhoto(filename);
+			mapper.updateProfile(dto);
 		} catch (Exception e) {
 			e.printStackTrace();
 			throw e;

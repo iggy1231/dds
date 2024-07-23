@@ -7,14 +7,16 @@
 <div class="card mb-4">
 	<h5 class="card-header">프로필 상세</h5>
 	<!-- Account -->
+	
+		<form action="${pageContext.request.contextPath}/mypage/profileUpdate" id="formAccountSettings" method="POST" enctype="multipart/form-data">
 	<div class="card-body">
 		<div class="d-flex align-items-start align-items-sm-center gap-4">
-			<img src="${pageContext.request.contextPath}/resources/images/profile-image.png" alt="user-avatar"
+			<img src="${pageContext.request.contextPath}/resources/images/${dto.photo}" alt="user-avatar"
 				class="d-block rounded" height="100" width="100" id="uploadedAvatar" />
 			<div class="button-wrapper">
 				<label for="upload" class="btn btn-primary me-2 mb-0" tabindex="0">
 					<span class="d-none d-sm-block">사진 Upload</span> <i
-					class="bx bx-upload d-block d-sm-none"></i> <input type="file"
+					class="bx bx-upload d-block d-sm-none"></i> <input name="photoFile" type="file"
 					id="upload" class="account-file-input" hidden accept="image/png, image/jpeg" />
 				</label>
 				<button type="button"
@@ -23,8 +25,8 @@
 						class="d-none d-sm-block">Reset</span>
 				</button>
 				<div class="mb-3 col-md-6">
-					<label for="self-introduction" class="form-label mb-1 mt-2">자기소개</label> <input
-							class="form-control" type="text" id="self-introduction" name="self-introduction"
+					<label for="content" class="form-label mb-1 mt-2">자기소개</label> <input
+							class="form-control" type="text" id="content" name="content"
 							value="${dto.content}"/>
 				</div>
 			</div>
@@ -32,21 +34,20 @@
 	</div>
 	<hr class="my-0" />
 	<div class="card-body">
-		<form  action="${pageContext.request.contextPath}/mypage/profileUpdate" id="formAccountSettings" method="POST">
 			<div class="row">
 				<div class="mb-3 col-md-6">
 					<label for="Id" class="form-label">아이디</label> <input
-						class="form-control" type="text" id="Id" name="Id"
+						class="form-control" type="text" id="Id" name="userId"
 						value="${dto.userId}" autofocus />
 				</div>
 				<div class="mb-3 col-md-6">
 					<label for="Name" class="form-label">이름</label> <input
-						class="form-control" type="text" name="Name" id="Name"
+						class="form-control" type="text" name="userName" id="Name"
 						value="${dto.userName}" />
 				</div>
 				<div class="mb-3 col-md-6">
 					<label for="password" class="form-label">패스워드</label> <input
-						class="form-control" type="text" id="password" name="password"
+						class="form-control" type="text" id="password" name="pwd"
 						value="${dto.pwd}" placeholder="패스워드입력하쇼" />
 				</div>
 				<div class="mb-3 col-md-6">
@@ -63,32 +64,32 @@
 					<label class="form-label" for="phoneNumber">전화번호</label>
 					<div class="input-group input-group-merge">
 						<span class="input-group-text">KOR (+82)</span> <input type="text"
-							id="phoneNumber" name="phoneNumber" class="form-control"
+							id="phoneNumber" name="tel" class="form-control"
 							placeholder="010 1234 5678" value="${dto.tel}" />
 					</div>
 				</div>
 				<div class="mb-3 col-md-6">
 					<label for="gender" class="form-label">성별</label> <select
-						id="gender" class="select2 form-select">
+						id="gender" class="select2 form-select" name="gender">
 						<option value="여성">여성</option>
 						<option value="남성">남성</option>
-						<option value="x">제 3의 성</option>
+						<option value="제3">제 3의 성</option>
 					</select>
 				</div>
 				<div class="mb-3 col-md-6">
 					<label for="birth" class="form-label">생년월일</label> <input
 						class="form-control" type="date" id="birth" name="birth"
-						placeholder="생년월일"/>
+						placeholder="생년월일" value="${dto.birth}"/>
 				</div>
 			</div>
 			<div class="mt-2">
 				<button type="submit" class="btn btn-primary me-2">저장</button>
 				<button type="reset" class="btn btn-outline-secondary">수정취소</button>
 			</div>
+</div>
 		</form>
 	</div>
 	<!-- /Account -->
-</div>
 <div class="card">
 	<h5 class="card-header">계정삭제</h5>
 	<div class="card-body">

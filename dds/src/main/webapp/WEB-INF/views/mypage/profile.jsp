@@ -222,16 +222,26 @@
 		<div class="profile-container">
 			<div class="profile-info">
 				<div class="profile-info">
-					<img src="${pageContext.request.contextPath}/resources/images/profile_image_default.png" alt="Profile Image" class="profile-image">
+					<c:choose>
+					
+    <c:when test="${not empty sessionScope.member_profile.photo}">
+        <c:set var="profileImage" value="${pageContext.request.contextPath}/uploads/member/${sessionScope.member_profile.photo}" />
+    </c:when>
+    <c:otherwise>
+        <c:set var="profileImage" value="${pageContext.request.contextPath}/resources/images/profile_image_default.png" />
+    </c:otherwise>
+</c:choose>
+
+<img src="${profileImage}" alt="Profile Image" class="profile-image">
 					<div class="profile-content">
-						<div class="nickname">닉네임</div>
-						<div class="details">20대 • 여자</div>
+						<div class="nickname">${dto.nickName}</div>
+						<div class="details">${dto.age}대 • ${dto.gender}</div>
 					</div>
 				</div>
-				<button class="mbti-button" style="align: right;">mbti</button>
+				<button class="mbti-button" style="align: right;">${dto.mbti != "빈값입니다" ? dto.mbti : "mbti를 설정해주세요"} </button>
 			</div>
 			<div class="profile-intro">
-				<div>자기소개를 입력하세요</div>
+				<div>${dto.content != "빈값입니다" ? dto.content : "자기소개를 입력해주세요"} </div>
 			</div> 
 			<div class="profile-quatro">
 				<button class="profile-update">수정하기</button>

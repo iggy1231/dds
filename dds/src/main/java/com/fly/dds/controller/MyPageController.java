@@ -1,5 +1,7 @@
 package com.fly.dds.controller;
 
+import java.io.File;
+
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,8 +31,22 @@ public class MyPageController {
 	private FileManager fileManager;
 	
 	@GetMapping("profile")
-	public String profileList() {
+	public String profileList(
+			Member dto,
+    		HttpSession session,
+    		Model model
+    		) {
 		
+		SessionInfo info = (SessionInfo)session.getAttribute("member");
+		try {
+			dto = service.findById(info.getUser_num());
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		
+		System.out.println("진명아 확인할땐 이렇게하는거야 " + dto.getAge());
+		model.addAttribute("dto" , dto);
 		return ".four.mypage.profile";
 	}
 	
@@ -61,16 +77,32 @@ public class MyPageController {
 			e.printStackTrace();
 		}
 		
-		System.out.println("진명아 확인할땐 이렇게하는거야 " + dto);
+		//System.out.println("진명아 확인할땐 이렇게하는거야 " + dto);
 		model.addAttribute("dto" , dto);
 		
         return ".four.mypage.profileUpdate";
     }
 	
 	@PostMapping("profileUpdate")
-	public String profileSubmit() {
+	public String profileSubmit(Member dto ,
+			HttpSession session 
+			) {
+	    String root = session.getServletContext().getRealPath("/");
+	    String path = root + "uploads" + File.separator + "mypage";
+	    SessionInfo info = (SessionInfo)session.getAttribute("member");
+	    
+	    dto.setUser_num(info.getUser_num());
+	    
+	    try {
+			service.updateProfile(dto, path);
+			service.updateInfo(dto);
+			service.updateMember(dto);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	    
 		
-		return ".four.mypage.profileUpdate";
+		return "redirect:/mypage/profile";
 	}
 	
 	@PostMapping("deleteMember")
