@@ -59,7 +59,28 @@
 		<beans:property name="maxUploadSize" value="10485760" />
     </beans:bean>
 
-
+	<!-- Interceptor 설정 -->
+	<interceptors>
+		<interceptor>
+			<!-- 적용 -->
+			<mapping path="/**"/>
+			
+			<!-- 제외 -->
+			<exclude-mapping path="/"/>
+			<exclude-mapping path="/resources/**"/>
+			<exclude-mapping path="/member/login"/>
+			<exclude-mapping path="/member/logout"/>
+			<exclude-mapping path="/member/member"/>
+			<exclude-mapping path="/member/userIdCheck"/>
+			<exclude-mapping path="/member/complete"/>
+			<exclude-mapping path="/member/pwdFind"/>
+			<exclude-mapping path="/guest/main"/>
+			<exclude-mapping path="/guest/list"/>
+			<exclude-mapping path="/uploads/photo/**"/>
+			
+			<beans:bean class="com.fly.dds.interceptor.LoginCheckInterceptor"/>
+		</interceptor>
+	</interceptors>
     <!-- 예외처리 -->
 <!-- 
     <beans:bean class="org.springframework.web.servlet.handler.SimpleMappingExceptionResolver">
