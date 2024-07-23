@@ -78,54 +78,86 @@ ul.payment-info li span.total {
       
       <hr class="m-3 my-4">
       <!-- 할인 사용 -->
-      <div class="px-3 rounded row gx-4 gy-3 mb-3 pt-3">
-        <h5 class="ps-2 pb-0 fw-semibold fs-5">할인 적용</h5>
-        <div class="col-8">
-          <label for="point" class="form-label">포인트</label>
-          <input type="text" class="form-control" id="point" value="0">
-        </div>
-        <div class="col-4 d-flex align-items-end">
-          <button class="btn btn-secondary w-100">잔액 확인</button>
-        </div>
-        
-        <div class="col-8">
-          <label for="coupon" class="form-label pe-2">쿠폰</label>
-          <select class="form-select" id="coupon-select" onchange="updateCoupon()">
+<div class="px-3 rounded row gx-4 gy-3 mb-3 pt-3">
+    <h5 class="ps-2 pb-0 fw-semibold fs-5">할인 적용</h5>
+    <div class="col-8">
+        <label for="point" class="form-label">적립 포인트</label>
+        <input type="text" class="form-control" id="point" value="<fmt:formatNumber value='${dto.price * 0.005}' type='number' maxFractionDigits='0'/>">
+    </div>
+    <div class="col-4 d-flex align-items-end">
+        <button class="btn btn-secondary w-100" onclick="applyPoint()">포인트 바로 사용</button>
+    </div>
+    
+    <div class="col-12">
+        <label for="current-point" class="form-label">현재 보유 포인트</label> <span class="text-primary">: 0 p</span>
+        <input type="text" placeholder="사용할 포인트 입력" class="form-control" id="user-point">
+    </div>
+    
+    <div class="col-12">
+        <label for="coupon" class="form-label pe-2">쿠폰</label>
+        <select class="form-select" id="coupon-select" onchange="updateCoupon();">
             <option value="">:: 쿠폰 선택 ::</option>
             <option value="회원가입 축하 쿠폰(10% 할인)">회원가입 축하 쿠폰(10% 할인)</option>
-          </select>
-        </div>
-      </div>
-      <!-- 최종 가격 -->
-      <hr class="m-3 my-4">
-     <div class="px-3 rounded row gx-4 gy-3 mb-3 pt-3 d-flex justify-content-between align-items-center">
-        <h3 class="flex-grow-1 col fw-semibold">최종 가격</h3>
-        <div class="col-3 d-flex align-items-end">
-        <h4 class="total fw-semibold" style="color: #f45858;">245,000원</h4>
-        </div>
-      </div>
+        </select>
+    </div>
+</div>
+
+     <!-- 최종 가격 -->
+		<hr class="m-3 my-4">
+		<div class="px-3 rounded row gx-4 gy-1 pt-3 d-flex justify-content-between align-items-center">
+		    <h5 class="flex-grow-1 col">객실 가격(1박)</h5>
+		    <div class="col-3 d-flex align-items-end">
+		        <h4 class="total text-end" style="color: #A6A6A6;">${dto.price}원</h4>
+		    </div>
+		</div>
+		<div class="px-3 rounded row gx-4 gy-1 pt-3 d-flex justify-content-between align-items-center">
+		    <h5 class="flex-grow-1 col">포인트 사용액</h5>
+		    <div class="col-3 d-flex align-items-end">
+		        <h4 id="point-used" class="total  text-end" style="color: #A6A6A6;">0원</h4>
+		    </div>
+		</div>
+		<div class="px-3 rounded row gx-4 gy-1 pt-3 d-flex justify-content-between align-items-center">
+		    <h5 class="flex-grow-1 col">쿠폰 할인</h5>
+		    <div class="col-3 d-flex align-items-end">
+		        <h4 id="coupon-discount" class="total  text-end" style="color: #A6A6A6;">0원</h4>
+		    </div>
+		</div>
+		<div class="px-3 rounded row gx-4 gy-1 pt-3 d-flex justify-content-between align-items-center">
+		    <h5 class="flex-grow-1 col">총 할인된 금액</h5>
+		    <div class="col-3 d-flex align-items-end">
+		        <h4 id="total-discount" class="total  text-end" style="color: #A6A6A6;">0원</h4>
+		    </div>
+		</div>
+		<hr class="m-3 my-2">
+		<div class="px-3 rounded row gx-4 gy-3 mt-2 pt-3 d-flex justify-content-between align-items-center">
+		    <h3 class="flex-grow-1 col fw-semibold">최종 가격</h3>
+		    <div class="col-3 d-flex align-items-end">
+		        <h4 id="final-price" class="total fw-semibold" style="color: #f45858;">${dto.price}원</h4>
+		    </div>
+		</div>
+
       
       
     </div>
 <div class="col-lg-4">
   <div class="px-3 border border-1 rounded row gx-4 gy-3 mb-3">
-    <h4 style="font-weight: 700;" class="ps-2 pb-0">롯데호텔 제주</h4>
+    <h5 style="font-weight: 700;" class="ps-2 pb-0 text-center">${dto.subject}</h5>
     <div class="ratio ratio-4x3">
-      <img src="https://yaimg.yanolja.com/v5/2021/03/29/15/6061f2a92f9b87.94225506.png" class="img-fluid rounded" alt="객실 이미지">
+      <img src="${pageContext.request.contextPath}/uploads/room/${dto.thumbnail}" class="img-fluid rounded" alt="객실 이미지">
     </div>
     <div class="p-2 mt-2">
       <table>
         <tr>
-          <td class="fw-semibold fs-6 text-nowrap ">객실</td>
-          <td class="ps-3 fs-6">디럭스 패밀리트윈</td>
+          <td class="fw-semibold fs-6 text-nowrap">객실</td>
+          <td class="ps-3 fs-6">${dto.name}</td>
         </tr>
         <tr>
           <td class="fw-semibold fs-6 text-nowrap "><strong>일정</strong></td>
-          <td class="ps-3 fs-6">07.15 15:00 - 07.16 11:00 (1박)</td>
+          <td class="ps-3 fs-6">${sdate} - ${edate}</td>
         </tr>
         <tr>
           <td class="fw-semibold fs-6 text-nowrap "><strong>인원</strong></td>
-          <td class="ps-3 fs-6">2인 기준, 최대 3인(유료)</td>
+          <td class="ps-3 fs-6">최대 ${dto.people}명</td>
         </tr>
       </table>
     </div>
@@ -136,12 +168,12 @@ ul.payment-info li span.total {
       <ul class="payment-info">
         <li>
           <span>객실 가격(1박)</span>
-          <span>245,000원</span>
+          <span>${dto.price}원</span>
         </li>
         <hr class="pb-2">
         <li>
           <span class="total fw-semibold">총 결제 금액</span>
-          <span class="total fw-semibold" style="color: #f45858;">245,000원</span>
+          <span class="total fw-semibold" style="color: #f45858;">${dto.price}원</span>
         </li>
       </ul>
       <div class="d-flex justify-content-center mt-4 mb-3 pt-2">
@@ -152,6 +184,73 @@ ul.payment-info li span.total {
 </div>
   </div>
 </div>
+
+<script>
+document.addEventListener("DOMContentLoaded", function() {
+    var pointField = document.getElementById('point');
+    pointField.value = formatNumber(pointField.value);
+    updateFinalPrice(); // 기본적으로 최종 가격 계산 적용
+});
+
+function applyPoint() {
+    var pointField = document.getElementById('point');
+    var point = pointField.value.replace(/,/g, '');
+    var pointUsed = document.getElementById('point-used');
+    var couponDiscount = document.getElementById('coupon-discount').innerText.replace(/,/g, '').replace('원', '');
+    var finalPrice = document.getElementById('final-price');
+    var roomPrice = ${dto.price};
+    
+    point = parseInt(point) || 0; // Remove commas for calculation and handle NaN
+    couponDiscount = parseInt(couponDiscount) || 0;
+
+    if (!isNaN(point)) {
+        pointUsed.innerText = formatNumber(point) + '원';
+        var totalDiscount = point + couponDiscount;
+        document.getElementById('total-discount').innerText = formatNumber(totalDiscount) + '원';
+        finalPrice.innerText = formatNumber(roomPrice - totalDiscount) + '원';
+    } else {
+        pointUsed.innerText = '0원';
+        finalPrice.innerText = formatNumber(roomPrice - couponDiscount) + '원';
+    }
+}
+
+function updateFinalPrice() {
+    var pointUsed = document.getElementById('point-used').innerText.replace(/,/g, '').replace('원', '');
+    var couponDiscount = document.getElementById('coupon-discount').innerText.replace(/,/g, '').replace('원', '');
+    var finalPrice = document.getElementById('final-price');
+    var roomPrice = ${dto.price};
+
+    pointUsed = parseInt(pointUsed) || 0;
+    couponDiscount = parseInt(couponDiscount) || 0;
+
+    var totalDiscount = pointUsed + couponDiscount;
+    document.getElementById('total-discount').innerText = formatNumber(totalDiscount) + '원';
+    finalPrice.innerText = formatNumber(roomPrice - totalDiscount) + '원';
+}
+
+function updateCoupon() {
+    var couponSelect = document.getElementById('coupon-select');
+    var couponValue = couponSelect.options[couponSelect.selectedIndex].value;
+    var couponDiscount = 0;
+    var roomPrice = ${dto.price};
+
+    if (couponValue === '회원가입 축하 쿠폰(10% 할인)') {
+        couponDiscount = roomPrice * 0.1;
+    }
+
+    document.getElementById('coupon-discount').innerText = formatNumber(couponDiscount) + '원';
+
+    updateFinalPrice(); // Recalculate with the new coupon value
+}
+
+function formatNumber(num) {
+    return num.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+}
+
+
+
+</script>
+
 
 <script src="https://cdn.iamport.kr/v1/iamport.js"></script>
 <script>

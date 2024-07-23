@@ -14,5 +14,8 @@ public interface RoomService {
 	public List<Room> listPhoto(Map<String, Object> map);
 	
 	public Room findByNum(long num);
+	public Room findByDetail(long detail_num);
+	
+	// <select id="findByDetail" parameterType="Long" resultType="com.fly.dds.domian.Room">
 	// public List<Room> searchRoom(Map<String, Object> map);
 }

@@ -290,6 +290,7 @@
 		                    <input type="hidden" name="edate" value="${edate}">
 		                    <input type="hidden" name="people" value="${detail.people}">
 		                    <input type="hidden" name="photo" value="${dto.thumbnail}">
+		                    <input type="hidden" name="name" value="${detail.name}">
 		                    <button type="button" class="btn btn-primary fs-5 pt-1" onclick="sendOk(${detail.detail_num})">예약하기</button>
 		                </form>
 		            </div>

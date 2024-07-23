@@ -100,6 +100,14 @@
 	where r.num=#{num}
 	</select>
 	
+	<!-- detail 값 가져오기 -->
+	<select id="findByDetail" parameterType="Long" resultType="com.fly.dds.domain.Room">
+		select subject, detail_num , people , price , discount , name , thumbnail , r.num
+		from room_detail d
+		join room r on d.num = r.num
+		where d.detail_num = #{detail_num}
+	</select>
+	
 	<select id="listPhoto" parameterType="map" resultType="com.fly.dds.domain.Room">
 	select photo_num , photo , p.num
 	from room_photo p

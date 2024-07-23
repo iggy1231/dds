@@ -263,18 +263,15 @@ public class RoomController {
 	
 	@GetMapping("payment") 
 	public String roomPayment(
-			@RequestParam long num,
-            @RequestParam long detail_num,
+			@RequestParam long detail_num,
 	        @RequestParam String sdate,
 	        @RequestParam String edate,
-	        @RequestParam int people,
-	        @RequestParam String photo,
 	        HttpSession session,
 	        Model model) throws Exception {
 	    
 	    try {
 	        // 해당 레코드 가져 오기
-	        Room dto = service.findByNum(num);
+	    	Room dto = service.findByDetail(detail_num);
 	        SessionInfo info = (SessionInfo)session.getAttribute("member");
 	       
 	        
@@ -287,18 +284,15 @@ public class RoomController {
 	        
 	        // 상세정보 출력
 	        Map<String, Object> map = new HashMap<>();
-	        map.put("num", num);
 	        
 	        model.addAttribute("dto", dto);
 	        
-	        System.out.println("테스터 : " + dto + sdate + edate + people + detail_num + photo);
+	       //  System.out.println("테스터 : " + dto + sdate + edate + people + detail_num + photo);
 	        
 	        // 추가된 정보
 	        model.addAttribute("sdate", sdate);
 	        model.addAttribute("edate", edate);
-	        model.addAttribute("people", people);
 	        model.addAttribute("detail_num", detail_num);
-	        model.addAttribute("photo", photo);
 	        model.addAttribute("tel",tel);
 	        
 	    } catch (Exception e) {

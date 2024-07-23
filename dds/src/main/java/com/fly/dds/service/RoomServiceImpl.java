@@ -81,6 +81,19 @@ public class RoomServiceImpl implements RoomService {
 		return list;
 	}
 
+	@Override
+	public Room findByDetail(long detail_num) {
+		Room dto = null;
+		
+		try {
+			dto = mapper.findByDetail(detail_num);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		return dto;
+	}
+
 	/*
 	 * @Override public List<Room> searchRoom(Map<String, Object> map) { return
 	 * mapper.searchRoom(map); }
