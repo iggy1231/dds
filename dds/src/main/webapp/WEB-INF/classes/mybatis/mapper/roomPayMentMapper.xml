@@ -16,6 +16,12 @@
     		#{total_price} , #{coupon_price} , #{point_price} , #{discount} , #{final_price} , #{name} , #{detail_num} , #{user_num} );
 	 </insert>
 	 
+	 <!-- 주문 상세 등록 -->
+	 <insert id="insertPayDetail" parameterType="com.fly.dds.domain.RoomPayment">
+	 	INSERT INTO room_pay_cash(sale_num, ok_num, card_name)
+	 	VALUES(#{sale_num}, #{ok_num}, #{card_name} )
+	 </insert>
+	 
 <!-- // sale_num
 	public String findBySaleNum();
 	

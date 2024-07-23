@@ -135,7 +135,7 @@ function addNewContent(data) {
 		
 		htmlText+='<div class="col">';
 		htmlText+='	<span class="card" onclick="article('+data.list[index].num+');">';
-		htmlText+='	<img src="${pageContext.request.contextPath}/resources/images/숙소_예시.jpg" class="card-img-top" alt="...">';
+		htmlText+='	<img src="${pageContext.request.contextPath}/uploads/companion/'+data.list[index].saveFilename+'" class="card-img-top" alt="...">';
 		htmlText+='		<span class="card-body">';
 		data.list[index].age.forEach((ages)=>{
 			 htmlText+='<a href="#">'+ages+'대 </a>';
@@ -175,7 +175,7 @@ function nextPopularList(data) {
 		
 		htmlText+='<div class="col">';
 		htmlText+='	<span class="card" onclick="article('+data.list[index].num+');">';
-		htmlText+='	<img src="${pageContext.request.contextPath}/resources/images/숙소_예시.jpg" class="card-img-top" alt="...">';
+		htmlText+='	<img src="${pageContext.request.contextPath}/uploads/companion/'+data.list[index].saveFilename+'" class="card-img-top" alt="...">';
 		htmlText+='		<span class="card-body">';
 		data.list[index].age.forEach((ages)=>{
 			 htmlText+='<a href="#">'+ages+'대 </a>';

@@ -68,11 +68,11 @@ ul.payment-info li span.total {
         <h5 class="ps-2 pb-0 fw-semibold fs-5">예약자 정보</h5>
         <div class="col-12">
           <label for="name" class="form-label">예약자 이름</label>
-          <input type="text" class="form-control" id="name">
+          <input type="text" class="form-control" id="name" value="${sessionScope.member.userName}">
         </div>
         <div class="col-12 mt-3">
           <label for="phone" class="form-label">휴대폰 번호</label>
-          <input type="text" class="form-control" id="phone">
+          <input type="text" class="form-control" id="phone" value="">
         </div>
       </div>
       
@@ -99,9 +99,9 @@ ul.payment-info li span.total {
       <!-- 최종 가격 -->
       <hr class="m-3 my-4">
      <div class="px-3 rounded row gx-4 gy-3 mb-3 pt-3 d-flex justify-content-between align-items-center">
-        <h3 class="flex-grow-1 col">최종 가격</h3>
+        <h3 class="flex-grow-1 col fw-semibold">최종 가격</h3>
         <div class="col-3 d-flex align-items-end">
-        <h5 class="total fw-semibold" style="color: #f45858;">245,000원</h5>
+        <h4 class="total fw-semibold" style="color: #f45858;">245,000원</h4>
         </div>
       </div>
       

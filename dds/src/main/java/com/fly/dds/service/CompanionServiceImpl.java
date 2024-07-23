@@ -140,6 +140,8 @@ public class CompanionServiceImpl implements CompanionService {
 				dto.setRegion_sub(subRegionList);
 				dto.setAge(age);
 				
+				dto.setSaveFilename(mapper.findFileByNum(dto.getNum()));
+				
 				result.add(dto);
 			}
 		} catch (Exception e) {
@@ -171,6 +173,8 @@ public class CompanionServiceImpl implements CompanionService {
 				dto.setRegion_sub(subRegionList);
 				dto.setAge(age);
 				
+				dto.setSaveFilename(mapper.findFileByNum(dto.getNum()));
+				
 				result.add(dto);
 			}
 		} catch (Exception e) {
@@ -200,6 +204,8 @@ public class CompanionServiceImpl implements CompanionService {
 				dto.setRegion_main(mainRegionList);
 				dto.setRegion_sub(subRegionList);
 				dto.setAge(age);
+				
+				dto.setSaveFilename(mapper.findFileByNum(dto.getNum()));
 				
 				result.add(dto);
 			}
@@ -382,6 +388,8 @@ public class CompanionServiceImpl implements CompanionService {
 				dto.setRegion_sub(subRegionList);
 				dto.setAge(age);
 				
+				dto.setSaveFilename(mapper.findFileByNum(dto.getNum()));
+				
 				result.add(dto);
 			}
 		} catch (Exception e) {
@@ -412,6 +420,8 @@ public class CompanionServiceImpl implements CompanionService {
 				dto.setRegion_main(mainRegionList);
 				dto.setRegion_sub(subRegionList);
 				dto.setAge(age);
+				
+				dto.setSaveFilename(mapper.findFileByNum(dto.getNum()));
 				
 				result.add(dto);
 			}
@@ -540,6 +550,8 @@ public class CompanionServiceImpl implements CompanionService {
 				dto.setRegion_sub(subRegionList);
 				dto.setAge(age);
 				
+				dto.setSaveFilename(mapper.findFileByNum(dto.getNum()));
+				
 				result.add(dto);
 			}
 		} catch (Exception e) {
@@ -571,6 +583,8 @@ public class CompanionServiceImpl implements CompanionService {
 				dto.setRegion_sub(subRegionList);
 				dto.setAge(age);
 				
+				dto.setSaveFilename(mapper.findFileByNum(dto.getNum()));
+				
 				result.add(dto);
 			}
 		} catch (Exception e) {
@@ -578,5 +592,15 @@ public class CompanionServiceImpl implements CompanionService {
 		}
 		
 		return result;
+	}
+
+	@Override
+	public void deleteCompanion(long num) {
+		mapper.deleteCompanion(num);
+	}
+
+	@Override
+	public void endCompanion(long num) {
+		mapper.endCompanion(num);
 	}
 }

@@ -71,6 +71,7 @@ public class CompanionController {
 	@GetMapping("write")
 	public String writeForm(Model model) {
 		
+		model.addAttribute("mode", "write");
 		return ".companion.write";
 	}
 	
@@ -588,5 +589,44 @@ public class CompanionController {
 		}
 	
 		return "redirect:/companion/article?num="+num;
+	}
+	
+	@PostMapping("deleteCompanion")
+	public String deleteCompanion(@RequestParam long num) {
+		try {
+			service.deleteCompanion(num);
+		} catch (Exception e) {
+			// TODO: handle exception
+		}
+		
+		return "redirect:/companion/list";
+	}
+	
+	@PostMapping("endCompanion")
+	public String endCompanion(@RequestParam long num) {
+		try {
+			service.endCompanion(num);
+		} catch (Exception e) {
+			// TODO: handle exception
+		}
+		
+		return "redirect:/companion/list";
+	}
+	
+	@GetMapping("updateCompanion")
+	public String updateCompanion(@RequestParam long num,
+			Model model) {
+		Companion dto=null;
+		try {
+			dto=service.findByNum(num);
+			if(dto==null) {
+				return "redirect:/companion/list";
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		model.addAttribute("dto", dto);
+		model.addAttribute("mode", "update");
+		return ".companion.write";
 	}
 }

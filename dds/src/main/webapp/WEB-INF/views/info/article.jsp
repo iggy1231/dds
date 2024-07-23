@@ -138,6 +138,32 @@ p {
 		    </div>
 		  </div>
 		</div>
+		<div class="modal fade" id="inputModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+		  <div class="modal-dialog">
+		    <div class="modal-content">
+		      <div class="modal-header">
+		        <h1 class="modal-title fs-5" id="staticBackdropLabel">신고</h1>
+		      </div>
+		      <div class="modal-body">
+				<form name="reportForm" action="#">
+		        <select name="reason">
+		        	<option value="1">신고 사유</option>
+		        	<option value="2">신고 사유</option>
+		        	<option value="3">신고 사유</option>
+		        	<option value="4">신고 사유</option>
+		        </select>
+		        <input type="text" name="reason2">
+		        <input type="hidden" name="unum">
+		        <input type="hidden" name="rnum">
+		        </form>
+			  </div>  
+		      <div class="modal-footer">
+		        <button type="button" class="btn btn-primary" data-bs-dismiss="modal">확인</button>
+		        <button type="button" class="btn btn-primary" data-bs-dismiss="modal" onclick="submitReport();">확인</button>
+		      </div>
+		    </div>
+		  </div>
+		</div>
 	</div>
 </div>
 <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=###"></script>
@@ -214,18 +240,27 @@ function replyDelete(reply_num) {
 }
 function replyReport(user_num, reply_num) {
 	if(${empty sessionScope.member}) {
-		alert("댓글 신고는 로그인 후에만 가능합니다.")
+		$('#inputModal .modal-body').html('');
+		$('#inputModal .modal-footer button:last').hide();
+		$('#inputModal .modal-title').text("댓글 신고는 로그인 후에만 가능합니다.");
 		return;
 	}
 	
-	let reason;
-	text=prompt('신고 사유를 입력해주세요 : ');
-	if(text=="") {
+	$('#inputModal .modal-footer button:first').hide();
+	const f=document.reportForm;
+	f.unum.value=user_num;
+	f.rnum.value=reply_num;;
+}
+
+function submitReport() {
+	const f=document.reportForm;
+	if(f.reason.value==null||f.reason2.value==null) {
 		alert('신고 사유를 입력해주세요');
 		return;
 	}
-	reason=text;
-	
+	let user_num=f.unum.value;
+	let reply_num=f.rnum.value;
+	let reason=f.reason.value+" : "+f.reason2.value;
 	let url="${pageContext.request.contextPath}/info/reportReply";
 	let query="article_num="+reply_num+"&user_num="+user_num+"&reason="+reason;	
 	
@@ -332,7 +367,7 @@ function listPage(page) {
 				out+=' onclick="replyDelete('+item.reply_num+');">';
 				out+='<i class="bi bi-trash"></i></button>';
 			} else {
-				out+='<td><button class="btn btn-outline-secondary"';
+				out+='<td><button class="btn btn-outline-secondary" data-bs-toggle="modal" data-bs-target="#inputModal"';
 				out+=' onclick="replyReport('+item.user_num+','+item.reply_num+');">';
 				out+='<i class="bi bi-exclamation-octagon"></i></button>';
 			}

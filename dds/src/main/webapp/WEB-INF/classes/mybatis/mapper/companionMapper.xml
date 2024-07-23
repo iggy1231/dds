@@ -291,4 +291,18 @@
 	    OFFSET #{offset} ROWS FETCH FIRST #{size} ROWS ONLY
 	</select>
 	
+	<delete id="deleteCompanion" parameterType="long">
+		delete from companion where num=#{num}
+	</delete>
+	
+	<update id="endCompanion" parameterType="long">
+		update companion set status=0 where num=#{num}
+	</update>
+	
+	<select id="findFileByNum" resultType="String">
+		select filename from companion_file
+		where num=#{num}
+		order By file_num ASC
+		FETCH FIRST 1 ROWS ONLY
+	</select>
 </mapper>
