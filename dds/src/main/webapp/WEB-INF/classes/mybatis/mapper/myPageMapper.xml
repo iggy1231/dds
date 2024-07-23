@@ -18,7 +18,8 @@
 	</update>
 	
 	<update id="updateProfile" parameterType="com.fly.dds.domain.Member">
-		UPDATE member_profile SET content = #{content}
+		UPDATE member_profile SET content = #{content}, 
+			photo = CASE WHEN #{photo} IS NOT NULL THEN #{photo, jdbcType=VARCHAR} ELSE photo END
 		WHERE user_num = #{user_num}
 	</update>
 

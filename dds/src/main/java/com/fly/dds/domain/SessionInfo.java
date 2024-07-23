@@ -8,7 +8,7 @@ public class SessionInfo {
 	private int grade;
 	private int status;
 	private int activity;
-	
+	private String photo;
 	public long getUser_num() {
 		return user_num;
 	}
@@ -51,6 +51,10 @@ public class SessionInfo {
 	public void setActivity(int activity) {
 		this.activity = activity;
 	}
-	
-	
+	public String getPhoto() {
+		return photo;
+	}
+	public void setPhoto(String photo) {
+		this.photo = photo;
+	}
 }

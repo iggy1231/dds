@@ -30,6 +30,7 @@ public class Member {
 	private String mbti;
 	
 	private int age;
+	private int ageDecade;
 
 	public long getUser_num() {
 		return user_num;
@@ -184,20 +185,15 @@ public class Member {
         LocalDate birthDate = LocalDate.parse(birthDateString, formatter);
         
         // 만나이 계산
-        int age = Period.between(birthDate, currentDate).getYears();
+        age = Period.between(birthDate, currentDate).getYears();
         
-        // 일의 자리 숫자를 제거한 나이대 계산
-        int ageDecade = (age / 10) * 10;
-        System.out.println(age);
-        System.out.println(ageDecade);
-        return ageDecade;
-		
+        return age;
 	}
+	
+	public int getAgeDecade() {
+        // 일의 자리 숫자를 제거한 나이대 계산
+        ageDecade = (getAge() / 10) * 10;
 
-
-	
-	
-	
-	
-	
+        return ageDecade;
+	}	
 }

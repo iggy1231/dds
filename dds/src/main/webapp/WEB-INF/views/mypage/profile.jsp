@@ -224,8 +224,8 @@
 				<div class="profile-info">
 					<c:choose>
 					
-    <c:when test="${not empty sessionScope.member_profile.photo}">
-        <c:set var="profileImage" value="${pageContext.request.contextPath}/uploads/member/${sessionScope.member_profile.photo}" />
+    <c:when test="${not empty sessionScope.member.photo}">
+        <c:set var="profileImage" value="${pageContext.request.contextPath}/uploads/mypage/${sessionScope.member.photo}" />
     </c:when>
     <c:otherwise>
         <c:set var="profileImage" value="${pageContext.request.contextPath}/resources/images/profile_image_default.png" />
@@ -235,7 +235,7 @@
 <img src="${profileImage}" alt="Profile Image" class="profile-image">
 					<div class="profile-content">
 						<div class="nickname">${dto.nickName}</div>
-						<div class="details">${dto.age}대 • ${dto.gender}</div>
+						<div class="details">${dto.ageDecade}대 • ${dto.gender}</div>
 					</div>
 				</div>
 				<button class="mbti-button" style="align: right;">${dto.mbti != "빈값입니다" ? dto.mbti : "mbti를 설정해주세요"} </button>
@@ -274,7 +274,7 @@
 	                    <div class="col-lg-4 col-md-6 wow fadeInUp" data-wow-delay="0.3s">
 	                        <div class="property-item rounded overflow-hidden">
 	                            <div class="position-relative overflow-hidden">
-	                                <a href=""><img class="ratio ratio-4x3 img-fluid" src="https://ppss.kr/wp-content/uploads/2023/02/1-2.jpeg" alt=""></a>
+	                            <a href=""><img class="ratio ratio-4x3 img-fluid" src="https://ppss.kr/wp-content/uploads/2023/02/1-2.jpeg" alt=""></a>
 	                                <div class="d-inline-flex position-absolute start-0 top-0 m-4">
                            				 <div class="bg-primary rounded text-white py-1 px-3 me-2"><i class="bi bi-heart-fill"></i>&nbsp;1개</div> 
                             			<div class="bg-primary rounded text-white py-1 px-3"><i class="bi bi-eye"></i>&nbsp;1개</div>

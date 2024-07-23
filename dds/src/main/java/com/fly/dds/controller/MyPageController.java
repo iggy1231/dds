@@ -97,10 +97,12 @@ public class MyPageController {
 			service.updateProfile(dto, path);
 			service.updateInfo(dto);
 			service.updateMember(dto);
+			
+			dto = service.findById(info.getUser_num());
+			info.setPhoto(dto.getPhoto());
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-	    
 		
 		return "redirect:/mypage/profile";
 	}

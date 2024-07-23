@@ -4,9 +4,10 @@
 <mapper namespace="com.fly.dds.mapper.MemberMapper">
 	<!-- enabled 상태에 따라 로그인 불가능하게 하기 -->
 	<select id="loginMember" parameterType="String" resultType="com.fly.dds.domain.Member">
-		SELECT m2.user_num, userId, pwd, userName, nickName, reg_date, modify_date, activity, user_grade, enabled
+		SELECT m2.user_num, userId, pwd, userName, nickName, reg_date, modify_date, activity, user_grade, enabled, photo
 		FROM member_info m1
 		JOIN member1 m2 ON m1.user_num=m2.user_num
+		LEFT OUTER JOIN member_profile m3 ON m1.user_num=m3.user_num
 		WHERE userId=#{userId}
 	</select>
 </mapper>

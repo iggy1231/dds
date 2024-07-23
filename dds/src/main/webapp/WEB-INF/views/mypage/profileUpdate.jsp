@@ -8,11 +8,11 @@
 	<h5 class="card-header">프로필 상세</h5>
 	<!-- Account -->
 	
-		<form action="${pageContext.request.contextPath}/mypage/profileUpdate" id="formAccountSettings" method="POST" enctype="multipart/form-data">
+		<form action="${pageContext.request.contextPath}/mypage/profileUpdate" id="formAccountSettings" method="POST" enctype="multipart/form-data" class="write-form">
 	<div class="card-body">
 		<div class="d-flex align-items-start align-items-sm-center gap-4">
-			<img src="${pageContext.request.contextPath}/resources/images/${dto.photo}" alt="user-avatar"
-				class="d-block rounded" height="100" width="100" id="uploadedAvatar" />
+			<img alt="user-avatar"
+				class="d-block rounded profile-photo" height="100" width="100" id="uploadedAvatar" />
 			<div class="button-wrapper">
 				<label for="upload" class="btn btn-primary me-2 mb-0" tabindex="0">
 					<span class="d-none d-sm-block">사진 Upload</span> <i
@@ -110,3 +110,42 @@
 	</div>
 </div>
 
+<script type="text/javascript">
+$(function() {
+
+	let img = "${dto.photo}";
+	if(img) {
+		$('.profile-photo').attr('src', '${pageContext.request.contextPath}/uploads/mypage/'+img);
+	} else {
+		$('.profile-photo').attr('src', '${pageContext.request.contextPath}/resources/images/profile_image_default.png');
+	}
+	
+	$(".write-form input[name=photoFile]").change(function(){
+		let file = this.files[0];
+		if(! file) {
+			
+			let img2;
+			if( img ) {
+				img2 = "${pageContext.request.contextPath}/uploads/mypage/" + img;
+			} else {
+				img2 = "${pageContext.request.contextPath}/resources/images/profile_image_default.png";
+			}
+			$('.profile-photo').attr('src', img2);
+			
+			return false;
+		}
+		
+		if(! file.type.match("image.*")) {
+			this.focus();
+			return false;
+		}
+		
+		
+		let reader = new FileReader();
+		reader.onload = function(e) {
+			$('.profile-photo').attr('src', e.target.result);
+		}
+		reader.readAsDataURL(file);
+	});
+});
+</script>
