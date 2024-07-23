@@ -40,4 +40,6 @@ public interface CompanionService {
 	public boolean isApplied(Map<String, Object> map);
 	public List<Companion> popularListCompanion(Map<String, Object> map);
 	public List<Companion> popularListBymainRegion(Map<String, Object> map);
+	public void deleteCompanion(long num);
+	public void endCompanion(long num);
 }

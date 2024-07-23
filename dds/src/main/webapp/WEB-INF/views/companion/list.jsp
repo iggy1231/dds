@@ -186,6 +186,7 @@ function nextPage2(mainRegion) {
 } 
 
 function addNextPage(data) {
+	console.log(data)
 	$("#areaList-carousel .carousel-item:first").addClass('areaNewList');
 	$("#areaList-carousel .carousel-item").html("");
 	
@@ -204,7 +205,7 @@ function addNextPage(data) {
 		}
 		if(i<data.list.length) {
 			htmlText+='<div class="col card" onclick="article('+data.list[i].num+')">';
-			htmlText+='<img src="${pageContext.request.contextPath}/resources/images/숙소_예시.jpg" class="card-img-top" alt="...">';
+			htmlText+='<img src="${pageContext.request.contextPath}/uploads/companion/'+data.list[i].saveFilename+'" class="card-img-top" alt="...">';
 			htmlText+='<div class="card-body"><p>'+data.list[i].subject+'</p>';
 			data.list[i].age.forEach((ages)=>{
 				htmlText+='<a href="#">'+ages+'대 </a>';
@@ -226,6 +227,7 @@ function addNextPage(data) {
 }
 
 function addNextPage2(data) {
+	console.log(data);
 	$("#areaPopularList-carousel .carousel-item:first").addClass('popularNewList');
 	$("#areaPopularList-carousel .carousel-item").html("");
 	
@@ -244,7 +246,7 @@ function addNextPage2(data) {
 		}
 		if(i<data.list.length) {
 			htmlText+='<div class="col card" onclick="article('+data.list[i].num+')">';
-			htmlText+='<img src="${pageContext.request.contextPath}/resources/images/숙소_예시.jpg" class="card-img-top" alt="...">';
+			htmlText+='<img src="${pageContext.request.contextPath}/uploads/companion/'+data.list[i].saveFilename+'" class="card-img-top" alt="...">';
 			htmlText+='<div class="card-body"><p>'+data.list[i].subject+'</p>';
 			data.list[i].age.forEach((ages)=>{
 				htmlText+='<a href="#">'+ages+'대 </a>';
@@ -321,10 +323,11 @@ function scroll_load(data) {
 	sentinel.style.display = 'none';
 	
 	
+	console.log(data);
 	for(let item of data.list) {
 		let htmlText="";
 		htmlText='<li><div class="card flex-row" onclick="article('+item.num+')">';
-		htmlText+='	<img src="${pageContext.request.contextPath}/resources/images/숙소_예시.jpg" class="card-img-top" alt="...">';
+		htmlText+='	<img src="${pageContext.request.contextPath}/uploads/companion/'+item.saveFilename+'" class="card-img-top" alt="...">';
 		htmlText+='		<div class="card-body">';
 		item.age.forEach((ages)=>{
 			htmlText+='<a href="#">'+ages+'대 </a>';
