@@ -72,7 +72,7 @@ ul.payment-info li span.total {
         </div>
         <div class="col-12 mt-3">
           <label for="phone" class="form-label">휴대폰 번호</label>
-          <input type="text" class="form-control" id="phone" value="">
+          <input type="text" class="form-control" id="phone" value="${tel}">
         </div>
       </div>
       

@@ -212,7 +212,7 @@ hr {
                     <div class="d-flex flex-column justify-content-between w-100 pl-5">
                         <div class="p-3">
                             <h5 class="mb-2 fw-semibold">${dto.room_type}</h5>
-                            <a href="${pageContext.request.contextPath}/room/article?num=${dto.num}&page=${page}">
+                            <a href="${pageContext.request.contextPath}/room/article?num=${dto.num}&page=${page}&sdate=${sdate}&edate=${edate}&people=${people}">
     						<h4 class="mb-2 fw-semibold">${dto.subject}</h4>
 							</a>
 

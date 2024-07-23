@@ -20,9 +20,11 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.fly.dds.common.FileManager;
 import com.fly.dds.common.MyUtil;
+import com.fly.dds.domain.Member;
 import com.fly.dds.domain.Room;
 import com.fly.dds.domain.RoomQnA;
 import com.fly.dds.domain.SessionInfo;
+import com.fly.dds.service.MyPageService;
 import com.fly.dds.service.RoomQnAService;
 import com.fly.dds.service.RoomService;
 
@@ -34,6 +36,9 @@ public class RoomController {
 	
 	@Autowired
 	private RoomQnAService qnaService;
+	
+	@Autowired
+	private MyPageService myPageService;
 	
 	@Autowired
 	private MyUtil myUtil;
@@ -51,6 +56,8 @@ public class RoomController {
             @RequestParam String page,
             @RequestParam(defaultValue = "") String kwd,
             HttpSession session,
+            @RequestParam String sdate,
+	        @RequestParam String edate,
             Model model) throws Exception {
         
         kwd = URLDecoder.decode(kwd, "utf-8");
@@ -81,6 +88,8 @@ public class RoomController {
         model.addAttribute("dto", dto);
         model.addAttribute("page", page);
         model.addAttribute("kwd", kwd);
+        model.addAttribute("sdate", sdate);
+        model.addAttribute("edate", edate);
         model.addAttribute("query", query);
         
        
@@ -253,9 +262,50 @@ public class RoomController {
 	}
 	
 	@GetMapping("payment") 
-	public String roomPayment(Model model) throws Exception {
-		
-		return ".room.payment";
+	public String roomPayment(
+			@RequestParam long num,
+            @RequestParam long detail_num,
+	        @RequestParam String sdate,
+	        @RequestParam String edate,
+	        @RequestParam int people,
+	        @RequestParam String photo,
+	        HttpSession session,
+	        Model model) throws Exception {
+	    
+	    try {
+	        // 해당 레코드 가져 오기
+	        Room dto = service.findByNum(num);
+	        SessionInfo info = (SessionInfo)session.getAttribute("member");
+	       
+	        
+	        Member member = null;
+	        String tel;
+	        
+	        member = myPageService.findById(info.getUser_num());
+	        tel = member.getTel();
+	       
+	        
+	        // 상세정보 출력
+	        Map<String, Object> map = new HashMap<>();
+	        map.put("num", num);
+	        
+	        model.addAttribute("dto", dto);
+	        
+	        System.out.println("테스터 : " + dto + sdate + edate + people + detail_num + photo);
+	        
+	        // 추가된 정보
+	        model.addAttribute("sdate", sdate);
+	        model.addAttribute("edate", edate);
+	        model.addAttribute("people", people);
+	        model.addAttribute("detail_num", detail_num);
+	        model.addAttribute("photo", photo);
+	        model.addAttribute("tel",tel);
+	        
+	    } catch (Exception e) {
+	        e.printStackTrace();
+	    }
+	    
+	    return ".room.payment";
 	}
 
 	

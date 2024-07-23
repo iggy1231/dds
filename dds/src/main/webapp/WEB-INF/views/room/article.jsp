@@ -267,29 +267,35 @@
     <div class="col-12">
         <h3 class="fw-semibold pb-3">객실 선택</h3>
         <c:forEach var="detail" items="${detail}">
-        <div class="card mb-3">
-            <div class="row g-0 align-items-center">
-                <div class="col-md-4">
-                    <div class="ratio ratio-4x3">
-                        <img src="${pageContext.request.contextPath}/uploads/room/${detail.detail_photo}" class="img-fluid rounded-start" alt="객실 이미지">
-                    </div>
-                </div>
-                <div class="col-md-5">
-                    <div class="card-body p-2">
-                        <h2 class="card-title fw-semibold pb-2">${detail.name}</h2>
-                        <h5 class="card-text py-1 fw-medium">🛏️ ${detail.content}</h5>
-                        <h5 class="card-text py-2 fw-medium">👥 ${detail.people}인실</h5>
-                    </div>
-                </div>
-                <div class="col-md-3 text-end p-3 pe-4">
-                    <h4 class="text-primary fw-semibold">${detail.price}원 / 박</h4>
-                    <form name="buyForm">
-                   	 	<button type="button" class="btn btn-primary fs-5 pt-1" onclick="sendOk();">예약하기</button>
-                    </form>
-                </div>
-            </div>
-        </div>
-        </c:forEach>
+		    <div class="card mb-3">
+		        <div class="row g-0 align-items-center">
+		            <div class="col-md-4">
+		                <div class="ratio ratio-4x3">
+		                    <img src="${pageContext.request.contextPath}/uploads/room/${detail.detail_photo}" class="img-fluid rounded-start" alt="객실 이미지">
+		                </div>
+		            </div>
+		            <div class="col-md-5">
+		                <div class="card-body p-2">
+		                    <h2 class="card-title fw-semibold pb-2">${detail.name}</h2>
+		                    <h5 class="card-text py-1 fw-medium">🛏️ ${detail.content}</h5>
+		                    <h5 class="card-text py-2 fw-medium">👥 ${detail.people}인실</h5>
+		                </div>
+		            </div>
+		            <div class="col-md-3 text-end p-3 pe-4">
+		                <h4 class="text-primary fw-semibold">${detail.price}원 / 박</h4>
+		                <form id="reservationForm_${detail.detail_num}" method="get" action="${pageContext.request.contextPath}/room/payment">
+		                    <input type="hidden" name="num" value="${dto.num}">
+		                    <input type="hidden" name="detail_num" value="${detail.detail_num}">
+		                    <input type="hidden" name="sdate" value="${sdate}">
+		                    <input type="hidden" name="edate" value="${edate}">
+		                    <input type="hidden" name="people" value="${detail.people}">
+		                    <input type="hidden" name="photo" value="${dto.thumbnail}">
+		                    <button type="button" class="btn btn-primary fs-5 pt-1" onclick="sendOk(${detail.detail_num})">예약하기</button>
+		                </form>
+		            </div>
+		        </div>
+		    </div>
+		</c:forEach>
     </div>
 </div>
 
@@ -807,11 +813,9 @@ $(function(){
 	});
 });
 
-function sendOk() {
-    const f = document.buyForm;
-    f.method = "get";
-    f.action = "${pageContext.request.contextPath}/room/payment";
-    f.submit();
-};
+function sendOk(detailNum) {
+    var form = document.getElementById('reservationForm_' + detailNum);
+    form.submit();
+}
 
 </script>
