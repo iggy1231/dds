@@ -8,7 +8,7 @@ public class RoomPayment {
 	private String total_price; 
 	private long coupon_price;
 	private long point_price;
-	private long discount; // 할인 금액
+	private long discount; // 할인된 금액
 	private String final_price; // 결제 금액
 	private String name;
 	private long detail_num; // 숙소 상세정보(객실 옵션)의 기본키번호

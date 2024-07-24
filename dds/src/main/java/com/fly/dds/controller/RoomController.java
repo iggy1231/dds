@@ -22,6 +22,7 @@ import com.fly.dds.common.FileManager;
 import com.fly.dds.common.MyUtil;
 import com.fly.dds.domain.Member;
 import com.fly.dds.domain.Room;
+import com.fly.dds.domain.RoomPayment;
 import com.fly.dds.domain.RoomQnA;
 import com.fly.dds.domain.SessionInfo;
 import com.fly.dds.service.MyPageService;
@@ -261,6 +262,7 @@ public class RoomController {
 	    return model;
 	}
 	
+	/*
 	@GetMapping("payment") 
 	public String roomPayment(
 			@RequestParam long detail_num,
@@ -300,6 +302,63 @@ public class RoomController {
 	    }
 	    
 	    return ".room.payment";
+	}
+	*/
+	
+	@GetMapping("payment") 
+	public String roomPayment(
+			@RequestParam long detail_num,
+			@RequestParam String sdate,
+			@RequestParam String edate,
+			HttpSession session,
+			Model model) throws Exception {
+		
+		try {
+			// 해당 레코드 가져 오기
+			Room dto = service.findByDetail(detail_num);
+			SessionInfo info = (SessionInfo)session.getAttribute("member");
+			
+			
+			Member member = null;
+			String tel;
+			
+			member = myPageService.findById(info.getUser_num());
+			tel = member.getTel();
+			
+			
+			// 상세정보 출력
+			Map<String, Object> map = new HashMap<>();
+			
+			model.addAttribute("dto", dto);
+			
+			//  System.out.println("테스터 : " + dto + sdate + edate + people + detail_num + photo);
+			
+			// 추가된 정보
+			model.addAttribute("sdate", sdate);
+			model.addAttribute("edate", edate);
+			model.addAttribute("detail_num", detail_num);
+			model.addAttribute("tel",tel);
+			
+			// 계산
+			int total_price = dto.getPrice(); // 객실 가격
+			/// int coupon_price = d
+			int point_price = (int) (total_price * 0.05); // 적립된 포인트가
+			// int final_price = total_price - point_price;
+			// int dicount = point_price;
+			
+			// 결제 정보 저장
+			// RoomPayment roomPayment = new RoomPayment();
+			//   roomSale.setRegDate(LocalDate.now()); ... 등으로 저장
+			
+			model.addAttribute("total_price",total_price );
+			model.addAttribute("point_price", point_price );
+			// model.addAttribute("final_price",final_price );
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		return ".room.payment";
 	}
 
 	

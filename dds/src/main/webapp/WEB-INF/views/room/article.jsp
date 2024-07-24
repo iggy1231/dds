@@ -80,14 +80,6 @@
         padding: 0 0.5rem;
     }
 
-    .image-gallery .right-col .row > div:first-child {
-        padding-left: 0;
-    }
-
-    .image-gallery .right-col .row > div:last-child {
-        padding-right: 0;
-    }
-
     .image-gallery .right-col .row.mb-2 {
         margin-bottom: 0.5rem;
     }
@@ -188,11 +180,11 @@
 
 <!-- 이미지 갤러리 섹션 -->
 <div class="image-gallery row mb-4">
-    <div class="col-md-6 d-flex align-items-stretch">
+    <div class="col-md-6 pe-1 d-flex align-items-stretch">
         <img src="${pageContext.request.contextPath}/uploads/room/${dto.thumbnail}" class="img-fluid rounded w-100 left-img" alt="메인 이미지">
     </div>
     <div class="col-md-6 right-col">
-        <div class="row mb-2">
+        <div class="row g-3">
     <c:forEach var="photo" items="${photo}" begin="0" end="3">
             <div class="col-6 d-flex align-items-stretch">
                 <img src="${pageContext.request.contextPath}/uploads/room/${photo.photo}" class="img-fluid rounded w-100 right-img" alt="이미지">
@@ -206,7 +198,7 @@
     <!-- 가격 및 예약 버튼 섹션 -->
     <div  class="row my-4 p-1 pt-4">
         <div class="col-md-8">
-            <h5>${dto.room_type }</h5>
+            <h5 class="fw-medium" style="color: #f1c40f">${dto.room_type}</h5>
             <h3 class="fw-semibold py-1">${dto.subject}</h3>
             <h5 class="py-1"><i class="text-primary bi bi-geo-alt-fill fw-semibold"></i>&nbsp;${dto.addr1}</h5>
             <h2 class="py-2 text-primary fw-semibold">${dto.price} / 박</h2>
@@ -457,7 +449,7 @@
 					<h5>제목 :</h5>
 				</div>
 				<div class="col-10">
-					<input name="subject" type="text" placeholder="문의사항 제목 입력" class="form-control">
+					<input name="subject" id="subject" type="text" placeholder="문의사항 제목 입력" class="form-control">
 				</div>
 			</div>
 			<div class="row mt-3">
@@ -613,6 +605,7 @@ function printQuestion(data) {
         let num = item.qna_num;
         let userName = item.userName;
         let question = item.content;
+        let subject = item.subject;
         let question_date = item.reg_date;
         let answer = item.answer;
         let answer_date = item.answer_date;
@@ -620,7 +613,8 @@ function printQuestion(data) {
         let anonymous = item.anonymous;
 
         out += '<div class="mt-1 border-bottom">';
-        out += '  <div class="mt-2 p-2">' + question + '</div>';
+        out += '  <div class="mt-2 p-2 fw-semibold fs-5"><i class="fa-solid fa-q text-bold pe-2"></i>' + subject + '</div>';
+        out += '  <div class="mt-2 p-2 fs-5">' + question + '</div>';
 
         out += '  <div class="row p-2">';
         out += '     <div class="col-auto pt-2 pe-0">' + answerState + '</div>';
