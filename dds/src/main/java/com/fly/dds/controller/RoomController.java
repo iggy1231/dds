@@ -267,6 +267,27 @@ public class RoomController {
 	    return model;
 	}
 	
+	@PostMapping("insertWishList")
+	public String insertWishList(
+			@RequestParam long num,
+			HttpSession session
+			) {
+		 SessionInfo info = (SessionInfo)session.getAttribute("member");
+		    
+		 Map<String, Object> map = new HashMap<>();
+		 
+		 map.put("user_num", info.getUser_num());
+		 map.put("num", num);
+		 try {
+			
+			 service.insertRoomWishList(map);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		return "redirect:/";
+	}
+	
 	/*
 	@GetMapping("payment") 
 	public String roomPayment(
