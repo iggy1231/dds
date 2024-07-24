@@ -222,7 +222,7 @@
             
             <!-- 이벤트 -->
             <li class="menu-item">
-              <a href="cards-basic.html" class="menu-link">
+              <a href="${pageContext.request.contextPath}/admin/eventManage/all/list" class="menu-link">
                 <i class="menu-icon tf-icons bx bx-collection"></i>
                 <div data-i18n="Basic">이벤트</div>
               </a>
