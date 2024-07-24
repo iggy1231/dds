@@ -220,7 +220,11 @@
 	</select>
 	
 	<select id="partyList" parameterType="long" resultType="com.fly.dds.domain.CompanionApply">
-		 select num, user_num, nickname, status from member_companioninfo where num=#{num} AND status='참여'
+	     select c2.*
+         from member_companioninfo c2
+         join companion c on c.num=c2.num
+         where c.user_num!=c2.user_num
+         AND c2.status='참여' AND c.num=#{num}
 	</select>
 	
 	<update id="accept" parameterType="map">
