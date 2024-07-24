@@ -192,13 +192,13 @@ $(function(){
 					<tr> 
 						<td>나이대를 선택하세요</td>
 						<td>
-							<input type="checkbox" name="age" value="all">모두
-							<input type="checkbox" name="age" value="10">10대
-							<input type="checkbox" name="age" value="20">20대
-							<input type="checkbox" name="age" value="30">30대
-							<input type="checkbox" name="age" value="40">40대
-							<input type="checkbox" name="age" value="50">50대
-							<input type="checkbox" name="age" value="60">60대 이상
+							<input type="radio" name="age" value="all">모두
+							<input type="radio" name="age" value="10">10대
+							<input type="radio" name="age" value="20">20대
+							<input type="radio" name="age" value="30">30대
+							<input type="radio" name="age" value="40">40대
+							<input type="radio" name="age" value="50">50대
+							<input type="radio" name="age" value="60">60대 이상
 						</td>
 					</tr>
 					<tr> 

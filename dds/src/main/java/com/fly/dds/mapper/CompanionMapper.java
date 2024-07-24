@@ -2,7 +2,6 @@ package com.fly.dds.mapper;
 
 import java.util.List;
 import java.util.Map;
-import java.util.Set;
 
 import org.apache.ibatis.annotations.Mapper;
 
@@ -16,12 +15,12 @@ public interface CompanionMapper {
 	public void insertCompanionInfo(Companion dto);
 	public void insertCompanionRegion(Companion dto);
 	public void insertCompanionTheme(Companion dto);
-	public void insertCompanionAge(String age);
+	public void insertCompanionAge(Companion dto);
 	
 	public Companion findByNum(long num);
 	public String findThemeByNum(long num);
 	public List<Companion> findRegionByNum(long num);
-	public Set<String> findAgeByNum(long num);
+	public String findAgeByNum(long num);
 	
 	public int dataCountall();
 	public List<Companion> listCompanion(Map<String, Object> map);
@@ -68,4 +67,18 @@ public interface CompanionMapper {
 	public void deleteCompanion(long num);
 	public void endCompanion(long num);
 	public String findFileByNum(long num);
+	public void reportCompanionReply(Map<String, Object> map);
+	public int isCompanionReplyReported(Map<String, Object> map);
+	
+	public void deleteRegion(long num);
+	public void deleteFile(long num);
+	public void updateCompanion(Companion dto);
+	public void updateCompanionInfo(Companion dto);
+	public void updateCompanionRegion(Companion dto);
+	public void updateCompanionTheme(Companion dto);
+	public void updateCompanionAge(Companion dto);
+	public void updateCompanion_File(Companion dto);
+	
+	public void reportCompanion(Map<String, Object> map);
+	public int isCompanionReported(Map<String, Object> map);
 }

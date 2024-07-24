@@ -141,7 +141,6 @@ body {
 							<div class="sentinel-1" data-loading="false"></div>
 						</li>
 					</ul>
-					<p>인기순으로 보기
 				</div>
 				<hr>
 				<div>

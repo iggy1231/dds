@@ -137,10 +137,8 @@ function addNewContent(data) {
 		htmlText+='	<span class="card" onclick="article('+data.list[index].num+');">';
 		htmlText+='	<img src="${pageContext.request.contextPath}/uploads/companion/'+data.list[index].saveFilename+'" class="card-img-top" alt="...">';
 		htmlText+='		<span class="card-body">';
-		data.list[index].age.forEach((ages)=>{
-			 htmlText+='<a href="#">'+ages+'대 </a>';
-		});
-			 htmlText+='<a href="">'+data.list[index].gender+'</a>';
+		htmlText+='<a href="#">'+data.list[index].age+'대 </a>';
+		htmlText+='<a href="">'+data.list[index].gender+'</a>';
 		htmlText+='		<h3>'+data.list[index].subject+'</h2>';
 		htmlText+='		<p>'+data.list[index].content+'</p>';
 		for(let idx=0;idx<data.list[index].region_main.length;idx++) {
@@ -177,10 +175,8 @@ function nextPopularList(data) {
 		htmlText+='	<span class="card" onclick="article('+data.list[index].num+');">';
 		htmlText+='	<img src="${pageContext.request.contextPath}/uploads/companion/'+data.list[index].saveFilename+'" class="card-img-top" alt="...">';
 		htmlText+='		<span class="card-body">';
-		data.list[index].age.forEach((ages)=>{
-			 htmlText+='<a href="#">'+ages+'대 </a>';
-		});
-			 htmlText+='<a href="">'+data.list[index].gender+'</a>';
+		htmlText+='<a href="#">'+data.list[index].age+'대 </a>';
+		htmlText+='<a href="">'+data.list[index].gender+'</a>';
 		htmlText+='		<h3>'+data.list[index].subject+'</h2>';
 		htmlText+='		<p>'+data.list[index].content+'</p>';
 		for(let idx=0;idx<data.list[index].region_main.length;idx++) {

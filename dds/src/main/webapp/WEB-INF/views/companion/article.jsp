@@ -80,14 +80,15 @@ table tr>td:nth-child(2) {
 			<div>
 				<p>#${dto.theme}</p>
 				<p>#${dto.gender}</p>
-				<c:forEach var="ages" items="${dto.age}">
-					<span>${ages}대</span>
-				</c:forEach>
+				<span>${dto.age}대</span>
 				<p>현재 인원 : ${dto.current_people}/${dto.total_people} 명
 				<p>예상 비용 : ${dto.estimate_cost} 원
 			</div>
 			<hr>
-			<c:if test="${dto.user_num==sessionScope.member.user_num}">
+			<c:if test="${dto.status==0}">
+				<h3>이미 종료된 동행입니다</h3>
+			</c:if>
+			<c:if test="${dto.user_num==sessionScope.member.user_num&&dto.status!=0}">
 				<h3>동행 신청 확인하기</h3>
 				<c:forEach var="item" items="${partyList}">
 					<span>${item.nickname} 참여중</span>
@@ -120,14 +121,14 @@ table tr>td:nth-child(2) {
 					<button type="submit">수정</button>
 				</form>
 				<form name="articleForm" action="#" method="post">
-					
+					<input type="hidden" name="num" value="${dto.num}">
 					<button onclick="deleteCompanion();">삭제</button>
 					<button onclick="endCompanion();">마감</button>
 				</form>
 					
 				</div>
 			</c:if>
-			<c:if test="${dto.user_num!=sessionScope.member.user_num}">
+			<c:if test="${dto.user_num!=sessionScope.member.user_num&&dto.status!=0}">
 				<h3>동행자 정보</h3>
 				<div>
 					<c:forEach var="item" items="${partyList}">
@@ -151,6 +152,12 @@ table tr>td:nth-child(2) {
 								<i id="likeIcon" class="bi bi-heart"></i>&nbsp;&nbsp;<span id="infoLikeCount">${likeCount}</span>
 							</c:if>
 						</button>
+						<c:if test="${dto.user_num!=sessionScope.member.user_num}">
+							<button type="button" class="btn btn-outline-secondary"
+							data-bs-toggle="modal" data-bs-target="#inputModal" onclick="reportCompanion(${dto.user_num});" title="신고">
+							<i class="bi bi-exclamation-octagon"></i>&nbsp;&nbsp;<span>신고하기</span>
+						</button>
+						</c:if>
 					</td>
 				</tr>
 				<tr>
@@ -232,11 +239,122 @@ table tr>td:nth-child(2) {
 			    </div>
 			  </div>
 			</div>
+		<div class="modal fade" id="inputModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+		  <div class="modal-dialog">
+		    <div class="modal-content">
+		      <div class="modal-header">
+		        <h1 class="modal-title fs-5" id="staticBackdropLabel">신고</h1>
+		      </div>
+		      <div class="modal-body">
+				<form name="reportForm" action="#" method="post">
+		        <select name="reason">
+		        	<option value="1">신고 사유</option>
+		        	<option value="2">신고 사유</option>
+		        	<option value="3">신고 사유</option>
+		        	<option value="4">신고 사유</option>
+		        </select>
+		        <input type="text" name="reason2">
+		        <input type="hidden" name="unum">
+		        <input type="hidden" name="rnum">
+		        </form>
+			  </div>  
+		      <div class="modal-footer">
+		        <button type="button" class="btn btn-primary" data-bs-dismiss="modal">확인</button>
+		        <button type="button" class="btn btn-primary" data-bs-dismiss="modal" onclick="submitReport1();">확인</button>
+		        <button type="button" class="btn btn-primary" data-bs-dismiss="modal" onclick="submitReport2();">확인</button>
+		      </div>
+		    </div>
+		  </div>
+		</div>
 		</div>
 	</div>
 </div>
 
 <script type="text/javascript">
+function reportCompanion(user_num) {
+	if(${empty sessionScope.member}) {
+		$('#inputModal .modal-body').html('');
+		$('#inputModal .modal-footer button:nth-child(2)').hide();
+		$('#inputModal .modal-footer button:last').hide();
+		$('#inputModal .modal-title').text("신고는 로그인 후에만 가능합니다.");
+		return;
+	}
+	
+	$('#inputModal .modal-footer button:first').hide();
+	$('#inputModal .modal-footer button:last').hide();
+	const f=document.reportForm;
+	f.unum.value=user_num;
+}
+
+function replyReport(user_num, reply_num) {
+	if(${empty sessionScope.member}) {
+		$('#inputModal .modal-body').html('');
+		$('#inputModal .modal-footer button:nth-child(2)').hide();
+		$('#inputModal .modal-footer button:last').hide();
+		$('#inputModal .modal-title').text("댓글 신고는 로그인 후에만 가능합니다.");
+		return;
+	}
+	
+	$('#inputModal .modal-footer button:first').hide();
+	$('#inputModal .modal-footer button:nth-child(2)').hide();
+	const f=document.reportForm;
+	f.unum.value=user_num;
+	f.rnum.value=reply_num;
+}
+
+function submitReport2() {
+	const f=document.reportForm;
+	if(f.reason.value==null||f.reason2.value==null) {
+		alert('신고 사유를 입력해주세요');
+		return;
+	}
+	let user_num=f.unum.value;
+	let reply_num=f.rnum.value;
+	let reason=f.reason.value+" : "+f.reason2.value;
+	let url="${pageContext.request.contextPath}/companion/reportReply";
+	let query="article_num="+reply_num+"&user_num="+user_num+"&reason="+reason;	
+	
+	const fn = function(data) {
+		let state=data.state;
+		if(state === "true") {
+			alert("댓글 신고가 완료되었습니다.")
+		} else if(state === "reported") {
+			alert("동일한 글에 신고는 1회만 가능합니다");
+			return;
+		} else {
+			alert("댓글 신고에 실패했습니다.");
+		}
+	}
+	
+	ajaxFun(url, "post", query, "json", fn);
+}
+
+function submitReport1() {
+	const f=document.reportForm;
+	if(f.reason.value==null||f.reason2.value==null) {
+		alert('신고 사유를 입력해주세요');
+		return;
+	}
+	let user_num=f.unum.value;
+	let reason=f.reason.value+" : "+f.reason2.value;
+	let url="${pageContext.request.contextPath}/companion/reportCompanion";
+	let query="article_num=${dto.num}&user_num="+user_num+"&reason="+reason;	
+	console.log("article_num=${dto.num}&user_num="+user_num+"&reason="+reason);
+	const fn = function(data) {
+		let state=data.state;
+		if(state === "true") {
+			alert("신고가 완료되었습니다.")
+		} else if(state === "reported") {
+			alert("동일한 글에 신고는 1회만 가능합니다");
+			return;
+		} else {
+			alert("신고에 실패했습니다.");
+		}
+	}
+	
+	ajaxFun(url, "post", query, "json", fn);
+}
+
 function deleteCompanion() {
 	const f=document.articleForm;
 	f.action="${pageContext.request.contextPath}/companion/deleteCompanion";
@@ -333,10 +451,8 @@ function addNextPage(data) {
 			htmlText+='<div class="col card" onclick="article('+data.list[i].num+')">';
 			htmlText+='<img src="${pageContext.request.contextPath}/resources/images/숙소_예시.jpg" class="card-img-top" alt="...">';
 			htmlText+='<div class="card-body"><p>'+data.list[i].subject+'</p>';
-			data.list[i].age.forEach((ages)=>{
-				htmlText+='<a href="#">'+ages+'대 </a>';
-				})
-				htmlText+='<a href="">'+data.list[i].gender+'</a>';
+			htmlText+='<a href="#">'+data.list[i].age+'대 </a>';
+			htmlText+='<a href="#">'+data.list[i].gender+'</a>';
 			htmlText+='		<h3>'+data.list[i].subject+'</h2>';
 			htmlText+='		<p>'+data.list[i].content+'</p>';
 			for(let j=0;j<data.list[i].region_main.length;j++) {
@@ -413,7 +529,7 @@ function listPage(page) {
 					out+=' onclick="replyDelete('+item.reply_num+');">';
 					out+='<i class="bi bi-trash"></i></button>';
 				} else {
-					out+='<td><button class="btn btn-outline-secondary"';
+					out+='<td><button class="btn btn-outline-secondary" data-bs-toggle="modal" data-bs-target="#inputModal"';
 					out+=' onclick="replyReport('+item.user_num+','+item.reply_num+');">';
 					out+='<i class="bi bi-exclamation-octagon"></i></button>';
 				}
@@ -440,7 +556,7 @@ function listPage(page) {
 					out+=' onclick="replyDelete('+item.reply_num+');">';
 					out+='<i class="bi bi-trash"></i></button>';
 				} else {
-					out+='<td><button class="btn btn-outline-secondary"';
+					out+='<td><button class="btn btn-outline-secondary" data-bs-toggle="modal" data-bs-target="#inputModal"';
 					out+=' onclick="replyReport('+item.user_num+','+item.reply_num+');">';
 					out+='<i class="bi bi-exclamation-octagon"></i></button>';
 				}

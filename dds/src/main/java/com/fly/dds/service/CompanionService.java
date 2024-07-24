@@ -42,4 +42,9 @@ public interface CompanionService {
 	public List<Companion> popularListBymainRegion(Map<String, Object> map);
 	public void deleteCompanion(long num);
 	public void endCompanion(long num);
+	public boolean isCompanionReplyReported(Map<String, Object> map);
+	public void reportCompanionReply(Map<String, Object> map);
+	public void updateCompanion(Companion dto, String pathname);
+	public void reportCompanion(Map<String, Object> map);
+	public boolean isCompanionReported(Map<String, Object> map);
 }

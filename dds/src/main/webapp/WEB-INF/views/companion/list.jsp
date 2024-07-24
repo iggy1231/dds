@@ -207,10 +207,8 @@ function addNextPage(data) {
 			htmlText+='<div class="col card" onclick="article('+data.list[i].num+')">';
 			htmlText+='<img src="${pageContext.request.contextPath}/uploads/companion/'+data.list[i].saveFilename+'" class="card-img-top" alt="...">';
 			htmlText+='<div class="card-body"><p>'+data.list[i].subject+'</p>';
-			data.list[i].age.forEach((ages)=>{
-				htmlText+='<a href="#">'+ages+'대 </a>';
-				})
-				htmlText+='<a href="">'+data.list[i].gender+'</a>';
+			htmlText+='<a href="#">'+data.list[i].age+'대 </a>';
+			htmlText+='<a href="">'+data.list[i].gender+'</a>';
 			htmlText+='		<h3>'+data.list[i].subject+'</h2>';
 			htmlText+='		<p>'+data.list[i].content+'</p>';
 			for(let j=0;j<data.list[i].region_main.length;j++) {
@@ -248,10 +246,8 @@ function addNextPage2(data) {
 			htmlText+='<div class="col card" onclick="article('+data.list[i].num+')">';
 			htmlText+='<img src="${pageContext.request.contextPath}/uploads/companion/'+data.list[i].saveFilename+'" class="card-img-top" alt="...">';
 			htmlText+='<div class="card-body"><p>'+data.list[i].subject+'</p>';
-			data.list[i].age.forEach((ages)=>{
-				htmlText+='<a href="#">'+ages+'대 </a>';
-				})
-				htmlText+='<a href="">'+data.list[i].gender+'</a>';
+			htmlText+='<a href="#">'+data.list[i].age+'대 </a>';
+			htmlText+='<a href="">'+data.list[i].gender+'</a>';
 			htmlText+='		<h3>'+data.list[i].subject+'</h2>';
 			htmlText+='		<p>'+data.list[i].content+'</p>';
 			for(let j=0;j<data.list[i].region_main.length;j++) {
@@ -329,10 +325,8 @@ function scroll_load(data) {
 		htmlText='<li><div class="card flex-row" onclick="article('+item.num+')">';
 		htmlText+='	<img src="${pageContext.request.contextPath}/uploads/companion/'+item.saveFilename+'" class="card-img-top" alt="...">';
 		htmlText+='		<div class="card-body">';
-		item.age.forEach((ages)=>{
-			htmlText+='<a href="#">'+ages+'대 </a>';
-			})
-			htmlText+='<a href="">'+item.gender+'</a>';
+		htmlText+='<a href="#">'+item.age+'대 </a>';
+		htmlText+='<a href="">'+item.gender+'</a>';
 		htmlText+='		<h3>'+item.subject+'</h2>';
 		htmlText+='		<p>'+item.content+'</p>';
 		for(let idx=0;idx<item.region_main.length;idx++) {

@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -70,10 +69,8 @@ public class CompanionServiceImpl implements CompanionService {
 			}
 			
 			mapper.insertCompanionTheme(dto);
-			for(String age:dto.getAge()) {
-				mapper.insertCompanionAge(age);
-			}
-			
+			mapper.insertCompanionAge(dto);
+
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -86,7 +83,7 @@ public class CompanionServiceImpl implements CompanionService {
 			dto=mapper.findByNum(num);
 			String theme=mapper.findThemeByNum(num);
 			List<Companion> region=mapper.findRegionByNum(num);
-			Set<String> age=mapper.findAgeByNum(num);
+			dto.setAge(mapper.findAgeByNum(num));
 			
 			dto.setTheme(theme);
 			List<String> mainRegionList=new ArrayList<String>();
@@ -97,7 +94,7 @@ public class CompanionServiceImpl implements CompanionService {
 			}
 			dto.setRegion_main(mainRegionList);
 			dto.setRegion_sub(subRegionList);
-			dto.setAge(age);
+			
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -127,7 +124,7 @@ public class CompanionServiceImpl implements CompanionService {
 			for(Companion dto:list) {
 				String theme=mapper.findThemeByNum(dto.getNum());
 				List<Companion> region=mapper.findRegionByNum(dto.getNum());
-				Set<String> age=mapper.findAgeByNum(dto.getNum());
+				String age=mapper.findAgeByNum(dto.getNum());
 				
 				dto.setTheme(theme);
 				List<String> mainRegionList=new ArrayList<String>();
@@ -160,7 +157,7 @@ public class CompanionServiceImpl implements CompanionService {
 			for(Companion dto:list) {
 				String theme=mapper.findThemeByNum(dto.getNum());
 				List<Companion> region=mapper.findRegionByNum(dto.getNum());
-				Set<String> age=mapper.findAgeByNum(dto.getNum());
+				String age=mapper.findAgeByNum(dto.getNum());
 				
 				dto.setTheme(theme);
 				List<String> mainRegionList=new ArrayList<String>();
@@ -192,7 +189,7 @@ public class CompanionServiceImpl implements CompanionService {
 			for(Companion dto:list) {
 				String theme=mapper.findThemeByNum(dto.getNum());
 				List<Companion> region=mapper.findRegionByNum(dto.getNum());
-				Set<String> age=mapper.findAgeByNum(dto.getNum());
+				String age=mapper.findAgeByNum(dto.getNum());
 				
 				dto.setTheme(theme);
 				List<String> mainRegionList=new ArrayList<String>();
@@ -375,7 +372,7 @@ public class CompanionServiceImpl implements CompanionService {
 			for(Companion dto:list) {
 				String theme=mapper.findThemeByNum(dto.getNum());
 				List<Companion> region=mapper.findRegionByNum(dto.getNum());
-				Set<String> age=mapper.findAgeByNum(dto.getNum());
+				String age=mapper.findAgeByNum(dto.getNum());
 				
 				dto.setTheme(theme);
 				List<String> mainRegionList=new ArrayList<String>();
@@ -408,7 +405,7 @@ public class CompanionServiceImpl implements CompanionService {
 			for(Companion dto:list) {
 				String theme=mapper.findThemeByNum(dto.getNum());
 				List<Companion> region=mapper.findRegionByNum(dto.getNum());
-				Set<String> age=mapper.findAgeByNum(dto.getNum());
+				String age=mapper.findAgeByNum(dto.getNum());
 				
 				dto.setTheme(theme);
 				List<String> mainRegionList=new ArrayList<String>();
@@ -537,7 +534,7 @@ public class CompanionServiceImpl implements CompanionService {
 			for(Companion dto:list) {
 				String theme=mapper.findThemeByNum(dto.getNum());
 				List<Companion> region=mapper.findRegionByNum(dto.getNum());
-				Set<String> age=mapper.findAgeByNum(dto.getNum());
+				String age=mapper.findAgeByNum(dto.getNum());
 				
 				dto.setTheme(theme);
 				List<String> mainRegionList=new ArrayList<String>();
@@ -570,7 +567,7 @@ public class CompanionServiceImpl implements CompanionService {
 			for(Companion dto:list) {
 				String theme=mapper.findThemeByNum(dto.getNum());
 				List<Companion> region=mapper.findRegionByNum(dto.getNum());
-				Set<String> age=mapper.findAgeByNum(dto.getNum());
+				String age=mapper.findAgeByNum(dto.getNum());
 				
 				dto.setTheme(theme);
 				List<String> mainRegionList=new ArrayList<String>();
@@ -602,5 +599,92 @@ public class CompanionServiceImpl implements CompanionService {
 	@Override
 	public void endCompanion(long num) {
 		mapper.endCompanion(num);
+	}
+	
+	@Override
+	public void reportCompanionReply(Map<String, Object> map) {
+		try {
+			mapper.reportCompanionReply(map);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+
+	@Override
+	public boolean isCompanionReplyReported(Map<String, Object> map) {
+		try {
+			if(mapper.isCompanionReplyReported(map)>0) {
+				return true;
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		return false;
+	}
+
+	@Override
+	public void updateCompanion(Companion dto, String pathname) {
+		try {
+			mapper.updateCompanion(dto);
+			
+			mapper.deleteFile(dto.getNum());
+			
+			if(!dto.getImgFiles().isEmpty()) {
+				for(MultipartFile mf:dto.getImgFiles()) {
+					String saveFilename = fileManager.doFileUpload(mf, pathname);
+					if (saveFilename == null) {
+						continue;
+					}
+					dto.setSaveFilename(saveFilename);
+					mapper.insertCompanion_File(dto);
+				}
+			}
+			mapper.updateCompanionInfo(dto);
+			
+			mapper.deleteRegion(dto.getNum());
+			
+			List<String> mainRegionList=dto.getRegion_main();
+			List<String> subRegionList=dto.getRegion_sub();
+
+			int idx=0;
+			while(idx<mainRegionList.size()||idx<subRegionList.size()) {
+				Companion c=new Companion();
+				c.setNum(dto.getNum());
+				c.setMainRegion(mainRegionList.get(idx));
+				c.setSubRegion(subRegionList.get(idx));
+				
+				mapper.insertCompanionRegion(c);
+				idx++;
+			}
+			
+			mapper.updateCompanionTheme(dto);
+			mapper.updateCompanionAge(dto);
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+
+	@Override
+	public void reportCompanion(Map<String, Object> map) {
+		try {
+			mapper.reportCompanion(map);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+
+	@Override
+	public boolean isCompanionReported(Map<String, Object> map) {
+		try {
+			if(mapper.isCompanionReported(map)>0) {
+				return true;
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		return false;
 	}
 }

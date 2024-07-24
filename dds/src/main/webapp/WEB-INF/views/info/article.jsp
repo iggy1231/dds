@@ -166,7 +166,7 @@ p {
 		</div>
 	</div>
 </div>
-<script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=###"></script>
+<script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=6f331abde958ffa17c211ccebb6b7958"></script>
 <script type="text/javascript">
 	var mapContainer = document.getElementById('map');
 	var mapOption = {
@@ -385,7 +385,7 @@ $(function(){
 		listPage(1);
 		
 		let spec = "http://apis.data.go.kr/B551011/KorService1/detailImage1";
-		let serviceKey = "###";
+		let serviceKey = "%2F%2BWArlI5VzXD26Rlk2WGAneNuAmtuGGUU7jr8LtuNkwaNMLgnXgzfqN3NldAW2RR8las22gGXW3viB%2B9c6FfMA%3D%3D";
 		let numOfRows = 5;
 		let pageNo = 1;
 		let _type = "JSON";

@@ -18,7 +18,7 @@
 		insert into companion_theme values(companion_theme_seq.nextval, #{num}, #{theme})
 	</insert>
 	
-	<insert id="insertCompanionAge" parameterType="String">
+	<insert id="insertCompanionAge" parameterType="com.fly.dds.domain.Companion">
 		insert into companion_age values(#{num}, #{age})
 	</insert>
 	
@@ -304,5 +304,66 @@
 		where num=#{num}
 		order By file_num ASC
 		FETCH FIRST 1 ROWS ONLY
+	</select>
+	
+	<insert id="reportCompanionReply" parameterType="map">
+		insert into DECLARATION(NUM, REASON, ARTICLE_NUM, USER_NUM, REPORTER_NUM, ISREPLY, REPORTPAGE)
+		values(DECLARATION_SEQ.NEXTVAL, #{reason}, #{article_num}, #{user_num}, #{reporter_num}, 1, 'companionReply')
+	</insert>
+	
+	<select id="isCompanionReplyReported" parameterType="map" resultType="Integer">
+		select nvl(count(*), 0)
+		from (select * from declaration WHERE isreply=1 AND reportpage='companionReply')
+		WHERE user_num=#{user_num} AND article_num=#{article_num} AND reporter_num=#{reporter_num}
+	</select>
+	
+	<insert id="reportCompanion" parameterType="map">
+		insert into DECLARATION(NUM, REASON, ARTICLE_NUM, USER_NUM, REPORTER_NUM, ISREPLY, REPORTPAGE)
+		values(DECLARATION_SEQ.NEXTVAL, #{reason}, #{article_num}, #{user_num}, #{reporter_num}, 0, 'companion')
+	</insert>
+	
+	<select id="isCompanionReported" parameterType="map" resultType="Integer">
+		select nvl(count(*), 0)
+		from (select * from declaration WHERE isreply=0 AND reportpage='companion')
+		WHERE user_num=#{user_num} AND article_num=#{article_num} AND reporter_num=#{reporter_num}
+	</select>
+	
+	<insert id="updateCompanion" parameterType="com.fly.dds.domain.Companion">
+		update companion set nickname=#{nickname}, subject=#{subject}, content=#{content}, reg_date=SYSDATE
+		where num=#{num}
+	</insert>
+	
+	<insert id="updateCompanionInfo" parameterType="com.fly.dds.domain.Companion">
+		update companion_info set sdate=#{sdate}, edate=#{edate}, total_people=#{total_people},
+		estimate_cost=#{estimate_cost}, gender=#{gender}
+		where num=#{num}
+	</insert>
+	
+	<select id="deleteRegion" parameterType="long">
+		delete from companion_region where num=#{num}
+	</select>
+	
+	<insert id="updateCompanionRegion" parameterType="com.fly.dds.domain.Companion">
+		update companion_region set region_main=#{mainRegion}, region_sub=#{subRegion}
+		where num=#{num} AND region_num=#{region_num}
+	</insert>
+	
+	<insert id="updateCompanionTheme" parameterType="com.fly.dds.domain.Companion">
+		update companion_theme set theme=#{theme}
+		where num=#{num}
+	</insert>
+	
+	<insert id="updateCompanionAge" parameterType="com.fly.dds.domain.Companion">
+		update companion_age set age=#{age}
+		where num=#{num}
+	</insert>
+	
+	<insert id="updateCompanion_File" parameterType="com.fly.dds.domain.Companion">
+		update companion_file set filename=#{saveFilename}
+		where num=#{num} AND file_num=#{file_num}
+	</insert>
+	
+	<select id="deleteFile" parameterType="long">
+		delete from companion_file where num=#{num}
 	</select>
 </mapper>

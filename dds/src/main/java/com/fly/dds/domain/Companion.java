@@ -1,7 +1,6 @@
 package com.fly.dds.domain;
 
 import java.util.List;
-import java.util.Set;
 
 import org.springframework.web.multipart.MultipartFile;
 
@@ -29,7 +28,7 @@ public class Companion {
 	private String sdate;
 	private String edate;
 	private String gender;
-	private Set<String> age;
+	private String age;
 
 	private int total_people;
 	private int current_people;
@@ -137,10 +136,10 @@ public class Companion {
 	public void setRegion_sub(List<String> region_sub) {
 		this.region_sub = region_sub;
 	}
-	public Set<String> getAge() {
+	public String getAge() {
 		return age;
 	}
-	public void setAge(Set<String> age) {
+	public void setAge(String age) {
 		this.age = age;
 	}
 	public long getFile_num() {

@@ -4,7 +4,6 @@ import java.io.File;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.Set;
 
 import javax.servlet.http.HttpSession;
 
@@ -82,7 +81,7 @@ public class CompanionController {
 			@RequestParam String edate,
 			@RequestParam String theme,
 			@RequestParam String gender,
-			@RequestParam Set<String> age,
+			@RequestParam String age,
 			@RequestParam int total_people,
 			@RequestParam int estimate_cost,
 			@RequestParam String subject,
@@ -614,7 +613,7 @@ public class CompanionController {
 	}
 	
 	@GetMapping("updateCompanion")
-	public String updateCompanion(@RequestParam long num,
+	public String updateForm(@RequestParam long num,
 			Model model) {
 		Companion dto=null;
 		try {
@@ -628,5 +627,113 @@ public class CompanionController {
 		model.addAttribute("dto", dto);
 		model.addAttribute("mode", "update");
 		return ".companion.write";
+	}
+	
+	@PostMapping("update")
+	public String updateSubmit(@RequestParam long num,
+			@RequestParam List<String> areaCode,
+			@RequestParam List<String> sigunguCode,
+			@RequestParam String sdate,
+			@RequestParam String edate,
+			@RequestParam String theme,
+			@RequestParam String gender,
+			@RequestParam String age,
+			@RequestParam int total_people,
+			@RequestParam int estimate_cost,
+			@RequestParam String subject,
+			@RequestParam String content,
+			@RequestParam List<MultipartFile> imgFiles,
+			HttpSession session,
+			Model model) {
+		SessionInfo info=(SessionInfo)session.getAttribute("member");
+		Companion dto=new Companion();
+		
+		String root = session.getServletContext().getRealPath("/");
+		String pathname = root + "uploads" + File.separator + "companion";
+
+		try {
+			dto.setNum(num);
+			dto.setNickname(info.getNickName());
+			dto.setUser_num(info.getUser_num());
+			
+			dto.setSubject(subject);
+			dto.setContent(content);
+			dto.setRegion_main(areaCode);
+			dto.setRegion_sub(sigunguCode);
+			dto.setSdate(sdate);
+			dto.setEdate(edate);
+			dto.setTheme(theme);
+			dto.setGender(gender);
+			dto.setAge(age);
+			dto.setTotal_people(total_people);
+			dto.setEstimate_cost(estimate_cost);
+			dto.setImgFiles(imgFiles);
+			
+			service.updateCompanion(dto, pathname);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		return "redirect:/companion/list";
+	}
+	
+	@ResponseBody
+	@PostMapping("reportReply")
+	public Map<String, Object> companionReplyReport(@RequestParam(value="article_num") long article_num,
+			@RequestParam(value="user_num") long user_num,
+			@RequestParam(value="reason") String reason,
+			HttpSession session) {
+		SessionInfo info=(SessionInfo) session.getAttribute("member");
+		Map<String, Object> model=new HashMap<String, Object>();
+		String state="false";
+		
+		try {
+			Map<String, Object> map=new HashMap<String, Object>();
+			map.put("article_num", article_num);
+			map.put("user_num", user_num);
+			map.put("reporter_num", info.getUser_num());
+			if(service.isCompanionReplyReported(map)) {
+				state="reported";
+				model.put("state", state);
+				return model;
+			}
+			map.put("reason", reason);
+			service.reportCompanionReply(map);
+			state="true";
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		model.put("state", state);
+		return model;
+	}
+	
+	@ResponseBody
+	@PostMapping("reportCompanion")
+	public Map<String, Object> companionReport(@RequestParam(value="article_num") long article_num,
+			@RequestParam(value="user_num") long user_num,
+			@RequestParam(value="reason") String reason,
+			HttpSession session) {
+		SessionInfo info=(SessionInfo) session.getAttribute("member");
+		Map<String, Object> model=new HashMap<String, Object>();
+		String state="false";
+		
+		try {
+			Map<String, Object> map=new HashMap<String, Object>();
+			map.put("article_num", article_num);
+			map.put("user_num", user_num);
+			map.put("reporter_num", info.getUser_num());
+			if(service.isCompanionReported(map)) {
+				state="reported";
+				model.put("state", state);
+				return model;
+			}
+			map.put("reason", reason);
+			service.reportCompanion(map);
+			state="true";
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		model.put("state", state);
+		return model;
 	}
 }

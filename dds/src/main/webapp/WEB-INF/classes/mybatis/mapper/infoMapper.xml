@@ -118,10 +118,9 @@
 	</insert>
 	
 	<select id="isInfoReplyReported" parameterType="map" resultType="Integer">
-		select COUNT(*)
-		from DECLARATION
-		WHERE user_num=#{user_num} AND article_num=${article_num} AND reporter_num=#{reporter_num}
-		group by user_num, article_num, reporter_num, 1, 'infoReply'
+		select nvl(count(*), 0)
+		from (select * from declaration WHERE isreply=1 AND reportpage='infoReply')
+		WHERE user_num=#{user_num} AND article_num=#{article_num} AND reporter_num=#{reporter_num}
 	</select>
 	
 	<select id="popularListInfo" resultType="com.fly.dds.domain.Info">
