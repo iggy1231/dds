@@ -94,6 +94,17 @@ public class RoomServiceImpl implements RoomService {
 		return dto;
 	}
 
+	@Override
+	public void insertRoomWishList(Map<String, Object> map) throws Exception {
+		try {
+			mapper.insertRoomWishList(map);
+		} catch (Exception e) {
+			e.printStackTrace();
+			throw e;
+		}
+		
+	}
+
 	/*
 	 * @Override public List<Room> searchRoom(Map<String, Object> map) { return
 	 * mapper.searchRoom(map); }

@@ -124,6 +124,8 @@
 		WHERE r.num = #{num}
 	</select>
 	
-	
+	<insert id="insertRoomWishList" parameterType="map">
+		insert into room_wish_list ( user_num , num ) values ( #{user_num} , #{num} )
+	</insert>
 	
 </mapper>

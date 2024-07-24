@@ -15,6 +15,7 @@ public interface RoomService {
 	
 	public Room findByNum(long num);
 	public Room findByDetail(long detail_num);
+	public void insertRoomWishList(Map<String, Object> map) throws Exception;
 	
 	// <select id="findByDetail" parameterType="Long" resultType="com.fly.dds.domian.Room">
 	// public List<Room> searchRoom(Map<String, Object> map);
