@@ -125,7 +125,7 @@ public class ProductManageController {
 	       // model.addAttribute("message", "등록에 실패했습니다.");
 	    }
 
-	    return "redirect:/admin/product/list";
+	    return "redirect:/admin/product/roomList";
 	}
 	
 	@GetMapping("update")
@@ -135,17 +135,37 @@ public class ProductManageController {
 			Model model
 			) {
 		
+		Room dto = service.findById(num);
+		
+		if(dto == null) {
+			return "redirect:/admin/product/main"; 
+		}
+		
 		model.addAttribute("mode", "update");
 		model.addAttribute("page", page);
+		model.addAttribute("num", num);
+		model.addAttribute("dto", dto); 
 		
 		return ".admin.product.write";
 	}
 	
 	@PostMapping("update")
-	public String roomUpdateSubmit() {
+	public String roomUpdateSubmit(
+			Room dto,
+			@RequestParam String page,
+			HttpSession session,
+			Model model
+			) {
+		String root = session.getServletContext().getRealPath("/");
+	    String path = root + "uploads" + File.separator + "room";
+	    
+	    try {
+			service.updateProduct(dto, path);
+		} catch (Exception e) {
+		}
+		String query = "num=" + dto.getNum() + "&page=" + page;
 		
-		
-		return "redirect:/admin/product/main";
+		return "redirect:/admin/product/main?" + query;
 	}
 	
 	

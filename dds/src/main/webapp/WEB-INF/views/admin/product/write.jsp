@@ -92,7 +92,7 @@
 					<tr>
 						<td class="table-light col-sm-2">상품명</td>
 						<td>
-							<input type="text" name="subject" class="form-control" value="${dto.subject }">
+							<input type="text" name="subject" class="form-control" value="${dto.subject}">
 						</td>
 					</tr>
 					<tr>

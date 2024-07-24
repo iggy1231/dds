@@ -73,7 +73,51 @@ public class RoomProductServiceImpl implements RoomProductService {
 
 	@Override
 	public void updateProduct(Room dto, String pathname) throws Exception {
-		
+		try {
+			
+			// 썸내일 이미지
+	    	String filename;
+	        filename = fileManager.doFileUpload(dto.getThumbnailFile(), pathname);
+	        dto.setThumbnail(filename);
+	    	
+	    	// 룸 테이블 추가
+	        mapper.updateRoom(dto);
+	        
+	    	
+	    	// 옵션 추가
+	    	for(int i=0; i< dto.getNames().size(); i++) {
+	    		dto.setName(dto.getNames().get(i));
+	    		dto.setPeople(dto.getPeoples().get(i));
+	    		dto.setPrice(dto.getPrices().get(i));
+	    		dto.setDetail_content(dto.getDetail_contents().get(i));
+	    		dto.setDiscount(dto.getDiscounts().get(i));
+	    		
+	    		// 파일 처리
+	    		filename = fileManager.doFileUpload(dto.getDetailPhotoFiles().get(i), pathname);
+	    		dto.setDetail_photo(filename);
+	    		
+	    		// INSERT
+	    		mapper.updateRoomDetail(dto);
+	    	}
+	    	
+	    	
+	        // 추가 이미지 저장
+	        if (dto.getAddFiles() != null && !dto.getAddFiles().isEmpty()) {
+	            for (MultipartFile mf : dto.getAddFiles()) {
+	                filename = fileManager.doFileUpload(mf, pathname);
+	                if (filename == null) {
+	                    continue;
+	                }
+
+	                dto.setPhoto(filename);
+	                mapper.updateRoomFile(dto);
+	            }
+	        }	        
+	    
+	    } catch (Exception e) {
+	        e.printStackTrace();
+	        throw e;
+	    }
 	}
 
 	@Override
@@ -119,18 +163,17 @@ public class RoomProductServiceImpl implements RoomProductService {
 	}
 
 	@Override
-	public Room findById(long productNum) {
-		return null;
-	}
-
-	@Override
-	public Room findByPrev(Map<String, Object> map) {
-		return null;
-	}
-
-	@Override
-	public Room findByNext(Map<String, Object> map) {
-		return null;
+	public Room findById(long num) {
+		Room dto = null;
+		
+		try {
+			dto = mapper.findById(num);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		
+		return dto;
 	}
 
 	@Override
@@ -148,19 +191,5 @@ public class RoomProductServiceImpl implements RoomProductService {
 		return null;
 	}
 
-	@Override
-	public Room findByCategory(long categoryNum) {
-		return null;
-	}
-
-	@Override
-	public List<Room> listCategory() {
-		return null;
-	}
-
-	@Override
-	public List<Room> listSubCategory(long parentNum) {
-		return null;
-	}
 	
 }

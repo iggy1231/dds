@@ -16,19 +16,9 @@ public interface RoomProductService {
 	public List<Room> listRoomProduct(Map<String, Object> map);
 	
 	public Room findById(long productNum);
-	public Room findByPrev(Map<String, Object> map);
-	public Room findByNext(Map<String, Object> map);
 	
 	public List<Room> listProductFile(long productNum);
 	public List<Room> listProductOption(long productNum);
 	public List<Room> listOptionDetail(long optionNum);
 	
-	// 상품 상위 카테고리 목록
-	public Room findByCategory(long categoryNum);
-	public List<Room> listCategory();
-	public List<Room> listSubCategory(long parentNum);
-	
-	// 상품 재고
-	// public void updateProductStock(ProductStockManage dto) throws Exception;
-	// public List<ProductStockManage> listProductStock(Map<String, Object> map);
 }

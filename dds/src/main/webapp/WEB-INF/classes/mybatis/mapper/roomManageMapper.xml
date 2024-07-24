@@ -69,15 +69,34 @@
 		OFFSET #{offset} ROWS FETCH FIRST #{size} ROWS ONLY
 	</select>
 	
-	
 	<!-- 상품 상세 정보 -->
-	<select id="findById">
-	
-	
+	<!-- public Room findById(long num); -->
+	<select id="findById" parameterType="Long" resultType="com.fly.dds.domain.Room">
+		SELECT r.num, subject, room_type, addr1, addr2, r.content, facility_content, caution, thumbnail , price
+		FROM room r
+		left outer join ( select num , min(price) as price from room_detail group by num ) d on r.num = d.num
+		WHERE r.num = #{num}
 	</select>
 
 <!-- update -->
-
+	<!-- public void updateRoom(Room dto)  -->
+	<update id="updateRoom" parameterType="com.fly.dds.domain.Room">
+		UPDATE room SET subject = #{subject}, content = #{content}, caution = #{caution}, room_type = #{room_type}, 
+			reg_date = sysdate, post_num = #{post_num}, addr1 = #{addr1}, addr2 = #{addr2} , thumbnail = #{thumbnail}, key_value = #{key_value},
+			facility_content = #{facility_content}, active = #{active}
+		WHERE num = #{num}
+	</update>
+	
+	<update id="updateRoomDetail" parameterType="com.fly.dds.domain.Room" >
+		UPDATE room_detail SET people = #{people}, price = #{price}, discount = #{discount}, name = #{name}, content = #{content},
+			detail_photo = #{detail_photo}
+		WHERE detail_num = #{detail_num}
+	</update>
+	
+	<update id="updateRoomFile" parameterType="com.fly.dds.domain.Room">
+		UPDATE room_photo SET photo
+		WHERE photo_num = #{photo_num} 
+	</update>
 
 
 </mapper>

@@ -134,13 +134,13 @@
 											<td>${dto.active==1?"표시":"숨김"}</td>
 											<td>${dto.reg_date}</td>
 											<td>yyyy-mm-dd</td>
-											<td><c:url var="updateUrl"
-													value="/admin/product/update">
-													<c:param name="num" value="${dto.num}" />
-													<c:param name="page" value="${page}" />
-												</c:url>
-												<button type="button" class="btn border btn-update"
-													onclick="location.href='${updateUrl}';">수정</button></td>
+											<td>
+											    <c:url var="updateUrl" value="/admin/product/update">
+											        <c:param name="num" value="${dto.num}" />
+											        <c:param name="page" value="${page}" />
+											    </c:url>
+											    <button type="button" class="btn border btn-update" onclick="updateRoomProduct(${dto.num});">수정</button>
+											</td>
 										</tr>
 									</c:forEach>
 								</tbody>
@@ -266,108 +266,26 @@ function ajaxFun(url, method, formData, dataType, fn, file = false) {
 	$.ajax(url, settings);
 }
 
-$(function(){
-	$('.btn-productStock').click(function(){
-		// 재고 관리 대화상자
-		let productNum = $(this).attr('data-productNum');
-		let optionCount = $(this).attr('data-optionCount');
-		let url = '${pageContext.request.contextPath}/admin/product/listProductStock?productNum='+productNum+'&optionCount='+optionCount;
-		
-		$('.modal-productStock').load(url);
-		
-		$('#productStockDialogModal').modal('show');
-	});
-	
-	$('.modal-productStock').on('click', '.btn-allStockUpdate', function(){
-		// 재고 일괄 변경
-		if(! confirm('재고를 일괄 변경 하시겠습니까 ? ')) {
-			return false;
-		}
-		
-		let productNum = $(this).attr('data-productNum');
-		let url = '${pageContext.request.contextPath}/admin/product/updateProductStock';
-		let query = 'productNum='+productNum;
-		
-		let isValid = true;
-		$('.productStcok-list tr').each(function(){
-			let $input = $(this).find('input[name=totalStock]');
-			let $btn = $(this).find('.btn-stockUpdate');
-			
-			if(!/^\d+$/.test($input.val().trim())) {
-				alert('재고량은 숫자만 가능합니다.');
-				$input.focus();
-				isValid = false;
-				return false;
-			}
-			
-			let stockNum = $btn.attr('data-stockNum');
-			let detailNum = $btn.attr('data-detailNum');
-			detailNum = detailNum ? detailNum : 0;
-			let detailNum2 = $btn.attr('data-detailNum2');
-			detailNum2 = detailNum2 ? detailNum2 : 0;
-			let totalStock = $input.val().trim();
-			
-			query += '&stockNums=' + stockNum;
-			query += '&detailNums=' + detailNum;
-			query += '&detailNums2=' + detailNum2;
-			query += '&totalStocks=' + totalStock;
-		});
-		
-		if( ! isValid ) {
-			return false;
-		}
-		
-		const fn = function(data) {
-			if(data.state === "true") {
-				alert("재고가 일괄 변경 되었습니다.");
-			} else {
-				alert("재고 일괄 변경이 실패 했습니다.");
-			}
-		};
-		
-		ajaxFun(url, "post", query, "json", fn);		
-	});
-	
-	$('.modal-productStock').on('click', '.btn-stockUpdate', function(){
-		// 재고 변경	
-		let productNum = $(this).attr('data-productNum');
-		let stockNum = $(this).attr('data-stockNum');
-		let detailNum = $(this).attr('data-detailNum');
-		detailNum = detailNum ? detailNum : 0;
-		let detailNum2 = $(this).attr('data-detailNum2');
-		detailNum2 = detailNum2 ? detailNum2 : 0;
-		let totalStock = $(this).closest('tr').find('input[name=totalStock]').val().trim();
-		
-		if(!/^\d+$/.test(totalStock)) {
-			alert('재고량은 숫자만 가능합니다.');
-			$(this).closest('tr').find('input[name=totalStock]').focus();
-			return false;
-		}
-	
-		let url = '${pageContext.request.contextPath}/admin/product/updateProductStock';
-		let query = {productNum:productNum, stockNums:stockNum, detailNums:detailNum, detailNums2:detailNum2, totalStocks:totalStock};
-		
-		const fn = function(data) {
-			if(data.state === "true") {
-				alert("재고가 변경 되었습니다.");
-			} else {
-				alert("재고 변경이 실패 했습니다.");
-			}
-		};
-		
-		ajaxFun(url, "post", query, "json", fn);		
-		
-	});
-});
 
-const productStockModalEl = document.getElementById('productStockDialogModal');
-productStockModalEl.addEventListener('show.bs.modal', function(){
-	// 모달 대화상자가 보일때
-});
+function updateRoomProduct(num) {
+    var form = document.createElement('form');
+    form.method = 'GET';
+    form.action = '${pageContext.request.contextPath}/admin/product/update';
 
-productStockModalEl.addEventListener('hidden.bs.modal', function(){
-	// 모달 대화상자가 안보일때
-	searchList();
-});
+    var input = document.createElement('input');
+    input.type = 'hidden';
+    input.name = 'num';
+    input.value = num;
+
+    var pageInput = document.createElement('input');
+    pageInput.type = 'hidden';
+    pageInput.name = 'page';
+    pageInput.value = '${page}';
+
+    form.appendChild(input);
+    form.appendChild(pageInput);
+    document.body.appendChild(form);
+    form.submit();
+}
 
 </script>
