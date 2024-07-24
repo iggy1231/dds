@@ -9,6 +9,7 @@
             	<!-- Hoverable Table rows -->
               <div class="card">
                 <h5 class="card-header">회원관리</h5>
+                <p> 회원수 : ${dataCount} </p>
                 <div class="table-responsive text-nowrap">
                   <table class="table table-hover">
                     <thead>
@@ -20,25 +21,33 @@
                         <th>email</th>
                         <th>gender</th>
                         <th>tel</th>
-                        <th>enabled</th>
-                        <th>ban_state</th>
-                        <th>num</th>
-                        <th>현재상태</th>
+                        <th>계정 상태</th>
                       </tr>
                     </thead>
+                    
+                    <c:forEach var="list" items="${list}">
                     <tbody class="table-border-bottom-0">
                       <tr>
-                        <td><i class="fab fa-angular fa-lg text-danger me-3"></i> <strong>user_num</strong></td>
-                        <td>userId</td>
-                        <td>nickname</td>
-                        <td>reg_date</td>
-                        <td>email</td>
-                        <td>gender</td>
-                        <td>tel</td>
-                        <td>enabled</td>
-                        <td>ban_state</td>
-                        <td>num</td>
-                        <td><span class="badge bg-label-primary me-1">Active</span></td>
+                        <td><i class="fab fa-angular fa-lg text-danger me-3"></i> <strong>${list.user_num}</strong></td>
+                        <td>${list.userId}</td>
+                        <td>${list.nickName}</td>
+                        <td>${list.reg_date}</td>
+                        <td>${list.email }</td>
+                        <td>${list.gender }</td>
+                        <td>${list.tel }</td>
+                        <td> 
+                         <c:choose>
+                    <c:when test="${list.enabled == 0}">
+                        <span class="badge bg-warning me-1"><strong>탈 &nbsp;&nbsp;&nbsp;&nbsp; 퇴</strong></span>
+                    </c:when>
+                    <c:when test="${list.ban_state == 1}">
+                        <span class="badge bg-danger me-1"><strong>차 &nbsp;&nbsp;&nbsp;&nbsp; 단</strong></span>
+                    </c:when>
+                    <c:otherwise>
+                        <span class="badge bg-success me-1"><strong>정 &nbsp;&nbsp;&nbsp;&nbsp; 상</strong></span>
+                    </c:otherwise>
+                </c:choose>
+                </td>
                         <td>
                           <div class="dropdown">
                             <button type="button" class="btn p-0 dropdown-toggle hide-arrow" data-bs-toggle="dropdown">
@@ -56,6 +65,9 @@
                         </td>
                       </tr>
                     </tbody>
+                    </c:forEach>
+                    
+                    
                   </table>
                 </div>
               </div>
