@@ -61,7 +61,11 @@ public class LoginCheckInterceptor implements HandlerInterceptor {
 				
 			} else {
 				// 로그인 된 경우
-				if(uri.indexOf("admin") != -1 && info.getUserId().equals("admin")) {
+				
+				
+				
+				if(uri.indexOf("admin") != -1 && ! info.getUserId().equals("admin")) {
+					
 					flag = false;
 					response.sendRedirect(cp + "/member/noAuthorized");
 				}
