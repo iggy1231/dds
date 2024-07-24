@@ -1,6 +1,13 @@
 <%@ page contentType="text/html; charset=UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
+
+<style>
+.btn-update:hover {
+	background-color: var(--btn-primary);
+}
+</style>
+
 <!-- Content wrapper -->
 <div class="content-wrapper">
 	<!-- Content -->
@@ -90,26 +97,7 @@
 			</div>
 		</div>
 		<div class="card">
-			<div class="card-header pb-1">
-				<h5 class="card-title">Filter</h5>
-			</div>
-
-			<div class="card">
-				<ul class="nav nav-pills ms-2" id="myTab" role="tablist">
-					<li class="nav-item" role="presentation">
-						<button class="nav-link ${classify==100?'active':''}" id="tab-1"
-							data-bs-toggle="tab" data-bs-target="#tab-pane" type="button"
-							role="tab" aria-controls="1"
-							aria-selected="${classify==0?'true':'false'}">숙소</button>
-					</li>
-					<li class="nav-item" role="presentation">
-						<button class="nav-link ${classify==200?'active':''}" id="tab-2"
-							data-bs-toggle="tab" data-bs-target="#tab-pane" type="button"
-							role="tab" aria-controls="2"
-							aria-selected="${classify==1?'true':'false'}">투어</button>
-					</li>
-				</ul>
-
+			<div class="card mt-2">
 				<div class="tab-content pt-0" id="myTabContent">
 					<div class="tab-pane fade show active" id="tab-pane"
 						role="tabpanel" aria-labelledby="tab-1" tabindex="0">
@@ -117,47 +105,41 @@
 							<div class="col">
 								<div class="row text-end"></div>
 							</div>
-							<div class="col-auto pt-2 text-end">
-								${dataCount}개(${page}/${total_page} 페이지)</div>
+							
 						</div>
 
 						<div class="table-responsice text-nowrap">
 							<table class="table">
 								<thead>
-									<tr>
+									<tr class="text-center"> 
 										<th>상품코드</th>
+										<th>상품썸네일</th>
 										<th>상품명</th>
 										<th>가격</th>
-										<th>할인율</th>
-										<th>재고</th>
 										<th>진열</th>
+										<th>등록일</th>
 										<th>수정일</th>
-										<th>변경</th>
+										<th>수정하기</th>
 									</tr>
 								</thead>
 								<tbody class="table-border-bottom-0">
 									<c:forEach var="dto" items="${list}" varStatus="status">
-										<tr valign="middle">
-											<td>${dto.productNum}</td>
-											<td class="product-subject left"><img
-												src="${pageContext.request.contextPath}/uploads/product/${dto.thumbnail}">
-												<a href="#"><label>${dto.productName}</label></a></td>
+										<tr class="text-center">
+											<td>${dto.num}</td>
+											<td><img style="width: 100px; height: 70px;" class="justify-content-center"
+												src="${pageContext.request.contextPath}/uploads/room/${dto.thumbnail}">
+												<a href="#"></a></td>
+											<td>${dto.subject}</td>
 											<td>${dto.price}</td>
-											<td>${dto.discountRate}%</td>
-											<td>${dto.totalStock}</td>
-											<td>${dto.productShow==1?"표시":"숨김"}</td>
-											<td>${dto.update_date}</td>
+											<td>${dto.active==1?"표시":"숨김"}</td>
+											<td>${dto.reg_date}</td>
+											<td>yyyy-mm-dd</td>
 											<td><c:url var="updateUrl"
-													value="/admin/product/${classify}/update">
-													<c:param name="productNum" value="${dto.productNum}" />
-													<c:param name="parentNum" value="${parentNum}" />
-													<c:param name="categoryNum" value="${categoryNum}" />
+													value="/admin/product/update">
+													<c:param name="num" value="${dto.num}" />
 													<c:param name="page" value="${page}" />
 												</c:url>
-												<button type="button" class="btn border btn-productStock"
-													data-productNum="${dto.productNum}"
-													data-optionCount="${dto.optionCount}">재고</button>
-												<button type="button" class="btn border"
+												<button type="button" class="btn border btn-update"
 													onclick="location.href='${updateUrl}';">수정</button></td>
 										</tr>
 									</c:forEach>
@@ -165,6 +147,7 @@
 							</table>
 						</div>
 
+							<div class="col-auto pt-4 ps-4 text-start">${dataCount}개(${page}/${total_page} 페이지)</div>
 						<div class="page-navigation">${dataCount == 0 ? "등록된 상품이 없습니다." : paging}
 						</div>
 

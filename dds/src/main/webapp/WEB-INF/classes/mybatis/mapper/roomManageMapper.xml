@@ -3,6 +3,15 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.fly.dds.admin.mapper.RoomManageMapper">
 
+	<sql id="where-list">
+		<choose>
+			<when test="schType == 'all' ">
+				( INSTR(subject, #{kwd}) &gt; 0 )
+			</when>
+		</choose>
+	</sql>
+
+
   <select id="roomSeq" resultType="Long">
   	SELECT room_seq.nextval FROM dual
   </select>
@@ -34,6 +43,37 @@
 	</insert>
 
 <!-- room list -->
+	<!-- public int dataCount(Map<String, Object> map);
+	public List<Room> listRoom(Map<String, Object> map);
+	public Room findById(long num);
+	public List<Room> listRoomFile(long num); -->
+	
+	<select id="dataCount" parameterType="map" resultType="Integer">
+		SELECT NVL(COUNT(*) , 0)
+		FROM room
+	</select>
+	
+	<select id="listRoom" parameterType="map" resultType="com.fly.dds.domain.Room">
+		SELECT r.num, active, r.subject, r.addr1, r.addr2, r.room_type, NVL(AVG(rr.rating), 0) AS rating, NVL(COUNT(rr.review_num), 0) AS review_count, 
+				MIN(d.price) AS price, r.facility_content AS facility_content, r.key_value AS key_value , r.thumbnail , MIN(d.people) as people, TO_CHAR(r.reg_date, 'YYYY-MM-DD') reg_date
+		FROM room r
+		LEFT OUTER JOIN room_detail d ON r.num = d.num
+		LEFT OUTER JOIN room_review rr ON r.num = rr.num
+		<where>
+			<if test="kwd != null and kwd != ''">
+			<include refid="where-list"/>
+			</if>
+		</where>
+		GROUP BY r.num, r.subject, r.addr1, r.addr2, r.room_type, r.facility_content, r.key_value , r.thumbnail, active, r.reg_date
+		ORDER BY price DESC
+		OFFSET #{offset} ROWS FETCH FIRST #{size} ROWS ONLY
+	</select>
+	
+	<!-- 상품 상세 정보 -->
+	<select id="findById">
+	
+	
+	</select>
 
 <!-- update -->
 
