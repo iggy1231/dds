@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import com.fly.dds.common.FileManager;
 import com.fly.dds.common.MyUtil;
 import com.fly.dds.domain.Member;
+import com.fly.dds.domain.MyPage;
 import com.fly.dds.domain.SessionInfo;
 import com.fly.dds.domain.TravelReview;
 import com.fly.dds.service.MyPageService;
@@ -37,7 +38,29 @@ public class MyPageController {
 	@GetMapping("profile")
 	public String profileList(
 			 @RequestParam(value = "page", defaultValue = "1") int current_page,
-			Member dto,
+			 @RequestParam(value = "page2", defaultValue = "1") int current_page2,
+
+    		HttpSession session,
+    		Model model
+    		) {
+		
+		SessionInfo Info = (SessionInfo)session.getAttribute("member");
+		Long user_num = Info.getUser_num();
+		Member dto = null;
+		try {
+			dto = service.findById(user_num);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+
+		model.addAttribute("dto" , dto);
+		return ".four.mypage.profile";
+	}
+	
+	@GetMapping("review")
+	public String review(
+			 @RequestParam(value = "pageNo", defaultValue = "1") int current_page,
     		HttpSession session,
     		Model model
     		) {
@@ -50,6 +73,7 @@ public class MyPageController {
 		    
 		    
 		    SessionInfo Info = (SessionInfo)session.getAttribute("member");
+
 		    
 		    Long user_num = Info.getUser_num();
 		    
@@ -58,25 +82,64 @@ public class MyPageController {
 		    dataCount = service.dataCount(map);
 		    total_page = dataCount != 0 ? myUtil.pageCount(size, dataCount) : 0;
 		    if(total_page < current_page) current_page = total_page;
-		    
 		    int offset = (current_page - 1) * size;
 		    map.put("offset", offset);
 		    map.put("size", size);
 		    List<TravelReview> list = service.listReview(map);
-		try {
-			dto = service.findById(user_num);
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-		
-		
-		System.out.println("진명아 확인할땐 이렇게하는거야 " + dto.getAge());
+
+		    String paging = myUtil.pagingMethod(current_page, total_page, "listReview");
+
 		model.addAttribute("list",list);
-		model.addAttribute("page",current_page);
+		model.addAttribute("paging", paging);
+
+		model.addAttribute("pageNo",current_page);
+
 		model.addAttribute("total_page",total_page);
-		model.addAttribute("dto" , dto);
-		return ".four.mypage.profile";
-	}
+
+		return "mypage/review";
+	}	
+	
+	@GetMapping("reply")
+	public String reply(
+			 @RequestParam(value = "pageNo", defaultValue = "1") int current_page,
+    		HttpSession session,
+    		Model model
+    		) {
+			 
+		    
+		    Map<String, Object> map = new HashMap<>();
+		    int size = 10;
+		    int total_page = 0;
+		    int dataCount = 0;
+		    
+		    
+		    SessionInfo Info = (SessionInfo)session.getAttribute("member");
+
+		    
+		    Long user_num = Info.getUser_num();
+		    
+		    map.put("user_num", user_num);
+		    
+		    dataCount = service.replyCount(map);
+		    total_page = dataCount != 0 ? myUtil.pageCount(size, dataCount) : 0;
+		    if(total_page < current_page) current_page = total_page;
+		    int offset = (current_page - 1) * size;
+		    map.put("offset", offset);
+		    map.put("size", size);
+		    List<MyPage> list = service.listReply(map);
+
+		    String paging = myUtil.pagingMethod(current_page, total_page, "listReply");
+
+		model.addAttribute("list",list);
+		
+		model.addAttribute("paging", paging);
+
+		model.addAttribute("pageNo",current_page);
+
+		model.addAttribute("total_page",total_page);
+
+		return "mypage/reply";
+	}	
 	
 	@PostMapping("mbtiUpdate")
     public String mbtiUpdate(Member dto,
@@ -93,6 +156,7 @@ public class MyPageController {
 		
         return ".four.mypage.profile";
     }
+	
 	
 	@GetMapping("profileUpdate")
     public String profileWrite(Member dto ,

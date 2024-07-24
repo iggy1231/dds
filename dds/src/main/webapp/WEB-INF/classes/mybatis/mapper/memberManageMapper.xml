@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.fly.dds.admin.mapper.MemberManageMapper">
+
+	<select id="listMember" parameterType="map" resultType="com.fly.dds.admin.domain.MemberManage" >
+	 select m.user_num , userid , nickname , reg_date , email , gender , tel , enabled , ban_state , num 
+	from member1 m
+	left outer join member_info i on m.user_num = i.user_num
+	left outer join ( select rownum , num , ban_state , user_num from ban where rownum = 1 order by num desc) b on m.user_num = b.user_num
+	order by user_num
+	</select>
+	
+		<select id="dataCount" parameterType="map" resultType="Integer">
+		SELECT NVL(COUNT(distinct m.user_num), 0)
+		FROM member1 m
+		join member_info i on m.user_num = i.user_num
+		<where>
+			<if test="kwd != null and kwd != '' ">
+				<include refid="where-list"/>
+			</if>
+		</where>
+	</select>
+	
+		<sql id="where-list">
+				INSTR(nickname, #{kwd}) &gt; 0	
+		</sql>
+</mapper>

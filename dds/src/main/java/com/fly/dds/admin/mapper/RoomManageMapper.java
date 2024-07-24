@@ -32,7 +32,7 @@ public interface RoomManageMapper {
 	// update
 	public void updateRoom(Room dto) throws SQLException;
 	public void updateRoomFile(Room dto) throws SQLException;
-	public void updateRoomFacility(Room dto) throws SQLException;
+	// public void updateRoomFacility(Room dto) throws SQLException;
 	public void updateRoomDetail(Room dto) throws SQLException;
 	
 	

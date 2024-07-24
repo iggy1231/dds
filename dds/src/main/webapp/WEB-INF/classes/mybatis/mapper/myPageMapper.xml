@@ -65,4 +65,34 @@
 		WHERE m.user_num = #{user_num}
 	</select>
 	
+	<select id="listReply" parameterType="map" resultType="com.fly.dds.domain.MyPage">
+		select user_num  , reply_num , num , content , to_char(reg_date , 'yyyy-mm-dd') reg_date , boardname
+		from
+		(select user_num ,reply_num , num , content , reg_date, 'travelreview' as boardname
+		from travelreview_reply
+		union all
+		select user_num ,reply_num , num , content ,reg_date  , 'info' as boardname
+		from info_reply
+		union all
+		select user_num ,reply_num , num , content ,reg_date , 'companion' as boardname
+		from companion_reply
+		order by reg_date desc)
+		where user_num = #{user_num}
+		OFFSET #{offset} ROWS FETCH FIRST #{size} ROWS ONLY
+	</select>
+	
+	<select id="replyCount" parameterType="map" resultType="Integer">
+	select count(reply_num)
+	from (
+    select user_num, reply_num
+    from travelreview_reply
+    union all
+    select user_num, reply_num
+    from info_reply
+    union all
+    select user_num, reply_num
+    from companion_reply
+	)
+	where user_num = #{user_num}
+	</select>
 </mapper>

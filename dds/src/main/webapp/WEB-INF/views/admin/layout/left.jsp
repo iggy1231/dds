@@ -111,7 +111,7 @@
 
               <ul class="menu-sub">
                 <li class="menu-item">
-                  <a href="${pageContext.request.contextPath}/admin/product/list" class="menu-link">
+                  <a href="${pageContext.request.contextPath}/admin/product/main" class="menu-link">
                     <div data-i18n="Without menu">상품리스트</div>
                   </a>
                 </li>
@@ -193,7 +193,7 @@
               </a>
               <ul class="menu-sub">
                 <li class="menu-item">
-                  <a href="pages-account-settings-account.html" class="menu-link">
+                  <a href="${pageContext.request.contextPath}/admin/membermanage/list" class="menu-link">
                     <div data-i18n="Account">신고/차단</div>
                   </a>
                 </li>

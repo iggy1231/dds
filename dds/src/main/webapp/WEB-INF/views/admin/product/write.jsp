@@ -92,7 +92,7 @@
 					<tr>
 						<td class="table-light col-sm-2">상품명</td>
 						<td>
-							<input type="text" name="subject" class="form-control" value="">
+							<input type="text" name="subject" class="form-control" value="${dto.subject }">
 						</td>
 					</tr>
 					<tr>
@@ -183,9 +183,9 @@
 						<td class="table-light col-sm-2">상품 진열</td>
 						<td>
 							<div class="pt-2 pb-2">
-								<input type="radio" name="active" class="form-check-input" id="productShow1" value="1" ${dto.productShow==1 ? "checked='checked'" : "" }> <label class="form-check-label" for="productShow1">상품진열</label>
+								<input type="radio" name="active" class="form-check-input" id="active1" value="1" ${dto.active==1 ? "checked='checked'" : "" }> <label class="form-check-label" for="productShow1">상품진열</label>
 								&nbsp;&nbsp;
-								<input type="radio" name="active" class="form-check-input" id="productShow0" value="0" ${dto.productShow==0 ? "checked='checked'" : "" }> <label class="form-check-label" for="productShow0">진열안함</label>
+								<input type="radio" name="active" class="form-check-input" id="active0" value="0" ${dto.active==0 ? "checked='checked'" : "" }> <label class="form-check-label" for="productShow0">진열안함</label>
 							</div>
 						</td>
 					</tr>

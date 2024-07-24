@@ -201,6 +201,9 @@
 
 
 /*** Testimonial End ***/
+
+
+        
 </style>
 
 <div class="my-info">
@@ -258,17 +261,89 @@
 		
 		<ul class="nav nav-tabs" id="myTab" role="tablist">
             <li class="nav-item" role="presentation">
-                <button class="nav-link active" data-bs-toggle="tab" data-bs-target="#tab-content" type="button" role="tab" aria-controls="1" aria-selected="false"> 여행기 </button>
+                <button class="nav-link active" id="tab-1" data-bs-toggle="tab" data-bs-target="#tab-pane-1" type="button" role="tab" aria-controls="1" aria-selected="false"> 여행기 </button>
             </li>
             <li class="nav-item" role="presentation">
-                <button class="nav-link" data-bs-toggle="tab" data-bs-target="#tab-content" type="button" role="tab" aria-controls="2" aria-selected="false"> 댓글 </button>
+                <button class="nav-link" id="tab-2" data-bs-toggle="tab" data-bs-target="#tab-pane-2" type="button" role="tab" aria-controls="2" aria-selected="false"> 댓글 </button>
             </li>
         </ul>
         
-        <div class="tab-content mt-3" id="nav-content">
+        <div class="tab-content mt-3">
+	        <div id="tab-pane-1" class="tab-pane fade show p-0 active">
+	                <div class="row g-4">
+	                
+	                <c:forEach var="list" items="${list}">
+   		 <div class="col-lg-4 col-md-6 wow fadeInUp" data-wow-delay="0.3s">
+        <div class="property-item rounded overflow-hidden">
+            <div class="position-relative overflow-hidden">
+                <a href="${pageContext.request.contextPath}/travelreview/article?num=${list.num}&page=1">
+               
+                                					<c:choose>
+					
+    <c:when test="${not empty list.imageFilename}">
+        <c:set var="profileImage2" value="${pageContext.request.contextPath}/uploads/travelreview/${list.imageFilename}" />
+    </c:when>
+    <c:otherwise>
+        <c:set var="profileImage2" value="${pageContext.request.contextPath}/resources/images/product_default.png" />
+    </c:otherwise>
+</c:choose>
+
+<img src="${profileImage2}" alt="Profile Image2" class="profile-image2 ratio ratio-4x3 img-fluid">
+                </a>
+                <div class="d-inline-flex position-absolute start-0 top-0 m-4">
+                    <div class="bg-primary rounded text-white py-1 px-3 me-2"><i class="bi bi-heart-fill"></i>&nbsp;${list.likeCount}개</div> 
+                    <div class="bg-primary rounded text-white py-1 px-3"><i class="bi bi-eye"></i>&nbsp;${list.hitCount}개</div>
+                </div>
+                <div class="display-9 bg-white rounded-top text-primary position-absolute start-0 bottom-0 mx-4 pt-1 px-3">
+                    <h5 style="font-weight: 600;">순천</h5>
+                </div>
+            </div>
+            <div class="px-4 py-2 pb-3">
+                <a class="d-block h4 mb-2 mt-2" href="" style="font-size:18px; font-weight: 600;">${list.subject}</a>
+                <h6 class="display-10" style="color: #666565;"><i class="text-primary bi bi-chat-fill"></i>&nbsp;&nbsp;${list.replyCount}개</h6> 
+                <h6 class="display-10 py-1" style="color: #666565;"><i class="bi bi-calendar-check"></i>&nbsp;${list.reg_date}</h6>
+            </div>
+        </div>
+    </div>
+</c:forEach>
+	                    
+					</div>
+			</div>
         </div>
         
-
+        	<div id="tab-pane-2" class="tab-pane fade p-0">
+                        <div class="mt-1 p-2 list-question">
+                       <c:forEach var="list2" items="${list2}">
+                            <div class="mt-1 border-bottom">
+                                <a class="p-1 fw-semibold fs-4" href="">${list2.content}</a>
+                                <h6 class="p-1 fs-5 text-secondary"><i class="bi bi-airplane"></i>&nbsp;
+                                 <c:choose>
+							        <c:when test="${list2.boardName == 'travelreview'}">
+							            여행후기
+							        </c:when>
+							        <c:when test="${list2.boardName == 'info'}">
+							            여행정보
+							        </c:when>
+							        <c:when test="${list2.boardName == 'companion'}">
+							            동행구인
+							        </c:when>
+							        <c:otherwise>
+							            기타
+							        </c:otherwise>
+							    </c:choose>
+							   </h6>
+                                <div class="row p-2 fs-5">
+					                <div class="col text-end pt-2 px-0">
+					                    <span class="text-secondary">${list2.reg_date}</span>&nbsp;|&nbsp;<span class="deleteQuestion" data-num="1">삭제</span>
+					                </div>
+            					</div>
+                            </div> 
+                            
+                       </c:forEach>
+                            
+                        </div>
+        	</div>
+        	
         	
 	</div>
 	
@@ -360,82 +435,6 @@ $(document).ready(function(){
         });
     });
 });
+
 </script>
-
-<script type="text/javascript">
-function login() {
-	location.href = '${pageContext.request.contextPath}/member/login';
-}
-
-function ajaxFun(url, method, formData, dataType, fn, file = false) {
-	const settings = {
-			type: method, 
-			data: formData,
-			dataType:dataType,
-			success:function(data) {
-				fn(data);
-			},
-			beforeSend: function(jqXHR) {
-				jqXHR.setRequestHeader('AJAX', true);
-			},
-			complete: function () {
-			},
-			error: function(jqXHR) {
-				if(jqXHR.status === 403) {
-					login();
-					return false;
-				} else if(jqXHR.status === 400) {
-					alert('요청 처리가 실패 했습니다.');
-					return false;
-		    	}
-		    	
-				console.log(jqXHR.responseText);
-			}
-	};
-	
-	if(file) {
-		settings.processData = false;  // file 전송시 필수. 서버로전송할 데이터를 쿼리문자열로 변환여부
-		settings.contentType = false;  // file 전송시 필수. 서버에전송할 데이터의 Content-Type. 기본:application/x-www-urlencoded
-	}
-	
-	$.ajax(url, settings);
-}
-
-
-$(function(){
-	listReview(1);
-	
-    $("button[role='tab']").on("click", function(e){
-		const tab = $(this).attr("aria-controls");
-		if(tab === "1") {
-			listReview(1);
-		} else if(tab === "2") {
-			listReply(1);
-		}
-    });
-});
-
-function listReview(page) {
-	let url = '${pageContext.request.contextPath}/mypage/review';
-	
-	const fn = function(data) {
-		$('.tab-content').html(data);
-	};
-	ajaxFun(url, "get", {pageNo : page}, "text", fn);
-}
-
-function listReply(page) {
-	let url = '${pageContext.request.contextPath}/mypage/reply';
-	
-	const fn = function(data) {
-		$('.tab-content').html(data);
-	};
-	ajaxFun(url, "get", {pageNo : page}, "text", fn);
-	
-	
-}
-</script>
-
-
-
 

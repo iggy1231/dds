@@ -90,15 +90,32 @@ public class RoomProductServiceImpl implements RoomProductService {
 	public void deleteOptionDetail(long detailNum) throws Exception {
 		
 	}
-
+	
+	// 숙소 개수
 	@Override
-	public int dataCount(Map<String, Object> map) {
-		return 0;
+	public int dataCountRoom(Map<String, Object> map) {
+		int result = 0;
+		
+		try {
+			result = mapper.dataCount(map);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		return result;
 	}
-
+	
+	// 관리자 숙소 리스트
 	@Override
-	public List<Room> listProduct(Map<String, Object> map) {
-		return null;
+	public List<Room> listRoomProduct(Map<String, Object> map) {
+		List<Room> list = null;
+		try {
+			list = mapper.listRoom(map);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		return list;
 	}
 
 	@Override

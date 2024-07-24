@@ -12,8 +12,8 @@ public interface RoomProductService {
 	public void deleteProductFile(long fileNum, String pathname) throws Exception;
 	public void deleteOptionDetail(long detailNum) throws Exception;
 	
-	public int dataCount(Map<String, Object> map);
-	public List<Room> listProduct(Map<String, Object> map);
+	public int dataCountRoom(Map<String, Object> map);
+	public List<Room> listRoomProduct(Map<String, Object> map);
 	
 	public Room findById(long productNum);
 	public Room findByPrev(Map<String, Object> map);

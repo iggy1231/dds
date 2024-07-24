@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 
 import com.fly.dds.common.FileManager;
 import com.fly.dds.domain.Member;
+import com.fly.dds.domain.MyPage;
 import com.fly.dds.domain.TravelReview;
 import com.fly.dds.mapper.MyPageMapper;
 
@@ -136,6 +137,30 @@ public class MyPageServiceImpl implements MyPageService {
 		}
 		
 		return list;
+	}
+
+	@Override
+	public List<MyPage> listReply(Map<String, Object> map) {
+		List<MyPage> list = null;
+		try {
+			list = mapper.listReply(map);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		return list;
+	}
+
+	@Override
+	public int replyCount(Map<String, Object> map) {
+int result = 0;
+		
+		try {
+			result = mapper.replyCount(map);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return result;
 	}
 	
 }

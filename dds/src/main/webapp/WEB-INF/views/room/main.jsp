@@ -4,9 +4,9 @@
 <link rel="icon" href="data:;base64,iVBORw0KGgo=">
 <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/css/bootstrap-datepicker.min.css" rel="stylesheet">
 <style>
- * {
-            font-family: pretendard;
-        }
+*{
+	font-family: 'Pretendard-Regular';
+}
         .hero-header {
             background-image: url('${pageContext.request.contextPath}/resources/images/header_room.png');
             background-size: cover;
@@ -15,7 +15,7 @@
         }
         .search-form-container {
             max-width: 1200px;
-            margin: auto;
+            margin: auto; 
             box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
             padding: 20px;
             border-radius: 8px;
