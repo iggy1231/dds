@@ -257,148 +257,25 @@
             <div data-wow-delay="0.1s">
                 <ul class="nav nav-pills d-inline-flex justify-content-end mb-5">
                     <li class="nav-item me-2">
-                        <a class="py-1 px-4 btn btn-outline-primary active" data-bs-toggle="pill" href="#tab-1">숙소</a>
+                        <a class="py-1 px-4 btn btn-outline-primary active" data-bs-toggle="pill" role="tab" href="#tab-1">숙소</a>
                     </li>
                     <li class="nav-item me-2">
-                        <a class="py-1 px-4 btn btn-outline-primary" data-bs-toggle="pill" href="#tab-2">투어</a>
+                        <a class="py-1 px-4 btn btn-outline-primary" data-bs-toggle="pill" role="tab" href="#tab-2">투어</a>
                     </li>
                     <li class="nav-item me-2">
-                        <a class="py-1 px-4 btn btn-outline-primary" data-bs-toggle="pill" href="#tab-3">여행정보</a>
+                        <a class="py-1 px-4 btn btn-outline-primary" data-bs-toggle="pill" role="tab" href="#tab-3">여행정보</a>
                     </li>
                     <li class="nav-item me-2">
-                        <a class="py-1 px-4 btn btn-outline-primary" data-bs-toggle="pill" href="#tab-4">동행</a>
+                        <a class="py-1 px-4 btn btn-outline-primary" data-bs-toggle="pill" role="tab" href="#tab-4">동행</a>
                     </li>
                     <li class="nav-item me-2">
-                        <a class="py-1 px-4 btn btn-outline-primary" data-bs-toggle="pill" href="#tab-5">후기</a>
+                        <a class="py-1 px-4 btn btn-outline-primary" data-bs-toggle="pill" role="tab" href="#tab-5">후기</a>
                     </li>
                 </ul>
             </div>
         </div>
         <div class="tab-content">
-            <div id="tab-1" class="tab-pane fade show active">
-                <!-- 숙소 탭 콘텐츠 -->
-                <div class="row">
-                    <div class="col-md-4">
-                        <div class="wishlist-item position-relative">
-                            <span class="badge-top-left">오늘의특가</span>
-                            <i class="bi bi-heart-fill heart-icon"></i>
-                            <img src="https://ppss.kr/wp-content/uploads/2023/02/1-2.jpeg" alt="Item Image">
-                            <div class="wishlist-item-body">
-                                <p class="wishlist-item-title">[순천] 순천만 정원박람회가 보이는 순천만펜션</p>
-                                <div class="wishlist-item-rating">
-                                    <i class="bi bi-star-fill"></i>
-                                    <span>4.7 (4053)</span>
-                                </div>
-                                <p class="wishlist-item-price">150,000원</p>
-                            </div>
-                            <div class="wishlist-item-footer">
-                                전라남도 • 순천
-                            </div>
-                        </div>
-                    </div>
-                    <!-- 다른 아이템들도 여기에 추가 -->
-                  	<div class="col-md-4">
-                        <div class="wishlist-item position-relative">
-                            <span class="badge-top-left">오늘의특가</span>
-                            <i class="bi bi-heart-fill heart-icon"></i>
-                            <img src="https://ppss.kr/wp-content/uploads/2023/02/1-2.jpeg" alt="Item Image">
-                            <div class="wishlist-item-body">
-                                <p class="wishlist-item-title">[순천] 순천만 정원박람회가 보이는 순천만펜션</p>
-                                <div class="wishlist-item-rating">
-                                    <i class="bi bi-star-fill"></i>
-                                    <span>4.7 (4053)</span>
-                                </div>
-                                <p class="wishlist-item-price">150,000원</p>
-                            </div>
-                            <div class="wishlist-item-footer">
-                                전라남도 • 순천
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div id="tab-2" class="tab-pane fade">
-                <!-- 투어 탭 콘텐츠 -->
-                <div class="row">
-                    <div class="col-md-4">
-                        <div class="wishlist-item position-relative">
-                            <span class="badge-top-left">최저가보장제</span>
-                            <i class="bi bi-heart-fill heart-icon"></i>
-                            <img src="https://ppss.kr/wp-content/uploads/2023/02/1-2.jpeg" alt="Item Image">
-                            <div class="wishlist-item-body">
-                                <p class="wishlist-item-title">[순천] 봉화산에 가서 고라니 만나기 챌린지</p>
-                                <div class="wishlist-item-rating">
-                                    <i class="bi bi-star-fill"></i>
-                                    <span>4.7 (4053)</span>
-                                </div>
-                                <p class="wishlist-item-price">150,000원</p>
-                            </div>
-                            <div class="wishlist-item-footer">
-                                순천 • 봉화산 투어
-                            </div>
-                        </div>
-                    </div>
-                    <!-- 다른 투어 아이템들도 여기에 추가 -->
-                </div>
-            </div>
-            <div id="tab-3" class="tab-pane fade">
-                <!-- 여행정보 탭 콘텐츠 -->
-                <div class="row">
-                    <div class="col-md-4">
-                        <div class="travel-info-item">
-                            <i class="bi bi-heart-fill heart-icon"></i>
-                            <img src="https://via.placeholder.com/300x200" alt="Travel Image">
-                            <div class="travel-info-item-body">
-                                <p class="travel-info-item-title">감악산(거창)</p>
-                                <p class="travel-info-item-location"><i class="bi bi-geo-alt-fill"></i> 경상남도 거창군</p>
-                                <p class="travel-info-item-tags">#관광지 #산 #자연관광지 #자연</p>
-                            </div>
-                        </div>
-                    </div>
-                    <!-- 다른 여행정보 아이템들도 여기에 추가 -->
-                </div>
-            </div>
-            <div id="tab-4" class="tab-pane fade">
-                <!-- 동행 탭 콘텐츠 -->
-                <div class="row">
-                    <div class="col-md-4">
-                        <div class="companion-card">
-                            <div class="companion-card-header">
-                                제주도 힐링 투어 같이 가실 분 구해요! 함께 즐거운 여행 합시다 :-)
-                            </div>
-                            <div class="companion-card-body">
-                                <img src="https://via.placeholder.com/80" alt="Profile Image" class="companion-card-img">
-                                <p class="companion-card-title">닉네임</p>
-                                <p class="companion-card-location"><i class="bi bi-geo-alt-fill"></i> 제주도 <i class="bi bi-people-fill"></i> 5인</p>
-                                <p class="companion-card-date"><i class="bi bi-calendar-event"></i> YY/MM/DD ~ YY/MM/DD</p>
-                                <span class="badge">동행 신청</span>
-                            </div>
-                        </div>
-                    </div>
-                    <!-- 다른 동행 아이템들도 여기에 추가 -->
-                </div>
-            </div>
-            <div id="tab-5" class="tab-pane fade">
-                <!-- 후기 탭 콘텐츠 -->
-                <div class="row">
-                    <div class="col-md-4">
-                        <div class="review-item">
-                            <i class="bi bi-heart-fill heart-icon"></i>
-                            <img src="https://via.placeholder.com/300x200" alt="Review Image">
-                            <div class="review-item-body">
-                                <p class="review-item-title">순천 갔다온 썰 푼다</p>
-                                <p class="review-item-text">순천에 자랑 소금후추 보고 왔는데...</p>
-                                <p class="review-item-location"><i class="bi bi-geo-alt-fill"></i> 순천</p>
-                                <p class="review-item-date"><i class="bi bi-calendar-event"></i> 2024.07.21</p>
-                            </div>
-                            <div class="review-item-footer">
-                                <span><i class="bi bi-person-circle"></i> 닉네임</span>
-                            </div>
-                        </div>
-                    </div>
-                    <!-- 다른 여행후기 아이템들도 여기에 추가 -->
-                </div>
-            </div>
+            
         </div>
     </div>
 </div>
@@ -409,6 +286,63 @@ $(document).ready(function(){
     $('.nav-pills a').on('click', function (e) {
         e.preventDefault();
         $(this).tab('show');
+    });
+});
+
+function login() {
+	location.href = '${pageContext.request.contextPath}/member/login';
+}
+
+function ajaxFun(url, method, formData, dataType, fn, file = false) {
+	const settings = {
+			type: method, 
+			data: formData,
+			dataType:dataType,
+			success:function(data) {
+				fn(data);
+			},
+			beforeSend: function(jqXHR) {
+				jqXHR.setRequestHeader('AJAX', true);
+			},
+			complete: function () {
+			},
+			error: function(jqXHR) {
+				if(jqXHR.status === 403) {
+					login();
+					return false;
+				} else if(jqXHR.status === 400) {
+					alert('요청 처리가 실패 했습니다.');
+					return false;
+		    	}
+		    	
+				console.log(jqXHR.responseText);
+			}
+	};
+	
+	if(file) {
+		settings.processData = false;  // file 전송시 필수. 서버로전송할 데이터를 쿼리문자열로 변환여부
+		settings.contentType = false;  // file 전송시 필수. 서버에전송할 데이터의 Content-Type. 기본:application/x-www-urlencoded
+	}
+	
+	$.ajax(url, settings);
+}
+
+$(function(){
+	listReview(1);
+	
+    $("a[role='tab']").on("click", function(e){
+		const tab = $(this).attr("aria-controls");
+		if(tab === "1") {
+			listReview(1);
+		} else if(tab === "2") {
+			listReply(1);
+		} else if(tab === "3") {
+			listReply(1);
+		} else if(tab === "4") {
+			listReply(1);
+		} else if(tab === "5") {
+			listReply(1);
+		}
     });
 });
 </script>

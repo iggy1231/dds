@@ -99,4 +99,17 @@
 	<delete id="deleteReply">
 	delete ${boardname}_reply where reply_num = #{reply_num}
 	</delete>
+	
+	<select id="listRoom" parameterType="map" resultType="com.fly.dds.domain.Room">
+		<!-- where 절로 discount랑 price해주기 -->
+	    SELECT num , subject , addr1 , addr2 , room_type
+		FROM room r
+		<where>
+            <if test="discount == 0">
+                AND d.DISCOUNT >= #{discount}
+            </if>
+        </where>
+		ORDER BY num DESC
+		OFFSET #{offset} ROWS FETCH FIRST #{size} ROWS ONLY	
+	</select>
 </mapper>
