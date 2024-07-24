@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.Map;
 
 import com.fly.dds.domain.Member;
+import com.fly.dds.domain.MyPage;
 import com.fly.dds.domain.TravelReview;
 
 public interface MyPageMapper {
@@ -19,5 +20,8 @@ public interface MyPageMapper {
 	public Member findById(Long user_num);
 	
 	public int dataCount(Map<String, Object> map);
+	public int replyCount(Map<String, Object> map);
 	public List<TravelReview> listReview(Map<String, Object> map);
+	public List<MyPage> listReply(Map<String, Object> map);
+	
 }
