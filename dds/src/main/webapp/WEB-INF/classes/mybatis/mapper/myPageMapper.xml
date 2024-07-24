@@ -95,4 +95,8 @@
 	)
 	where user_num = #{user_num}
 	</select>
+	
+	<delete id="deleteReply">
+	delete ${boardname}_reply where reply_num = #{reply_num}
+	</delete>
 </mapper>

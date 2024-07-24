@@ -1,6 +1,7 @@
 package com.fly.dds.controller;
 
 import java.io.File;
+import java.net.http.HttpResponse;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -14,6 +15,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.fly.dds.common.FileManager;
 import com.fly.dds.common.MyUtil;
@@ -58,6 +60,7 @@ public class MyPageController {
 		return ".four.mypage.profile";
 	}
 	
+	
 	@GetMapping("review")
 	public String review(
 			 @RequestParam(value = "pageNo", defaultValue = "1") int current_page,
@@ -67,8 +70,7 @@ public class MyPageController {
 			 
 		    
 		    Map<String, Object> map = new HashMap<>();
-		    int size = 10;
-		    int total_page = 0;
+		    int size = 9;
 		    int dataCount = 0;
 		    
 		    
@@ -80,7 +82,7 @@ public class MyPageController {
 		    map.put("user_num", user_num);
 		    
 		    dataCount = service.dataCount(map);
-		    total_page = dataCount != 0 ? myUtil.pageCount(size, dataCount) : 0;
+		    int total_page=myUtil.pageCount(dataCount, size);
 		    if(total_page < current_page) current_page = total_page;
 		    int offset = (current_page - 1) * size;
 		    map.put("offset", offset);
@@ -88,7 +90,8 @@ public class MyPageController {
 		    List<TravelReview> list = service.listReview(map);
 
 		    String paging = myUtil.pagingMethod(current_page, total_page, "listReview");
-
+		    
+		model.addAttribute("dataCount" , dataCount);    
 		model.addAttribute("list",list);
 		model.addAttribute("paging", paging);
 
@@ -109,26 +112,28 @@ public class MyPageController {
 		    
 		    Map<String, Object> map = new HashMap<>();
 		    int size = 10;
-		    int total_page = 0;
 		    int dataCount = 0;
 		    
-		    
 		    SessionInfo Info = (SessionInfo)session.getAttribute("member");
-
 		    
 		    Long user_num = Info.getUser_num();
 		    
 		    map.put("user_num", user_num);
 		    
 		    dataCount = service.replyCount(map);
-		    total_page = dataCount != 0 ? myUtil.pageCount(size, dataCount) : 0;
+		    
+		    int total_page=myUtil.pageCount(dataCount, size);		    
 		    if(total_page < current_page) current_page = total_page;
 		    int offset = (current_page - 1) * size;
 		    map.put("offset", offset);
 		    map.put("size", size);
 		    List<MyPage> list = service.listReply(map);
-
+		  
+		    
 		    String paging = myUtil.pagingMethod(current_page, total_page, "listReply");
+		
+		    
+		model.addAttribute("dataCount" , dataCount);
 
 		model.addAttribute("list",list);
 		
@@ -215,6 +220,25 @@ public class MyPageController {
 		
 		
 		return "redirect:/";
+	}
+	
+	@PostMapping("deleteReply")
+	@ResponseBody
+	public Map<String, String> deleteReply(
+			@RequestParam String boardname,
+			@RequestParam long reply_num) {
+		
+		System.out.println("데이터" + boardname);
+		System.out.println("리플라이" + reply_num);
+		Map<String, String> map = new HashMap<>();
+		try {
+			
+			service.deleteReply(boardname, reply_num);
+			map.put("status", "success");
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return map;
 	}
 	
 	

@@ -162,5 +162,16 @@ int result = 0;
 		}
 		return result;
 	}
+
+	@Override
+	public void deleteReply(String boardname, long reply_num) throws Exception {
+		try {
+			mapper.deleteReply(boardname,reply_num);
+		} catch (Exception e) {
+			e.printStackTrace();
+			throw e;
+		}
+		
+	}
 	
 }

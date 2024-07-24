@@ -24,7 +24,7 @@
 							   </h6>
                                 <div class="row p-2 fs-5">
 					                <div class="col text-end pt-2 px-0">
-					                    <span class="text-secondary">${list2.reg_date}</span>&nbsp;|&nbsp;<span class="deleteQuestion" data-num="1">삭제</span>
+					                    <span class="text-secondary">${list2.reg_date}</span>&nbsp;|&nbsp;<span class="deleteQuestion" data-boardname ="${list2.boardName}" data-num="${list2.reply_num}">삭제</span>
 					                </div>
             					</div>
                             </div> 
@@ -32,5 +32,5 @@
                        </c:forEach>
                             
 </div>
-
-
+<div class="page-navigation">${dataCount == 0 ? "등록된 댓글이 없습니다." : paging}
+                        </div>

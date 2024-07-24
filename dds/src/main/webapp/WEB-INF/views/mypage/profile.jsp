@@ -267,8 +267,6 @@
         
         <div class="tab-content mt-3" id="nav-content">
         </div>
-        
-
         	
 	</div>
 	
@@ -352,6 +350,7 @@ $(document).ready(function(){
             success: function(response) {
                 // 성공적으로 업데이트된 후의 동작을 정의합니다.
                 alert('MBTI가 성공적으로 업데이트되었습니다.');
+                location.reload();
             },
             error: function(error) {
                 // 오류 발생 시의 동작을 정의합니다.
@@ -431,11 +430,35 @@ function listReply(page) {
 		$('.tab-content').html(data);
 	};
 	ajaxFun(url, "get", {pageNo : page}, "text", fn);
-	
-	
 }
-</script>
 
+$('.tab-content').on('click', '.deleteQuestion', function() {
+    var reply_num = $(this).data('num');
+    var boardname = $(this).data('boardname');
+
+     if(confirm('댓글을 정말 삭제하시겠습니까?')) {
+         $.ajax({
+             type: 'POST',
+             url: '${pageContext.request.contextPath}/mypage/deleteReply',
+             data: {
+                 reply_num: reply_num,
+                 boardname: boardname
+             },
+             success: function(response) {
+                 if(response.status === 'success') {
+                     alert('삭제 성공');
+                     listReply(1);
+                 } else {
+                     alert('삭제 실패');
+                 }
+             },
+             error: function() {
+                 alert('오류남!');
+             }
+         });
+     }   
+});
+</script>
 
 
 

@@ -21,4 +21,6 @@ public interface MyPageService {
 	public void deleteProfile(Long user_num) throws Exception;
 	public List<TravelReview> listReview(Map<String, Object> map);
 	public List<MyPage> listReply(Map<String, Object> map);
+	
+	public void deleteReply(String boardname , long reply_num) throws Exception; 
 }

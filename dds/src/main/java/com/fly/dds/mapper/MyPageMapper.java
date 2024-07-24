@@ -4,6 +4,8 @@ import java.sql.SQLException;
 import java.util.List;
 import java.util.Map;
 
+import org.apache.ibatis.annotations.Param;
+
 import com.fly.dds.domain.Member;
 import com.fly.dds.domain.MyPage;
 import com.fly.dds.domain.TravelReview;
@@ -24,4 +26,5 @@ public interface MyPageMapper {
 	public List<TravelReview> listReview(Map<String, Object> map);
 	public List<MyPage> listReply(Map<String, Object> map);
 	
+	public void deleteReply(@Param("boardname") String boardname ,@Param("reply_num") long reply_num) throws SQLException; 
 }
