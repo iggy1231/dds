@@ -275,21 +275,21 @@
                 <div class="col-lg-4 col-md-6 wow fadeInUp" data-wow-delay="0.3s">
                     <div class="property-item rounded overflow-hidden">
                         <div class="event-image">
-                            <a href=""><img class="img-fluid" src="https://image.goodchoice.kr/resize_768x308/exhibition/cms/e3628_dnpqqosj_1200x480_1_20240430191228.png" alt=""></a>
+                            <a href="${pageContext.request.contextPath}/event/all/list"><img class="img-fluid" src="https://image.goodchoice.kr/resize_768x308/exhibition/cms/e3628_dnpqqosj_1200x480_1_20240430191228.png" alt=""></a>
                         </div>
                     </div>
                 </div>
                 <div class="col-lg-4 col-md-6 wow fadeInUp" data-wow-delay="0.3s">
                     <div class="property-item rounded overflow-hidden">
                         <div class="event-image">
-                            <a href=""><img class="img-fluid" src="https://image.goodchoice.kr/resize_768x308/exhibition/cms/e3892_dnpqqosj_1200x480hotxoq_20240626092644.png" alt=""></a>
+                            <a href="${pageContext.request.contextPath}/event/all/list"><img class="img-fluid" src="https://image.goodchoice.kr/resize_768x308/exhibition/cms/e3892_dnpqqosj_1200x480hotxoq_20240626092644.png" alt=""></a>
                         </div>
                     </div>
                 </div>
                 <div class="col-lg-4 col-md-6 wow fadeInUp" data-wow-delay="0.3s">
                     <div class="property-item rounded overflow-hidden">
                         <div class="event-image">
-                            <a href=""><img class="img-fluid" src="https://image.goodchoice.kr/resize_768x308/exhibition/cms/e3606_dnpqqosj_1200x480_1_20240605101842_20240605102555.png" alt=""></a>
+                            <a href="${pageContext.request.contextPath}/event/all/list"><img class="img-fluid" src="https://image.goodchoice.kr/resize_768x308/exhibition/cms/e3606_dnpqqosj_1200x480_1_20240605101842_20240605102555.png" alt=""></a>
                         </div>
                     </div>
                 </div>

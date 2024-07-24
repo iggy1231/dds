@@ -138,7 +138,7 @@ $(function(){
 
 <div class="body-container">
     <div class="body-title">
-		<h2><i class="fa-regular fa-calendar"></i> 이벤트 </h2>
+		
     </div>
     
     <div class="body-main">
@@ -191,20 +191,20 @@ $(function(){
 				${dataCount == 0 ? "등록된 이벤트가 없습니다." : paging}
 			</div>
 			
-			<table class="table table-form">
+			<table class="">
 				<tr>
 					<td align="left" width="100">
 						<button type="button" class="btn" onclick="location.href='${pageContext.request.contextPath}/admin/eventManage/${category}/list';" title="새로고침"><i class="fa-solid fa-arrow-rotate-left"></i></button>
 					</td>
 					<td align="center">
 						<form name="searchForm" action="${pageContext.request.contextPath}/admin/eventManage/${category}/list" method="post" class="search-form">
-							<select name="schType" class="form-select">
+							<select name="schType" class="form-select" style="width: 100px;">
 								<option value="all" ${schType == "all" ? "selected" : ""}>모두</option>
 								<option value="startDate" ${schType == "startDate" ? "selected" : ""}>시작일</option>
 								<option value="endDate" ${schType == "endDate" ? "selected" : ""}>종료일</option>
 								<option value="winningDate" ${schType == "winningDate" ? "selected" : ""}>발표일</option>
 							</select>
-							<input type="text" name="kwd" value="${kwd}" class="form-control">
+							<input type="text" name="kwd" value="${kwd}" class="form-control" style="width: 400px;">
 							<button type="button" class="btn" onclick="searchList()">검색</button>
 						</form>
 					</td>

@@ -1,0 +1,189 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.fly.dds.mapper.EventMapper">
+
+	<sql id="where-list">
+		<choose>
+			<when test="schType == 'all' ">
+			   ( INSTR(title, #{kwd}) &gt; 0
+		          OR DBMS_LOB.INSTR(content, #{kwd}) &gt; 0 )
+			</when>
+			<otherwise>
+			   ( TO_CHAR(${schType}, 'YYYYMMDD') = #{kwd}
+		          OR TO_CHAR(${schType}, 'YYYY-MM-DD') = #{kwd} )
+			</otherwise>
+		</choose>
+	</sql>
+	
+	<sql id="period-list">
+		<choose>
+			<when test="category == 'progress' ">
+				( startDate &lt;= SYSDATE  AND endDate &gt; SYSDATE )
+			</when>
+			<when test="category == 'upcoming' ">
+				( startDate &gt;= SYSDATE )
+			</when>
+			<when test="category == 'winner' ">
+				( winnerNumber != 0 AND winningDate &lt;= SYSDATE AND ADD_MONTHS(winningDate, 6) &gt;= SYSDATE ) 
+			</when>
+			<when test="category == 'ended' ">
+				( endDate &lt; SYSDATE )
+			</when>
+		</choose>
+	</sql>
+	
+	<!-- 글개수 -->
+	<select id="dataCount" parameterType="map" resultType="Integer">
+		SELECT NVL(COUNT(*), 0)
+		FROM event
+		<where>
+			<if test="showEvent != null and showEvent == 1">
+				showEvent = 1
+			</if>
+			<if test="category != 'all' ">
+				AND <include refid="period-list"/>
+			</if>
+			<if test="kwd!=null and kwd!='' ">
+				AND <include refid="where-list"/>
+			</if>
+		</where>   
+	</select>
+	
+	<!-- 글리스트 -->
+	<select id="listEvent" parameterType="map" resultType="com.fly.dds.domain.Event">
+		SELECT e.num, title, hitCount, showEvent,
+			   TO_CHAR(startDate,'YYYY-MM-DD HH24:MI') startDate,
+			   TO_CHAR(endDate, 'YYYY-MM-DD HH24:MI') endDate, 
+			   TO_CHAR(winningDate, 'YYYY-MM-DD HH24:MI') winningDate, winnerNumber
+			   <if test="category != 'winner'">
+			   		, NVL(applyCount, 0) applyCount
+			   </if>
+			   <if test="category == 'winner'">
+			   		, NVL(winnerCount, 0) winnerCount
+			   </if>
+		FROM event e
+		<if test="category != 'winner'">
+			LEFT OUTER JOIN (
+				SELECT num, COUNT(*) applyCount
+				FROM eventTakers
+				GROUP BY num
+			) t ON e.num = t.num
+		</if>
+		<if test="category == 'winner'">
+			LEFT OUTER JOIN (
+				SELECT num, COUNT(*) winnerCount
+				FROM eventWinner
+				GROUP BY num
+			) w ON e.num = w.num
+		</if>
+		<where>
+			<if test="showEvent != null and showEvent == 1">
+				showEvent = 1
+			</if>
+			<if test="category != 'all' ">
+				AND <include refid="period-list"/>
+			</if>
+			<if test="kwd != null and kwd != ''">
+				AND <include refid="where-list"/>
+			</if>
+		</where>
+		ORDER BY endDate DESC
+		OFFSET #{offset} ROWS FETCH FIRST #{size} ROWS ONLY
+	</select>
+	
+	<!-- 글보기 -->
+	<select id="findByNum" parameterType="Long" resultType="com.fly.dds.domain.Event">
+		SELECT e.num, e.user_num, userName, title, content, 
+			TO_CHAR(startDate,'YYYY-MM-DD HH24:MI') startDate,
+			TO_CHAR(endDate, 'YYYY-MM-DD HH24:MI') endDate, 
+			TO_CHAR(winningDate, 'YYYY-MM-DD HH24:MI') winningDate, 
+			winnerNumber, showEvent, hitCount
+		FROM event e
+		JOIN member1 m ON e.user_num = m.user_num
+		WHERE e.num = #{num}
+	</select>
+	
+	<!-- 조회수 증가 -->
+	<update id="updateHitCount" parameterType="Long">
+		UPDATE event SET hitCount = hitCount+1 WHERE num = #{num}
+	</update>
+	
+	<!-- AND 가 필요 없는 경우 자동으로 제거 됨 -->
+	<!-- 이전글 -->
+	<select id="findByPrev" parameterType="map" resultType="com.fly.dds.domain.Event">
+		SELECT num, title
+		FROM event
+		<where>
+			<if test="showEvent != null and showEvent == 1">
+				showEvent = 1
+			</if>
+			<if test="category != 'all' ">
+				AND <include refid="period-list"/>
+			</if>
+			<if test="kwd != null and kwd != '' ">
+				AND <include refid="where-list"/>
+			</if>
+			AND (num &gt; #{num})
+		</where>
+		ORDER BY endDate ASC
+		FETCH FIRST 1 ROWS ONLY
+	</select>
+
+	<!-- 다음글 -->
+	<select id="findByNext" parameterType="map" resultType="com.fly.dds.domain.Event">
+		SELECT num, title
+		FROM event
+		<where>
+			<if test="showEvent != null and showEvent == 1">
+				showEvent = 1
+			</if>
+			<if test="category != 'all' ">
+				AND <include refid="period-list"/>
+			</if>
+			<if test="kwd != null and kwd != '' ">
+				AND <include refid="where-list"/>
+			</if>
+			AND (num &lt; #{num})
+		</where>
+		ORDER BY endDate DESC
+		FETCH FIRST 1 ROWS ONLY
+	</select>
+	
+	<!-- 이벤트 응모자 등록 -->
+	<insert id="insertEventTakers" parameterType="com.fly.dds.domain.Event">
+		INSERT INTO eventTakers(num, user_num, reg_date) VALUES (#{num}, #{user_num}, SYSDATE)
+	</insert>
+	
+	<!-- 이벤트 응모 여부 -->
+	<select id="findByEventTakers" parameterType="map" resultType="com.fly.dds.domain.Event">
+		SELECT num, e.user_num, userName 
+		FROM eventTakers e
+		JOIN member1 m ON e.user_num = m.user_num
+		WHERE num = #{num} AND e.user_num = #{user_num}
+	</select>
+	
+	<!-- 이벤트 응모자 리스트 -->
+	<select id="listEventTakers" parameterType="Long" resultType="com.fly.dds.domain.Event">
+		SELECT num, e.user_num, userName, e.reg_date
+		FROM eventTakers e
+		JOIN member1 m ON e.user_num = m.user_num
+		WHERE num = #{num}
+		ORDER BY reg_date ASC
+	</select>
+	
+	<!-- 이벤트 당첨 여부 -->
+	<select id="findByEventWinner" parameterType="map" resultType="com.fly.dds.domain.Event">
+		SELECT num, user_num, rank, reg_date FROM eventWinner WHERE num = #{num} AND user_num = #{user_num}
+	</select>
+	
+	<!-- 이벤트 당첨자 리스트 -->
+	<select id="listEventWinner" parameterType="Long" resultType="com.fly.dds.domain.Event">
+		SELECT num, e.user_num, userName, rank, e.reg_date 
+		FROM eventWinner e
+		JOIN member1 m ON e.user_num = m.user_num
+		WHERE num = #{num}
+		ORDER BY rank ASC
+	</select>
+
+</mapper>

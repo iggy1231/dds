@@ -4,6 +4,7 @@
 
 <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/tabs.css" type="text/css">
 <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/board.css" type="text/css">
+
 <style type="text/css">
 .body-main {
     max-width: 900px;
@@ -52,6 +53,7 @@
     display: inline-block;
     text-align: center;
     vertical-align: middle;
+    transition: background-color 0.2s ease;
 }
 
 .btn:hover {
@@ -80,6 +82,7 @@ th {
 .button-container {
     display: flex;
     justify-content: space-between;
+    margin-top: 10px;
 }
 
 .table-form td {
@@ -100,16 +103,31 @@ th {
     border: 1px solid #ddd;
     border-bottom: none;
     background: #f9f9f9;
+    margin-right: 5px;
+    transition: background-color 0.2s ease;
 }
 
 .tabs li.active {
     background: #fff;
     font-weight: bold;
+    border-bottom: 2px solid #fff;
 }
 
 .page-navigation {
     text-align: center;
     margin: 20px 0;
+}
+
+.modal-content {
+    padding: 15px;
+}
+
+.modal-header {
+    border-bottom: 1px solid #ddd;
+}
+
+.modal-body {
+    padding: 15px;
 }
 </style>
 
@@ -134,10 +152,6 @@ $(function() {
 </script>
 
 <div class="body-container">
-    <div class="body-title">
-        <h2><i class="fa-regular fa-calendar"></i> 이벤트 </h2>
-    </div>
-
     <div class="body-main">
         <div>
             <ul class="tabs">
@@ -149,7 +163,7 @@ $(function() {
             </ul>
         </div>
         <div id="tab-content" style="padding: 15px 10px 5px; clear: both;">
-            <table class="table table-border table-article">
+            <table class="table">
                 <thead>
                     <tr>
                         <th colspan="2" align="center">
@@ -235,17 +249,8 @@ $(function() {
                             <button type="button" class="btn" disabled>수정</button>
                         </c:otherwise>
                     </c:choose>
-
-                    <c:choose>
-                        <c:when test="${listEventTakers.size() != 0}">
-                            <button type="button" class="btn" disabled>삭제</button>
-                        </c:when>
-                        <c:otherwise>
-                            <button type="button" class="btn" onclick="deleteOk();">삭제</button>
-                        </c:otherwise>
-                    </c:choose>
+                    <button type="button" class="btn" onclick="deleteOk();">삭제</button>
                 </div>
-
                 <div>
                     <button type="button" class="btn" onclick="location.href='${pageContext.request.contextPath}/admin/eventManage/${category}/list?${query}';">리스트</button>
                 </div>
@@ -265,7 +270,7 @@ $(function() {
             width: 550,
             title: '이벤트 당첨자 발표',
             close: function(event, ui) {
-                $(this).dialog("destroy"); // 이전 대화상자가 남아 있으므로 필요
+                $(this).dialog("destroy");
             }
         });
     });
@@ -378,7 +383,7 @@ $(function() {
             width: 800,
             title: '이벤트 당첨자 리스트',
             close: function(event, ui) {
-                $(this).dialog("destroy"); // 이전 대화상자가 남아 있으므로 필요
+                $(this).dialog("destroy");
             }
         });
     });

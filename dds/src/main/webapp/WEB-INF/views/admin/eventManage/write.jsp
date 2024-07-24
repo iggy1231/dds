@@ -147,9 +147,6 @@
 </script>
 
 <div class="body-container">
-    <div class="body-title">
-        <h2><i class="fa-regular fa-calendar"></i> 이벤트</h2>
-    </div>
 
     <div class="body-main">
         <ul class="tabs">
