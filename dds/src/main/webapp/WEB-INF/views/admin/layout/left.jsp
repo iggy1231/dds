@@ -111,7 +111,7 @@
 
               <ul class="menu-sub">
                 <li class="menu-item">
-                  <a href="${pageContext.request.contextPath}/admin/product/list" class="menu-link">
+                  <a href="${pageContext.request.contextPath}/admin/product/main" class="menu-link">
                     <div data-i18n="Without menu">상품리스트</div>
                   </a>
                 </li>

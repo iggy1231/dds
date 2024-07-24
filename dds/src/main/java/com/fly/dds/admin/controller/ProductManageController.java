@@ -31,7 +31,17 @@ public class ProductManageController {
 	@Autowired
 	private MyUtil myUtil;
 	
-	@RequestMapping("list")
+	@GetMapping("main")
+	public String productList(
+			@RequestParam(value = "page", defaultValue = "1") int current_page,
+			@RequestParam(value = "page2", defaultValue = "1") int current_page2
+			) {
+		
+		return ".admin.product.main";
+	}
+	
+	// 숙소 리스트 ajax  - admin/product/roomlist
+	@RequestMapping("roomList")
 	public String productList(
 			@RequestParam (defaultValue = "all") String schType,
 			@RequestParam (defaultValue = "") String kwd,
@@ -42,7 +52,7 @@ public class ProductManageController {
 		
 		String cp = req.getContextPath();
 		
-		int size = 10;
+		int size = 3;
 		int total_page;
 		int dataCount;
 		
@@ -69,8 +79,7 @@ public class ProductManageController {
 		
 		List<Room> list = service.listRoomProduct(map);
 		
-		
-		String listUrl = cp + "/admin/product/list";
+		String listUrl = cp + "/admin/product/roomList";
 		// String articleUrl = cp + "/admin"
 		
 		String paging = myUtil.pagingUrl(current_page, total_page, listUrl);
@@ -86,9 +95,11 @@ public class ProductManageController {
 		model.addAttribute("paging", paging);
 		
 		
-		return ".admin.product.list";
+		return "/admin/product/roomList";
 	}
 	
+	
+	// 투어 리스트 ajax
 	
 	
 	
@@ -102,7 +113,6 @@ public class ProductManageController {
 	
 	@PostMapping("write")
 	public String roomWriteSubmit(Room dto,
-									
 	                              HttpSession session,
 	                              Model model) {
 	    String root = session.getServletContext().getRealPath("/");
@@ -116,6 +126,26 @@ public class ProductManageController {
 	    }
 
 	    return "redirect:/admin/product/list";
+	}
+	
+	@GetMapping("update")
+	public String roomUpdateForm(
+			@RequestParam long num,
+			@RequestParam String page,
+			Model model
+			) {
+		
+		model.addAttribute("mode", "update");
+		model.addAttribute("page", page);
+		
+		return ".admin.product.write";
+	}
+	
+	@PostMapping("update")
+	public String roomUpdateSubmit() {
+		
+		
+		return "redirect:/admin/product/main";
 	}
 	
 	
