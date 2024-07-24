@@ -229,10 +229,10 @@ hr {
             </div>
         </div>
     </c:forEach>
+						<div class="page-navigation">${dataCount == 0 ? "등록된 상품이 없습니다." : paging}
+						</div>
 </div>
         <!-- 더 많은 숙소 항목 추가 -->
-        
-        
     </div>
 </div>
 

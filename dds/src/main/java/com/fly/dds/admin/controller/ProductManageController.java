@@ -117,4 +117,7 @@ public class ProductManageController {
 
 	    return "redirect:/admin/product/list";
 	}
+	
+	
+	
 }

@@ -114,8 +114,8 @@ public class RoomController {
 	    }
 	    
 	    int size = 10;
-	    int total_page = 0;
-	    int dataCount = 0;
+	    int total_page;
+	    int dataCount;
 	    
 	    Map<String, Object> map = new HashMap<>();
 	    map.put("kwd", kwd);
@@ -124,7 +124,9 @@ public class RoomController {
 	    map.put("people", people);
 
 	    dataCount = service.dataCount(map);
-	    total_page = dataCount != 0 ? myUtil.pageCount(size, dataCount) : 0;
+	    total_page = myUtil.pageCount(dataCount, size);
+	    
+	    // total_page = dataCount != 0 ? myUtil.pageCount(size, dataCount) : 0;
 	    if(total_page < current_page) current_page = total_page;
 	    
 	    int offset = (current_page - 1) * size;
@@ -159,6 +161,8 @@ public class RoomController {
 	        listUrl += "?" + query.toString();
 	    }
 	    
+	    String paging = myUtil.pagingUrl(current_page, total_page, listUrl);
+	    
 	    model.addAttribute("list", list);
 	    model.addAttribute("listUrl", listUrl);
 	    model.addAttribute("page", current_page);
@@ -168,6 +172,7 @@ public class RoomController {
 	    model.addAttribute("people", people);
 	    model.addAttribute("total_page", total_page);
 	    model.addAttribute("dataCount", dataCount);
+	    model.addAttribute("paging", paging);
 	    
 	    return ".room.list";
 	}
