@@ -319,8 +319,8 @@
 	</select>
 	
 	<insert id="reportCompanionReply" parameterType="map">
-		insert into DECLARATION(NUM, REASON, ARTICLE_NUM, USER_NUM, REPORTER_NUM, ISREPLY, REPORTPAGE)
-		values(DECLARATION_SEQ.NEXTVAL, #{reason}, #{article_num}, #{user_num}, #{reporter_num}, 1, 'companionReply')
+		insert into DECLARATION(NUM, REASON, ARTICLE_NUM, USER_NUM, REPORTER_NUM, ISREPLY, REPORTPAGE, REG_DATE)
+		values(DECLARATION_SEQ.NEXTVAL, #{reason}, #{article_num}, #{user_num}, #{reporter_num}, 1, 'companion', SYSDATE)
 	</insert>
 	
 	<select id="isCompanionReplyReported" parameterType="map" resultType="Integer">
@@ -330,8 +330,8 @@
 	</select>
 	
 	<insert id="reportCompanion" parameterType="map">
-		insert into DECLARATION(NUM, REASON, ARTICLE_NUM, USER_NUM, REPORTER_NUM, ISREPLY, REPORTPAGE)
-		values(DECLARATION_SEQ.NEXTVAL, #{reason}, #{article_num}, #{user_num}, #{reporter_num}, 0, 'companion')
+		insert into DECLARATION(NUM, REASON, ARTICLE_NUM, USER_NUM, REPORTER_NUM, ISREPLY, REPORTPAGE, REG_DATE)
+		values(DECLARATION_SEQ.NEXTVAL, #{reason}, #{article_num}, #{user_num}, #{reporter_num}, 0, 'companion', SYSDATE)
 	</insert>
 	
 	<select id="isCompanionReported" parameterType="map" resultType="Integer">

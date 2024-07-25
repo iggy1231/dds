@@ -10,4 +10,18 @@
 		LEFT OUTER JOIN member_profile m3 ON m1.user_num=m3.user_num
 		WHERE userId=#{userId}
 	</select>
+	
+	<insert id="insertMember">
+		insert into member1(USER_NUM, USERID, PWD, USERNAME, ENABLED)
+		values(#{num}, #{userId}, #{userPwd}, #{userName}, 1)
+	</insert>
+	
+	<insert id="insertMemberInfo">
+		insert into member_info(USER_NUM, NICKNAME, REG_DATE,  ACTIVITY)
+		values(#{num}, #{userNickname}, SYSDATE, 1)
+	</insert>
+	
+	<select id="memberSeq" resultType="Long">
+		select MEMBER1_SEQ.nextval from dual 
+	</select>
 </mapper>

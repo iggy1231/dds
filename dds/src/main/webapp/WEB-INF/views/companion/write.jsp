@@ -34,6 +34,28 @@ function companionSubmit() {
 }
 
 $(function(){
+	$('#cntSub').click(function(){
+		let cnt=$('#cntPeople').text();
+		if(cnt==1) {
+			alert('최대 인원은 1명 이상이어야 합니다.');
+			return;
+		}
+		$('#cntPeople').text(cnt-1);
+		const f=document.companionForm;
+		f.total_people.value=$('#cntPeople').text();
+	});
+	
+	$('#cntAdd').click(function(){
+		let cnt=$('#cntPeople').text();
+		if(cnt==20) {
+			alert('최대 인원은 20명 이하여야 합니다.');
+			return;
+		}
+		$('#cntPeople').text(1+Number(cnt));
+		const f=document.companionForm;
+		f.total_people.value=$('#cntPeople').text();
+	});
+	
 	$(document).on("change", "select[name=areaCode]", function(){
 		let area=$(this).val();
 		let sigungu=$(this).closest('div').children().last();
@@ -190,8 +212,8 @@ $(function(){
 				    </h2>
 				    <div id="panelsStayOpen-collapseTwo" class="accordion-collapse collapse">
 				      <div class="accordion-body">
-							시작 날짜<input type="date" name="sdate">
-							종료 날짜<input type="date" name="edate">
+							시작 날짜<input type="date" name="sdate" value="${dto.sdate}">
+							종료 날짜<input type="date" name="edate" value="${dto.edate}">
 				      </div>
 				    </div>
 				  </div>
@@ -255,7 +277,10 @@ $(function(){
 				    </h2>
 				    <div id="panelsStayOpen-collapseSix" class="accordion-collapse collapse">
 				      <div class="accordion-body">
-				      	<input type="number" name="total_people" placeholder="0" value="${dto.total_people}">
+				      	<button id="cntSub" type="button" class="btn btn-outline-secondary">-</button>
+				      	<span id="cntPeople">${dto.total_people==null?1:dto.total_people}</span>
+				      	<button id="cntAdd" type="button" class="btn btn-outline-secondary">+</button>
+				      	<input name="total_people" type="hidden" value="${dto.total_people==null?1:dto.total_people}">
 				      </div>
 				    </div>
 				  </div>
@@ -267,7 +292,7 @@ $(function(){
 				    </h2>
 				    <div id="panelsStayOpen-collapseSeven" class="accordion-collapse collapse">
 				      <div class="accordion-body">
-				      	<input type="text" name="estimate_cost" value=${dto.estimate_cost}>
+				      	<input type="text" name="estimate_cost" value="${dto.estimate_cost}">
 				      </div>
 				    </div>
 				  </div>

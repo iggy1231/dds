@@ -113,8 +113,8 @@
 	</delete>
 	
 	<insert id="reportInfoReply" parameterType="map">
-		insert into DECLARATION(NUM, REASON, ARTICLE_NUM, USER_NUM, REPORTER_NUM, ISREPLY, REPORTPAGE)
-		values(DECLARATION_SEQ.NEXTVAL, #{reason}, #{article_num}, #{user_num}, #{reporter_num}, 1, 'infoReply')
+		insert into DECLARATION(NUM, REASON, ARTICLE_NUM, USER_NUM, REPORTER_NUM, ISREPLY, REPORTPAGE, REG_DATE)
+		values(DECLARATION_SEQ.NEXTVAL, #{reason}, #{article_num}, #{user_num}, #{reporter_num}, 1, 'info', SYSDATE)
 	</insert>
 	
 	<select id="isInfoReplyReported" parameterType="map" resultType="Integer">

@@ -1,5 +1,8 @@
 package com.fly.dds.controller;
 
+import java.util.HashMap;
+import java.util.Map;
+
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -72,5 +75,22 @@ public class MemberController {
 		session.invalidate();
 
 		return "redirect:/";
+	}
+	
+	@PostMapping("signup")
+	public String signup(@RequestParam String userId,
+			@RequestParam String userPwd,
+			@RequestParam String userName,
+			@RequestParam String userNickname) {
+		
+		Map<String, Object> map=new HashMap<String, Object>();
+		map.put("userId", userId);
+		map.put("userPwd", userPwd);
+		map.put("userName", userName);
+		map.put("userNickname", userNickname);
+		
+		service.signupMember(map);
+		
+		return "redirect:/member/login";
 	}
 }
