@@ -17,9 +17,9 @@
 	 </insert>
 	 
 	 <!-- 주문 상세 등록 -->
-	 <insert id="insertPayDetail" parameterType="com.fly.dds.domain.RoomPayment">
-	 	INSERT INTO room_pay_cash(sale_num, ok_num, card_name)
-	 	VALUES(#{sale_num}, #{ok_num}, #{card_name} )
+	 <insert id="insertCardData" parameterType="com.fly.dds.domain.RoomPayment">
+	 	INSERT INTO room_pay_cash(sale_num, imp_uid, card_name)
+	 	VALUES(#{sale_num}, #{imp_uid}, #{card_name} )
 	 </insert>
 	 
 	 	
