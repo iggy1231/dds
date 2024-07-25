@@ -54,7 +54,7 @@
 	</select>
 	
 	<select id="listRoom" parameterType="map" resultType="com.fly.dds.domain.Room">
-		SELECT r.num, active, r.subject, r.addr1, r.addr2, r.room_type, NVL(AVG(rr.rating), 0) AS rating, NVL(COUNT(rr.review_num), 0) AS review_count, 
+		SELECT r.num, post_num, active, r.subject, r.addr1, r.addr2, r.room_type, NVL(AVG(rr.rating), 0) AS rating, NVL(COUNT(rr.review_num), 0) AS review_count, 
 				MIN(d.price) AS price, r.facility_content AS facility_content, r.key_value AS key_value , r.thumbnail , MIN(d.people) as people, TO_CHAR(r.reg_date, 'YYYY-MM-DD') reg_date
 		FROM room r
 		LEFT OUTER JOIN room_detail d ON r.num = d.num
@@ -64,7 +64,7 @@
 			<include refid="where-list"/>
 			</if>
 		</where>
-		GROUP BY r.num, r.subject, r.addr1, r.addr2, r.room_type, r.facility_content, r.key_value , r.thumbnail, active, r.reg_date
+		GROUP BY r.num, r.subject, r.addr1, r.addr2, r.room_type, r.facility_content, r.key_value , r.thumbnail, active, r.reg_date, post_num
 		ORDER BY price DESC
 		OFFSET #{offset} ROWS FETCH FIRST #{size} ROWS ONLY
 	</select>
@@ -72,7 +72,7 @@
 	<!-- 상품 상세 정보 -->
 	<!-- public Room findById(long num); -->
 	<select id="findById" parameterType="Long" resultType="com.fly.dds.domain.Room">
-		SELECT r.num, subject, room_type, addr1, addr2, r.content, facility_content, caution, thumbnail , price
+		SELECT r.num, post_num, subject, room_type, addr1, addr2, r.content, facility_content, caution, thumbnail , price, active, key_value, facility_content, content as detail_content
 		FROM room r
 		left outer join ( select num , min(price) as price from room_detail group by num ) d on r.num = d.num
 		WHERE r.num = #{num}

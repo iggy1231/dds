@@ -20,6 +20,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import com.fly.dds.admin.service.RoomProductService;
 import com.fly.dds.common.MyUtil;
 import com.fly.dds.domain.Room;
+import com.fly.dds.service.RoomService;
 
 @Controller
 @RequestMapping(value = "/admin/product/*")
@@ -27,6 +28,9 @@ public class ProductManageController {
 	
 	@Autowired
 	private RoomProductService service;
+	
+	@Autowired
+	private RoomService rservice;
 	
 	@Autowired
 	private MyUtil myUtil;
@@ -136,7 +140,13 @@ public class ProductManageController {
 			) {
 		
 		Room dto = service.findById(num);
+		Map<String, Object> map = new HashMap<String, Object>();
 		
+		map.put("num", num );
+		
+	    List<Room> list = rservice.listDetail(map);
+		
+	    
 		if(dto == null) {
 			return "redirect:/admin/product/main"; 
 		}
@@ -145,6 +155,7 @@ public class ProductManageController {
 		model.addAttribute("page", page);
 		model.addAttribute("num", num);
 		model.addAttribute("dto", dto); 
+		model.addAttribute("list", list); 
 		
 		return ".admin.product.write";
 	}

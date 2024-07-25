@@ -82,8 +82,8 @@
 								<div class="col-6 pe-1">
 									<select name="room_type" class="form-select">
 										<option value="">:: 숙소 카테고리 선택 ::</option>
-											<option value="펜션">펜션</option>
-											<option value="캠핑/글램핑">캠핑/글램핑</option>
+											<option value="펜션" ${dto.room_type == '펜션' ? 'selected':''}>펜션</option>
+											<option value="캠핑/글램핑" ${dto.room_type == '캠핑/글램핑' ? 'selected':''}>캠핑/글램핑</option>
 									</select>
 								</div>
 							</div>
@@ -98,33 +98,33 @@
 					<tr>
 						<td class="table-light col-sm-2">키워드 선택</td>
 						<td>
-							<input name="key_value" type="checkbox" value="가족여행" class="ms-1"> 가족여행
-							<input name="key_value" type="checkbox" value="힙한감성" class="ms-1"> 힙한감성
-							<input name="key_value" type="checkbox" value="연인끼리" class="ms-1"> 연인끼리
-							<input name="key_value" type="checkbox" value="뷰맛집" class="ms-1"> 뷰맛집
-							<input name="key_value" type="checkbox" value="감성숙소" class="ms-1"> 감성숙소
-							<input name="key_value" type="checkbox" value="친구와함께" class="ms-1"> 친구와함께
+							<input name="key_value" type="checkbox" value="가족여행" ${dto.key_value == '가족여행' ? "checked='checked'":''} class="ms-1"> 가족여행
+							<input name="key_value" type="checkbox" value="힙한감성"  ${dto.key_value == '힙한감성' ? "checked='checked'":''} class="ms-1"> 힙한감성
+							<input name="key_value" type="checkbox" value="연인끼리" ${dto.key_value == '연인끼리' ? "checked='checked'":''}  class="ms-1"> 연인끼리
+							<input name="key_value" type="checkbox" value="뷰맛집" ${dto.key_value == '뷰맛집' ? "checked='checked'":''} class="ms-1"> 뷰맛집
+							<input name="key_value" type="checkbox" value="감성숙소" ${dto.key_value == '감성숙소' ? "checked='checked'":''} class="ms-1"> 감성숙소
+							<input name="key_value" type="checkbox" value="친구와함께" ${dto.key_value == '친구와함께' ? "checked='checked'":''} class="ms-1"> 친구와함께
 						</td>
 					</tr>
 					<tr>
 						<td class="table-light col-sm-2">시설 선택</td>
 						<td>
-							<input name="facility_content" type="checkbox" value="사우나" class="ms-1"> 사우나
-							<input name="facility_content" type="checkbox" value="취사가능" class="ms-1"> 취사가능
-							<input name="facility_content" type="checkbox" value="바베큐" class="ms-1"> 바베큐
-							<input name="facility_content"  type="checkbox" value="수영장" class="ms-1"> 수영장
-							<input name="facility_content" type="checkbox" value="노래방" class="ms-1"> 노래방
-							<input name="facility_content" type="checkbox" value="스파" class="ms-1"> 스파
-							<input name="facility_content" type="checkbox" value="피트니스" class="ms-1"> 피트니스
+							<input name="facility_content" type="checkbox" value="사우나" ${dto.facility_content == '사우나' ? "checked='checked'":''} class="ms-1"> 사우나
+							<input name="facility_content" type="checkbox" value="취사가능" ${dto.facility_content == '취사가능' ? "checked='checked'":''} class="ms-1"> 취사가능
+							<input name="facility_content" type="checkbox" value="바베큐" ${dto.facility_content == '바베큐' ? "checked='checked'":''} class="ms-1"> 바베큐
+							<input name="facility_content"  type="checkbox" value="수영장" ${dto.facility_content == '수영장' ? "checked='checked'":''} class="ms-1"> 수영장
+							<input name="facility_content" type="checkbox" value="노래방" ${dto.facility_content == '노래방' ? "checked='checked'":''} class="ms-1"> 노래방
+							<input name="facility_content" type="checkbox" value="스파" ${dto.facility_content == '스파' ? "checked='checked'":''} class="ms-1"> 스파
+							<input name="facility_content" type="checkbox" value="피트니스" ${dto.facility_content == '피트니스' ? "checked='checked'":''} class="ms-1"> 피트니스
 						</td>
 					</tr>
 					<tr>
 						<td class="table-light col-sm-2">숙소 주소</td>
 						<td>
-							<input name="post_num" type="text" id="sample6_postcode" placeholder="우편번호" class="my-1 form-control address">
+							<input name="post_num" type="text" id="sample6_postcode" placeholder="우편번호" class="my-1 form-control address" value="${dto.post_num}">
 							<input type="button" onclick="sample6_execDaumPostcode()" value="우편번호 찾기" class="my-1  btn btn-light "><br>
-							<input name="addr1" type="text" id="sample6_address" placeholder="주소" class="my-1  form-control address1"><br>
-							<input name="addr2" type="text" id="sample6_detailAddress" placeholder="상세주소" class="my-1  form-control address2">
+							<input name="addr1" type="text" id="sample6_address" placeholder="주소" class="my-1  form-control address1" value="${dto.addr1}"><br>
+							<input name="addr2" type="text" id="sample6_detailAddress" placeholder="상세주소" class="my-1  form-control address2" value="${dto.addr2}">
 							<input type="text" id="sample6_extraAddress" placeholder="참고항목" class="my-1  form-control address2">
 						</td>
 					</tr>
@@ -134,39 +134,40 @@
     <td class="table-light col-sm-2">객실 옵션</td>
     <td>
         <table class="table mb-2 option-table">
+        <c:forEach var="list" items="${list}" >
             <tr>
                 <td>객실/구역명</td>
-                <td><input type="text" name="names" class="form-control" placeholder="객실/구역명" value=""></td>
+                <td><input type="text" name="names" class="form-control" placeholder="객실/구역명" value="${list.name}"></td>
             </tr>
             <tr>
                 <td>최대 인원수</td>
-                <td><input type="text" name="peoples" class="form-control" placeholder="최대 인원수" value="">
+                <td><input type="text" name="peoples" class="form-control" placeholder="최대 인원수" value="${list.people}">
             </tr>
             <tr>
                 <td>옵션가격</td>
-                <td><input type="text" name="prices" class="form-control" placeholder="옵션 가격" value=""></td>
+                <td><input type="text" name="prices" class="form-control" placeholder="옵션 가격" value="${list.price}"></td>
             </tr>
             <tr>
                 <td>객실설명</td>
-                <td><textarea name="detail_contents"  class="form-control" placeholder="옵션 상세 설명" style="height:100px; "></textarea></td>
+                <td><textarea name="detail_contents"  class="form-control" placeholder="옵션 상세 설명" style="height:100px; ">${list.content}</textarea></td>
             </tr>
            <tr>
    				 <td class="col-sm-2">객실/구역 썸네일</td>
-    		     <td><input type="file" name="detailPhotoFiles" class="form-control" placeholder="객실/구역 썸네일"></td>
+    		     <td><input type="file" name="detailPhotoFiles" class="form-control" placeholder="객실/구역 썸네일" value="${list.detail_photo}"></td>
 			</tr>
             <tr>
 				<td>할인율</td>
 					<td>
-						<input type="text" name="discounts" class="form-control" value="${dto.discountRate}">
+						<input type="text" name="discounts" class="form-control" value="${list.discount}">
 					</td>
 			</tr>
 			<tr>
 						<td>포인트</td>
 						<td>
-							<input type="text" name="points" class="form-control" value="100" readonly>
+							<input type="text" name="points" class="form-control" value="100" readonly value="${list.point}" >
 						</td>
 					</tr>
-			
+			</c:forEach>
         </table>
     </td>
 </tr>
@@ -175,7 +176,7 @@
 </tr>
 			<tr>
                 <td class="table-light col-sm-2">주의사항</td>
-                <td> <textarea  name="caution" class="form-control" style="height:100px;"></textarea> </td>
+                <td> <textarea  name="caution" class="form-control" style="height:100px;">${dto.caution}</textarea> </td>
             </tr>					
 					
 					
@@ -303,15 +304,15 @@ document.getElementById('addOptionBtn').addEventListener('click', function() {
                 <table class="table mb-2 option-table">
                     <tr>
                         <td>객실/구역명</td>
-                        <td><input type="text" name="names" class="form-control" placeholder="객실/구역명" value=""></td>
+                        <td><input type="text" name="names" class="form-control" placeholder="객실/구역명" value="${dto.name}"></td>
                     </tr>
                     <tr>
                         <td>최대 인원수</td>
-                        <td><input type="text" name="peoples" class="form-control" placeholder="최대 인원수" value=""></td>
+                        <td><input type="text" name="peoples" class="form-control" placeholder="최대 인원수" value="${dto.people}"></td>
                     </tr>
                     <tr>
                         <td>옵션가격</td>
-                        <td><input type="text" name="prices" class="form-control" placeholder="옵션 가격" value=""></td>
+                        <td><input type="text" name="prices" class="form-control" placeholder="옵션 가격" value="${dto.price}"></td>
                     </tr>
                     <tr>
                         <td>상세설명</td>
@@ -319,13 +320,13 @@ document.getElementById('addOptionBtn').addEventListener('click', function() {
                     </tr>
                     <tr>
       				 <td class="col-sm-2">객실/구역 썸네일</td>
-       		         <td><input type="file" name="detailPhotoFiles" class="form-control" placeholder="객실/구역 썸네일"></td>
+       		         <td><input type="file" name="detailPhotoFiles" class="form-control" placeholder="객실/구역 썸네일" value="${dto.thumbnail}"></td>
    					</tr>
                     
                     <tr>
     					<td>할인율</td>
     						<td>
-    							<input type="text" name="discounts" class="form-control" value="">
+    							<input type="text" name="discounts" class="form-control" value="${dto.discount}">
     						</td>
     					</tr>
     				<tr>
