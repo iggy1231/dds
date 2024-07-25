@@ -240,8 +240,8 @@
         </ul>
         
         <div class="tab-content mt-3">
+        <h5 class="mt-3"> 두둥! 여행가자!</h5>
 	        <div id="tab-pane-1" class="tab-pane fade show p-0 active">
-		        <h5 class="mt-3"> 두둥! 여행가자!</h5>
 	                <div class="row justify-content-center">
 	                    <div class="col-md-12 wow fadeInUp" data-wow-delay="0.3s">
 	                    	<div class="property-item rounded overflow-hidden">
@@ -293,8 +293,6 @@
 			                </div>
 	                    </div> 
 					</div>
-        	</div>
-        </div>
         <hr>
         <h5 class="mt-3"> 두둥! 추억!</h5>
         <div class="tab-content mt-3">
@@ -353,7 +351,10 @@
 					</div>
 			</div>
         </div>
-
+			</div>
+        </div>
+	</div>
+</div>
 
 <script>
 function toggleDropdown() {

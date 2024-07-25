@@ -13,6 +13,7 @@ import com.fly.dds.domain.Companion;
 import com.fly.dds.domain.Info;
 import com.fly.dds.domain.Member;
 import com.fly.dds.domain.MyPage;
+import com.fly.dds.domain.Room;
 import com.fly.dds.domain.TravelReview;
 import com.fly.dds.mapper.MyPageMapper;
 
@@ -209,6 +210,7 @@ public class MyPageServiceImpl implements MyPageService {
 			case "review" :  mapper.deleteWishlistReview(userNum, num); break;
 			case "info" : mapper.deleteWishlistInfo(userNum, num); break;
 			case "companion" : mapper.deleteWishlistCompanion(userNum, num); break;
+			case "room" : mapper.deleteWishlistRoom(userNum, num); break;
 			}
         } catch (Exception e) {
             e.printStackTrace();
@@ -296,6 +298,30 @@ public class MyPageServiceImpl implements MyPageService {
 		
 		try {
 			result = mapper.waitingCompanionCount(user_num);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return result;
+	}
+
+	@Override
+	public List<Room> listWishRoom(Map<String, Object> map) {
+		List<Room> list = null;
+		try {
+			list = mapper.listWishRoom(map);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		return list;
+	}
+
+	@Override
+	public int wishRoomCount(Long user_num) {
+		int result = 0;
+		
+		try {
+			result = mapper.wishRoomCount(user_num);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

@@ -32,6 +32,8 @@ import com.fly.dds.service.RoomPaymentService;
 import com.fly.dds.service.RoomQnAService;
 import com.fly.dds.service.RoomService;
 
+import oracle.jdbc.proxy.annotation.Post;
+
 @Controller
 @RequestMapping(value = "/room/*")
 public class RoomController {
@@ -414,12 +416,35 @@ public class RoomController {
 		
 	}
 	
-	@GetMapping("payComplete")
-	public String payComplete() {
-		
-		return ".room.payComplete";
-	}
+	@PostMapping("payComplete")
+	@ResponseBody
+	public Map<String, Object> payComplete(@RequestBody RoomPayment dto, HttpServletRequest request) {
+	    Map<String, Object> response = new HashMap<>();
 
-	
+	    try {
+	        String redirectUrl = String.format("%s/room/payComplete?sale_num=%d&name=%s&final_price=%d&total_price=%d&subject=%s&card_name=%s",
+	                request.getContextPath(),
+	                dto.getSale_num(),
+	                URLEncoder.encode(dto.getName(), "UTF-8"),
+	                dto.getFinal_price(),
+	                dto.getTotal_price(),
+	                URLEncoder.encode(dto.getSubject(), "UTF-8"),
+	                URLEncoder.encode(dto.getCard_name(), "UTF-8")
+	        );
+
+	        response.put("success", true);
+	        response.put("redirectUrl", redirectUrl);
+	    } catch (Exception e) {
+	        response.put("success", false);
+	        response.put("message", "결제 처리 중 오류가 발생했습니다.");
+	    }
+
+	    return response;
+	}
+	@GetMapping("payComplete")
+	public String payCompletePage(@RequestParam Map<String, String> params, Model model) {
+	    model.addAllAttributes(params);
+	    return ".room.payComplete";
+	}
 	
 }

@@ -22,6 +22,9 @@
 	 	VALUES(#{sale_num}, #{imp_uid}, #{card_name} )
 	 </insert>
 	 
+	 <select id="completePage" resultType="String">
+	 	select card_name from room_pay_cash where sale_num = #{sale_num}
+	 </select>
 	 	
 	 <select id="payMentSeq" resultType="Long">
   		SELECT room_sale_seq.nextval FROM dual

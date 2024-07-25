@@ -10,6 +10,7 @@ import com.fly.dds.domain.Companion;
 import com.fly.dds.domain.Info;
 import com.fly.dds.domain.Member;
 import com.fly.dds.domain.MyPage;
+import com.fly.dds.domain.Room;
 import com.fly.dds.domain.TravelReview;
 
 public interface MyPageMapper {
@@ -39,6 +40,7 @@ public interface MyPageMapper {
     void deleteWishlistReview(@Param("userNum") long userNum, @Param("num") long num);
     void deleteWishlistInfo(@Param("userNum") long userNum, @Param("num") long num);
     void deleteWishlistCompanion(@Param("userNum") long userNum, @Param("num") long num);
+    void deleteWishlistRoom(@Param("userNum") long userNum, @Param("num") long num);
     
     // 위시리스트 정보
     public List<Info> listWishInfo(Map<String, Object> map);
@@ -52,4 +54,8 @@ public interface MyPageMapper {
     public List<Companion> listWaitingCompanion(Map<String, Object> map);
     public int waitingCompanionCount(Long user_num);
     public String companionThumbnail(long num);
+    
+    // 위시리스트 숙소
+    public List<Room> listWishRoom(Map<String, Object> map);
+    public int wishRoomCount(Long user_num);
 }

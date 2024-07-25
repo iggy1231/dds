@@ -131,6 +131,10 @@
     	DELETE FROM Companion_Like WHERE user_num = #{userNum} AND num = #{num}
 	</delete>
 	
+	<delete id="deleteWishlistRoom" parameterType="java.util.Map">
+    	DELETE FROM Room_wish_list WHERE user_num = #{userNum} AND num = #{num}
+	</delete>
+	
 	<select id="listWishInfo" parameterType="map" resultType="com.fly.dds.domain.Info">
 		select i.NUM, REGION_MAIN, REGION_SUB, CONTENTID,
 		CONTENTTYPE, NAME, THUMBNAIL, MAIN_CATEGORY, MIDDLE_CATEGORY, SUB_CATEGORY
@@ -191,5 +195,23 @@
 		where num=#{num} group by num, file_num, filename
 		order by file_num
 		FETCH FIRST 1 ROWS ONLY
+	</select>
+	
+	<select id="listWishRoom" parameterType="map" resultType="com.fly.dds.domain.Room">
+		select r.NUM, r.subject, sum(rating)/count(rating) rating, count(rating) ratingCount, min(rd.price) price, r.addr1, r.thumbnail
+		from room r
+		join room_wish_list rwl on r.num = rwl.num
+		left outer join room_review rr on r.num = rr.num
+		join room_detail rd on r.num = rd.num  
+		where rwl.user_num = #{user_num}
+		group by r.num , r.subject , rr.rating , r.addr1 , r.thumbnail
+		OFFSET #{offset} ROWS FETCH FIRST #{size} ROWS ONLY
+	</select>
+	
+	<select id="wishRoomCount" parameterType="long" resultType="Integer">
+		SELECT NVL(COUNT(DISTINCT r.num), 0) AS likeCount
+		from room r
+		join room_wish_list rl on r.num=rl.num
+		where user_num=#{user_num}
 	</select>
 </mapper>
