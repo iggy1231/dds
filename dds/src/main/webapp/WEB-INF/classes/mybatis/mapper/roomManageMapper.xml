@@ -97,6 +97,21 @@
 		UPDATE room_photo SET photo = #{photo} 
 		WHERE photo_num = #{photo_num} 
 	</update>
+	
+	<select id="listSale" parameterType="map" resultType="com.fly.dds.domain.Room">
+		select s.sale_num , s.reg_date , to_char(s.sdate , 'yyyy-mm-dd') sdate , to_char(s.edate , 'yyyy-mm-dd') edate,
+		s.total_price , s.coupon_price , s.point_price , s.discount , s.final_price , s.name , s.detail_num , s.user_num  , subject , m.nickname
+        from room_sale s
+        join room_detail d on s.detail_num = d.detail_num
+        join room r on d.num = r.num
+        join member_info m on s.user_num = m.user_num
+        OFFSET #{offset} ROWS FETCH FIRST #{size} ROWS ONLY
+	</select>
+	
+	<select id="saleCount" parameterType="map" resultType="Integer">
+		SELECT NVL(COUNT(*) , 0)
+		FROM room_sale
+	</select>
 
 
 </mapper>

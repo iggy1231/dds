@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Map;
 
 import com.fly.dds.domain.Room;
+import com.fly.dds.domain.RoomPayment;
 
 public interface RoomProductService {
 	public void insertProduct(Room dto , String pathname) throws Exception;
@@ -20,5 +21,8 @@ public interface RoomProductService {
 	public List<Room> listProductFile(long productNum);
 	public List<Room> listProductOption(long productNum);
 	public List<Room> listOptionDetail(long optionNum);
+	
+	public List<RoomPayment> listSale(Map<String, Object> map);
+	public int saleCount(Map<String, Object> map);
 	
 }

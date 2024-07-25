@@ -7,6 +7,7 @@ import java.util.Map;
 import org.apache.ibatis.annotations.Mapper;
 
 import com.fly.dds.domain.Room;
+import com.fly.dds.domain.RoomPayment;
 
 @Mapper
 public interface RoomManageMapper {
@@ -38,6 +39,10 @@ public interface RoomManageMapper {
 	
 	// delete
 	public void deleteRoomFile(long photo_num);
+	
+	// 주문 관련
+	public List<RoomPayment> listSale(Map<String, Object> map);
+	public int saleCount(Map<String, Object> map);
 	
 	
 	

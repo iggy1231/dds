@@ -10,6 +10,7 @@ import org.springframework.web.multipart.MultipartFile;
 import com.fly.dds.admin.mapper.RoomManageMapper;
 import com.fly.dds.common.FileManager;
 import com.fly.dds.domain.Room;
+import com.fly.dds.domain.RoomPayment;
 
 @Service
 public class RoomProductServiceImpl implements RoomProductService {
@@ -192,6 +193,31 @@ public class RoomProductServiceImpl implements RoomProductService {
 	@Override
 	public List<Room> listOptionDetail(long optionNum) {
 		return null;
+	}
+
+	@Override
+	public List<RoomPayment> listSale(Map<String, Object> map) {
+		List<RoomPayment> list = null;
+		
+		try {
+			list = mapper.listSale(map);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		return list;
+	}
+
+	@Override
+	public int saleCount(Map<String, Object> map) {
+		int result = 0;
+		try {
+			result = mapper.saleCount(map);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		return result;
 	}
 
 	
