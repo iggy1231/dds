@@ -40,7 +40,14 @@
                     </div>
                 </div>
                 <div class="nav-item">
-                    <a href="${pageContext.request.contextPath}/" class="nav-link text-start text-nowrap"><img alt="" src="${pageContext.request.contextPath}/resources/images/menu_동행.png" style="width: 35px;">&nbsp;&nbsp;&nbsp;동행</a>
+                    <a href="${pageContext.request.contextPath}/companion/list" class="nav-link text-start text-nowrap"><img alt="" src="${pageContext.request.contextPath}/resources/images/menu_동행.png" style="width: 35px;">&nbsp;&nbsp;&nbsp;동행</a>
+                </div>
+                <div class="nav-item dropdown">
+                    <a href="#" class="nav-link dropdown-toggle text-start" data-bs-toggle="dropdown"><img alt="" src="${pageContext.request.contextPath}/resources/images/Customer_Support.png" style="width: 35px;">&nbsp;&nbsp;&nbsp;고객센터</a>
+                    <div class="dropdown-menu rounded-0 m-0">
+                        <a href="${pageContext.request.contextPath}/event/progress/list" class="dropdown-item">이벤트</a>
+                        <a href="${pageContext.request.contextPath}/faq/main" class="dropdown-item">자주 묻는 질문</a>
+                    </div>
                 </div>
             </div>
             <c:choose>
@@ -98,16 +105,16 @@
 										</div></li>
 									<li><hr class="dropdown-divider"></li>
 									<li><a class="dropdown-item"
-										href="${pageContext.request.contextPath}/"><i
-											class="fas fa-user-cog me-2"></i>포인트</a></li>
+										href="${pageContext.request.contextPath}/mypage/coupoint"><i
+											class="fas fa-user-cog me-2"></i>쿠폰·포인트</a></li>
 									<li><a class="dropdown-item"
-										href="${pageContext.request.contextPath}/"><i
-											class="fas fa-users me-2"></i>쿠폰</a></li>
+										href="${pageContext.request.contextPath}/mypage/wishList"><i
+											class="fas fa-users me-2"></i>위시리스트</a></li>
 									<li><a class="dropdown-item"
-										href="${pageContext.request.contextPath}/"><i
-											class="fas fa-file-alt me-2"></i>위시리스트</a></li>
+										href="${pageContext.request.contextPath}/mypage/inquiReview"><i
+											class="fas fa-file-alt me-2"></i>문의·리뷰</a></li>
 									<li><a class="dropdown-item"
-										href="${pageContext.request.contextPath}/"><i
+										href="${pageContext.request.contextPath}/mypage/myTrip"><i
 											class="fas fa-file-alt me-2"></i>내여행</a></li>
 									<li><a class="dropdown-item"
 										href="${pageContext.request.contextPath}/mypage/profile"><i
