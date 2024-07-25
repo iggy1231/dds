@@ -301,6 +301,7 @@ function savePaymentInfo(resp) {
             if (response.success) {
                 alert("결제 완료");
                 console.log("결제 성공");
+                completePage(paymentData)
             } else {
                 alert('결제 정보 저장 실패');
                 console.log("결제 실패");
@@ -311,4 +312,41 @@ function savePaymentInfo(resp) {
         }
     });
 }
+
+function completePage(paymentData) {
+	   var sale_num = document.getElementById('sale_num').value;
+	    var final_price = document.getElementById('final_price').value;
+	    var total_price = document.getElementById('total_price').value;
+	    var name = document.getElementById('name').value;
+	    var subject = document.getElementById('subject').value;
+	    var card_name = paymentData.card_name;
+
+	    var completeData = {
+	        sale_num: sale_num,
+	        total_price: total_price,
+	        final_price: final_price,
+	        name: name,
+	        card_name: card_name,
+	        subject: subject,
+	    };
+
+	    // 서버로 결제 정보를 전송하는 AJAX 요청
+	    $.ajax({
+	        type: 'POST',
+	        url: '${pageContext.request.contextPath}/room/payComplete', // 서버의 URL
+	        contentType: 'application/json', // 요청 본문의 타입
+	        data: JSON.stringify(completeData), // 요청 본문
+	        success: function(response) {
+	            console.log('서버 응답:', response);
+	            if (response.success) {
+	                window.location.href = response.redirectUrl;
+	            } else {
+	                console.log("실패:", response.message);
+	            }
+	        },
+	        error: function(xhr, status, error) {
+	            console.error('오류 발생:', error);
+	        }
+	    });
+	}
 </script>

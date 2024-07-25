@@ -43,16 +43,16 @@ ul.payment-info li {
     <ul class="payment-info">
         <li class="px-4 py-2">
           <span class="fs-6 fw-medium">객실 가격(1박)</span>
-          <span class="fs-6 fw-medium">${dto.price}원</span>
+          <span class="fs-6 fw-medium">${total_price}원</span>
         </li>
         <li class="px-4 py-2">
           <span class="fs-6 fw-medium">결제카드</span>
-          <span class="fs-6 fw-medium">국민kb카드</span>
+          <span class="fs-6 fw-medium">${card_name}</span>
         </li>
         <hr class="pb-2 m-3">
         <li class="px-4 py-2">
           <span class="fs-4 fw-semibold">총 결제 금액</span>
-          <span class="fs-4 fw-semibold" style="color: #f45858;">${total_price - point_price}원</span>
+          <span class="fs-4 fw-semibold" style="color: #f45858;">${final_price}원</span>
         </li>
       </ul>
     <div class="text-center">

@@ -15,35 +15,39 @@
 							<table class="table">
 								<thead>
 									<tr class="text-center"> 
-										<th>상품코드</th>
-										<th>상품타입</th>
-										<th>상품썸네일</th>
-										<th>상품명</th>
+										<th>주문번호</th>
+										<th>예약일자</th>
+										<th>체크인</th>
+										<th>체크아웃</th>
 										<th>가격</th>
-										<th>진열</th>
-										<th>등록일</th>
-										<th>수정하기</th>
+										<th>쿠폰차감</th>
+										<th>포인트차감</th>
+										<th>할인</th>
+										<th>결제금액</th>
+										<th>상품이름</th>
+										<th>방이름</th>
+										<th>방(고유번호)</th>
+										<th>유저번호</th>
+										<th>유저닉네임</th>
 									</tr>
 								</thead>
 								<tbody class="table-border-bottom-0">
-									<c:forEach var="dto" items="${list}" varStatus="status">
+									<c:forEach var="list" items="${list}" varStatus="status">
 										<tr class="text-center">
-											<td>${dto.num}</td>
-											<td>${dto.room_type}</td>
-											<td><img style="width: 100px; height: 70px;" class="justify-content-center"
-												src="${pageContext.request.contextPath}/uploads/room/${dto.thumbnail}">
-												<a href="#"></a></td>
-											<td>${dto.subject}</td>
-											<td>${dto.price}</td>
-											<td>${dto.active == 1 ?"판매중":"판매중단"}</td>
-											<td>${dto.reg_date}</td>
-											<td><c:url var="updateUrl"
-													value="/admin/product/update">
-													<c:param name="num" value="${dto.num}" />
-													<c:param name="page" value="${page}" />
-												</c:url>
-												<button type="button" class="btn border btn-update"
-													onclick="location.href='${updateUrl}';">수정</button></td>
+											<td>${list.sale_num}</td>
+											<td>${list.reg_date}</td>
+											<td>${list.sdate} 15:00</td>
+											<td>${list.edate} 11:00</td>
+											<td>${list.total_price}</td>
+											<td>${list.coupon_price}</td>
+											<td>${list.point_price}</td>
+											<td>${list.discount}</td>
+											<td>${list.final_price}</td>
+											<td>${list.subject}</td>
+											<td>${list.name}</td>
+											<td>${list.detail_num}</td>
+											<td>${list.user_num}</td>
+											<td>${list.nickName}</td>				
 										</tr>
 									</c:forEach>
 								</tbody>
