@@ -7,6 +7,11 @@
 	background-color: var(--bs-primary);
 	color: white !important;
 }
+
+.btn-update:hover {
+	background-color: var(--bs-primary);
+	color: white !important;
+}
 </style>
 
 <!-- Content wrapper -->
@@ -30,6 +35,11 @@
 		</div>
 	</div>
 </div>
+
+<input type="hidden" id="mainSearchType" value="all">
+<input type="hidden" id="mainSearchKeyword" value="">
+
+
 </div>
 <script type="text/javascript">
 function login() {
@@ -70,12 +80,14 @@ function ajaxFun(url, method, formData, dataType, fn, file = false) {
 	$.ajax(url, settings);
 }
 
-
 $(function(){
 	listRoom(1);
 	
     $("button[role='tab']").on("click", function(e){
 		const tab = $(this).attr("aria-controls");
+		$('#mainSearchType').val('all');
+		$('#mainSearchKeyword').val('');
+
 		if(tab === "1") {
 			listRoom(1);
 		} else if(tab === "2") {
@@ -85,31 +97,56 @@ $(function(){
 });
 function listRoom(page) {
 	let url = '${pageContext.request.contextPath}/admin/product/roomList';
+	let schType = $('#mainSearchType').val();
+	let kwd = $('#mainSearchKeyword').val();
 	
 	const fn = function(data) {
 		$('.tab-content').html(data);
 	};
-	ajaxFun(url, "get", {pageNo : page}, "text", fn);
+	ajaxFun(url, "get", {page : page, schType: schType, kwd: kwd}, "text", fn);
 }
 
 function listTour(page) {
 	let url = '${pageContext.request.contextPath}/admin/product/tourList';
+	let schType = $('#mainSearchType').val();
+	let kwd = $('#mainSearchKeyword').val();
 	
 	const fn = function(data) {
 		$('.tab-content').html(data);
 	};
-	ajaxFun(url, "get", {pageNo : page}, "text", fn);
+	ajaxFun(url, "get", {page : page, schType: schType, kwd: kwd}, "text", fn);
 	
 }
 
-const productStockModalEl = document.getElementById('productStockDialogModal');
-productStockModalEl.addEventListener('show.bs.modal', function(){
-	// 모달 대화상자가 보일때
+$('.tab-content').on('click', '.btn-search', function(){
+	let gubun = $(this).attr('data-gubun');
+	let schType = $('#searchType').val()
+	let kwd = $('#searchKeyword').val();
+
+	$('#mainSearchType').val(schType);
+	$('#mainSearchKeyword').val(kwd);
+
+	if(gubun === 'room') {
+		listRoom(1);
+	} else if(gubun === 'tour') {
+	    listTour(1);
+	} 
 });
 
-productStockModalEl.addEventListener('hidden.bs.modal', function(){
-	// 모달 대화상자가 안보일때
-	searchList();
-});
+
+
+
+// 검색
+function listInit(gubun) {
+		$('#mainSearchType').val('all');
+		$('#mainSearchKeyword').val();
+
+		if(gubun === 'room') {
+			listRoom(1);
+		} else if(gubun === 'tour') {
+		    listTour(1);
+		}
+}
+
 
 </script>

@@ -56,7 +56,63 @@ public class ProductManageController {
 		
 		String cp = req.getContextPath();
 		
-		int size = 3;
+		int size = 10;
+		int total_page;
+		int dataCount;
+		
+		if(req.getMethod().equalsIgnoreCase("GET")) {
+			kwd = URLDecoder.decode(kwd, "UTF-8");
+		}
+		
+		Map<String, Object> map = new HashMap<String, Object>();
+		System.out.println("서치타입" + schType + "키워드! 에용" + kwd);
+		map.put("schType", schType);
+		map.put("kwd", kwd);
+		
+		dataCount = service.dataCountRoom(map);
+		total_page = myUtil.pageCount(dataCount, size);
+		
+		if(current_page > total_page) {
+			current_page = total_page;
+		}
+		
+		int offset = (current_page - 1) * size;
+		if(offset < 0 ) offset = 0;
+		
+		map.put("offset", offset);
+		map.put("size", size);
+		
+		List<Room> list = service.listRoomProduct(map);
+		
+		String paging = myUtil.pagingMethod(current_page, total_page, "listRoom");
+		
+		model.addAttribute("list", list);
+		model.addAttribute("dataCount", dataCount);
+		model.addAttribute("schType", schType);
+		model.addAttribute("kwd", kwd);
+		model.addAttribute("list", list);
+		model.addAttribute("page", current_page);
+		model.addAttribute("size", size);
+		model.addAttribute("total_page", total_page);
+		model.addAttribute("paging", paging);
+		
+		return "admin/product/roomList";
+	}
+	
+	
+	// 투어 리스트 ajax
+	@RequestMapping("tourList")
+	public String productTourList(
+			@RequestParam (defaultValue = "all") String schType,
+			@RequestParam (defaultValue = "") String kwd,
+			@RequestParam(value = "page", defaultValue = "1") int current_page,
+			HttpServletRequest req,
+			Model model
+			)  throws Exception {
+		
+		String cp = req.getContextPath();
+		
+		int size = 10;
 		int total_page;
 		int dataCount;
 		
@@ -83,10 +139,7 @@ public class ProductManageController {
 		
 		List<Room> list = service.listRoomProduct(map);
 		
-		String listUrl = cp + "/admin/product/roomList";
-		// String articleUrl = cp + "/admin"
-		
-		String paging = myUtil.pagingUrl(current_page, total_page, listUrl);
+		String paging = myUtil.pagingMethod(current_page, total_page, "listTour");
 		
 		model.addAttribute("list", list);
 		model.addAttribute("dataCount", dataCount);
@@ -98,13 +151,8 @@ public class ProductManageController {
 		model.addAttribute("total_page", total_page);
 		model.addAttribute("paging", paging);
 		
-		
-		return "/admin/product/roomList";
+		return "admin/product/tourList";
 	}
-	
-	
-	// 투어 리스트 ajax
-	
 	
 	
 	@GetMapping("write")
@@ -145,7 +193,7 @@ public class ProductManageController {
 		map.put("num", num );
 		
 	    List<Room> list = rservice.listDetail(map);
-		
+		List<Room> list2 = rservice.listPhoto(map);
 	    
 		if(dto == null) {
 			return "redirect:/admin/product/main"; 
@@ -156,6 +204,7 @@ public class ProductManageController {
 		model.addAttribute("num", num);
 		model.addAttribute("dto", dto); 
 		model.addAttribute("list", list); 
+		model.addAttribute("list2", list2); 
 		
 		return ".admin.product.write";
 	}

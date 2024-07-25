@@ -65,7 +65,7 @@
 			</if>
 		</where>
 		GROUP BY r.num, r.subject, r.addr1, r.addr2, r.room_type, r.facility_content, r.key_value , r.thumbnail, active, r.reg_date, post_num
-		ORDER BY price DESC
+		ORDER BY reg_date DESC
 		OFFSET #{offset} ROWS FETCH FIRST #{size} ROWS ONLY
 	</select>
 	
@@ -79,22 +79,22 @@
 	</select>
 
 <!-- update -->
-	<!-- public void updateRoom(Room dto)  -->
+	<!-- public void updateRoom   	(Room dto)  -->
 	<update id="updateRoom" parameterType="com.fly.dds.domain.Room">
 		UPDATE room SET subject = #{subject}, content = #{content}, caution = #{caution}, room_type = #{room_type}, 
-			reg_date = sysdate, post_num = #{post_num}, addr1 = #{addr1}, addr2 = #{addr2} , thumbnail = #{thumbnail}, key_value = #{key_value},
+			reg_date = sysdate, post_num = #{post_num}, addr1 = #{addr1}, addr2 = #{addr2} , thumbnail = #{thumbnail, jdbcType=VARCHAR}, key_value = #{key_value},
 			facility_content = #{facility_content}, active = #{active}
 		WHERE num = #{num}
 	</update>
 	
 	<update id="updateRoomDetail" parameterType="com.fly.dds.domain.Room" >
-		UPDATE room_detail SET people = #{people}, price = #{price}, discount = #{discount}, name = #{name}, content = #{content},
-			detail_photo = #{detail_photo}
+		UPDATE room_detail SET people = #{people}, price = #{price}, discount = #{discount}, name = #{name}, content = #{detail_content},
+			detail_photo = #{detail_photo, jdbcType=VARCHAR}
 		WHERE detail_num = #{detail_num}
 	</update>
 	
 	<update id="updateRoomFile" parameterType="com.fly.dds.domain.Room">
-		UPDATE room_photo SET photo
+		UPDATE room_photo SET photo = #{photo} 
 		WHERE photo_num = #{photo_num} 
 	</update>
 
