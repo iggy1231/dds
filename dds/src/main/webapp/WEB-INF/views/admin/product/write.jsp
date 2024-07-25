@@ -241,6 +241,7 @@
 							<c:if test="${mode=='update'}">
 								<input type="hidden" name="num" value="${dto.num}">
 								<input type="hidden" name="thumbnail" value="${dto.thumbnail}">
+								<input type="hidden" name="detail_num" value="${dto.detail_num}">
 								<input type="hidden" name="page" value="${page}">
 							</c:if>
 						</td>
