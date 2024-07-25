@@ -84,21 +84,24 @@ public class RoomProductServiceImpl implements RoomProductService {
 	        mapper.updateRoom(dto);
 	        
 	    	
-	    	// 옵션 추가
-	    	for(int i=0; i< dto.getNames().size(); i++) {
-	    		dto.setName(dto.getNames().get(i));
-	    		dto.setPeople(dto.getPeoples().get(i));
-	    		dto.setPrice(dto.getPrices().get(i));
-	    		dto.setDetail_content(dto.getDetail_contents().get(i));
-	    		dto.setDiscount(dto.getDiscounts().get(i));
-	    		
-	    		// 파일 처리
-	    		filename = fileManager.doFileUpload(dto.getDetailPhotoFiles().get(i), pathname);
-	    		dto.setDetail_photo(filename);
-	    		
-	    		// INSERT
-	    		mapper.updateRoomDetail(dto);
-	    	}
+	     // 옵션 업데이트
+	        List<String> names = dto.getNames();
+	        if (names != null && !names.isEmpty()) {
+	            for (int i = 0; i < names.size(); i++) {
+	                dto.setName(names.get(i));
+	                dto.setPeople(dto.getPeoples().get(i));
+	                dto.setPrice(dto.getPrices().get(i));
+	                dto.setDetail_content(dto.getDetail_contents().get(i));
+	                dto.setDiscount(dto.getDiscounts().get(i));
+
+	                // 파일 처리
+	                filename = fileManager.doFileUpload(dto.getDetailPhotoFiles().get(i), pathname);
+	                dto.setDetail_photo(filename);
+
+	                // UPDATE
+	                mapper.updateRoomDetail(dto);
+	            }
+	        }
 	    	
 	    	
 	        // 추가 이미지 저장

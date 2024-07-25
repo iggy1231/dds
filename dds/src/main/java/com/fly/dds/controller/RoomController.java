@@ -405,6 +405,7 @@ public class RoomController {
 			paymentService.insertPayment(paymentData);
 			response.put("success", true);
 			response.put("sale_num", paymentData.getSale_num());
+			paymentService.insertCardData(paymentData);
 		} catch (Exception e) {
 			e.printStackTrace();
 			response.put("fail", false);

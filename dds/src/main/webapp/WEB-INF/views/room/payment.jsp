@@ -66,6 +66,8 @@ ul.payment-info li span.total {
 <input type="hidden" id="name" value="${dto.name}">
 <input type="hidden" id="user_num" value="${sessionScope.member.user_num}">
 <input type="hidden" id="subject" value="${dto.subject}">
+<input type="hidden" id="total_price" value="${total_price}">
+<input type="hidden" id="discount" value=0>
 <input type="hidden" id="email" value="">
 
   <div class="row g-4">
@@ -90,7 +92,7 @@ ul.payment-info li span.total {
     <h5 class="ps-2 pb-0 fw-semibold fs-5">할인 적용</h5>
     <div class="col-8">
         <label for="point" class="form-label">적립 포인트</label>
-        <input type="text" class="form-control" id="point" value="${point_price}">
+        <input type="text" class="form-control" id="point_price" value="${point_price}">
     </div>
     <div class="col-4 d-flex align-items-end">
         <button class="btn btn-secondary w-100" onclick="applyPoint()">포인트 바로 사용</button>
@@ -250,7 +252,7 @@ function requestPay() {
             if(resp.success) {
                  alert('결제~~성공!');
                  console.log(resp);
-                 savePaymentInfo();
+                 savePaymentInfo(resp);
                  console.log('호출 성공!');
             } else {
                  alert('결제 실패...');
@@ -258,21 +260,33 @@ function requestPay() {
     });
 }
 
-function savePaymentInfo() {
-
-	
+function savePaymentInfo(resp) {
+    var sale_num = document.getElementById('sale_num').value;
+    var final_price = document.getElementById('final_price').value;
+    var detail_num = document.getElementById('detail_num').value;
+    var sdate = document.getElementById('sdate').value;
+    var edate = document.getElementById('edate').value;
+    var total_price = document.getElementById('total_price').value;
+    var point_price = document.getElementById('point_price').value;
+    var discount = document.getElementById('discount').value;
+    var name = document.getElementById('name').value;
+    var user_num = document.getElementById('user_num').value;
+	var imp_uid = resp.imp_uid;
+	var card_name = resp.card_name;
 	
 	var paymentData = {
-		sale_num : 1,
-		sdate : '2024-07-25',
-		edate : '2024-07-28',
-		total_price : 150000,
-		point_price : 7500,
-		discount : 0,
-		final_price : 142500 ,
-		name : 'A1001호' ,
-		detail_num : 33,
-		user_num : 1,
+		sale_num : sale_num,
+		sdate : sdate,
+		edate : edate,
+		total_price : total_price,
+		point_price : point_price,
+		discount : discount,
+		final_price : final_price ,
+		name : name ,
+		detail_num : detail_num,
+		user_num : user_num,
+		imp_uid : imp_uid,
+		card_name : card_name,
 
 	};
 	

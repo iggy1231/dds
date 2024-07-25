@@ -12,7 +12,7 @@ public interface RoomPaymentMapper {
 	public String findBySaleNum();
 	
 	public void insertPayment(RoomPayment dto) throws SQLException;
-	public void insertPayDetail(RoomPayment dto) throws SQLException;
+	public void insertCardData(RoomPayment dto) throws SQLException;
 	public long payMentSeq();
 	
 	

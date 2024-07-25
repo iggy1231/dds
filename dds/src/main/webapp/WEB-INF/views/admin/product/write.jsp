@@ -134,10 +134,12 @@
     <td class="table-light col-sm-2">객실 옵션</td>
     <td>
         <table class="table mb-2 option-table">
-        <c:forEach var="list" items="${list}" >
+        <c:forEach var="list" items="${list}">
             <tr>
                 <td>객실/구역명</td>
-                <td><input type="text" name="names" class="form-control" placeholder="객실/구역명" value="${list.name}"></td>
+                <td><input type="text" name="names" class="form-control" placeholder="객실/구역명" value="${list.name}">
+                <input type="hidden" name="detail_num" value="${list.detail_num}">
+                </td>
             </tr>
             <tr>
                 <td>최대 인원수</td>
@@ -149,7 +151,7 @@
             </tr>
             <tr>
                 <td>객실설명</td>
-                <td><textarea name="detail_contents"  class="form-control" placeholder="옵션 상세 설명" style="height:100px; ">${list.content}</textarea></td>
+                <td><textarea name="detail_contents"  class="form-control" placeholder="옵션 상세 설명" style="height:100px; ">${list.detail_content}</textarea></td>
             </tr>
            <tr>
    				 <td class="col-sm-2">객실/구역 썸네일</td>
@@ -211,11 +213,11 @@
                             <td>
                                 <div id="additionalImageContainer" class="img-grid">
                                     <img id="addAdditionalImage" class="item img-add" src="${pageContext.request.contextPath}/resources/images/add_photo.png">
-                                    <c:forEach var="vo" items="${listFile}">
-                                        <img name="photo" src="${pageContext.request.contextPath}/uploads/room/${vo.filename}"
+                                    <c:forEach var="vo" items="${list2}">
+                                        <img name="photo" src="${pageContext.request.contextPath}/uploads/room/${vo.photo}"
                                             class="item delete-img"
-                                            data-fileNum="${vo.fileNum}"
-                                            data-filename="${vo.filename}">
+                                            data-fileNum="${vo.photo_num}"
+                                            data-filename="${vo.photo}">
                                     </c:forEach>
                                 </div>
                                 <input type="file" name="addFiles" accept="image/*" multiple class="form-control" style="display: none;">
@@ -244,6 +246,7 @@
 						</td>
 					</tr>
 				</table>
+				
 			</form>
 		
 		</div>
@@ -547,7 +550,7 @@ function submitContents(form) {
     }
     
     	const f = document.productForm;
-    	f.action = "${pageContext.request.contextPath}/admin/product/write";
+    	f.action = "${pageContext.request.contextPath}/admin/product/${mode}";
     	f.submit();
 }
 

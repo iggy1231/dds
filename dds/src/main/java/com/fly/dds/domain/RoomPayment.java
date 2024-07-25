@@ -18,8 +18,9 @@ public class RoomPayment {
 	private String thumbnail; // 상품 썸네일
 	
 	// room_pay_cash
-	private long ok_num;
+	private String imp_uid;
 	private String card_name;
+	
 	public long getSale_num() {
 		return sale_num;
 	}
@@ -104,11 +105,11 @@ public class RoomPayment {
 	public void setThumbnail(String thumbnail) {
 		this.thumbnail = thumbnail;
 	}
-	public long getOk_num() {
-		return ok_num;
+	public String getImp_uid() {
+		return imp_uid;
 	}
-	public void setOk_num(long ok_num) {
-		this.ok_num = ok_num;
+	public void setImp_uid(String imp_uid) {
+		this.imp_uid = imp_uid;
 	}
 	public String getCard_name() {
 		return card_name;
