@@ -7,7 +7,7 @@
 	<c:forEach var="list5" items="${list}">
 		<div class="col-md-4">
 			<div class="review-item">
-				<i class="bi bi-heart-fill heart-icon" id="wishlist-${list5.num}" onclick="removeFromWishlist(${list5.num})"></i> 
+				<i class="bi bi-heart-fill heart-icon" id="wishlist-${list5.num}" onclick="removeFromWishlist(${list5.num}, 'review')"></i> 
 				<a href="${pageContext.request.contextPath}/travelreview/article?num=${list5.num}&page=1">
 
 						<c:choose>
@@ -44,27 +44,4 @@
 
 <div class="page-navigation">${dataCount == 0 ? "등록된 댓글이 없습니다." : paging} </div>
 
-<script type="text/javascript">
-function removeFromWishlist(num) {
-    if(confirm("위시리스트에서 제거하시겠습니까?")) {
-        $.ajax({
-            url: '${pageContext.request.contextPath}/mypage/wishlist/remove', // 서버의 AJAX 요청을 처리할 URL
-            type: 'POST',
-            data: { num: num },
-            success: function(response) {
-                if(response.success) {
-                    alert("위시리스트에서 제거되었습니다.");
-                    // 성공 시 해당 항목을 화면에서 제거
-                    $("#wishlist-" + num).closest('.col-md-4').remove();
-                } else {
-                    alert("제거하는 동안 오류가 발생했습니다.");
-                }
-            },
-            error: function(xhr, status, error) {
-                alert("AJAX 오류가 발생했습니다: " + error);
-            }
-        });
-    }
-}
 
-</script>

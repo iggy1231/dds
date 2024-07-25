@@ -112,14 +112,34 @@
 	    OFFSET #{offset} ROWS FETCH FIRST #{size} ROWS ONLY
 	</select>
 	
-	<select id="wishReviewCount" parameterType="map" resultType="Integer">
+	<select id="wishReviewCount" parameterType="long" resultType="Integer">
 		SELECT NVL(COUNT(DISTINCT t.num), 0) AS likeCount
 		FROM TravelReview_Like l
 		JOIN TravelReview t ON l.num = t.num
 		WHERE l.user_num = #{user_num}
 	</select>
 	
-	<delete id="deleteWishlistItem" parameterType="java.util.Map">
-    	DELETE FROM TravelReview_Like WHERE user_num = #{userNum} AND num = #{travelReviewNum}
+	<delete id="deleteWishlistReview" parameterType="java.util.Map">
+    	DELETE FROM TravelReview_Like WHERE user_num = #{userNum} AND num = #{num}
 	</delete>
+	
+	<delete id="deleteWishlistInfo" parameterType="java.util.Map">
+    	DELETE FROM Info_Like WHERE user_num = #{userNum} AND num = #{num}
+	</delete>
+	
+	<select id="listWishInfo" parameterType="map" resultType="com.fly.dds.domain.Info">
+		select i.NUM, REGION_MAIN, REGION_SUB, CONTENTID,
+		CONTENTTYPE, NAME, THUMBNAIL, MAIN_CATEGORY, MIDDLE_CATEGORY, SUB_CATEGORY
+		from info i
+		join info_like i2 on i.num=i2.num
+		where user_num=#{user_num}
+		OFFSET #{offset} ROWS FETCH FIRST #{size} ROWS ONLY
+	</select>
+	
+	<select id="wishInfoCount" parameterType="long" resultType="Integer">
+		SELECT NVL(COUNT(DISTINCT i.num), 0) AS likeCount
+		from info i
+		join info_like i2 on i.num=i2.num
+		where user_num=#{user_num}
+	</select>
 </mapper>

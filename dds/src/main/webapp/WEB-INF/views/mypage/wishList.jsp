@@ -386,4 +386,29 @@ function listWishReview(page) {
     };
     ajaxFun(url, "get", {pageNo: page}, "text", fn);
 }
+
+function removeFromWishlist(num, table_name) {
+    if(confirm("위시리스트에서 제거하시겠습니까?")) {
+        $.ajax({
+            url: '${pageContext.request.contextPath}/mypage/wishlist/remove', // 서버의 AJAX 요청을 처리할 URL
+            type: 'POST',
+            data: { num: num, table_name: table_name},
+            success: function(response) {
+                if(response.success) {
+                    alert("위시리스트에서 제거되었습니다.");
+                    // 성공 시 해당 항목을 화면에서 제거
+                    $("#wishlist-" + num).closest('.col-md-4').remove();
+                } else {
+                    alert("제거하는 동안 오류가 발생했습니다.");
+                }
+                
+            },
+            error: function(xhr, status, error) {
+                alert("AJAX 오류가 발생했습니다: " + error);
+            }
+        });
+    }
+}
+
+</script>
 </script>

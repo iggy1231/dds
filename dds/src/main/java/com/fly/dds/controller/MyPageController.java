@@ -19,6 +19,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.fly.dds.common.FileManager;
 import com.fly.dds.common.MyUtil;
+import com.fly.dds.domain.Info;
 import com.fly.dds.domain.Member;
 import com.fly.dds.domain.MyPage;
 import com.fly.dds.domain.SessionInfo;
@@ -283,7 +284,7 @@ public class MyPageController {
 		    
 		    map.put("user_num", user_num);
 		    
-		    dataCount = service.wishReviewCount(map);
+		    dataCount = service.wishReviewCount(user_num);
 		    
 		    int total_page=myUtil.pageCount(dataCount, size);		    
 		    if(total_page < current_page) current_page = total_page;
@@ -309,14 +310,57 @@ public class MyPageController {
 		return "mypage/wishReview";
 	}
 	
+	@GetMapping("wishInfo")
+	public String wishInfo(
+			 @RequestParam(value = "pageNo", defaultValue = "1") int current_page,
+    		HttpSession session,
+    		Model model
+    		) {
+			 
+		    
+		Map<String, Object> map = new HashMap<>();
+	    int size = 9;
+	    int dataCount = 0;
+	    
+	    
+	    SessionInfo Info = (SessionInfo)session.getAttribute("member");
+
+	    
+	    Long user_num = Info.getUser_num();
+	    
+	    map.put("user_num", user_num);
+	    
+	    dataCount = service.wishInfoCount(user_num);
+	    int total_page=myUtil.pageCount(dataCount, size);
+	    if(total_page < current_page) current_page = total_page;
+	    int offset = (current_page - 1) * size;
+	    map.put("offset", offset);
+	    map.put("size", size);
+	    List<Info> list = service.listWishInfo(map);
+
+	    String paging = myUtil.pagingMethod(current_page, total_page, "listWishInfo");
+	    
+		model.addAttribute("dataCount" , dataCount);    
+		model.addAttribute("list",list);
+		model.addAttribute("paging", paging);
+	
+		model.addAttribute("pageNo",current_page);
+	
+		model.addAttribute("total_page",total_page);
+	
+		return "mypage/wishInfo";
+	}
+	
 	@PostMapping("wishlist/remove")
     @ResponseBody
-    public Map<String, Object> removeFromWishlist(@RequestParam("num") long num, HttpSession session) {
+    public Map<String, Object> removeFromWishlist(@RequestParam("num") long num,
+    		@RequestParam String table_name,
+    		HttpSession session) {
         Map<String, Object> result = new HashMap<>();
         try {
             SessionInfo info = (SessionInfo) session.getAttribute("member");
             long userNum = info.getUser_num();
-            service.removeFromWishlist(userNum, num); // 서비스 메소드 호출
+            service.removeFromWishlist(userNum, num, table_name); // 서비스 메소드 호출
             result.put("success", true);
         } catch (Exception e) {
             result.put("success", false);

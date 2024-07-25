@@ -4,20 +4,24 @@
 
 <!-- 여행정보 탭 콘텐츠 -->
 <div class="row">
-	<c:forEach var="list3" items="list">
+	<c:forEach var="list3" items="${list}">
 		<div class="col-md-4">
 			<div class="travel-info-item">
-				<i class="bi bi-heart-fill heart-icon"></i> <img
-					src="https://via.placeholder.com/300x200" alt="Travel Image">
+				<i class="bi bi-heart-fill heart-icon" id="wishlist-${list3.num}" onclick="removeFromWishlist(${list3.num}, 'info')"></i>
+				<img src="${list3.thumbnail}" alt="Info Image">
 				<div class="travel-info-item-body">
-					<p class="travel-info-item-title">감악산(거창)</p>
+					<a class="travel-info-item-title"
+					href="${pageContext.request.contextPath}/info/load?num=${list3.num}&contentId=${list3.contentId}">${list3.name}</a>
 					<p class="travel-info-item-location">
-						<i class="bi bi-geo-alt-fill"></i> 경상남도 거창군
+						<i class="bi bi-geo-alt-fill">${list3.region_Main} ${list3.region_Sub}</i> 
 					</p>
-					<p class="travel-info-item-tags">#관광지 #산 #자연관광지 #자연</p>
+					<c:forEach var="tag" items="${list3.tags}">
+						<span class="travel-info-item-tags">#${tag}</span>
+					</c:forEach>
 				</div>
 			</div>
 		</div>
 		<!-- 다른 여행정보 아이템들도 여기에 추가 -->
 	</c:forEach>
 </div>
+<div class="page-navigation">${dataCount == 0 ? "등록된 댓글이 없습니다." : paging} </div>

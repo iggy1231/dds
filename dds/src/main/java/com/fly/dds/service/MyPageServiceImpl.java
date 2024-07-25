@@ -1,12 +1,15 @@
 package com.fly.dds.service;
 
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.fly.dds.common.FileManager;
+import com.fly.dds.domain.Info;
 import com.fly.dds.domain.Member;
 import com.fly.dds.domain.MyPage;
 import com.fly.dds.domain.TravelReview;
@@ -187,11 +190,11 @@ public class MyPageServiceImpl implements MyPageService {
 	}
 
 	@Override
-	public int wishReviewCount(Map<String, Object> map) {
+	public int wishReviewCount(long user_num) {
 		int result = 0;
 		
 		try {
-			result = mapper.wishReviewCount(map);
+			result = mapper.wishReviewCount(user_num);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -199,14 +202,51 @@ public class MyPageServiceImpl implements MyPageService {
 	}
 
 	@Override
-	public void removeFromWishlist(long userNum, long travelReviewNum) throws Exception {
+	public void removeFromWishlist(long userNum, long num, String table_name) throws Exception {
 		try {
-            mapper.deleteWishlistItem(userNum, travelReviewNum);
+			switch (table_name) {
+			case "review" :  mapper.deleteWishlistReview(userNum, num); break;
+			case "info" : mapper.deleteWishlistInfo(userNum, num); break;
+			}
         } catch (Exception e) {
             e.printStackTrace();
             throw e;
         }
 		
+	}
+
+	@Override
+	public List<Info> listWishInfo(Map<String, Object> map) {
+		List<Info> list = null;
+		
+		try {
+			list = mapper.listWishInfo(map);
+			for(Info dto:list) {
+				Set<String> tag=new HashSet<String>();
+				tag.add(dto.getContentType());
+				tag.add(dto.getMain_Category());
+				tag.add(dto.getMiddle_Category());
+				tag.add(dto.getSub_Category());
+	
+				dto.setTags(tag);
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		return list;
+	}
+
+	@Override
+	public int wishInfoCount(Long user_num) {
+		int result = 0;
+		
+		try {
+			result = mapper.wishInfoCount(user_num);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return result;
 	}
 	
 }

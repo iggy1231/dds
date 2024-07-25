@@ -3,6 +3,7 @@ package com.fly.dds.service;
 import java.util.List;
 import java.util.Map;
 
+import com.fly.dds.domain.Info;
 import com.fly.dds.domain.Member;
 import com.fly.dds.domain.MyPage;
 import com.fly.dds.domain.TravelReview;
@@ -25,10 +26,12 @@ public interface MyPageService {
 	public void deleteReply(String boardname , long reply_num) throws Exception; 
 	
 	public List<MyPage> listWishReview(Map<String, Object> map);
-	public int wishReviewCount(Map<String, Object> map);
+	public int wishReviewCount(long user_num);
 	
 	// 위시리스트에서 항목 제거
-    void removeFromWishlist(long userNum, long travelReviewNum) throws Exception;
+    void removeFromWishlist(long userNum, long travelReviewNum, String table_name) throws Exception;
 	
+    public List<Info> listWishInfo(Map<String, Object> map);
+    public int wishInfoCount(Long user_num);
 	
 }
