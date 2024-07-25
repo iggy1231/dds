@@ -412,6 +412,12 @@ public class RoomController {
 		return ResponseEntity.ok(response);
 		
 	}
+	
+	@GetMapping("payComplete")
+	public String payComplete() {
+		
+		return ".room.payComplete";
+	}
 
 	
 	
