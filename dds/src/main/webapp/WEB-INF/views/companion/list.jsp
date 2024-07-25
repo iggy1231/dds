@@ -67,18 +67,18 @@ body {
 		      <button class="btn btn-outline-secondary" value="강원">강원</button>
 		      <button class="btn btn-outline-secondary" value="충북">충북</button>
 		      <button class="btn btn-outline-secondary" value="충남">충남</button>
-		      <button class="btn btn-outline-secondary" value="경상">경상</button>
+		      <button class="btn btn-outline-secondary" value="경북">경북</button>
 		      <button class="btn btn-outline-secondary" value="경남">경남</button>
 		      <button class="btn btn-outline-secondary" value="전북">전북</button>
 		      <button class="btn btn-outline-secondary" value="전남">전남</button>
 		      <button class="btn btn-outline-secondary" value="제주">제주</button>
 		    </div>
 		  </div>
-		  <button class="carousel-control-prev" type="button" data-bs-target="#carouselExample" data-bs-slide="prev">
+		  <button class="carousel-control-prev" type="button" data-bs-target="#selectAreabtn" data-bs-slide="prev">
 		    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
 		    <span class="visually-hidden">Previous</span>
 		  </button>
-		  <button class="carousel-control-next" type="button" data-bs-target="#carouselExample" data-bs-slide="next">
+		  <button class="carousel-control-next" type="button" data-bs-target="#selectAreabtn" data-bs-slide="next">
 		    <span class="carousel-control-next-icon" aria-hidden="true"></span>
 		    <span class="visually-hidden">Next</span>
 		  </button>
@@ -107,17 +107,17 @@ body {
 				<div class="carousel-item"></div>
 				<div class="carousel-item"></div>
 			</div>
-			<button class="carousel-control-prev" type="button" data-bs-target="#areaList-carousel" data-bs-slide="prev">
+			<button class="carousel-control-prev" type="button" data-bs-target="#areaPopularList-carousel" data-bs-slide="prev">
 				<span class="carousel-control-prev-icon" aria-hidden="true"></span>
 				<span class="visually-hidden">Previous</span>
 			</button>
-			<button class="carousel-control-next" type="button" data-bs-target="#areaList-carousel" data-bs-slide="next">
+			<button class="carousel-control-next" type="button" data-bs-target="#areaPopularList-carousel" data-bs-slide="next">
 				<span class="carousel-control-next-icon" aria-hidden="true"></span>
 				<span class="visually-hidden">Next</span>
 			</button>
 		</div>
 		<hr>
-		<button onclick="writeForm();">동행 구인 작성</button>
+		<button class="btn btn-outline-secondary"onclick="writeForm();">동행 구인 작성</button>
 		<hr>
 		<p>전체 글
 		<div class="scroll-list">

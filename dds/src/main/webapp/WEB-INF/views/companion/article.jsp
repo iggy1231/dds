@@ -92,10 +92,10 @@ table tr>td:nth-child(2) {
 				<h3>동행 신청 확인하기</h3>
 				<c:forEach var="item" items="${partyList}">
 					<span>${item.nickname} 참여중</span>
-					<form action="${pageContext.request.contextPath}/companion/vanish" method="post">
+					<form name="vanishForm" action="${pageContext.request.contextPath}/companion/vanish" method="post">
 						<input type="hidden" name="num" value="${dto.num}">
 						<input type="hidden" name="user_num" value="${item.user_num}">
-						<button type="submit">추방</button>
+						<button class="btn btn-outline-secondary" type="submit">추방</button>
 					</form>
 				</c:forEach>
 				<div>
@@ -104,12 +104,12 @@ table tr>td:nth-child(2) {
 						<form action="${pageContext.request.contextPath}/companion/accept" method="post">
 							<input type="hidden" name="num" value="${dto.num}">
 							<input type="hidden" name="user_num" value="${item.user_num}">
-							<button type="submit">수락</button>
+							<button class="btn btn-outline-secondary" type="submit">수락</button>
 						</form>
 						<form action="${pageContext.request.contextPath}/companion/reject" method="post">
-							<input type="hidden" name="num" value="{${dto.num}">
-							<input type="hidden" name="user_num" value="{${item.user_num}">
-							<button type="submit">거절</button>
+							<input type="hidden" name="num" value="${dto.num}">
+							<input type="hidden" name="user_num" value="${item.user_num}">
+							<button class="btn btn-outline-secondary" type="submit">거절</button>
 						</form>
 						<br>
 					</c:forEach>
@@ -118,12 +118,12 @@ table tr>td:nth-child(2) {
 				<div>
 				<form action="${pageContext.request.contextPath}/companion/updateCompanion">
 					<input type="hidden" name="num" value="${dto.num}">
-					<button type="submit">수정</button>
+					<button class="btn btn-outline-secondary" type="submit">수정</button>
 				</form>
 				<form name="articleForm" action="#" method="post">
 					<input type="hidden" name="num" value="${dto.num}">
-					<button onclick="deleteCompanion();">삭제</button>
-					<button onclick="endCompanion();">마감</button>
+					<button class="btn btn-outline-secondary" onclick="deleteCompanion();">삭제</button>
+					<button class="btn btn-outline-secondary" onclick="endCompanion();">마감</button>
 				</form>
 					
 				</div>
@@ -560,7 +560,7 @@ function listPage(page) {
 					out+=' onclick="replyReport('+item.user_num+','+item.reply_num+');">';
 					out+='<i class="bi bi-exclamation-octagon"></i></button>';
 				}
-				out+='</td><td>답글</td></tr>';
+				out+='</td><td></td></tr>';
 			}
 		}
 		out+='<tr><td colspan="6" class="page-navigation">'+data.paging+'</td></tr>';

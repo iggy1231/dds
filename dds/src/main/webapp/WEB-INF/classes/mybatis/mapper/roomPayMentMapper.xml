@@ -12,8 +12,8 @@
 	 <!-- 주문 등록 -->
 	<insert id="insertPayment" parameterType="com.fly.dds.domain.RoomPayment">
 	 	INSERT INTO room_sale(sale_num, reg_date, sdate, edate, total_price, coupon_price, point_price, discount, final_price, name, detail_num, user_num )
-		VALUES(room_sale_seq.NEXTVAL, SYSDATE, TO_DATE(#{sdate}, 'YYYY-MM-DD HH24:MI:SS'), TO_DATE(#{edate}, 'YYYY-MM-DD HH24:MI:SS'),
-    		#{total_price} , #{coupon_price} , #{point_price} , #{discount} , #{final_price} , #{name} , #{detail_num} , #{user_num} );
+		VALUES(#{sale_num}, SYSDATE, TO_DATE(#{sdate}, 'YYYY-MM-DD'), TO_DATE(#{edate}, 'YYYY-MM-DD'),
+    		#{total_price} , 0 , #{point_price} , #{discount} , #{final_price} , #{name} , #{detail_num} , #{user_num} )
 	 </insert>
 	 
 	 <!-- 주문 상세 등록 -->
@@ -21,6 +21,12 @@
 	 	INSERT INTO room_pay_cash(sale_num, ok_num, card_name)
 	 	VALUES(#{sale_num}, #{ok_num}, #{card_name} )
 	 </insert>
+	 
+	 	
+	 <select id="payMentSeq" resultType="Long">
+  		SELECT room_sale_seq.nextval FROM dual
+ 	 </select>
+ 	 
 	 
 <!-- // sale_num
 	public String findBySaleNum();

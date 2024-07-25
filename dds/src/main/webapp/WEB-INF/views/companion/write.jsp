@@ -148,7 +148,7 @@ $(function(){
 									<option value="강원">강원</option>
 									<option value="충북">충북</option>
 									<option value="충남">충남</option>
-									<option value="경삳">경상</option>
+									<option value="경북">경북</option>
 									<option value="경남">경남</option>
 									<option value="전북">전북</option>
 									<option value="전남">전남</option>

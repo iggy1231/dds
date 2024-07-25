@@ -13,6 +13,7 @@ public interface RoomPaymentMapper {
 	
 	public void insertPayment(RoomPayment dto) throws SQLException;
 	public void insertPayDetail(RoomPayment dto) throws SQLException;
+	public long payMentSeq();
 	
 	
 	// public void insertUserPoint(Point dto) throws SQLException;

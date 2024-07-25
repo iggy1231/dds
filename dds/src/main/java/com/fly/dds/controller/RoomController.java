@@ -10,10 +10,12 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -26,6 +28,7 @@ import com.fly.dds.domain.RoomPayment;
 import com.fly.dds.domain.RoomQnA;
 import com.fly.dds.domain.SessionInfo;
 import com.fly.dds.service.MyPageService;
+import com.fly.dds.service.RoomPaymentService;
 import com.fly.dds.service.RoomQnAService;
 import com.fly.dds.service.RoomService;
 
@@ -40,6 +43,9 @@ public class RoomController {
 	
 	@Autowired
 	private MyPageService myPageService;
+	
+	@Autowired
+	private RoomPaymentService paymentService;
 	
 	@Autowired
 	private MyUtil myUtil;
@@ -340,6 +346,7 @@ public class RoomController {
 			Model model) throws Exception {
 		
 		try {
+			long sale_num = paymentService.payMentSeq();
 			// 해당 레코드 가져 오기
 			Room dto = service.findByDetail(detail_num);
 			SessionInfo info = (SessionInfo)session.getAttribute("member");
@@ -376,6 +383,7 @@ public class RoomController {
 			// RoomPayment roomPayment = new RoomPayment();
 			//   roomSale.setRegDate(LocalDate.now()); ... 등으로 저장
 			
+			model.addAttribute("sale_num",sale_num);
 			model.addAttribute("total_price",total_price );
 			model.addAttribute("point_price", point_price );
 			// model.addAttribute("final_price",final_price );
@@ -385,6 +393,24 @@ public class RoomController {
 		}
 		
 		return ".room.payment";
+	}
+	
+	@PostMapping("insertPayment")
+	@ResponseBody
+	public ResponseEntity<Map<String, Object>> insertPayment(
+			@RequestBody RoomPayment paymentData
+			){
+		Map<String, Object> response = new HashMap<>();
+		try {
+			paymentService.insertPayment(paymentData);
+			response.put("success", true);
+			response.put("sale_num", paymentData.getSale_num());
+		} catch (Exception e) {
+			e.printStackTrace();
+			response.put("fail", false);
+		}
+		return ResponseEntity.ok(response);
+		
 	}
 
 	

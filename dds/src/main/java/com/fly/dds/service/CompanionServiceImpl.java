@@ -497,8 +497,17 @@ public class CompanionServiceImpl implements CompanionService {
 
 	@Override
 	public void accept(Map<String, Object> map) {
-		mapper.accept(map);
-		mapper.updateCurrentPeople(map);
+		try {
+			long num=Long.parseLong(map.get("num").toString());
+			Companion c=mapper.findByNum(num);
+			if(c.getCurrent_people()==c.getTotal_people()) {
+				return;
+			}
+			mapper.accept(map);
+			mapper.updateCurrentPeople(map);
+		} catch (Exception e) {
+			// TODO: handle exception
+		}	
 	}
 
 	@Override
