@@ -19,6 +19,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.fly.dds.common.FileManager;
 import com.fly.dds.common.MyUtil;
+import com.fly.dds.domain.Companion;
 import com.fly.dds.domain.Info;
 import com.fly.dds.domain.Member;
 import com.fly.dds.domain.MyPage;
@@ -351,6 +352,48 @@ public class MyPageController {
 		return "mypage/wishInfo";
 	}
 	
+	@GetMapping("wishCompanion")
+	public String wishCompanion(
+			 @RequestParam(value = "pageNo", defaultValue = "1") int current_page,
+    		HttpSession session,
+    		Model model
+    		) {
+			 
+		    
+		Map<String, Object> map = new HashMap<>();
+	    int size = 9;
+	    int dataCount = 0;
+	    
+	    
+	    SessionInfo Info = (SessionInfo)session.getAttribute("member");
+
+	    
+	    Long user_num = Info.getUser_num();
+	    
+	    map.put("user_num", user_num);
+	    
+	    dataCount = service.wishCompanionCount(user_num);
+	    System.out.println(dataCount);
+	    int total_page=myUtil.pageCount(dataCount, size);
+	    if(total_page < current_page) current_page = total_page;
+	    int offset = (current_page - 1) * size;
+	    map.put("offset", offset);
+	    map.put("size", size);
+	    List<Companion> list = service.listWishCompanion(map);
+
+	    String paging = myUtil.pagingMethod(current_page, total_page, "listWishInfo");
+	    
+		model.addAttribute("dataCount" , dataCount);    
+		model.addAttribute("list",list);
+		model.addAttribute("paging", paging);
+	
+		model.addAttribute("pageNo",current_page);
+	
+		model.addAttribute("total_page",total_page);
+	
+		return "mypage/wishCompanion";
+	}
+	
 	@PostMapping("wishlist/remove")
     @ResponseBody
     public Map<String, Object> removeFromWishlist(@RequestParam("num") long num,
@@ -385,8 +428,67 @@ public class MyPageController {
     }
 	
 	@GetMapping("companion")
-    public String companion() {
+    public String companion(
+    		 @RequestParam(value = "page", defaultValue = "1") int current_page,
+			 @RequestParam(value = "page2", defaultValue = "1") int current_page2,
+
+		   		HttpSession session,
+		   		Model model
+		   		) {
+		SessionInfo Info = (SessionInfo)session.getAttribute("member");
+		Long user_num = Info.getUser_num();
+		Member dto = null;
+		try {
+			dto = service.findById(user_num);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		model.addAttribute("dto" , dto);
+		
         return ".four.mypage.companion";
     }
+	
+	@GetMapping("waitingCompanion")
+	public String waitingCompanion(
+			 @RequestParam(value = "pageNo", defaultValue = "1") int current_page,
+    		HttpSession session,
+    		Model model
+    		) {
+			 
+		    
+		Map<String, Object> map = new HashMap<>();
+	    int size = 9;
+	    int dataCount = 0;
+	    
+	    
+	    SessionInfo Info = (SessionInfo)session.getAttribute("member");
+
+	    
+	    Long user_num = Info.getUser_num();
+	    
+	    map.put("user_num", user_num);
+	    
+	    dataCount = service.waitingCompanionCount(user_num);
+	    System.out.println(dataCount);
+	    int total_page=myUtil.pageCount(dataCount, size);
+	    if(total_page < current_page) current_page = total_page;
+	    int offset = (current_page - 1) * size;
+	    map.put("offset", offset);
+	    map.put("size", size);
+	    List<Companion> list = service.listWaitingCompanion(map);
+
+	    String paging = myUtil.pagingMethod(current_page, total_page, "listWaitingCompanion");
+	    
+		model.addAttribute("dataCount" , dataCount);    
+		model.addAttribute("list",list);
+		model.addAttribute("paging", paging);
+	
+		model.addAttribute("pageNo",current_page);
+	
+		model.addAttribute("total_page",total_page);
+	
+		return "mypage/waitingCompanion";
+	}
 	
 }

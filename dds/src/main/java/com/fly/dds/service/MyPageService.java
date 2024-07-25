@@ -3,6 +3,7 @@ package com.fly.dds.service;
 import java.util.List;
 import java.util.Map;
 
+import com.fly.dds.domain.Companion;
 import com.fly.dds.domain.Info;
 import com.fly.dds.domain.Member;
 import com.fly.dds.domain.MyPage;
@@ -31,7 +32,14 @@ public interface MyPageService {
 	// 위시리스트에서 항목 제거
     void removeFromWishlist(long userNum, long travelReviewNum, String table_name) throws Exception;
 	
+    public List<Companion> listWishCompanion(Map<String, Object> map);
+    public int wishCompanionCount(Long user_num);
+    
     public List<Info> listWishInfo(Map<String, Object> map);
     public int wishInfoCount(Long user_num);
+    
+    // 동행 대기
+    public List<Companion> listWaitingCompanion(Map<String, Object> map);
+    public int waitingCompanionCount(Long user_num);
 	
 }

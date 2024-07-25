@@ -127,6 +127,10 @@
     	DELETE FROM Info_Like WHERE user_num = #{userNum} AND num = #{num}
 	</delete>
 	
+	<delete id="deleteWishlistCompanion" parameterType="java.util.Map">
+    	DELETE FROM Companion_Like WHERE user_num = #{userNum} AND num = #{num}
+	</delete>
+	
 	<select id="listWishInfo" parameterType="map" resultType="com.fly.dds.domain.Info">
 		select i.NUM, REGION_MAIN, REGION_SUB, CONTENTID,
 		CONTENTTYPE, NAME, THUMBNAIL, MAIN_CATEGORY, MIDDLE_CATEGORY, SUB_CATEGORY
@@ -141,5 +145,51 @@
 		from info i
 		join info_like i2 on i.num=i2.num
 		where user_num=#{user_num}
+	</select>
+	
+	<select id="listWishCompanion" parameterType="map" resultType="com.fly.dds.domain.Companion">
+		select distinct c.num, subject, nickname, to_char(sdate , 'yyyy-mm-dd') AS sdate, to_char(edate , 'yyyy-mm-dd') AS edate, gender, age, region_main AS mainRegion, total_people, current_people, photo
+		from companion c
+		join companion_info ci on c.num=ci.num
+		join companion_age ca on c.num=ca.num
+		join companion_region cr on c.num=cr.num
+		join companion_like cl on c.num=cl.num
+		join member_profile m on c.user_num = m.user_num
+		where cl.user_num=#{user_num}
+		OFFSET #{offset} ROWS FETCH FIRST #{size} ROWS ONLY
+	</select>
+	
+	<select id="wishCompanionCount" parameterType="long" resultType="Integer">
+		SELECT NVL(COUNT(DISTINCT c.num), 0) AS likeCount
+		from Companion c
+		join Companion_like cl on c.num=cl.num
+		where c.user_num=#{user_num}
+	</select>
+	
+	<select id="listWaitingCompanion" parameterType="map" resultType="com.fly.dds.domain.Companion">
+		select distinct c.num, c.nickname, subject, reg_date, sdate, edate,
+		total_people, gender, age, region_main AS mainRegion, photo
+		from companion c
+		join companion_info ci on c.num=ci.num
+		join companion_age ca on c.num=ca.num
+		join companion_region cr on c.num=cr.num
+		join member_profile m on c.user_num=m.user_num
+		join member_companioninfo m2 on m2.num=c.num
+		where m2.status='대기' AND m2.user_num=#{user_num} AND c.status = 1
+		OFFSET #{offset} ROWS FETCH FIRST #{size} ROWS ONLY
+	</select>
+	
+	<select id="waitingCompanionCount" parameterType="long" resultType="Integer">
+		SELECT NVL(COUNT(*), 0)
+		from member_companioninfo
+		where user_num=#{user_num} AND status='대기'
+	</select>
+	
+	<select id="companionThumbnail" parameterType="long" resultType="String">
+		select filename 
+		from companion_file
+		where num=#{num} group by num, file_num, filename
+		order by file_num
+		FETCH FIRST 1 ROWS ONLY
 	</select>
 </mapper>

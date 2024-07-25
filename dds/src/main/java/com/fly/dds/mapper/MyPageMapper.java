@@ -6,6 +6,7 @@ import java.util.Map;
 
 import org.apache.ibatis.annotations.Param;
 
+import com.fly.dds.domain.Companion;
 import com.fly.dds.domain.Info;
 import com.fly.dds.domain.Member;
 import com.fly.dds.domain.MyPage;
@@ -27,16 +28,28 @@ public interface MyPageMapper {
 	public List<TravelReview> listReview(Map<String, Object> map);
 	public List<MyPage> listReply(Map<String, Object> map);
 	
+	// 프로필 댓글 삭제
 	public void deleteReply(@Param("boardname") String boardname ,@Param("reply_num") long reply_num) throws SQLException; 
 	
+	// 위시리스트 여행 후기
 	public List<MyPage> listWishReview(Map<String, Object> map);
 	public int wishReviewCount(Long user_num);
 	
 	// 위시리스트에서 항목 제거
     void deleteWishlistReview(@Param("userNum") long userNum, @Param("num") long num);
     void deleteWishlistInfo(@Param("userNum") long userNum, @Param("num") long num);
+    void deleteWishlistCompanion(@Param("userNum") long userNum, @Param("num") long num);
     
+    // 위시리스트 정보
     public List<Info> listWishInfo(Map<String, Object> map);
     public int wishInfoCount(Long user_num);
     
+    // 위시리스트 동행
+    public List<Companion> listWishCompanion(Map<String, Object> map);
+    public int wishCompanionCount(Long user_num);
+    
+    // 동행 대기
+    public List<Companion> listWaitingCompanion(Map<String, Object> map);
+    public int waitingCompanionCount(Long user_num);
+    public String companionThumbnail(long num);
 }

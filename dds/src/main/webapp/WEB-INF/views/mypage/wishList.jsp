@@ -411,4 +411,3 @@ function removeFromWishlist(num, table_name) {
 }
 
 </script>
-</script>

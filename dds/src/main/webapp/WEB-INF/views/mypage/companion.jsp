@@ -62,95 +62,97 @@
 
         <ul class="nav nav-tabs" id="myTab" role="tablist">
             <li class="nav-item" role="presentation">
-                <button class="nav-link active" id="tab-1" data-tab="tab-pane-1" type="button" role="tab" aria-controls="pane-1" aria-selected="true">대기중</button>
+                <button class="nav-link active" data-bs-toggle="tab" data-bs-target="#tab-waiting" type="button" role="tab" aria-controls="tab-waiting" aria-selected="true">대기중</button>
             </li>
             <li class="nav-item" role="presentation">
-                <button class="nav-link" id="tab-2" data-tab="tab-pane-2" type="button" role="tab" aria-controls="pane-2" aria-selected="false">참여중</button>
+                <button class="nav-link" data-bs-toggle="tab" data-bs-target="#tab-party" type="button" role="tab" aria-controls="tab-party" aria-selected="false">참여중</button>
             </li>
             <li class="nav-item" role="presentation">
-                <button class="nav-link" id="tab-3" data-tab="tab-pane-3" type="button" role="tab" aria-controls="pane-3" aria-selected="false">지난동행</button>
+                <button class="nav-link" data-bs-toggle="tab" data-bs-target="#tab-past" type="button" role="tab" aria-controls="tab-past" aria-selected="false">지난동행</button>
             </li>
             <li class="nav-item" role="presentation">
-                <button class="nav-link" id="tab-4" data-tab="tab-pane-4" type="button" role="tab" aria-controls="pane-4" aria-selected="false">내가 쓴 동행</button>
+                <button class="nav-link" data-bs-toggle="tab" data-bs-target="#tab-my-posts" type="button" role="tab" aria-controls="tab-my-posts" aria-selected="false">내가 쓴 동행</button>
             </li>
         </ul>
 
-        <div class="tab-content-container">
-            <div id="tab-pane-1" class="tab-content active">
-                <div class="content-container">
-                    <div class="content-card">
-                        <img src="https://via.placeholder.com/300x200" alt="Content Image">
-                        <div class="card-body">
-                            <h5>8월 19일부터 25일 6박 7일 홈스골 지역 동행인구해요!!</h5>
-                            <div class="meta">
-                                <span><i class="bi bi-person-circle"></i>&nbsp;yunsu...</span>
-                                <span>20대 · 여자</span>
-                                <span class="location">순천</span>
-                            </div>
-                        </div>
-                    </div>
-                    <!-- 추가 카드 예시 -->
-                    <div class="content-card">
-                        <img src="https://via.placeholder.com/300x200" alt="Content Image">
-                        <div class="card-body">
-                            <h5>8월 19일부터 25일 6박 7일 홈스골 지역 동행인구해요!!</h5>
-                            <div class="meta">
-                                <span><i class="bi bi-person-circle"></i>yunsu...</span>
-                                <span>20대 · 여자</span>
-                                <span class="location">순천</span>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="content-card">
-                        <img src="https://via.placeholder.com/300x200" alt="Content Image">
-                        <div class="card-body">
-                            <h5>8월 19일부터 25일 6박 7일 홈스골 지역 동행인구해요!!</h5>
-                            <div class="meta">
-                                <span><i class="bi bi-person-circle"></i>yunsu...</span>
-                                <span>20대 · 여자</span>
-                                <span class="location">순천</span>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="content-card">
-                        <img src="https://via.placeholder.com/300x200" alt="Content Image">
-                        <div class="card-body">
-                            <h5>8월 19일부터 25일 6박 7일 홈스골 지역 동행인구해요!!</h5>
-                            <div class="meta">
-                                <span><i class="bi bi-person-circle"></i>yunsu...</span>
-                                <span>20대 · 여자</span>
-                                <span class="location">순천</span>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div id="tab-pane-2" class="tab-content">
-                <!-- 참여중 컨텐츠 -->
-            </div>
-            <div id="tab-pane-3" class="tab-content">
-                <!-- 지난동행 컨텐츠 -->
-            </div>
-            <div id="tab-pane-4" class="tab-content">
-                <!-- 내가 쓴 동행 컨텐츠 -->
-            </div>
+        <div class="tab-content-container" id="nav-content">
+            <div class="tab-content active" id="tab-waiting"></div>
+            <div class="tab-content" id="tab-party"></div>
+            <div class="tab-content" id="tab-past"></div>
+            <div class="tab-content" id="tab-my-posts"></div>
         </div>
     </div>
 </div>
 
 <script>
-    document.addEventListener("DOMContentLoaded", function() {
-        const tabs = document.querySelectorAll(".nav-link");
-        const contents = document.querySelectorAll(".tab-content");
+    
+    function ajaxFun(url, method, formData, dataType, fn, file = false) {
+    	const settings = {
+    			type: method, 
+    			data: formData,
+    			dataType:dataType,
+    			success:function(data) {
+    				fn(data);
+    			},
+    			beforeSend: function(jqXHR) {
+    				jqXHR.setRequestHeader('AJAX', true);
+    			},
+    			complete: function () {
+    			},
+    			error: function(jqXHR) {
+    				if(jqXHR.status === 403) {
+    					login();
+    					return false;
+    				} else if(jqXHR.status === 400) {
+    					alert('요청 처리가 실패 했습니다.');
+    					return false;
+    		    	}
+    		    	
+    				console.log(jqXHR.responseText);
+    			}
+    	};
+    	
+    	if(file) {
+    		settings.processData = false;  // file 전송시 필수. 서버로전송할 데이터를 쿼리문자열로 변환여부
+    		settings.contentType = false;  // file 전송시 필수. 서버에전송할 데이터의 Content-Type. 기본:application/x-www-urlencoded
+    	}
+    	
+    	$.ajax(url, settings);
+    }
 
-        tabs.forEach(tab => {
-            tab.addEventListener("click", function() {
-                tabs.forEach(t => t.classList.remove("active"));
-                this.classList.add("active");
 
-                contents.forEach(content => content.classList.remove("active"));
-                document.getElementById(this.getAttribute("data-tab")).classList.add("active");
-            });
+    $(function(){
+    	listWaitingCompanion(1);
+    	
+        $("button[role='tab']").on("click", function(e){
+    		const tab = $(this).attr("aria-controls");
+    		if(tab === "1") {
+    			listWaitingCompanion(1);
+    		} else if(tab === "2") {
+    			listReply(1);
+    		} else if(tab === "3") {
+    			listReply(1);
+    		} else if(tab === "4") {
+    			listReply(1);
+    		}
         });
     });
+
+    function listWaitingCompanion(page) {
+    	let url = '${pageContext.request.contextPath}/mypage/waitingCompanion';
+    	
+    	const fn = function(data) {
+    		$('#tab-waiting').html(data);
+    	};
+    	ajaxFun(url, "get", {pageNo : page}, "text", fn);
+    }
+
+    function listReply(page) {
+    	let url = '${pageContext.request.contextPath}/mypage/reply';
+    	
+    	const fn = function(data) {
+    		$('#tab-party').html(data);
+    	};
+    	ajaxFun(url, "get", {pageNo : page}, "text", fn);
+    }
 </script>

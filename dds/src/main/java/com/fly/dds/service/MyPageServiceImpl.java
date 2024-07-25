@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.fly.dds.common.FileManager;
+import com.fly.dds.domain.Companion;
 import com.fly.dds.domain.Info;
 import com.fly.dds.domain.Member;
 import com.fly.dds.domain.MyPage;
@@ -207,6 +208,7 @@ public class MyPageServiceImpl implements MyPageService {
 			switch (table_name) {
 			case "review" :  mapper.deleteWishlistReview(userNum, num); break;
 			case "info" : mapper.deleteWishlistInfo(userNum, num); break;
+			case "companion" : mapper.deleteWishlistCompanion(userNum, num); break;
 			}
         } catch (Exception e) {
             e.printStackTrace();
@@ -243,6 +245,57 @@ public class MyPageServiceImpl implements MyPageService {
 		
 		try {
 			result = mapper.wishInfoCount(user_num);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return result;
+	}
+
+	@Override
+	public List<Companion> listWishCompanion(Map<String, Object> map) {
+		List<Companion> list = null;
+		try {
+			list = mapper.listWishCompanion(map);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		return list;
+	}
+
+	@Override
+	public int wishCompanionCount(Long user_num) {
+		int result = 0;
+		
+		try {
+			result = mapper.wishCompanionCount(user_num);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return result;
+	}
+
+	@Override
+	public List<Companion> listWaitingCompanion(Map<String, Object> map) {
+		List<Companion> list = null;
+		try {
+			list = mapper.listWaitingCompanion(map);
+			for(Companion dto:list) {
+				dto.setSaveFilename(mapper.companionThumbnail(dto.getNum()));
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		return list;
+	}
+
+	@Override
+	public int waitingCompanionCount(Long user_num) {
+		int result = 0;
+		
+		try {
+			result = mapper.waitingCompanionCount(user_num);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
