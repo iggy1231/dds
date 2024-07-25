@@ -7,6 +7,7 @@ import com.fly.dds.domain.Companion;
 import com.fly.dds.domain.Info;
 import com.fly.dds.domain.Member;
 import com.fly.dds.domain.MyPage;
+import com.fly.dds.domain.Room;
 import com.fly.dds.domain.TravelReview;
 
 public interface MyPageService {
@@ -41,5 +42,8 @@ public interface MyPageService {
     // 동행 대기
     public List<Companion> listWaitingCompanion(Map<String, Object> map);
     public int waitingCompanionCount(Long user_num);
+    
+    public List<Room> listWishRoom(Map<String, Object> map);
+    public int wishRoomCount(Long user_num);
 	
 }

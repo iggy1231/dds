@@ -52,6 +52,9 @@ public class Room {
 	private List<Long> points;
 
 	private long point;
+	
+	private double rating;
+	private int ratingCount;
 
 	public long getNum() {
 		return num;
@@ -363,6 +366,22 @@ public class Room {
 
 	public void setPoint(long point) {
 		this.point = point;
+	}
+
+	public double getRating() {
+		return rating;
+	}
+
+	public void setRating(double rating) {
+		this.rating = rating;
+	}
+
+	public int getRatingCount() {
+		return ratingCount;
+	}
+
+	public void setRatingCount(int ratingCount) {
+		this.ratingCount = ratingCount;
 	}
 
 }

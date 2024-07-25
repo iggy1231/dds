@@ -301,7 +301,10 @@ $(document).ready(function(){
     });
 
     // 페이지 로드 시 기본으로 첫 번째 페이지의 위시리스트 항목을 불러옴
-    listWishReview(1);
+    listWishRoom(1);
+    
+ 	// 첫 번째 탭을 활성화 상태로 설정
+    $('.nav-pills a[href="#tab-1"]').tab('show');
 });
 
 function login() {
