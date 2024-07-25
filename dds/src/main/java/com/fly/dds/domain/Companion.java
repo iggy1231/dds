@@ -34,6 +34,8 @@ public class Companion {
 	private int current_people;
 	private int estimate_cost;
 	
+	private String photo;
+	
 	public long getNum() {
 		return num;
 	}
@@ -171,5 +173,11 @@ public class Companion {
 	}
 	public void setImgFiles(List<MultipartFile> imgFiles) {
 		this.imgFiles = imgFiles;
+	}
+	public String getPhoto() {
+		return photo;
+	}
+	public void setPhoto(String photo) {
+		this.photo = photo;
 	}
 }

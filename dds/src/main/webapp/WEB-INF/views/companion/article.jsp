@@ -248,10 +248,14 @@ table tr>td:nth-child(2) {
 		      <div class="modal-body">
 				<form name="reportForm" action="#" method="post">
 		        <select name="reason">
-		        	<option value="1">신고 사유</option>
-		        	<option value="2">신고 사유</option>
-		        	<option value="3">신고 사유</option>
-		        	<option value="4">신고 사유</option>
+		        	<option value="모욕 및 괴롭힘">모욕 및 괴롭힘</option>
+		        	<option value="허위 정보 유포">허위 정보 유포</option>
+		        	<option value="스팸 및 무단도배">스팸 및 무단도배</option>
+		        	<option value="부적절한 콘텐츠">부적절한 콘텐츠</option>
+		        	<option value="개인정보 침해">개인정보 침해</option>
+		        	<option value="부적절한 콘텐츠">부적절한 콘텐츠</option>
+		        	<option value="저작권 침해">저작권 침해</option>
+		        	<option value="기타">기타</option>
 		        </select>
 		        <input type="text" name="reason2">
 		        <input type="hidden" name="unum">
@@ -431,6 +435,7 @@ function similiarList(mainRegion) {
 } 
 
 function addNextPage(data) {
+	console.log(data);
 	$("#areaList-carousel .carousel-item:first").addClass('areaNewList');
 	$("#areaList-carousel .carousel-item").html("");
 	
@@ -449,7 +454,7 @@ function addNextPage(data) {
 		}
 		if(i<data.list.length) {
 			htmlText+='<div class="col card" onclick="article('+data.list[i].num+')">';
-			htmlText+='<img src="${pageContext.request.contextPath}/resources/images/숙소_예시.jpg" class="card-img-top" alt="...">';
+			htmlText+='<img src="${pageContext.request.contextPath}/uploads/companion/'+data.list[i].saveFilename+'" class="card-img-top" alt="...">';
 			htmlText+='<div class="card-body"><p>'+data.list[i].subject+'</p>';
 			htmlText+='<a href="#">'+data.list[i].age+'대 </a>';
 			htmlText+='<a href="#">'+data.list[i].gender+'</a>';

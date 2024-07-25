@@ -66,6 +66,8 @@ public interface CompanionMapper {
 	
 	public void deleteCompanion(long num);
 	public void endCompanion(long num);
+	public void endCompanionInfo(long num);
+	public void deleteCompanionInfo(long num);
 	public String findFileByNum(long num);
 	public void reportCompanionReply(Map<String, Object> map);
 	public int isCompanionReplyReported(Map<String, Object> map);

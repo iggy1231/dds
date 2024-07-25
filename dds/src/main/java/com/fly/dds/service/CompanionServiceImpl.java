@@ -608,6 +608,8 @@ public class CompanionServiceImpl implements CompanionService {
 	@Override
 	public void endCompanion(long num) {
 		mapper.endCompanion(num);
+		mapper.endCompanionInfo(num);
+		mapper.deleteCompanionInfo(num);
 	}
 	
 	@Override

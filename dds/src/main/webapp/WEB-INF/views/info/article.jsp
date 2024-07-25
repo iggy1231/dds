@@ -147,10 +147,14 @@ p {
 		      <div class="modal-body">
 				<form name="reportForm" action="#">
 		        <select name="reason">
-		        	<option value="1">신고 사유</option>
-		        	<option value="2">신고 사유</option>
-		        	<option value="3">신고 사유</option>
-		        	<option value="4">신고 사유</option>
+		        	<option value="모욕 및 괴롭힘">모욕 및 괴롭힘</option>
+		        	<option value="허위 정보 유포">허위 정보 유포</option>
+		        	<option value="스팸 및 무단도배">스팸 및 무단도배</option>
+		        	<option value="부적절한 콘텐츠">부적절한 콘텐츠</option>
+		        	<option value="개인정보 침해">개인정보 침해</option>
+		        	<option value="부적절한 콘텐츠">부적절한 콘텐츠</option>
+		        	<option value="저작권 침해">저작권 침해</option>
+		        	<option value="기타">기타</option>
 		        </select>
 		        <input type="text" name="reason2">
 		        <input type="hidden" name="unum">

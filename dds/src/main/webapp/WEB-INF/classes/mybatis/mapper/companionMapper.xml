@@ -303,6 +303,14 @@
 		update companion set status=0 where num=#{num}
 	</update>
 	
+	<update id="endCompanionInfo" parameterType="long">
+		update member_companioninfo set status='종료' where num=#{num} AND status='참여'
+	</update>
+	
+	<delete id="deleteCompanionInfo">
+		delete from member_companioninfo where num=#{num} AND status='대기'
+	</delete>
+	
 	<select id="findFileByNum" resultType="String">
 		select filename from companion_file
 		where num=#{num}
