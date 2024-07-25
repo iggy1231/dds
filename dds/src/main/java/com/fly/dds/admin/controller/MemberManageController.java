@@ -70,4 +70,10 @@ public class MemberManageController {
 		
         return ".admin.memberManage.list";
     }
+	
+	@GetMapping("report")
+	public String membermanage() {
+		
+		return ".admin.banManage.report";
+	}
 }

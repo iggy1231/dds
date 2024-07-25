@@ -131,7 +131,7 @@
 
               <ul class="menu-sub">
                 <li class="menu-item">
-                  <a href="layouts-without-menu.html" class="menu-link">
+                  <a href="${pageContext.request.contextPath}/admin/product/listsale" class="menu-link">
                     <div data-i18n="Without menu">주문리스트</div>
                   </a>
                 </li>
@@ -194,6 +194,11 @@
               <ul class="menu-sub">
                 <li class="menu-item">
                   <a href="${pageContext.request.contextPath}/admin/membermanage/list" class="menu-link">
+                    <div data-i18n="Account">회원리스트</div>
+                  </a>
+                </li>
+                <li class="menu-item">
+                  <a href="${pageContext.request.contextPath}/admin/membermanage/report" class="menu-link">
                     <div data-i18n="Account">신고/차단</div>
                   </a>
                 </li>
