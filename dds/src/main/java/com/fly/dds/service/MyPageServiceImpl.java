@@ -153,7 +153,7 @@ public class MyPageServiceImpl implements MyPageService {
 
 	@Override
 	public int replyCount(Map<String, Object> map) {
-int result = 0;
+		int result = 0;
 		
 		try {
 			result = mapper.replyCount(map);
@@ -171,6 +171,41 @@ int result = 0;
 			e.printStackTrace();
 			throw e;
 		}
+		
+	}
+
+	@Override
+	public List<MyPage> listWishReview(Map<String, Object> map) {
+		List<MyPage> list = null;
+		try {
+			list = mapper.listWishReview(map);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		return list;
+	}
+
+	@Override
+	public int wishReviewCount(Map<String, Object> map) {
+		int result = 0;
+		
+		try {
+			result = mapper.wishReviewCount(map);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return result;
+	}
+
+	@Override
+	public void removeFromWishlist(long userNum, long travelReviewNum) throws Exception {
+		try {
+            mapper.deleteWishlistItem(userNum, travelReviewNum);
+        } catch (Exception e) {
+            e.printStackTrace();
+            throw e;
+        }
 		
 	}
 	

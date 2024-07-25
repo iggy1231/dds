@@ -100,16 +100,26 @@
 	delete ${boardname}_reply where reply_num = #{reply_num}
 	</delete>
 	
-	<select id="listRoom" parameterType="map" resultType="com.fly.dds.domain.Room">
-		<!-- where 절로 discount랑 price해주기 -->
-	    SELECT num , subject , addr1 , addr2 , room_type
-		FROM room r
-		<where>
-            <if test="discount == 0">
-                AND d.DISCOUNT >= #{discount}
-            </if>
-        </where>
-		ORDER BY num DESC
-		OFFSET #{offset} ROWS FETCH FIRST #{size} ROWS ONLY	
+	<select id="listWishReview" parameterType="map" resultType="com.fly.dds.domain.MyPage">
+		SELECT tr.num, mp.photo, mi.nickname, tr.subject, tr.content, rr.region_sub, to_char(tr.reg_date, 'yyyy-mm-dd') AS reg_date, tf.imagefilename
+	    FROM TravelReview tr
+	    LEFT OUTER JOIN TravelReview_Region rr ON tr.num = rr.num
+	    JOIN TravelReview_File tf ON tr.num = tf.num
+	    JOIN MEMBER_INFO mi ON tr.user_num = mi.user_num
+	    LEFT OUTER JOIN MEMBER_PROFILE mp ON tr.user_num = mp.user_num
+	    WHERE tr.num IN (SELECT num FROM TravelReview_Like WHERE user_num = #{user_num})
+	    ORDER BY tr.num DESC
+	    OFFSET #{offset} ROWS FETCH FIRST #{size} ROWS ONLY
 	</select>
+	
+	<select id="wishReviewCount" parameterType="map" resultType="Integer">
+		SELECT NVL(COUNT(DISTINCT t.num), 0) AS likeCount
+		FROM TravelReview_Like l
+		JOIN TravelReview t ON l.num = t.num
+		WHERE l.user_num = #{user_num}
+	</select>
+	
+	<delete id="deleteWishlistItem" parameterType="java.util.Map">
+    	DELETE FROM TravelReview_Like WHERE user_num = #{userNum} AND num = #{travelReviewNum}
+	</delete>
 </mapper>

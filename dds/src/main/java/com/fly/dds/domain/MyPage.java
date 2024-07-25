@@ -8,6 +8,12 @@ public class MyPage {
 	private String boardName;
 	private long user_num;
 	
+	private String nickName;
+	private String subject;
+	private String region_sub;
+	
+	private String imageFilename;
+	private String photo;
 	public long getNum() {
 		return num;
 	}
@@ -44,5 +50,36 @@ public class MyPage {
 	public void setUser_num(long user_num) {
 		this.user_num = user_num;
 	}
+	public String getNickName() {
+		return nickName;
+	}
+	public void setNickName(String nickName) {
+		this.nickName = nickName;
+	}
+	public String getSubject() {
+		return subject;
+	}
+	public void setSubject(String subject) {
+		this.subject = subject;
+	}
+	public String getRegion_sub() {
+		return region_sub;
+	}
+	public void setRegion_sub(String region_sub) {
+		this.region_sub = region_sub;
+	}
+	public String getImageFilename() {
+		return imageFilename;
+	}
+	public void setImageFilename(String imageFilename) {
+		this.imageFilename = imageFilename;
+	}
+	public String getPhoto() {
+		return photo;
+	}
+	public void setPhoto(String photo) {
+		this.photo = photo;
+	}
+	
 
 }

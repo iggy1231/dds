@@ -244,8 +244,85 @@ public class MyPageController {
 	
 	
 	@GetMapping("wishList")
-    public String wishList() {
+    public String wishList(
+    		@RequestParam(value = "page", defaultValue = "1") int current_page,
+			 @RequestParam(value = "page2", defaultValue = "1") int current_page2,
+
+   		HttpSession session,
+   		Model model
+   		) {
+		SessionInfo Info = (SessionInfo)session.getAttribute("member");
+		Long user_num = Info.getUser_num();
+		Member dto = null;
+		try {
+			dto = service.findById(user_num);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+
+		model.addAttribute("dto" , dto);
         return ".four.mypage.wishList";
+    }
+	
+	@GetMapping("wishReview")
+	public String wishReview(
+			 @RequestParam(value = "pageNo", defaultValue = "1") int current_page,
+    		HttpSession session,
+    		Model model
+    		) {
+			 
+		    
+		    Map<String, Object> map = new HashMap<>();
+		    int size = 10;
+		    int dataCount = 0;
+		    
+		    SessionInfo Info = (SessionInfo)session.getAttribute("member");
+		    
+		    Long user_num = Info.getUser_num();
+		    
+		    map.put("user_num", user_num);
+		    
+		    dataCount = service.wishReviewCount(map);
+		    
+		    int total_page=myUtil.pageCount(dataCount, size);		    
+		    if(total_page < current_page) current_page = total_page;
+		    int offset = (current_page - 1) * size;
+		    map.put("offset", offset);
+		    map.put("size", size);
+		    List<MyPage> list = service.listWishReview(map);
+		  
+		    
+		    String paging = myUtil.pagingMethod(current_page, total_page, "listWishReview");
+		
+		    
+		model.addAttribute("dataCount" , dataCount);
+
+		model.addAttribute("list",list);
+		
+		model.addAttribute("paging", paging);
+
+		model.addAttribute("pageNo",current_page);
+
+		model.addAttribute("total_page",total_page);
+
+		return "mypage/wishReview";
+	}
+	
+	@PostMapping("wishlist/remove")
+    @ResponseBody
+    public Map<String, Object> removeFromWishlist(@RequestParam("num") long num, HttpSession session) {
+        Map<String, Object> result = new HashMap<>();
+        try {
+            SessionInfo info = (SessionInfo) session.getAttribute("member");
+            long userNum = info.getUser_num();
+            service.removeFromWishlist(userNum, num); // 서비스 메소드 호출
+            result.put("success", true);
+        } catch (Exception e) {
+            result.put("success", false);
+            result.put("message", e.getMessage());
+        }
+        return result;
     }
 	
 	@GetMapping("myTrip")

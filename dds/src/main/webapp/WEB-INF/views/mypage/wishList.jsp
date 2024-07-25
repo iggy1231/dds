@@ -274,7 +274,7 @@
                 </ul>
             </div>
         </div>
-        <div class="tab-content">
+        <div class="tab-content" id="nav-content">
             
         </div>
     </div>
@@ -286,7 +286,22 @@ $(document).ready(function(){
     $('.nav-pills a').on('click', function (e) {
         e.preventDefault();
         $(this).tab('show');
+        const tab = $(this).attr("href").substring(1); // href 속성에서 탭 ID를 가져옴
+        if(tab === "tab-1") {
+            listWishRoom(1); // "숙소" 탭 클릭 시 호출
+        } else if(tab === "tab-2") {
+            listWishTour(1); // "투어" 탭 클릭 시 호출
+        } else if(tab === "tab-3") {
+            listWishInfo(1); // "여행정보" 탭 클릭 시 호출
+        } else if(tab === "tab-4") {
+            listWishCompanion(1); // "동행" 탭 클릭 시 호출
+        } else if(tab === "tab-5") {
+            listWishReview(1); // "후기" 탭 클릭 시 호출
+        }
     });
+
+    // 페이지 로드 시 기본으로 첫 번째 페이지의 위시리스트 항목을 불러옴
+    listWishReview(1);
 });
 
 function login() {
@@ -327,22 +342,48 @@ function ajaxFun(url, method, formData, dataType, fn, file = false) {
 	$.ajax(url, settings);
 }
 
-$(function(){
-	listReview(1);
-	
-    $("a[role='tab']").on("click", function(e){
-		const tab = $(this).attr("aria-controls");
-		if(tab === "1") {
-			listReview(1);
-		} else if(tab === "2") {
-			listReply(1);
-		} else if(tab === "3") {
-			listReply(1);
-		} else if(tab === "4") {
-			listReply(1);
-		} else if(tab === "5") {
-			listReply(1);
-		}
-    });
-});
+function listWishRoom(page) {
+    let url = '${pageContext.request.contextPath}/mypage/wishRoom';
+    
+    const fn = function(data) {
+        $('#nav-content').html(data);
+    };
+    ajaxFun(url, "get", {pageNo: page}, "text", fn);
+}
+
+function listWishTour(page) {
+    let url = '${pageContext.request.contextPath}/mypage/wishTour';
+    
+    const fn = function(data) {
+        $('#nav-content').html(data);
+    };
+    ajaxFun(url, "get", {pageNo: page}, "text", fn);
+}
+
+function listWishInfo(page) {
+    let url = '${pageContext.request.contextPath}/mypage/wishInfo';
+    
+    const fn = function(data) {
+        $('#nav-content').html(data);
+    };
+    ajaxFun(url, "get", {pageNo: page}, "text", fn);
+}
+
+function listWishCompanion(page) {
+    let url = '${pageContext.request.contextPath}/mypage/wishCompanion';
+    
+    const fn = function(data) {
+        $('#nav-content').html(data);
+    };
+    ajaxFun(url, "get", {pageNo: page}, "text", fn);
+}
+
+function listWishReview(page) {
+    let url = '${pageContext.request.contextPath}/mypage/wishReview';
+    
+    const fn = function(data) {
+        $('#nav-content').html(data);
+    };
+    ajaxFun(url, "get", {pageNo: page}, "text", fn);
+}
 </script>

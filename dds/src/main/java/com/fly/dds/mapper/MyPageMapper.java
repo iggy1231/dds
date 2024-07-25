@@ -8,7 +8,6 @@ import org.apache.ibatis.annotations.Param;
 
 import com.fly.dds.domain.Member;
 import com.fly.dds.domain.MyPage;
-import com.fly.dds.domain.Room;
 import com.fly.dds.domain.TravelReview;
 
 public interface MyPageMapper {
@@ -29,6 +28,10 @@ public interface MyPageMapper {
 	
 	public void deleteReply(@Param("boardname") String boardname ,@Param("reply_num") long reply_num) throws SQLException; 
 	
-	public List<Room> listRoom(Map<String, Object> map);
+	public List<MyPage> listWishReview(Map<String, Object> map);
+	public int wishReviewCount(Map<String, Object> map);
+	
+	// 위시리스트에서 항목 제거
+    void deleteWishlistItem(@Param("userNum") long userNum, @Param("travelReviewNum") long travelReviewNum);
 	
 }

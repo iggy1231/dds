@@ -23,4 +23,12 @@ public interface MyPageService {
 	public List<MyPage> listReply(Map<String, Object> map);
 	
 	public void deleteReply(String boardname , long reply_num) throws Exception; 
+	
+	public List<MyPage> listWishReview(Map<String, Object> map);
+	public int wishReviewCount(Map<String, Object> map);
+	
+	// 위시리스트에서 항목 제거
+    void removeFromWishlist(long userNum, long travelReviewNum) throws Exception;
+	
+	
 }
