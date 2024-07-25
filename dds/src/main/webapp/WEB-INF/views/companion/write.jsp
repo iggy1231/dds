@@ -8,9 +8,12 @@
 	margin: 0px;
 	box-sizing: border-box;
 }
-body {
-	background-color: #18A8F1;
-}
+ * @font-face {
+    font-family: 'Pretendard-Regular';
+    src: url('https://fastly.jsdelivr.net/gh/Project-Noonnu/noonfonts_2107@1.1/Pretendard-Regular.woff') format('woff');
+    font-weight: 400;
+    font-style: normal;
+} 
 .container {
 	background-color: white;
 }
@@ -23,13 +26,98 @@ body {
 function companionSubmit() {
 	const f=document.companionForm;
 	
-	if(f.areaCode.length>1) {
-		for(let i=0;i<f.areaCode.length;i++) {
-			console.log($('select[name=areaCode] option:selected').eq(i).val());
-		}
-	} else {
-		
+	let mainRegion=document.querySelectorAll('select[name=areaCode]');
+	let area=mainRegion[0].value;
+	
+	if(area=='선택') {
+		$('#alertModal .modal-title').text('지역을 선택해주세요');
+		mainRegion[0].focus();
+		return;
 	}
+
+	if(mainRegion.length>1) {
+		for(let s of mainRegion) {
+			if(area!=s.value) {
+				$('#alertModal .modal-title').text('동일한 지역을 선택해주세요');
+				s.focus();
+				return;
+			}
+			area=s.value;
+		}
+	}
+	
+	if(f.sdate.value.trim()=='') {
+		$('#alertModal .modal-title').text('출발일을 선택해주세요');
+		f.sdate.focus();
+		return;
+	}
+	
+	if(f.edate.value.trim()=='') {
+		$('#alertModal .modal-title').text('종료일을 선택해주세요');
+		f.edate.focus();
+		return;
+	}
+	
+	const sdate=new Date(f.sdate.value);
+	const edate=new Date(f.edate.value);
+	const ndate=new Date();
+	
+	if(sdate<ndate) {
+		$('#alertModal .modal-title').text('출발일은 오늘 이전일 수 없습니다');
+		f.sdate.focus();
+		return;
+	}
+	
+	if(edate<sdate) {
+		$('#alertModal .modal-title').text('종료일은 출발일 이전일 수 없습니다');
+		f.edate.focus();
+		return;
+	}
+	
+	if(f.theme.value=='선택') {
+		$('#alertModal .modal-title').text('카테고리를 선택해주세요');
+		f.theme.focus();
+		return;
+	}
+	
+	if(f.age.value=='') {
+		$('#alertModal .modal-title').text('연령대를 선택해주세요');
+		f.age.focus();
+		return;
+	}
+	
+	if(f.gender.value=='') {
+		$('#alertModal .modal-title').text('성별을 선택해주세요');
+		f.gender.focus();
+		return;
+	}
+	
+	if(f.estimate_cost.value=='') {
+		$('#alertModal .modal-title').text('예상 비용을 입력해주세요');
+		f.estimate_cost.focus();
+		return;
+	}
+
+	if(f.estimate_cost.value<0) {
+		$('#alertModal .modal-title').text('예상 비용은 0 미만일 수 없습니다');
+		f.estimate_cost.focus();
+		return;
+	}
+
+	if(f.subject.value.trim()=='') {
+		$('#alertModal .modal-title').text('제목을 입력홰주세요');
+		f.subject.focus();
+		return;
+	}
+	
+	if(f.content.value.trim()=='') {
+		$('#alertModal .modal-title').text('내용을 입력해주세요');
+		f.content.focus();
+		return;
+	}
+	
+	$('#alertModal').html('');
+
 	f.submit();
 }
 
@@ -336,7 +424,7 @@ $(function(){
 				<table class="table">
 					<tr> 
 						<td align="center">
-							<button type="button" class="btn btn-outline-secondary" onclick="companionSubmit();">${mode=='update'?'수정완료':'등록하기'}</button>
+							<button type="button" class="btn btn-outline-secondary" data-bs-toggle="modal" data-bs-target="#alertModal" onclick="companionSubmit();">${mode=='update'?'수정완료':'등록하기'}</button>
 							<button type="reset" class="btn btn-outline-secondary">다시입력</button>
 							<button type="button" class="btn btn-outline-secondary" onclick="location.href='${pageContext.request.contextPath}/companion/list';">${mode=='update'?'수정취소':'등록취소'}</button>
 							<c:if test="${mode=='update'}">
@@ -347,6 +435,18 @@ $(function(){
 					</tr>
 				</table>
 			</form>
+		</div>
+		<div class="modal fade" id="alertModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+		  <div class="modal-dialog">
+		    <div class="modal-content">
+		      <div class="modal-header">
+		        <h1 class="modal-title fs-5" id="staticBackdropLabel"></h1>
+		      </div>
+		      <div class="modal-footer">
+		        <button type="button" class="btn btn-primary" data-bs-dismiss="modal">확인</button>
+		      </div>
+		    </div>
+		  </div>
 		</div>
 	</div>
 </div>

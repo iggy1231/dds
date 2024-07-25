@@ -8,9 +8,12 @@
 	margin: 0px;
 	box-sizing: border-box;
 }
-body {
-	background-color: #18A8F1;
-}
+ * @font-face {
+    font-family: 'Pretendard-Regular';
+    src: url('https://fastly.jsdelivr.net/gh/Project-Noonnu/noonfonts_2107@1.1/Pretendard-Regular.woff') format('woff');
+    font-weight: 400;
+    font-style: normal;
+} }
 .container {
 	background-color: white;
 }
@@ -46,6 +49,7 @@ body {
 	word-break: keep-all;
 }
 .carousel-item img {
+	border-radius: 10%;
 	height: 500px;
 }
 .list-content {
@@ -58,9 +62,6 @@ body {
     background-repeat: no-repeat;
 }
 </style>
-
-<div class="container">
-	<div class="body-title">
 		<div class="container-fluid py-5 mb-3 hero-header">
 			<div class="row m-2 g-5 align-items-center">
 				<div class="col-md-12">
@@ -68,6 +69,7 @@ body {
 						떠나는</h2>
 					<h2 class="mb-1 text-light display-5" style="font-weight: 600;">신나는
 						여행</h2>
+					<div class="container mt-4">
 					<div class="search-form-container">
 						<div class="row m-2 gx-5 align-items-center">
 							<div class="search-form-container">
@@ -89,16 +91,15 @@ body {
 						</div>
 					</div>
 				</div>
+				</div>
 			</div>
 		</div>
-		</div>
-	<div class="body-container">	
-		<div class="body-main">
-			<div id="carouselExampleCaptions" class="carousel slide">
+	<div class="container border border-top-0 border-bottom-0">
+			<div id="info-carousel" class="carousel slide">
 			  <div class="carousel-indicators">
-			    <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
-			    <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="1" aria-label="Slide 2"></button>
-			    <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="2" aria-label="Slide 3"></button>
+			    <button type="button" data-bs-target="#info-carousel" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
+			    <button type="button" data-bs-target="#info-carousel" data-bs-slide-to="1" aria-label="Slide 2"></button>
+			    <button type="button" data-bs-target="#info-carousel" data-bs-slide-to="2" aria-label="Slide 3"></button>
 			  </div>
 			  <div class="carousel-inner">
 			    <div class="carousel-item active">
@@ -123,16 +124,18 @@ body {
 			      </div>
 			    </div>
 			  </div>
-			  <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide="prev">
+			  <button class="carousel-control-prev" type="button" data-bs-target="#info-carousel" data-bs-slide="prev">
 			    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
 			    <span class="visually-hidden">Previous</span>
 			  </button>
-			  <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide="next">
+			  <button class="carousel-control-next" type="button" data-bs-target="#info-carousel" data-bs-slide="next">
 			    <span class="carousel-control-next-icon" aria-hidden="true"></span>
 			    <span class="visually-hidden">Next</span>
 			  </button>
 			</div>
 			<hr>
+	<div class="body-container">	
+		<div class="body-main">
 			<div>
 				<span>인기글</span>
 				<div class="scroll-list">
