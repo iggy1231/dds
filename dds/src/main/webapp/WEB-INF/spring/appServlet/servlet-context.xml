@@ -75,8 +75,8 @@
 			<exclude-mapping path="/member/userIdCheck"/>
 			<exclude-mapping path="/member/complete"/>
 			<exclude-mapping path="/member/pwdFind"/>
-			<exclude-mapping path="/guest/main"/>
-			<exclude-mapping path="/guest/list"/>
+			<exclude-mapping path="/info/**"/>
+			<exclude-mapping path="/companion/**"/>
 			<exclude-mapping path="/uploads/photo/**"/>
 			
 			<beans:bean class="com.fly.dds.interceptor.LoginCheckInterceptor"/>
