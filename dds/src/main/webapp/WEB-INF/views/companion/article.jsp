@@ -8,9 +8,12 @@
 	margin: 0px;
 	box-sizing: border-box;
 }
-body {
-	background-color: #18A8F1;
-}
+ * @font-face {
+    font-family: 'Pretendard-Regular';
+    src: url('https://fastly.jsdelivr.net/gh/Project-Noonnu/noonfonts_2107@1.1/Pretendard-Regular.woff') format('woff');
+    font-weight: 400;
+    font-style: normal;
+} 
 .container {
 	background-color: white;
 }
@@ -38,7 +41,11 @@ table tr>td:nth-child(2) {
 }
 </style>
 
-<div class="container">
+<div class="container border border-top-0 border-bottom-0">
+		<div class="body-title">
+			<h3>${dto.subject}</h3>
+			<p>조회수 :${dto.hitcount} 작성일 :${dto.reg_date}
+		</div>
 	<div class="body-container">
 		<div id="imgFiles" class="carousel slide">
 		  <div class="carousel-inner">
@@ -56,12 +63,7 @@ table tr>td:nth-child(2) {
 		    <span class="carousel-control-next-icon" aria-hidden="true"></span>
 		    <span class="visually-hidden">Next</span>
 		  </button>
-		</div>	
-		<div class="body-title">
-			<h3>${dto.subject}</h3>
-			<p>조회수 :${dto.hitcount} 작성일 :${dto.reg_date}
-		</div>
-			
+		</div>				
 		<div class="body-main">
 			<h3>여행 일정</h3>
 			<div>
@@ -116,16 +118,17 @@ table tr>td:nth-child(2) {
 				</div>
 				<hr>
 				<div>
-				<form action="${pageContext.request.contextPath}/companion/updateCompanion">
+				<div class="row">
+					<form class="col" action="${pageContext.request.contextPath}/companion/updateCompanion">
 					<input type="hidden" name="num" value="${dto.num}">
 					<button class="btn btn-outline-secondary" type="submit">수정</button>
 				</form>
-				<form name="articleForm" action="#" method="post">
+				<form class="col" name="articleForm" action="#" method="post">
 					<input type="hidden" name="num" value="${dto.num}">
 					<button class="btn btn-outline-secondary" onclick="deleteCompanion();">삭제</button>
 					<button class="btn btn-outline-secondary" onclick="endCompanion();">마감</button>
 				</form>
-					
+				</div>
 				</div>
 			</c:if>
 			<c:if test="${dto.user_num!=sessionScope.member.user_num&&dto.status!=0}">

@@ -8,9 +8,12 @@
 	margin: 0px;
 	box-sizing: border-box;
 }
-body {
-	background-color: #18A8F1;
-}
+ * @font-face {
+    font-family: 'Pretendard-Regular';
+    src: url('https://fastly.jsdelivr.net/gh/Project-Noonnu/noonfonts_2107@1.1/Pretendard-Regular.woff') format('woff');
+    font-weight: 400;
+    font-style: normal;
+} 
 .container {
 	background-color: white;
 }
@@ -35,8 +38,7 @@ p {
 
 </style>
 
-<div class="container">
-	<div class="body-container">	
+<div class="container border border-top-0 border-bottom-0">
 		<div>
 			<h3>${dto.name}</h3>
 			<p>${dto.region_Main} ${dto.region_Sub}</p>
@@ -46,6 +48,7 @@ p {
 				</c:forEach>
 			</div><hr>
 		</div>
+	<div class="body-container">	
 		<div class="body-main">
 			<div class="resultLayout"></div>
 			<div id="carouselExample" class="carousel slide">

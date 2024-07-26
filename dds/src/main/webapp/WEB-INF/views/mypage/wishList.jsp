@@ -282,6 +282,15 @@
 
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script>
+
+window.addEventListener('load', function() {
+ 	// 첫 번째 탭을 활성화 상태로 설정
+    $('.nav-pills a[href="#tab-1"]').tab('show');
+    
+    // 페이지 로드 시 기본으로 첫 번째 페이지의 위시리스트 항목을 불러옴
+    listWishRoom(1);
+});
+
 $(document).ready(function(){
     $('.nav-pills a').on('click', function (e) {
         e.preventDefault();
@@ -299,12 +308,6 @@ $(document).ready(function(){
             listWishReview(1); // "후기" 탭 클릭 시 호출
         }
     });
-
-    // 페이지 로드 시 기본으로 첫 번째 페이지의 위시리스트 항목을 불러옴
-    listWishRoom(1);
-    
- 	// 첫 번째 탭을 활성화 상태로 설정
-    $('.nav-pills a[href="#tab-1"]').tab('show');
 });
 
 function login() {

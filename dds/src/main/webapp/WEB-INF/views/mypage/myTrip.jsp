@@ -240,122 +240,13 @@
         </ul>
         
         <div class="tab-content mt-3">
-	        <div id="tab-pane-1" class="tab-pane fade show p-0 active">
-		        <h5 class="mt-3"> 두둥! 여행가자!</h5>
-	                <div class="row justify-content-center">
-	                    <div class="col-md-12 wow fadeInUp" data-wow-delay="0.3s">
-	                    	<div class="property-item rounded overflow-hidden">
-	                    	    <div class="flex-container">
-			                        <div class="flex-item">
-			                            <div>
-			                                <img src="${pageContext.request.contextPath}/resources/images/noimage.png" class="img-fluid rounded" alt="숙소 이미지">
-			                            </div>
-			                        </div>
-			                        
-			                        <div class="flex-item">
-			                            <div class="px-1 py-2 pb-3">
-			                                <a class="d-block h4 mb-2 mt-2" href="" style="font-size:24px; font-weight: 600;">순천 파라다이스 호텔</a>
-			                                <h6 class="display-10" style="color: #666565;">비지니스룸 • 1박</h6>
-	
-			                            </div>
-			                        </div>
-			                        
-			                        <div class="flex-item" style="margin-left:auto; display:flex; align-items:top;">
-								        <a href="#" style="color: #18A8F1; font-size:14px;">예약상세 &gt;</a>
-								    </div>
-			                    </div>
-			                    
-			                    <div class="flex-item" style="display: flex; justify-content: space-evenly; margin-top: 10px;">
-                                    <div>
-                                        <span>체크인</span><br>
-                                        <span>2024.07.12</span>
-                                    </div>
-                                    <div>
-                                        <span>|</span>
-                                    </div>
-                                    <div>
-                                        <span>체크아웃</span><br>
-                                        <span>2024.07.13</span>
-                                    </div>
-                                    
-                                </div>
-			                	<!-- 예약 취소 버튼과 더보기 버튼을 오른쪽 하단에 배치 -->
-                            <div class="flex-item" style="display: flex; justify-content: flex-end; margin-top: 10px;">
-                                <button class="btn btn-primary" style="margin-right: 5px;">예약 취소</button>
-                                <div class="dropdown">
-                                    <button onclick="toggleDropdown()" class="btn btn-outline-secondary">...</button>
-                                    <div id="myDropdown" class="dropdown-content">
-                                        <a href="#">문의</a>
-                                        <a href="#">리뷰</a>
-                                    </div>
-                                </div>
-                            </div>
-			                </div>
-	                    </div> 
-					</div>
-        	</div>
-        </div>
-        <hr>
-        <h5 class="mt-3"> 두둥! 추억!</h5>
-        <div class="tab-content mt-3">
-	        <div id="tab-pane-1" class="tab-pane fade show p-0 active">
-	                <div class="row justify-content-center">
-	                    <div class="col-md-12 wow fadeInUp" data-wow-delay="0.3s">
-	                    	<div class="property-item rounded overflow-hidden">
-	                    	    <div class="flex-container">
-			                        <div class="flex-item">
-			                            <div>
-			                                <img src="${pageContext.request.contextPath}/resources/images/noimage.png" class="img-fluid rounded" alt="숙소 이미지">
-			                            </div>
-			                        </div>
-			                        
-			                        <div class="flex-item">
-			                            <div class="px-1 py-2 pb-3">
-			                                <a class="d-block h4 mb-2 mt-2" href="" style="font-size:24px; font-weight: 600;">순천 파라다이스 호텔</a>
-			                                <h6 class="display-10" style="color: #666565;">비지니스룸 • 1박</h6>
-	
-			                            </div>
-			                        </div>
-			                        
-			                        <div class="flex-item" style="margin-left:auto; display:flex; align-items:top;">
-								        <a href="#" style="color: #18A8F1; font-size:14px;">예약상세 &gt;</a>
-								    </div>
-			                    </div>
-			                    
-			                    <div class="flex-item" style="display: flex; justify-content: space-evenly; margin-top: 10px;">
-                                    <div>
-                                        <span>체크인</span><br>
-                                        <span>2024.07.12</span>
-                                    </div>
-                                    <div>
-                                        <span>|</span>
-                                    </div>
-                                    <div>
-                                        <span>체크아웃</span><br>
-                                        <span>2024.07.13</span>
-                                    </div>
-                                    
-                                </div>
-			                	<!-- 예약 취소 버튼과 더보기 버튼을 오른쪽 하단에 배치 -->
-                            <div class="flex-item" style="display: flex; justify-content: flex-end; margin-top: 10px;">
-                                <button class="btn btn-secondary" style="margin-right: 5px;">다시예약</button>
-                                <button class="btn btn-primary" style="margin-right: 5px;">리뷰작성</button>
-                                <div class="dropdown">
-                                    <button onclick="toggleDropdown()" class="btn btn-outline-secondary">...</button>
-                                    <div id="myDropdown" class="dropdown-content">
-                                        <a href="#">문의</a>
-                                        <a href="#">리뷰</a>
-                                    </div>
-                                </div>
-                            </div>
-			                </div>
-	                    </div> 
+	        
 					</div>
 			</div>
         </div>
 
 
-<script>
+<script type="text/javascript">
 function toggleDropdown() {
     document.getElementById("myDropdown").classList.toggle("show");
 }
@@ -370,6 +261,107 @@ window.onclick = function(event) {
                 openDropdown.classList.remove('show');
             }
         }
+    }
+}
+
+function ajaxFun(url, method, formData, dataType, fn, file = false) {
+	const settings = {
+			type: method, 
+			data: formData,
+			dataType:dataType,
+			success:function(data) {
+				fn(data);
+			},
+			beforeSend: function(jqXHR) {
+				jqXHR.setRequestHeader('AJAX', true);
+			},
+			complete: function () {
+			},
+			error: function(jqXHR) {
+				if(jqXHR.status === 403) {
+					login();
+					return false;
+				} else if(jqXHR.status === 400) {
+					alert('요청 처리가 실패 했습니다.');
+					return false;
+		    	}
+		    	
+				console.log(jqXHR.responseText);
+			}
+	};
+	
+	if(file) {
+		settings.processData = false;  // file 전송시 필수. 서버로전송할 데이터를 쿼리문자열로 변환여부
+		settings.contentType = false;  // file 전송시 필수. 서버에전송할 데이터의 Content-Type. 기본:application/x-www-urlencoded
+	}
+	
+	$.ajax(url, settings);
+}
+
+
+$(function(){
+	listMyRoom(1);
+	
+    $("button[role='tab']").on("click", function(e){
+		const tab = $(this).attr("aria-controls");
+		if(tab === "1") {
+			listMyRoom(1);
+		} else if(tab === "2") {
+			listReply(1);
+		}
+    });
+});
+
+function listMyRoom(page) {
+	let url = '${pageContext.request.contextPath}/mypage/myRoom';
+	
+	const fn = function(data) {
+		$('.tab-content').html(data);
+	};
+	ajaxFun(url, "get", {pageNo : page}, "text", fn);
+}
+
+function listReply(page) {
+	let url = '${pageContext.request.contextPath}/mypage/reply';
+	
+	const fn = function(data) {
+		$('.tab-content').html(data);
+	};
+	ajaxFun(url, "get", {pageNo : page}, "text", fn);
+}
+
+// 페이지 로드 시점에서 각 버튼에 이벤트 리스너 추가
+document.querySelectorAll('.btn.btn-primary').forEach(function(button) {
+    button.addEventListener('click', function() {
+        var saleNum = this.getAttribute('data-saleNum');
+        var detailNum = this.getAttribute('data-detailNum');
+        var userNum = this.getAttribute('data-userNum');
+        cancelReservation(saleNum, detailNum, userNum);
+    });
+});
+
+function cancelReservation(saleNum, detailNum, userNum) {
+    if (confirm("정말 예약을 취소하시겠습니까?")) {
+        $.ajax({
+            type: "POST",
+            url: "${pageContext.request.contextPath}/mypage/cancelReservation",
+            data: {
+                saleNum: saleNum,
+                detailNum: detailNum,
+                userNum: userNum
+            },
+            success: function(response) {
+                if (response === "success") {
+                    alert("예약이 취소되었습니다.");
+                    location.reload(); // 페이지 새로고침
+                } else {
+                    alert("예약 취소 중 오류가 발생했습니다.");
+                }
+            },
+            error: function() {
+                alert("예약 취소 중 오류가 발생했습니다.");
+            }
+        });
     }
 }
 </script>

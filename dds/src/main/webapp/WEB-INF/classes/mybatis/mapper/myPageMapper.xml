@@ -18,10 +18,15 @@
 	</update>
 	
 	<update id="updateProfile" parameterType="com.fly.dds.domain.Member">
-		UPDATE member_profile SET content = #{content}, 
-			photo = CASE WHEN #{photo} IS NOT NULL THEN #{photo, jdbcType=VARCHAR} ELSE photo END
-		WHERE user_num = #{user_num}
-	</update>
+    UPDATE member_profile
+    SET 
+        content = #{content}, 
+        photo = CASE 
+                    WHEN #{photo, jdbcType=VARCHAR} IS NOT NULL THEN #{photo, jdbcType=VARCHAR} 
+                    ELSE photo 
+                END
+    WHERE user_num = #{user_num}
+</update>
 
 	<update id="updateInfo" parameterType="com.fly.dds.domain.Member">
 		UPDATE member_info SET nickname=#{nickName} , gender=#{gender} , tel=#{tel} , modify_date = sysdate
@@ -214,4 +219,22 @@
 		join room_wish_list rl on r.num=rl.num
 		where user_num=#{user_num}
 	</select>
+	
+	<select id="listMyRoom" parameterType="map" resultType="com.fly.dds.domain.Room">
+	    SELECT thumbnail, subject, rd.name, sdate, edate, (edate - sdate) AS days, rs.sale_num AS saleNum, rd.detail_num AS detailNum, rs.user_num AS userNum
+	    FROM room r
+	    JOIN room_detail rd ON r.num = rd.num
+	    JOIN room_sale rs ON rd.detail_num = rs.detail_num
+	    JOIN member1 m ON m.user_num = rs.user_num
+	    WHERE rs.user_num = #{user_num}
+	    GROUP BY thumbnail, subject, rd.name, sdate, edate, rs.sale_num, rd.detail_num, rs.user_num
+	    ORDER BY sdate ASC
+	</select>
+	
+	<delete id="deleteRoom" parameterType="map">
+    	DELETE FROM room_sale WHERE sale_num = #{sale_num} and detail_num = #{detail_num} and user_num = #{user_num} 
+	</delete>
+
+	
+	
 </mapper>

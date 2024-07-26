@@ -11,12 +11,29 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.3/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-icons/1.10.5/font/bootstrap-icons.min.css">
     <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/login.css" type="text/css">
+    
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v6.5.2/css/all.css">
+	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" type="text/css">
+	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css" type="text/css">
+	
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/core.css" type="text/css">
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/style.css" type="text/css">
+    
+    <script type="text/javascript" src="/dds/resources/vendor/jquery/js/jquery.min.js"></script>
+    <script type="text/javascript" src="/dds/resources/js/util-jquery.js"></script>
 
 <style type="text/css">
-body {
-	background-color: #ffffff;
+*	{
+	padding: 0px;
+	margin: 0px;
+	box-sizing: border-box;
 }
-
+ * @font-face {
+    font-family: 'Pretendard-Regular';
+    src: url('https://fastly.jsdelivr.net/gh/Project-Noonnu/noonfonts_2107@1.1/Pretendard-Regular.woff') format('woff');
+    font-weight: 400;
+    font-style: normal;
+} 
 .title, .swap span {
 	color: #18A8F1;
 }
@@ -92,7 +109,7 @@ body {
                                                 <input value="admin" type="password" name="userPwd" class="form-style" placeholder="Your Password" autocomplete="off">
                                                 <i class="input-icon bi bi-lock-fill"></i>
                                             </div>
-                                            <button type="button" onclick="sendLogin();" class="btn mt-4">submit</button>
+                                            <button type="button" onclick="sendLogin();" class="btn mt-4" data-bs-toggle="modal" data-bs-target="#alertModal">submit</button>
                                             <p class="mb-0 mt-4 text-center"><a href="#0" class="forgetPwd link">Forgot your password?</a></p>
                                         </form>
                                     </div>
@@ -119,7 +136,7 @@ body {
                                                 <input type="text" name="userNickname" class="form-style" placeholder="Your Nickname" autocomplete="off">
                                                 <i class="input-icon bi bi bi-person-plus"></i>
                                             </div>
-                                            <button type="button" class="btn mt-4" onclick="sendSignup();">submit</button>
+                                            <button type="button" class="btn mt-4" onclick="sendSignup();" data-bs-toggle="modal" data-bs-target="#alertModal">submit</button>
                                         </form>
                                     </div>
                                 </div>
@@ -130,23 +147,39 @@ body {
             </div>
         </div>
     </div>
-    <script type="text/javascript">
+		<div class="modal fade" id="alertModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+		  <div class="modal-dialog">
+		    <div class="modal-content">
+		      <div class="modal-header">
+		        <h1 class="modal-title fs-5" id="staticBackdropLabel"></h1>
+		      </div>
+		      <div class="modal-footer">
+		        <button type="button" class="btn btn-primary" data-bs-dismiss="modal">확인</button>
+		      </div>
+		    </div>
+		  </div>
+		</div>
+    
+  	<script type="text/javascript">
     function sendLogin() {
         const f = document.loginForm;
         let str;
         
         str = f.userId.value.trim();
         if (!str) {
+        	$('#alertModal .modal-title').text('아이디를 입력하세요');
             f.userId.focus(); 
             return;
         }
 
         str = f.userPwd.value.trim();
         if (!str) {
+        	$('#alertModal .modal-title').text('비밀번호를 입력하세요');
             f.userPwd.focus();
             return;
-        }
-		
+        }	
+   
+        $('#alertModal').html('');
         f.submit();
     }
     function sendSignup() {
@@ -155,28 +188,33 @@ body {
     	
     	str=f.userId.value.trim();
     	if (!str) {
+    		$('#alertModal .modal-title').text('아이디를 입력하세요');
             f.userId.focus(); 
             return;
         }
 
         str = f.userPwd.value.trim();
         if (!str) {
+        	$('#alertModal .modal-title').text('비밀번호를 입력하세요');
             f.userPwd.focus();
             return;
         }
         
         str = f.userName.value.trim();
         if (!str) {
+        	$('#alertModal .modal-title').text('이름을 입력하세요');
             f.userName.focus(); 
             return;
         }
 
         str = f.userNickname.value.trim();
         if (!str) {
+        	$('#alertModal .modal-title').text('닉네임을 입력하세요');
             f.userNickname.focus();
             return;
         }
         
+        $('#alertModal').html('');
         f.submit();
     }
     

@@ -45,5 +45,9 @@ public interface MyPageService {
     
     public List<Room> listWishRoom(Map<String, Object> map);
     public int wishRoomCount(Long user_num);
+    
+    public Map<String, List<Room>> listMyRoom(Map<String, Object> map);
 	
+    // 숙소예약 삭제
+    void deleteRoom(Map<String, Object> params);
 }

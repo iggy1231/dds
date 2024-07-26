@@ -58,4 +58,9 @@ public interface MyPageMapper {
     // 위시리스트 숙소
     public List<Room> listWishRoom(Map<String, Object> map);
     public int wishRoomCount(Long user_num);
+    
+    // 숙소 예약내역
+    public List<Room> listMyRoom(Map<String, Object> map);
+    
+    void deleteRoom(Map<String, Object> params);
 }

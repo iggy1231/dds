@@ -455,9 +455,42 @@ public class MyPageController {
     }
 	
 	@GetMapping("myTrip")
-    public String myTrip() {
+    public String myTrip(@RequestParam(value = "page", defaultValue = "1") int current_page,
+			 @RequestParam(value = "page2", defaultValue = "1") int current_page2,
+
+		   		HttpSession session,
+		   		Model model
+		   		) {
+			
+		SessionInfo Info = (SessionInfo)session.getAttribute("member");
+		Long user_num = Info.getUser_num();
+		Member dto = null;
+		try {
+			dto = service.findById(user_num);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		model.addAttribute("dto" , dto);
+		
         return ".four.mypage.myTrip";
     }
+	
+	@GetMapping("myRoom")
+	public String myRoom(HttpSession session, Model model) {
+	    SessionInfo info = (SessionInfo) session.getAttribute("member");
+	    Long user_num = info.getUser_num();
+
+	    Map<String, Object> map = new HashMap<>();
+	    map.put("user_num", user_num);
+
+	    Map<String, List<Room>> roomMap = service.listMyRoom(map);
+
+	    model.addAttribute("currentTrips", roomMap.get("currentTrips"));
+	    model.addAttribute("pastTrips", roomMap.get("pastTrips"));
+
+	    return "mypage/tripRoom";
+	}
 	
 	@GetMapping("coupoint")
     public String coupoint() {
@@ -532,5 +565,25 @@ public class MyPageController {
 	
 		return "mypage/waitingCompanion";
 	}
+	
+	@PostMapping("/cancelReservation")
+    @ResponseBody
+    public String cancelReservation(@RequestParam("saleNum") long saleNum,
+                                    @RequestParam("detailNum") long detailNum,
+                                    @RequestParam("userNum") long userNum) {
+		System.out.println("saleNum: " + saleNum + ", detailNum: " + detailNum + ", userNum: " + userNum); // 로그 추가
+		Map<String, Object> params = new HashMap<>();
+        params.put("sale_num", saleNum);
+        params.put("detail_num", detailNum);
+        params.put("user_num", userNum);
+
+        try {
+            service.deleteRoom(params);
+            return "success";
+        } catch (Exception e) {
+            e.printStackTrace();
+            return "error";
+        }
+    }
 	
 }

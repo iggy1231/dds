@@ -8,8 +8,15 @@
 	margin: 0px;
 	box-sizing: border-box;
 }
-body {
-	background-color: #18A8F1;
+ * @font-face {
+    font-family: 'Pretendard-Regular';
+    src: url('https://fastly.jsdelivr.net/gh/Project-Noonnu/noonfonts_2107@1.1/Pretendard-Regular.woff') format('woff');
+    font-weight: 400;
+    font-style: normal;
+} *	{
+	padding: 0px;
+	margin: 0px;
+	box-sizing: border-box;
 }
 .container {
 	background-color: white;
@@ -28,9 +35,8 @@ body {
 	height: 700px;
 }
 </style>
-<div class="container">
-	<div class="body-container">	
-		<div>
+<div class="container border border-top-0 border-bottom-0">
+			<div>
 			<h3> ${kwd}에 대한 검색 결과 </h3>
 			<hr>
 			<div class="row justify-content-between">
@@ -42,6 +48,8 @@ body {
 			</div>
 			<br>
 		</div>
+	<div class="body-container">	
+
 		
 		<div class="body-main">
 			<p>전체글</p>
