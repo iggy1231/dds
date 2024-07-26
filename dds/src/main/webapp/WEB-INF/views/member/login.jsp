@@ -132,9 +132,15 @@
                                                 <input type="text" name="userName" class="form-style" placeholder="Your Name" autocomplete="off">
                                                 <i class="input-icon bi bi bi-person-plus"></i>
                                             </div>
-  		                                    <div class="form-group mt-2">
-                                                <input type="text" name="userNickname" class="form-style" placeholder="Your Nickname" autocomplete="off">
-                                                <i class="input-icon bi bi bi-person-plus"></i>
+  		                                    <div class="row gx-1">
+  		                                    	<div class="form-group mt-2 col pr-0 pl-0">
+  		                                    		<input type="text" name="userNickname" class="form-style" placeholder="Your Nickname" autocomplete="off">
+                                                	<i class="input-icon bi bi bi-person-plus"></i>
+  		                                    	</div>
+  		                                    	<div class="form-group mt-2 col pr-0 pl-0">
+  		                                    		<input type="date" name="userBirth" class="form-style" placeholder="Your Birthday" autocomplete="off">
+                                                	<i class="input-icon bi bi-calendar-check"></i>
+  		                                    	</div>
                                             </div>
                                             <button type="button" class="btn mt-4" onclick="sendSignup();" data-bs-toggle="modal" data-bs-target="#alertModal">submit</button>
                                         </form>
@@ -214,6 +220,13 @@
             return;
         }
         
+        str = f.userBirth.value.trim();
+        if (!str) {
+        	$('#alertModal .modal-title').text('생년월일을 입력하세요');
+            f.userBirth.focus();
+            return;
+        }
+
         $('#alertModal').html('');
         f.submit();
     }

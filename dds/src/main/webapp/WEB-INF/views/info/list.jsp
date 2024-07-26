@@ -61,6 +61,9 @@
     background-position: center;
     background-repeat: no-repeat;
 }
+.card footer span, .card-body h3, .card-body p {
+	font-weight: bold;
+}
 </style>
 		<div class="container-fluid py-5 mb-3 hero-header">
 			<div class="row m-2 g-5 align-items-center">
@@ -137,7 +140,7 @@
 	<div class="body-container">	
 		<div class="body-main">
 			<div>
-				<span>인기글</span>
+				<h3>인기글</h3>
 				<div class="scroll-list">
 					<ul>
 						<li>
@@ -148,7 +151,7 @@
 				<hr>
 				<div>
 				<div class="row justify-content-between">
-					<span class="col">전체 글 ${dataCount}건</span>
+					<h3 class="col">전체 글 ${dataCount}건</h3>
 					<div class="col text-end">
 						<button type="button" class="btn listTypebtn1 active" data-bs-toggle="button">가나다순</button>
 						<button type="button" class="btn listTypebtn2" data-bs-toggle="button">인기순</button>
@@ -206,8 +209,8 @@ function scroll_1_load(data) {
 		htmlText='<li><div class="card flex-row" onclick="article('+num+','+contentId+');">';
 		htmlText+='	<img src="'+thumbnail+'" class="card-img-top" alt="...">';
 		htmlText+='		<div class="card-body">';
-		htmlText+='			<p>'+name+'</p>';
-		htmlText+='			<p class="card-text">'+region_Main+' '+region_Sub+'</p><footer>';
+		htmlText+='			<h3>'+name+'</h3>';
+		htmlText+='			<span class="card-text">'+region_Main+' '+region_Sub+'</span><footer>';
 		tags.forEach((tag)=>{
 			htmlText+='			<span>#'+tag+'</span>';		
 		})

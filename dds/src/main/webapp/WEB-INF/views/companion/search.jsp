@@ -30,13 +30,16 @@
 .carousel-item img {
 	height: 700px;
 }
+.card footer span, .card-body h3, .card-body p {
+	font-weight: bold;
+}
 </style>
 <div class="container border border-top-0 border-bottom-0">
 		<div>
-			<h3> ${kwd}에 대한 검색 결과 </h3>
+			<h3 class="ms-5 mt-3"> ${kwd}에 대한 검색 결과 </h3>
 			<hr>
 			<div class="row justify-content-between">
-				<span class="col">검색 결과 ${dataCount}건</span>
+				<h3 class="ms-5 col">검색 결과 ${dataCount}건</h3>
 				<div class="col text-end">
 					<button type="button" class="btn listTypebtn1 active" data-bs-toggle="button">가나다순</button>
 					<button type="button" class="btn listTypebtn2" data-bs-toggle="button">인기순</button>
@@ -46,9 +49,8 @@
 		</div>
 	<div class="body-container">	
 		<div class="body-main">
-			<p>전체글</p>
 			<div class="list-content" data-pageNo="0" data-totalPage="0"></div>
-			<div class="list-footer">
+			<div class="list-footer text-end">
 				<span class="more-btn btn btn-light">&nbsp;더보기&nbsp;<i class="bi bi-chevron-down"></i>&nbsp;</span>
 			</div>
 		</div>
@@ -139,12 +141,12 @@ function addNewContent(data) {
 		htmlText+='	<span class="card" onclick="article('+data.list[index].num+');">';
 		htmlText+='	<img src="${pageContext.request.contextPath}/uploads/companion/'+data.list[index].saveFilename+'" class="card-img-top" alt="...">';
 		htmlText+='		<span class="card-body">';
-		htmlText+='<a href="#">'+data.list[index].age+'대 </a>';
-		htmlText+='<a href="">'+data.list[index].gender+'</a>';
+		htmlText+='<a href="#">#'+data.list[index].age+'대 </a>';
+		htmlText+='<a href="#">#'+data.list[index].gender+' </a>';
+		htmlText+='<a href="#">#'+data.list[index].theme+' </a>';
 		htmlText+='		<h3>'+data.list[index].subject+'</h2>';
-		htmlText+='		<p>'+data.list[index].content+'</p>';
 		for(let idx=0;idx<data.list[index].region_main.length;idx++) {
-			 htmlText+='<span class="card-text">'+data.list[index].region_main[idx]+' '+data.list[index].region_sub[idx]+'</span>';
+			 htmlText+='<span class="card-text">'+data.list[index].region_main[idx]+' '+data.list[index].region_sub[idx]+' </span>';
 		}
 		htmlText+='		<footer><p>'+data.list[index].sdate+'~'+data.list[index].edate+'</p>';
 		htmlText+='		</footer></div>';
@@ -178,11 +180,10 @@ function nextPopularList(data) {
 		htmlText+='	<img src="${pageContext.request.contextPath}/uploads/companion/'+data.list[index].saveFilename+'" class="card-img-top" alt="...">';
 		htmlText+='		<span class="card-body">';
 		htmlText+='<a href="#">'+data.list[index].age+'대 </a>';
-		htmlText+='<a href="">'+data.list[index].gender+'</a>';
-		htmlText+='		<h3>'+data.list[index].subject+'</h2>';
-		htmlText+='		<p>'+data.list[index].content+'</p>';
+		htmlText+='<a href="#">'+data.list[index].gender+' </a>';
+		htmlText+='<a href="#">#'+data.list[index].theme+' </a>';
 		for(let idx=0;idx<data.list[index].region_main.length;idx++) {
-			 htmlText+='<span class="card-text">'+data.list[index].region_main[idx]+' '+data.list[index].region_sub[idx]+'</span>';
+			 htmlText+='<span class="card-text">'+data.list[index].region_main[idx]+' '+data.list[index].region_sub[idx]+' </span>';
 		}
 		htmlText+='		<footer><p>'+data.list[index].sdate+'~'+data.list[index].edate+'</p>';
 		htmlText+='		</footer></div>';
