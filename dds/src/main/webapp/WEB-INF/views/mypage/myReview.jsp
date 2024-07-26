@@ -2,25 +2,44 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 
-
-<div class="mt-1 border-bottom">
+<c:forEach var="list2" items="${list}">
+<div class="mt-3 border-bottom">
 	<div class="row p-2">
-		<h6 class="p-2 pb-1 fw-semibold fs-4">고*이</h6>
-		<div class="col-auto pt-0 ps-2 pe-1 score-star">
-			<span class="item fs-6 on"><i class="bi bi-star-fill"></i></span> <span
-				class="item fs-6 on"><i class="bi bi-star-fill"></i></span> <span
-				class="item fs-6 on"><i class="bi bi-star-fill"></i></span> <span
-				class="item fs-6 on"><i class="bi bi-star-fill"></i></span> <span
-				class="item fs-6"><i class="bi bi-star-fill"></i></span>
+		<div class="col-md-8 order-md-1">
+			<div class="row">
+				<div class="col-auto pt-0 ps-2 pe-1 score-star">
+					<c:forEach var="i" begin="1" end="5">
+						<span
+							class="item fs-6 <c:if test="${list2.score >= i}">on</c:if>">
+							<i class="bi bi-star-fill"></i>
+						</span>
+					</c:forEach>
+				</div>
+				<div class="col-auto ps-0 fs-5 ps-2">
+					<span>${list2.nickName}</span>
+				</div>
+				<div class="pt-3 text-start fs-6">
+					<span class="fs-6">${list2.nickName}</span> | <span
+						class="notifyReview fs-6" data-num="' + num + '">신고</span>
+				</div>
+				<div class="row">
+					<div class="col mt-2 p-2 fs-5 ps-3">${list2.content}</div>
+				</div>
+			</div>
 		</div>
-		<div class="col text-end fs-5">
-			<span>2024-07-12</span> |<span class="deleteReview" data-num="1">삭제</span>
-		</div>
+		<c:if test="${not empty list2.photo}">
+                <div class="col-md-4 text-end order-md-2">
+                    <div class="ratio ratio-4x3">
+                        <!-- 변환된 JSP 코드 -->
+                        <c:forEach var="photo" items="${list2.photo}">
+                            <img class="border rounded img-fluid" src="${pageContext.request.contextPath}/uploads/review/${photo}">
+                        </c:forEach>
+                    </div>
+                </div>
+            </c:if>
 	</div>
-	<h5 class="p-1 fs-4">리뷰 내용입니다. 리뷰 내용입니다.</h5>
-	<div class="row gx-1 mt-2 mb-3 p-1">
-		<div class="col-md-auto md-img">
-			<img class="border rounded" src="https://via.placeholder.com/150">
-		</div>
-	</div>
+</div>
+</c:forEach>
+
+<div class="page-navigation">${dataCount == 0 ? "등록된 댓글이 없습니다." : paging}
 </div>

@@ -31,12 +31,12 @@
 			<li class="nav-item" role="presentation">
 				<button class="nav-link active" id="tab-1" data-bs-toggle="tab"
 					data-bs-target="#tab-pane-1" type="button" role="tab"
-					aria-controls="pane-1" aria-selected="false">문의</button>
+					aria-controls="1" aria-selected="false">문의</button>
 			</li>
 			<li class="nav-item" role="presentation">
 				<button class="nav-link" id="tab-2" data-bs-toggle="tab"
 					data-bs-target="#tab-pane-2" type="button" role="tab"
-					aria-controls="pane-2" aria-selected="false">리뷰</button>
+					aria-controls="2" aria-selected="false">리뷰</button>
 			</li>
 		</ul>
 
@@ -120,7 +120,7 @@ $(function() {
     }
 
     function listMyReview(page) {
-    	let url = '${pageContext.request.contextPath}/mypage/reply';
+    	let url = '${pageContext.request.contextPath}/mypage/myReview';
     	
     	const fn = function(data) {
     		$('.tab-content').html(data);

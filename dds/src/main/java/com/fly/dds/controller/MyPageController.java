@@ -25,6 +25,7 @@ import com.fly.dds.domain.Member;
 import com.fly.dds.domain.MyPage;
 import com.fly.dds.domain.Room;
 import com.fly.dds.domain.RoomQnA;
+import com.fly.dds.domain.RoomReview;
 import com.fly.dds.domain.SessionInfo;
 import com.fly.dds.domain.TravelReview;
 import com.fly.dds.service.MyPageService;
@@ -630,7 +631,7 @@ public class MyPageController {
 		    
 		    map.put("user_num", user_num);
 		    
-		    dataCount = service.dataCount(map);
+		    dataCount = service.myRoomQnACount(user_num);
 		    int total_page=myUtil.pageCount(dataCount, size);
 		    if(total_page < current_page) current_page = total_page;
 		    int offset = (current_page - 1) * size;
@@ -649,6 +650,47 @@ public class MyPageController {
 		model.addAttribute("total_page",total_page);
 
 		return "mypage/myRoomQnA";
+	}	
+	
+	@GetMapping("myReview")
+	public String myReview(
+			 @RequestParam(value = "pageNo", defaultValue = "1") int current_page,
+    		HttpSession session,
+    		Model model
+    		) {
+			 
+		    
+		    Map<String, Object> map = new HashMap<>();
+		    int size = 9;
+		    int dataCount = 0;
+		    
+		    
+		    SessionInfo Info = (SessionInfo)session.getAttribute("member");
+
+		    
+		    Long user_num = Info.getUser_num();
+		    
+		    map.put("user_num", user_num);
+		    
+		    dataCount = service.myTripCount(user_num);
+		    int total_page=myUtil.pageCount(dataCount, size);
+		    if(total_page < current_page) current_page = total_page;
+		    int offset = (current_page - 1) * size;
+		    map.put("offset", offset);
+		    map.put("size", size);
+		    List<RoomReview> list = service.myTripReview(map);
+
+		    String paging = myUtil.pagingMethod(current_page, total_page, "myTripReview");
+		    
+		model.addAttribute("dataCount" , dataCount);    
+		model.addAttribute("list",list);
+		model.addAttribute("paging", paging);
+
+		model.addAttribute("pageNo",current_page);
+
+		model.addAttribute("total_page",total_page);
+
+		return "mypage/myReview";
 	}	
 	
 }

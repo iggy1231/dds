@@ -21,6 +21,7 @@ import com.fly.dds.domain.Member;
 import com.fly.dds.domain.MyPage;
 import com.fly.dds.domain.Room;
 import com.fly.dds.domain.RoomQnA;
+import com.fly.dds.domain.RoomReview;
 import com.fly.dds.domain.TravelReview;
 import com.fly.dds.mapper.MyPageMapper;
 
@@ -401,7 +402,29 @@ public class MyPageServiceImpl implements MyPageService {
 		}
 		return result;
 	}
-	
-	
+
+	@Override
+	public List<RoomReview> myTripReview(Map<String, Object> map) {
+		List<RoomReview> list = null;
+		try {
+			list = mapper.myTripReview(map);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		return list;
+	}
+
+	@Override
+	public int myTripCount(Long user_num) {
+		int result = 0;
+		
+		try {
+			result = mapper.myTripCount(user_num);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return result;
+	}
 	
 }

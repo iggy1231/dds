@@ -251,13 +251,54 @@
 		    WHERE t.anonymous = 0 AND t.user_num = #{user_num}
 		) subquery
 		ORDER BY reg_date DESC
-		OFFSET 0 ROWS FETCH FIRST 10 ROWS ONLY
+		OFFSET #{offset} ROWS FETCH FIRST #{size} ROWS ONLY
 	</select>
 
 	<select id="myRoomQnACount" parameterType="long" resultType="Integer">
-		SELECT NVL(COUNT(DISTINCT num), 0)
-		from room_qna
-		where user_num=#{user_num}
+		SELECT NVL(SUM(cnt), 0) FROM (
+        SELECT COUNT(q.num) as cnt
+        FROM room_qna q
+        WHERE q.user_num = #{user_num} AND q.anonymous = 0
+        
+        UNION ALL
+        
+        SELECT COUNT(t.num) as cnt
+        FROM tour_qna t
+        WHERE t.user_num = #{user_num} AND t.anonymous = 0
+    )
 	</select>
 	
+	<select id="myTripReview" parameterType="map" resultType="com.fly.dds.domain.RoomReview">
+	    SELECT * FROM (
+	    SELECT r.review_num, r.user_num, i.nickname, r.score, r.content, r.num, r.photo, TO_CHAR(r.reg_date, 'YYYY-MM-DD') as reg_date, 'room' AS boardname
+	    FROM room_review r
+	    JOIN member1 m ON m.user_num = r.user_num
+	    JOIN member_info i ON i.user_num = r.user_num
+	    WHERE r.user_num = #{user_num}
+	    
+	    UNION ALL
+	    
+	    SELECT t.review_num, t.user_num, i.nickname, t.score, t.content, t.num, t.photo, TO_CHAR(t.reg_date, 'YYYY-MM-DD') as reg_date, 'tour' AS boardname
+	    FROM tour_review t
+	    JOIN member1 m ON m.user_num = t.user_num
+	    JOIN member_info i ON i.user_num = t.user_num
+	    WHERE t.user_num = #{user_num}
+	) subquery
+	ORDER BY reg_date DESC
+	OFFSET #{offset} ROWS FETCH FIRST #{size} ROWS ONLY
+	</select>
+	
+	<select id="myTripCount" parameterType="long" resultType="Integer">
+		SELECT NVL(SUM(cnt), 0) FROM (
+        SELECT COUNT(r.num) as cnt
+        FROM room_review r
+        WHERE r.user_num = #{user_num}
+        
+        UNION ALL
+        
+        SELECT COUNT(t.num) as cnt
+        FROM tour_review t
+        WHERE t.user_num = #{user_num}
+    )
+	</select>
 </mapper>

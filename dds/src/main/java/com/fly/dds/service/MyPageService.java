@@ -9,6 +9,7 @@ import com.fly.dds.domain.Member;
 import com.fly.dds.domain.MyPage;
 import com.fly.dds.domain.Room;
 import com.fly.dds.domain.RoomQnA;
+import com.fly.dds.domain.RoomReview;
 import com.fly.dds.domain.TravelReview;
 
 public interface MyPageService {
@@ -54,4 +55,7 @@ public interface MyPageService {
     
     public List<RoomQnA> myRoomQnA(Map<String, Object> map);
     public int myRoomQnACount(Long user_num);
+    
+    public List<RoomReview> myTripReview(Map<String, Object> map);
+    public int myTripCount(Long user_num);
 }

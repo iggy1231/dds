@@ -19,6 +19,14 @@ public class RoomReview {
 	
 	private boolean deletePermit;
 	
+	private String boardName;
+	
+	public String getBoardName() {
+		return boardName;
+	}
+	public void setBoardName(String boardName) {
+		this.boardName = boardName;
+	}
 	public boolean isDeletePermit() {
 		return deletePermit;
 	}
