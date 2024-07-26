@@ -139,6 +139,57 @@
 	height: 400px; 
 }
 
+.nav-tabs .nav-link {
+	min-width: 170px;
+	background: #f3f5f7;
+	border-radius: 0;
+	border-right: 1px solid #dbdddf;
+	color: #333;
+	font-weight: 600;
+}
+.nav-tabs .nav-link.active {
+	background: #18A8F1;
+	color: #fff;
+}
+
+.tab-pane { min-height: 300px; }
+
+.score-star { font-size: 0; letter-spacing: -4px; }
+.score-star .item {
+	font-size: 22px; letter-spacing: 1px; display: inline-block;
+	color: #ccc; text-decoration: none; vertical-align: middle;
+}
+.score-star .item:first-child{ margin-left: 0; }
+.score-star .on { color: #f54a4c; }
+
+.graph { font-size: 0;  letter-spacing: 0; word-spacing: 0; }
+.graph-title { padding-right: 3px; }
+.graph .one-space { font-size:13px; background:#eee;}
+.graph .one-space:after { content: ''; display: inline-block; width:17px; }
+.graph .one-space.on{ background:  #f54a4c; }
+.graph .one-space:first-child{ border-top-left-radius:5px;  border-bottom-left-radius:5px; }
+.graph .one-space:last-child{ border-top-right-radius:5px; border-bottom-right-radius:5px; }
+.graph-rate { padding-left: 5px; display: inline-block; width: 60px; text-align: left; }
+
+.deleteReview, .notifyReview { cursor: pointer; padding-left: 5px; }
+.deleteReview:hover, .notifyReview:hover { font-weight: 500; color: #2478FF; }
+.qna-form textarea { width: 100%; height: 75px; resize: none; }
+.qna-form .img-grid {
+	display: grid;
+	grid-template-columns:repeat(auto-fill, 54px);
+	grid-gap: 2px;
+}
+
+.qna-form .img-grid .item {
+	object-fit:cover;
+	width: 50px; height: 50px; border-radius: 10px;
+	border: 1px solid #c2c2c2;
+	cursor: pointer;
+}
+
+.deleteQuestion, .notifyQuestion { cursor: pointer; padding-left: 5px; }
+.deleteQuestion:hover, .notifyQuestion:hover { font-weight: 500; color: #2478FF; }
+
 </style>
 
 <script type="text/javascript">
@@ -296,7 +347,7 @@
 <hr class="m-4 mt-5" style="border-color: #c7c7c7;">
 <div id="reviews" class="body-main">
                 <ul class="nav nav-tabs mt-5" id="myTab" role="tablist">
-                    <li class="nav-item" role="presentation">
+                    <li class="nav-item active" role="presentation">
                         <button class="nav-link active" id="tab-1" data-bs-toggle="tab" data-bs-target="#tab-pane-1" type="button" role="tab" aria-controls="1" aria-selected="false"> 리뷰 </button>
                     </li>
                     <li class="nav-item" role="presentation">
@@ -310,7 +361,7 @@
                         <div class="mt-2 pt-1 pb-2">
                             <p class="fs-4 fw-semibold">📝 실제 이용하신 분들의 리뷰</p> 
                         </div>
-                        <div class="mb-4 p-2 row bg-light rounded">
+                        <div class="mb-4 p-2 row bg-light rounded d-flex justify-content-center">
 							<div class="col p-2 text-center d-flex flex-column justify-content-center">
 								<div class="fs-6 fw-semibold">상품만족도</div>
 								<div class="score-star review-score-star">
@@ -571,8 +622,12 @@ $(function(){
 });
 
 
-
 //리뷰 -----
+
+$(function(){
+		listReview(1);
+});
+
 function listReview(page) {
 	let num = '${dto.num}';
 	// let sortNo = $('.reviewSortNo').val();
@@ -837,10 +892,10 @@ $(function(){
 		const $EL = $(this).closest('.row').next('.answer-content');
 		if($EL.is(':visible')) {
 			$btn.html(' <i class="bi bi-chevron-down"></i> ');
-			$EL.hide(100);
+			// $EL.hide(1000);
 		} else {
 			$btn.html(' <i class="bi bi-chevron-up"></i> ');
-			$EL.show(100);
+			// $EL.show(1000);
 		}
 	});
 });
