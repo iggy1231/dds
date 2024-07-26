@@ -1,5 +1,6 @@
 package com.fly.dds.controller;
 
+import java.io.File;
 import java.net.URLDecoder;
 import java.net.URLEncoder;
 import java.util.HashMap;
@@ -26,13 +27,14 @@ import com.fly.dds.domain.Member;
 import com.fly.dds.domain.Room;
 import com.fly.dds.domain.RoomPayment;
 import com.fly.dds.domain.RoomQnA;
+import com.fly.dds.domain.RoomReview;
 import com.fly.dds.domain.SessionInfo;
+import com.fly.dds.domain.Summary;
 import com.fly.dds.service.MyPageService;
 import com.fly.dds.service.RoomPaymentService;
 import com.fly.dds.service.RoomQnAService;
+import com.fly.dds.service.RoomReviewService;
 import com.fly.dds.service.RoomService;
-
-import oracle.jdbc.proxy.annotation.Post;
 
 @Controller
 @RequestMapping(value = "/room/*")
@@ -48,6 +50,9 @@ public class RoomController {
 	
 	@Autowired
 	private RoomPaymentService paymentService;
+	
+	@Autowired
+	private RoomReviewService reviewService;
 	
 	@Autowired
 	private MyUtil myUtil;
@@ -183,13 +188,6 @@ public class RoomController {
 	    model.addAttribute("paging", paging);
 	    
 	    return ".room.list";
-	}
-
-
-	
-	@GetMapping("review")
-	public String roomReview() {
-		return "room/review";
 	}
 	
 	@PostMapping("writeQnA")
@@ -445,6 +443,99 @@ public class RoomController {
 	public String payCompletePage(@RequestParam Map<String, String> params, Model model) {
 	    model.addAllAttributes(params);
 	    return ".room.payComplete";
+	}
+	
+	@GetMapping("review")
+	public String roomReview() {
+		return "room/review";
+	}
+	
+	@PostMapping("reviewWrite")
+	public Map<String, Object> writeReviewSubmit(RoomReview dto,
+			HttpSession session) throws Exception {
+		
+		String root = session.getServletContext().getRealPath("/");
+		String pathname = root + "uploads" + File.separator + "review";
+		
+		String state = "true";
+		
+		try {
+			SessionInfo info = (SessionInfo)session.getAttribute("member");
+			dto.setNickName(info.getNickName());
+
+			reviewService.insertRoomReview(dto, pathname);
+			
+		} catch (Exception e) {
+			state = "false";
+		}
+		
+		Map<String, Object> model = new HashMap<String, Object>();
+		model.put("state", state);
+		
+		return model;
+	}
+	
+	@ResponseBody
+	@GetMapping("reviewlist")
+	public Map<String, Object> list(
+			@RequestParam long num,
+			@RequestParam(value = "pageNo", defaultValue = "1") int current_page,
+			HttpSession session) throws Exception {
+		SessionInfo info = (SessionInfo)session.getAttribute("member");		
+		Map<String, Object> model = new HashMap<String, Object>();
+		
+		try {
+			Map<String, Object> map = new HashMap<String, Object>();
+			
+			int size = 5;
+			int dataCount = 0;
+			
+			
+			map.put("num", num);
+			Summary summary = reviewService.findByRoomReviewSummary(map);
+			
+			if(summary == null) {
+				return model;
+			}
+			
+			dataCount = summary.getCount();
+			int total_page = myUtil.pageCount(dataCount, size);
+			if (current_page > total_page) {
+				current_page = total_page;
+			}
+
+			int offset = (current_page - 1) * size;
+			if(offset < 0) offset = 0;
+			
+			map.put("offset", offset);
+			map.put("size", size);
+			
+			List<RoomReview> list = reviewService.listRoomReview(map);
+			if(info != null) {
+				for(RoomReview dto : list) {
+					if(info.getUser_num() == info.getUser_num()) {
+						dto.setDeletePermit(true);
+					}
+				}
+			}
+			
+			String paging = myUtil.pagingFunc(current_page, total_page, "listRoomReview");
+			
+			model.put("list", list);
+			
+			model.put("summary", summary);
+			model.put("dataCount", dataCount);
+			model.put("size", size);
+			model.put("pageNo", current_page);
+			model.put("paging", paging);
+			model.put("total_page", total_page);
+			
+			
+		} catch (Exception e) {
+			
+		}
+		
+		return model;
 	}
 	
 }

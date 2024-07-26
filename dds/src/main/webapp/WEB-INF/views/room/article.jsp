@@ -327,7 +327,7 @@
 						<div class="col p-3 text-center d-flex flex-column justify-content-center">
 							<div class="fs-6 fw-semibold">리뷰수</div>
 							<div class="fs-2"><i class="bi bi-chat-right-text"></i></div>
-							<div class="fs-2 review-reviewCount">56</div>
+							<div class="fs-2 review-reviewCount">${datacount}</div>
 						</div> 
 						
 						<div class="col p-3 text-center d-flex flex-column justify-content-center review-rate">
@@ -379,31 +379,9 @@
 							</div>
 						</div>
 					</div>
-					
+                        </div>
                         
-                        </div>
-                        <div class="mt-2 list-review">
-                            <div class="mt-1 border-bottom">
-                                <div class="row p-2">
-                                <h6 class="p-2 pb-1 fw-semibold fs-4">고*이</h6>
-                                    <div class="col-auto pt-0 ps-2 pe-1 score-star">
-                                        <span class="item fs-6 on"><i class="bi bi-star-fill"></i></span>
-                                        <span class="item fs-6 on"><i class="bi bi-star-fill"></i></span>
-                                        <span class="item fs-6 on"><i class="bi bi-star-fill"></i></span>
-                                        <span class="item fs-6 on"><i class="bi bi-star-fill"></i></span>
-                                        <span class="item fs-6"><i class="bi bi-star-fill"></i></span>
-                                    </div>
-                                    <div class="col text-end fs-5"><span>2024-07-12</span> |<span class="deleteReview" data-num="1">삭제</span></div>    
-                                </div>
-                                <h5 class="p-1 fs-4">리뷰 내용입니다. 리뷰 내용입니다.</h5>
-                                <div class="row gx-1 mt-2 mb-3 p-1">
-                                    <div class="col-md-auto md-img">
-                                        <img class="border rounded" src="https://via.placeholder.com/150">
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="page-navigation">Pagination</div>
-                        </div>
+                        <div class="mt-2 list-review"></div>
                     </div>
                     
                     <!-- 상품 문의사항 -->
@@ -536,10 +514,6 @@ geocoder.addressSearch('${dto.addr1}', function(result, status) {
 </script>
 
 <script type="text/javascript">
-$(function(){
-	$("#reviews").load("${pageContext.request.contextPath}/room/article/review");
-});
-
 function toggleCollapseImage() {
     var container = document.getElementById("collapseImageContainer");
     var gradient = document.getElementById("gradientOverlay");
@@ -593,6 +567,154 @@ $(function(){
 		} else if(tab === "2"){
 			listQuestion(1);
 		}
+	});
+});
+
+
+
+//리뷰 -----
+function listReview(page) {
+	let num = '${dto.num}';
+	// let sortNo = $('.reviewSortNo').val();
+	let url = '${pageContext.request.contextPath}/room/reviewlist';
+	let query = 'num='+num+'&pageNo='+page;
+	
+	const fn = function(data) {
+		printReview(data);
+	};
+	ajaxFun(url, 'get', query, 'json', fn);
+	console.log(data);
+}
+ 
+function printReview(data) {
+	console.log(data);
+	let dataCount = data.dataCount;
+	let pageNo = data.pageNo;
+	let total_page = data.total_page;
+	let size = data.size;
+	let paging = data.paging;
+	
+	if(dataCount > 0) {
+		$('.reviewSort-area').show();
+	} else {
+		$('.reviewSort-area').hide();
+	}
+	
+	let summary = data.summary;
+	printSummary(summary);
+	
+	let out = '';
+	for(let item of data.list) {
+		let num = item.num;
+		let nickName = item.nickName;
+		let score = item.score;
+		let review = item.review;
+		let reg_date = item.reg_date;
+		let content = item.content;
+		// let answer_date = item.answer_date;
+		let photo = item.photo;
+		// let deletePermit = item.deletePermit;
+
+		out += '<div class="mt-3 border-bottom">';
+		out += '  <div class="row p-2">';
+		out += '     <div class="col-auto fs-2"><i class="bi bi-person-circle text-muted icon"></i></div>';
+		out += '     <div class="col pt-3 ps-0 fw-semibold">'+nickName+'</div>';
+		out += '     <div class="col pt-3 text-end"><span>'+reg_date+'</span>';
+		out += '       |<span class="notifyReview" data-num="' + num + '">신고</span></div>';
+		out += '  </div>';
+		out += '  <div class="row p-2">';
+		out += '    <div class="col-auto pt-0 ps-2 pe-1 score-star">';
+		for(let i=1; i<=5; i++) {
+			out += '  <span class="item fs-6 ' + (score>=i ? 'on' : '') + '"><i class="bi bi-star-fill"></i></span>';
+		}
+		out += '    </div>';
+		out += '    <div class="col-auto ps-0 fs-6"><span>' + score + '점<span></div>';
+		out += '  </div>';
+		out += '  <div class="mt-2 p-2">' + content + '</div>';
+
+		if(photo && photo.length > 0) {
+			out += '<div class="row gx-1 mt-2 mb-1 p-1">';
+				for(let f of photo) {
+					out += '<div class="col-md-auto md-img">';
+					out += '  <img class="border rounded" src="${pageContext.request.contextPath}/uploads/review/'+f+'">';
+					out += '</div>';
+				}
+			out += '</div>';
+		}
+		
+		out += '</div>';
+	}
+	if(dataCount > 0) {
+		out += '<div class="page-navigation">' + paging + '</div>';
+	}
+	
+	$('.list-review').html(out);
+}
+
+function printSummary(summary) {
+	let count = summary.count;
+	let ave = summary.ave;
+	
+	let score1 = summary.score1;
+	let score2 = summary.score2;
+	let score3 = summary.score3;
+	let score4 = summary.score4;
+	let score5 = summary.score5;
+	let scoreRate1 = summary.scoreRate1;
+	let scoreRate2 = summary.scoreRate2;
+	let scoreRate3 = summary.scoreRate3;
+	let scoreRate4 = summary.scoreRate4;
+	let scoreRate5 = summary.scoreRate5;
+	
+	$(".product-reviewCount").text(count);
+	$(".product-score").text("("+ave+" / 5)");
+	$(".product-star .item").removeClass("on");
+	let roundAve = Math.round(ave);
+	for(let i=1; i<=roundAve; i++) {
+		$(".product-star .item").eq(i-1).addClass("on");
+	}
+	
+	$(".title-reviewCount").text("("+count+")");
+	
+	$(".review-score-star .item").removeClass("on");
+	for(let i=1; i<=roundAve; i++) {
+		$(".review-score-star .item").eq(i-1).addClass("on");
+	}
+	$(".review-score").text(ave+" / 5");
+	$(".review-reviewCount").text(count);
+	
+	$(".review-rate .one-space").removeClass("on");
+
+	for(let i=1; i<=Math.floor(scoreRate5/10); i++) {
+		$(".review-rate .score-5 .one-space").eq(i-1).addClass("on");
+	}
+	$(".review-rate .score-5 .graph-rate").text(scoreRate5+"%");
+	
+	for(let i=1; i<=Math.floor(scoreRate4/10); i++) {
+		$(".review-rate .score-4 .one-space").eq(i-1).addClass("on");
+	}
+	$(".review-rate .score-4 .graph-rate").text(scoreRate4+"%");
+
+	for(let i=1; i<=Math.floor(scoreRate3/10); i++) {
+		$(".review-rate .score-3 .one-space").eq(i-1).addClass("on");
+	}
+	$(".review-rate .score-3 .graph-rate").text(scoreRate3+"%");
+
+	for(let i=1; i<=Math.floor(scoreRate2/10); i++) {
+		$(".review-rate .score-2 .one-space").eq(i-1).addClass("on");
+	}
+	$(".review-rate .score-2 .graph-rate").text(scoreRate2+"%");
+
+	for(let i=1; i<=Math.floor(scoreRate1/10); i++) {
+		$(".review-rate .score-1 .one-space").eq(i-1).addClass("on");
+	}
+	$(".review-rate .score-1 .graph-rate").text(scoreRate1+"%");
+}
+
+$(function(){
+	$('body').on('click', '.notifyReview', function(){
+		let num = $(this).attr('data-num');
+		alert(num);
 	});
 });
 
@@ -708,10 +830,6 @@ function ajaxFun(url, method, query, dataType, fn, file = false) {
     });
 }
 
-$(document).ready(function() {
-    // 페이지 로드 시 기본적으로 listQuestion 함수를 호출
-    listQuestion(1);
-});
 
 $(function(){
 	$('.list-question').on('click', '.btnAnswerView', function(){

@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.fly.dds.mapper.RoomReviewMapper">
+	<!-- QnA 등록 -->
+	<!--public void insertQnA(RoomQnA dto) throws SQLException;  -->
+	<insert id="insertRoomReview" parameterType="com.fly.dds.domain.RoomReview">
+		INSERT INTO room_review(review_num, rating, content, reg_date, photo, num, user_num) 
+		VALUES(room_review_seq.NEXTVAL, #{rating} , #{content}, SYSDATE, #{photo}, #{num} , #{user_num} )
+	</insert>
+	
+	<!--  public Summary findByReviewSummary(Map<String, Object> map); -->
+	<select id="findByRoomReviewSummary" parameterType="map" resultType="com.fly.dds.domain.Summary">
+		SELECT NVL(COUNT(*), 0) count,
+			   ROUND(NVL(AVG(score), 0), 1) ave,
+			   COUNT(DECODE(score, 1, 1)) score1, 
+			   COUNT(DECODE(score, 2, 1)) score2, 
+			   COUNT(DECODE(score, 3, 1)) score3, 
+			   COUNT(DECODE(score, 4, 1)) score4, 
+			   COUNT(DECODE(score, 5, 1)) score5
+		FROM room_review
+		WHERE num = #{num}
+	</select>
+	
+	
+	<!-- public List<Review>"listRoomReview"(Map<String, Object> map); -->
+	<select id="listRoomReview" parameterType="map" resultType="com.fly.dds.domain.RoomReview">
+		SELECT rr.review_num, rr.user_num, nickname , score, content, num, photo, TO_CHAR(rr.reg_date, 'YYYY-MM-DD') reg_date
+		FROM room_review rr
+		JOIN member1 m ON m.user_num = rr.user_num
+		JOIN member_info i ON i.user_num = rr.user_num
+		WHERE rr.num = #{num}
+		OFFSET #{offset} ROWS FETCH FIRST #{size} ROWS ONLY
+	</select>
+	
+	<!-- public int dataCount(Map<String, Object> map); -->
+	<select id="dataCount" parameterType="map" resultType="Integer">
+		SELECT NVL(COUNT(*), 0)
+		FROM room_review
+	</select>
+	
+	<!-- public void updateRoomReview(RoomReview dto) throws SQLException;  -->
+	<update id="updateRoomReview" parameterType="com.fly.dds.domain.RoomReview">
+		UPDATE room_review SET content = ${content}
+		WHERE review_num = ${review_num}
+	</update>
+	
+	
+	<!-- public void deleteRoomReview(long num) throws SQLException; -->
+	<delete id="deleteRoomReview" parameterType="Long">
+		DELETE FROM room_review
+		WHERE review_num = ${review_num}
+	</delete>
+	
+</mapper>
