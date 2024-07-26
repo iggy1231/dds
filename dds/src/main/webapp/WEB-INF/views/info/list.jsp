@@ -56,7 +56,7 @@
 	margin-top: 10px;
 }
 .hero-header {
-	background-image: url('/dds/resources/images/숙소_예시.jpg');
+	background-image: url('/dds/resources/images/infomain.jpg');
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
@@ -106,25 +106,13 @@
 			  </div>
 			  <div class="carousel-inner">
 			    <div class="carousel-item active">
-			      <img src="${pageContext.request.contextPath}/resources/images/숙소_예시.jpg" class="d-block w-100" alt="...">
-			      <div class="carousel-caption d-none d-md-block">
-			        <h5>First slide label</h5>
-			        <p>Some representative placeholder content for the first slide.</p>
-			      </div>
+			      <img src="${pageContext.request.contextPath}/resources/images/infobanner1.png" class="d-block w-100" alt="...">
 			    </div>
 			    <div class="carousel-item">
-			      <img src="${pageContext.request.contextPath}/resources/images/숙소_예시.jpg" class="d-block w-100" alt="...">
-			      <div class="carousel-caption d-none d-md-block">
-			        <h5>Second slide label</h5>
-			        <p>Some representative placeholder content for the second slide.</p>
-			      </div>
+			      <img src="${pageContext.request.contextPath}/resources/images/infobanner2.png" class="d-block w-100" alt="...">
 			    </div>
 			    <div class="carousel-item">
-			      <img src="${pageContext.request.contextPath}/resources/images/숙소_예시.jpg" class="d-block w-100" alt="...">
-			      <div class="carousel-caption d-none d-md-block">
-			        <h5>Third slide label</h5>
-			        <p>Some representative placeholder content for the third slide.</p>
-			      </div>
+			      <img src="${pageContext.request.contextPath}/resources/images/infobanner3.png" class="d-block w-100" alt="...">
 			    </div>
 			  </div>
 			  <button class="carousel-control-prev" type="button" data-bs-target="#info-carousel" data-bs-slide="prev">
