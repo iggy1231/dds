@@ -364,4 +364,5 @@ function cancelReservation(saleNum, detailNum, userNum) {
         });
     }
 }
+
 </script>
