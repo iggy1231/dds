@@ -273,6 +273,7 @@ function savePaymentInfo(resp) {
     var user_num = document.getElementById('user_num').value;
 	var imp_uid = resp.imp_uid;
 	var card_name = resp.card_name;
+	var card_num = resp.card_number;
 	
 	var paymentData = {
 		sale_num : sale_num,
@@ -287,6 +288,7 @@ function savePaymentInfo(resp) {
 		user_num : user_num,
 		imp_uid : imp_uid,
 		card_name : card_name,
+		card_num : card_num,
 
 	};
 	
@@ -313,6 +315,7 @@ function savePaymentInfo(resp) {
     });
 }
 
+
 function completePage(paymentData) {
 	   var sale_num = document.getElementById('sale_num').value;
 	    var final_price = document.getElementById('final_price').value;
@@ -320,6 +323,7 @@ function completePage(paymentData) {
 	    var name = document.getElementById('name').value;
 	    var subject = document.getElementById('subject').value;
 	    var card_name = paymentData.card_name;
+	    var card_num = paymentData.card_num;
 
 	    var completeData = {
 	        sale_num: sale_num,
@@ -327,6 +331,7 @@ function completePage(paymentData) {
 	        final_price: final_price,
 	        name: name,
 	        card_name: card_name,
+	        card_num : card_num,
 	        subject: subject,
 	    };
 

@@ -99,12 +99,14 @@
 	</update>
 	
 	<select id="listSale" parameterType="map" resultType="com.fly.dds.domain.RoomPayment">
-		select s.sale_num , s.reg_date , to_char(s.sdate , 'yyyy-mm-dd') sdate , to_char(s.edate , 'yyyy-mm-dd') edate,
-		s.total_price , s.coupon_price , s.point_price , s.discount , s.final_price , s.name , s.detail_num , s.user_num  , subject , m.nickname
+		        select s.sale_num , s.reg_date , to_char(s.sdate , 'yyyy-mm-dd') sdate , to_char(s.edate , 'yyyy-mm-dd') edate,
+		s.total_price , s.coupon_price , s.point_price , s.discount , s.final_price , s.name , s.detail_num , s.user_num  , subject , m.nickname,
+        pc.imp_uid , pc.card_name , pc.card_num
         from room_sale s
         join room_detail d on s.detail_num = d.detail_num
         join room r on d.num = r.num
         join member_info m on s.user_num = m.user_num
+        left outer join room_pay_cash pc on s.sale_num = pc.sale_num
         OFFSET #{offset} ROWS FETCH FIRST #{size} ROWS ONLY
 	</select>
 	

@@ -427,7 +427,8 @@ public class RoomController {
 	                dto.getFinal_price(),
 	                dto.getTotal_price(),
 	                URLEncoder.encode(dto.getSubject(), "UTF-8"),
-	                URLEncoder.encode(dto.getCard_name(), "UTF-8")
+	                URLEncoder.encode(dto.getCard_name(), "UTF-8"),
+	                URLEncoder.encode(dto.getCard_num(), "UTF-8")
 	        );
 
 	        response.put("success", true);

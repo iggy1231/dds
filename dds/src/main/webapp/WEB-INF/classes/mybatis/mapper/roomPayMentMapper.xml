@@ -18,12 +18,12 @@
 	 
 	 <!-- 주문 상세 등록 -->
 	 <insert id="insertCardData" parameterType="com.fly.dds.domain.RoomPayment">
-	 	INSERT INTO room_pay_cash(sale_num, imp_uid, card_name)
-	 	VALUES(#{sale_num}, #{imp_uid}, #{card_name} )
+	 	INSERT INTO room_pay_cash(sale_num, imp_uid, card_name , card_num)
+	 	VALUES(#{sale_num}, #{imp_uid}, #{card_name} , #{card_num} )
 	 </insert>
 	 
 	 <select id="completePage" resultType="String">
-	 	select card_name from room_pay_cash where sale_num = #{sale_num}
+	 	select card_name , card_num from room_pay_cash where sale_num = #{sale_num}
 	 </select>
 	 	
 	 <select id="payMentSeq" resultType="Long">

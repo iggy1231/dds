@@ -20,6 +20,7 @@ public class RoomPayment {
 	// room_pay_cash
 	private String imp_uid;
 	private String card_name;
+	private String card_num;
 	
 	private String nickName;
 
@@ -151,6 +152,14 @@ public class RoomPayment {
 		this.card_name = card_name;
 	}
 
+	public String getCard_num() {
+		return card_num;
+	}
+
+	public void setCard_num(String card_num) {
+		this.card_num = card_num;
+	}
+
 	public String getNickName() {
 		return nickName;
 	}
@@ -158,6 +167,7 @@ public class RoomPayment {
 	public void setNickName(String nickName) {
 		this.nickName = nickName;
 	}
+
 	
 	
 }
