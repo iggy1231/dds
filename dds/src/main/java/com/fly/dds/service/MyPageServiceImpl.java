@@ -1,9 +1,15 @@
 package com.fly.dds.service;
 
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -326,6 +332,49 @@ public class MyPageServiceImpl implements MyPageService {
 			e.printStackTrace();
 		}
 		return result;
+	}
+	
+	@Override
+	public Map<String, List<Room>> listMyRoom(Map<String, Object> map) {
+	    Map<String, List<Room>> resultMap = new HashMap<>();
+	    List<Room> currentTrips = new ArrayList<>();
+	    List<Room> pastTrips = new ArrayList<>();
+
+	    try {
+	    	List<Room> list = mapper.listMyRoom(map);
+            LocalDateTime today = LocalDateTime.now();
+            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+
+            for (Room room : list) {
+                LocalDateTime checkInDate = LocalDateTime.parse(room.getSdate(), formatter);
+                LocalDateTime checkOutDate = LocalDateTime.parse(room.getEdate(), formatter);
+
+                if (!today.isAfter(checkOutDate)) { // 오늘 날짜가 체크아웃 날짜 이후가 아니면 현재 여행 목록에 추가
+                    currentTrips.add(room);
+                } else { // 오늘 날짜가 체크아웃 날짜 이후이면 과거 여행 목록에 추가
+                    pastTrips.add(room);
+                }
+            }
+	    } catch (Exception e) {
+	        e.printStackTrace();
+	    }
+
+	    resultMap.put("currentTrips", currentTrips);
+	    resultMap.put("pastTrips", pastTrips);
+
+	    return resultMap;
+	}
+
+	@Override
+	public void deleteRoom(Map<String, Object> params) {
+		System.out.println("Params: " + params); // 로그 추가
+		try {
+            mapper.deleteRoom(params);
+        } catch (Exception e) {
+            e.printStackTrace();
+            throw new RuntimeException("예약 삭제 중 오류 발생", e);
+        }
+		
 	}
 	
 }

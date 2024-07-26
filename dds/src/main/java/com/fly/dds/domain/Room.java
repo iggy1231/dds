@@ -55,6 +55,64 @@ public class Room {
 	
 	private double rating;
 	private int ratingCount;
+	
+	private String sdate;
+	private String edate;
+	private int days;
+	
+	private long saleNum;
+    private long detailNum;
+    private long userNum;
+	
+	
+
+	public long getSaleNum() {
+		return saleNum;
+	}
+
+	public void setSaleNum(long saleNum) {
+		this.saleNum = saleNum;
+	}
+
+	public long getDetailNum() {
+		return detailNum;
+	}
+
+	public void setDetailNum(long detailNum) {
+		this.detailNum = detailNum;
+	}
+
+	public long getUserNum() {
+		return userNum;
+	}
+
+	public void setUserNum(long userNum) {
+		this.userNum = userNum;
+	}
+
+	public String getSdate() {
+		return sdate;
+	}
+
+	public void setSdate(String sdate) {
+		this.sdate = sdate;
+	}
+
+	public String getEdate() {
+		return edate;
+	}
+
+	public void setEdate(String edate) {
+		this.edate = edate;
+	}
+
+	public int getDays() {
+		return days;
+	}
+
+	public void setDays(int days) {
+		this.days = days;
+	}
 
 	public long getNum() {
 		return num;
