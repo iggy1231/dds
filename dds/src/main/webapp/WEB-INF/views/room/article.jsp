@@ -157,16 +157,16 @@
 .score-star { font-size: 0; letter-spacing: -4px; }
 .score-star .item {
 	font-size: 22px; letter-spacing: 1px; display: inline-block;
-	color: #ccc; text-decoration: none; vertical-align: middle;
+	color: #BEE8FD; text-decoration: none; vertical-align: middle;
 }
 .score-star .item:first-child{ margin-left: 0; }
-.score-star .on { color: #f54a4c; }
+.score-star .on { color: #18A8F1; }
 
 .graph { font-size: 0;  letter-spacing: 0; word-spacing: 0; }
 .graph-title { padding-right: 3px; }
 .graph .one-space { font-size:13px; background:#eee;}
 .graph .one-space:after { content: ''; display: inline-block; width:17px; }
-.graph .one-space.on{ background:  #f54a4c; }
+.graph .one-space.on{ background:  #BEE8FD; }
 .graph .one-space:first-child{ border-top-left-radius:5px;  border-bottom-left-radius:5px; }
 .graph .one-space:last-child{ border-top-right-radius:5px; border-bottom-right-radius:5px; }
 .graph-rate { padding-left: 5px; display: inline-block; width: 60px; text-align: left; }
@@ -672,29 +672,27 @@ function printReview(data) {
 
 		out += '<div class="mt-3 border-bottom">';
 		out += '  <div class="row p-2">';
-		out += '     <div class="col-auto fs-2"><i class="bi bi-person-circle text-muted icon"></i></div>';
-		out += '     <div class="col pt-3 ps-0 fw-semibold">'+nickName+'</div>';
-		out += '     <div class="col pt-3 text-end"><span>'+reg_date+'</span>';
-		out += '       |<span class="notifyReview" data-num="' + num + '">신고</span></div>';
-		out += '  </div>';
-		out += '  <div class="row p-2">';
 		out += '    <div class="col-auto pt-0 ps-2 pe-1 score-star">';
+		
 		for(let i=1; i<=5; i++) {
 			out += '  <span class="item fs-6 ' + (score>=i ? 'on' : '') + '"><i class="bi bi-star-fill"></i></span>';
 		}
-		out += '    </div>';
-		out += '    <div class="col-auto ps-0 fs-6"><span>' + score + '점<span></div>';
-		out += '  </div>';
-		out += '  <div class="mt-2 p-2">' + content + '</div>';
-
+		 out += '    </div>';
+		    out += '    <div class="col-auto ps-0 fs-5 ps-2"><span>' + nickName + '<span></div>';
+		    out += '    <div class="pt-3 text-start fs-6">';
+		    out += '      <span class = "fs-6">' + reg_date + '</span> |';
+		    out += '      <span class="notifyReview fs-6" data-num="' + num + '">신고</span>';
+		    out += '    </div>';
+		    out += '  </div>';
+		    out += '  <div class="row">';
+		    out += '    <div class="col-md-8 mt-2 p-2 fs-5 ps-3">' + content + '</div>';
+		    
 		if(photo && photo.length > 0) {
-			out += '<div class="row gx-1 mt-2 mb-1 p-1">';
-				for(let f of photo) {
-					out += '<div class="col-md-auto md-img">';
-					out += '  <img class="border rounded" src="${pageContext.request.contextPath}/uploads/review/'+f+'">';
-					out += '</div>';
-				}
-			out += '</div>';
+			out += '    <div class="col-md-4 text-end row">';
+	        out += '      <div class="ratio ratio-4x3">';
+	        out += '        <img class="border rounded img-fluid" src="' + photo + '">';
+	        out += '      </div>';
+	        out += '    </div>';
 		}
 		
 		out += '</div>';
