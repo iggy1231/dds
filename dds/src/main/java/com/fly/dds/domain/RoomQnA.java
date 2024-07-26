@@ -11,7 +11,14 @@ public class RoomQnA {
     private long userNum;
     private String userName;
     private int anonymous;
+    private String boardName;
     
+	public String getBoardName() {
+		return boardName;
+	}
+	public void setBoardName(String boardName) {
+		this.boardName = boardName;
+	}
 	public long getQnaNum() {
 		return qnaNum;
 	}

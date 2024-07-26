@@ -8,6 +8,7 @@ import com.fly.dds.domain.Info;
 import com.fly.dds.domain.Member;
 import com.fly.dds.domain.MyPage;
 import com.fly.dds.domain.Room;
+import com.fly.dds.domain.RoomQnA;
 import com.fly.dds.domain.TravelReview;
 
 public interface MyPageService {
@@ -50,4 +51,7 @@ public interface MyPageService {
 	
     // 숙소예약 삭제
     void deleteRoom(Map<String, Object> params);
+    
+    public List<RoomQnA> myRoomQnA(Map<String, Object> map);
+    public int myRoomQnACount(Long user_num);
 }

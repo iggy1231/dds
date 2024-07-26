@@ -24,6 +24,7 @@ import com.fly.dds.domain.Info;
 import com.fly.dds.domain.Member;
 import com.fly.dds.domain.MyPage;
 import com.fly.dds.domain.Room;
+import com.fly.dds.domain.RoomQnA;
 import com.fly.dds.domain.SessionInfo;
 import com.fly.dds.domain.TravelReview;
 import com.fly.dds.service.MyPageService;
@@ -585,5 +586,69 @@ public class MyPageController {
             return "error";
         }
     }
+	
+	@GetMapping("inquireview")
+	public String myQnAList(
+			 @RequestParam(value = "page", defaultValue = "1") int current_page,
+			 @RequestParam(value = "page2", defaultValue = "1") int current_page2,
+
+    		HttpSession session,
+    		Model model
+    		) {
+		
+		SessionInfo Info = (SessionInfo)session.getAttribute("member");
+		Long user_num = Info.getUser_num();
+		Member dto = null;
+		try {
+			dto = service.findById(user_num);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+
+		model.addAttribute("dto" , dto);
+		return ".four.mypage.inquiReview";
+	}
+	
+	@GetMapping("myQnA")
+	public String myQnA(
+			 @RequestParam(value = "pageNo", defaultValue = "1") int current_page,
+    		HttpSession session,
+    		Model model
+    		) {
+			 
+		    
+		    Map<String, Object> map = new HashMap<>();
+		    int size = 9;
+		    int dataCount = 0;
+		    
+		    
+		    SessionInfo Info = (SessionInfo)session.getAttribute("member");
+
+		    
+		    Long user_num = Info.getUser_num();
+		    
+		    map.put("user_num", user_num);
+		    
+		    dataCount = service.dataCount(map);
+		    int total_page=myUtil.pageCount(dataCount, size);
+		    if(total_page < current_page) current_page = total_page;
+		    int offset = (current_page - 1) * size;
+		    map.put("offset", offset);
+		    map.put("size", size);
+		    List<RoomQnA> list = service.myRoomQnA(map);
+
+		    String paging = myUtil.pagingMethod(current_page, total_page, "myRoomQnA");
+		    
+		model.addAttribute("dataCount" , dataCount);    
+		model.addAttribute("list",list);
+		model.addAttribute("paging", paging);
+
+		model.addAttribute("pageNo",current_page);
+
+		model.addAttribute("total_page",total_page);
+
+		return "mypage/myRoomQnA";
+	}	
 	
 }

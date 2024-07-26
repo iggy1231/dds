@@ -11,6 +11,7 @@ import com.fly.dds.domain.Info;
 import com.fly.dds.domain.Member;
 import com.fly.dds.domain.MyPage;
 import com.fly.dds.domain.Room;
+import com.fly.dds.domain.RoomQnA;
 import com.fly.dds.domain.TravelReview;
 
 public interface MyPageMapper {
@@ -62,5 +63,10 @@ public interface MyPageMapper {
     // 숙소 예약내역
     public List<Room> listMyRoom(Map<String, Object> map);
     
+    // 숙소 예약내역 삭제
     void deleteRoom(Map<String, Object> params);
+    
+    // 숙소 QnA리스트
+    public List<RoomQnA> myRoomQnA(Map<String, Object> map);
+    public int myRoomQnACount(Long user_num);
 }
