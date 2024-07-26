@@ -212,6 +212,28 @@
     .show {
         display: block;
     }
+    
+    .review-form textarea { width: 100%; height: 75px; resize: none; }
+.review-form .star { font-size: 0; letter-spacing: -4px; }
+.review-form .star a {
+	font-size: 22px; letter-spacing: 1px; display: inline-block;
+	 color: #ccc; text-decoration: none;
+}
+.review-form .star a:first-child { margin-left: 0; }
+.star a.on { color: #FFBB00; }
+
+.review-form .img-grid {
+	display: grid;
+	grid-template-columns:repeat(auto-fill, 54px);
+	grid-gap: 2px;
+}
+
+.review-form .img-grid .item {
+	object-fit:cover;
+	width: 50px; height: 50px; border-radius: 10px;
+	border: 1px solid #c2c2c2;
+	cursor: pointer;
+}
 </style>
 
 <div class="my-info">
@@ -364,5 +386,137 @@ function cancelReservation(saleNum, detailNum, userNum) {
         });
     }
 }
+
+function toggleDropdown() {
+    document.getElementById("myDropdown").classList.toggle("show");
+}
+// 모달이 닫힐 때마다 초기화
+$('#reviewModal').on('hidden.bs.modal', function (e) {
+    $(this).find("form")[0].reset();
+});
+
+//별
+$(function(){
+	$(".review-form .star a").click(function(e){
+		let b = $(this).hasClass("on");
+		$(this).parent().children("a").removeClass("on");
+		$(this).addClass("on").prevAll("a").addClass("on");
+		
+		if( b ) {
+			$(this).removeClass("on");
+		}
+		
+		let s = $(this).closest(".review-form").find(".star .on").length;
+		$(this).closest(".review-form").find("input[name=score]").val(s);
+		
+		// e.preventDefault(); // 화면 위로 이동 안되게
+		return false;
+	});
+});
+
+// 이미지
+$(function(){
+	var sel_files = [];
+	
+	$("body").on("click", ".review-form .img-add", function(){
+		$(this).closest(".review-form").find("input[name=selectFile]").trigger("click");
+	});
+	
+	$("form[name=reviewForm] input[name=selectFile]").change(function(e){
+		if(! this.files) {
+			let dt = new DataTransfer();
+			for(let f of sel_files) {
+				dt.items.add(f);
+			}
+			
+			this.files = dt.files;
+			
+			return false;
+		}
+		
+		let $form = $(this).closest("form");
+		
+		// 유사 배열을  배열로 변환
+		const fileArr = Array.from(this.files);
+		
+		fileArr.forEach((file, index) => {
+			sel_files.push(file);
+			
+			const reader = new FileReader();
+			const $img = $("<img>", {"class":"item img-item"});
+			$img.attr("data-filename", file.name);
+			reader.onload = e => {
+				$img.attr("src", e.target.result);		
+			};
+			reader.readAsDataURL(file);
+			$form.find(".img-grid").append($img);
+		});
+		
+		let dt = new DataTransfer();
+		for(let f of sel_files) {
+			dt.items.add(f);
+		}
+		
+		this.files = dt.files;
+	});
+	
+	$("body").on("click", ".review-form .img-item", function(){
+		if(! confirm("선택한 파일을 삭제 하시겠습니까 ? ")) {
+			return false;
+		}
+		
+		let filename = $(this).attr("data-filename");
+		
+		for(let i=0; i<sel_files.length; i++) {
+			if(filename === sel_files[i].name) {
+				sel_files.splice(i, 1);
+				break;
+			}
+		}
+		
+		let dt = new DataTransfer();
+		for(let f of sel_files) {
+			dt.items.add(f);
+		}
+		
+		const f = this.closest("form");
+		f.selectFile.files = dt.files;
+		
+		$(this).remove();
+	});
+});
+
+//리뷰 작성 버튼 클릭 시 모달을 초기화하고 표시
+$('.btnReviewWriteForm').click(function() {
+    $('#reviewModal').modal('show');
+    var saleNum = $(this).data('salenum');
+    $('input[name="num"]').val(saleNum);
+});
+
+// 리뷰 등록 버튼 클릭 시 AJAX로 리뷰 전송
+$('.btnReviewSend').click(function() {
+    var form = $('form[name="reviewForm"]')[0];
+    var formData = new FormData(form);
+
+    $.ajax({
+        type: "POST",
+        url: "${pageContext.request.contextPath}/room/reviewWrite",
+        data: formData,
+        processData: false,
+        contentType: false,
+        success: function(response) {
+            if (response.state === "true") {
+                alert("리뷰가 등록되었습니다.");
+                $('#reviewModal').modal('hide');
+                location.reload(); // 페이지 새로고침
+            } else {
+                alert("리뷰 등록 중 오류가 발생했습니다.");
+            }
+        },
+        error: function() {
+            alert("리뷰 등록 중 오류가 발생했습니다.");
+        }
+    });
+});
 
 </script>

@@ -63,7 +63,7 @@
 <hr>
 <h5 class="mt-3">두둥! 추억!</h5>
 <c:forEach var="list2" items="${pastTrips}">
-<div class="row justify-content-center">
+<div class="row justify-content-center payment-list">
 	<div class="col-md-12 wow fadeInUp" data-wow-delay="0.3s">
 		<div class="property-item rounded overflow-hidden">
 			<div class="flex-container">
@@ -107,7 +107,7 @@
 			<div class="flex-item"
 				style="display: flex; justify-content: flex-end; margin-top: 10px;">
 				<button class="btn btn-secondary" style="margin-right: 5px;">다시예약</button>
-				<button class="btn btn-primary" style="margin-right: 5px;">리뷰작성</button>
+				<button class="btn btn-primary btnReviewWriteForm" style="margin-right: 5px;"  data-bs-toggle="modal" data-bs-target="#reviewModal">리뷰작성</button>
 				<div class="dropdown">
 					<button onclick="toggleDropdown()"
 						class="btn btn-outline-secondary">...</button>
@@ -119,5 +119,47 @@
 		</div>
 	</div>
 </div>
+<!-- Modal -->
+<div class="modal fade" id="reviewModal" tabindex="-1" aria-labelledby="reviewModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="reviewModalLabel">리뷰 작성</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <div class="review-form border border-secondary p-3 mt-2">
+                    <form name="reviewForm">
+                        <div class="p-1">
+                            <p class="star">
+                                <a href="#" class="on"><i class="bi bi-star-fill"></i></a>
+                                <a href="#" class="on"><i class="bi bi-star-fill"></i></a>
+                                <a href="#" class="on"><i class="bi bi-star-fill"></i></a>
+                                <a href="#" class="on"><i class="bi bi-star-fill"></i></a>
+                                <a href="#" class="on"><i class="bi bi-star-fill"></i></a>
+                                <input type="hidden" name="score" value="5">
+                                <input type="hidden" name="num" value="${dto.num}">
+                            </p>
+                        </div>
+                        <div class="p-1">
+                            <textarea name="review" class="form-control"></textarea>
+                        </div>
+                        <div class="p-1">
+                            <div class="img-grid">
+                                <img class="item img-add" src="${pageContext.request.contextPath}/resources/images/add_photo.png">
+                            </div>
+                            <input type="file" name="selectFile" accept="image/*" multiple class="form-control" style="display: none;">
+                        </div>
+                        <div class="p-1 text-end">
+                            <button type="button" class="btn btn-dark btnReviewSend ps-5 pe-5">등록하기</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
 </c:forEach>
+
+
 
