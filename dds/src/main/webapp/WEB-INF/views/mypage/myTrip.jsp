@@ -290,8 +290,8 @@ function ajaxFun(url, method, formData, dataType, fn, file = false) {
 	const settings = {
 			type: method, 
 			data: formData,
-			dataType:dataType,
-			success:function(data) {
+			dataType: dataType,
+			success: function(data) {
 				fn(data);
 			},
 			beforeSend: function(jqXHR) {
@@ -319,7 +319,6 @@ function ajaxFun(url, method, formData, dataType, fn, file = false) {
 	
 	$.ajax(url, settings);
 }
-
 
 $(function(){
 	listMyRoom(1);
@@ -387,13 +386,7 @@ function cancelReservation(saleNum, detailNum, userNum) {
     }
 }
 
-function toggleDropdown() {
-    document.getElementById("myDropdown").classList.toggle("show");
-}
-// 모달이 닫힐 때마다 초기화
-$('#reviewModal').on('hidden.bs.modal', function (e) {
-    $(this).find("form")[0].reset();
-});
+
 
 //별
 $(function(){
@@ -402,14 +395,13 @@ $(function(){
 		$(this).parent().children("a").removeClass("on");
 		$(this).addClass("on").prevAll("a").addClass("on");
 		
-		if( b ) {
+		if(b) {
 			$(this).removeClass("on");
 		}
 		
 		let s = $(this).closest(".review-form").find(".star .on").length;
 		$(this).closest(".review-form").find("input[name=score]").val(s);
 		
-		// e.preventDefault(); // 화면 위로 이동 안되게
 		return false;
 	});
 });
@@ -419,24 +411,23 @@ $(function(){
 	var sel_files = [];
 	
 	$("body").on("click", ".review-form .img-add", function(){
-		$(this).closest(".review-form").find("input[name=selectFile]").trigger("click");
+		$(this).closest(".review-form").find("input[name=photoFile]").trigger("click");
 	});
 	
-	$("form[name=reviewForm] input[name=selectFile]").change(function(e){
-		if(! this.files) {
+	$("form[name=reviewForm] input[name=photoFile]").change(function(e){
+		if(!this.files) {
 			let dt = new DataTransfer();
 			for(let f of sel_files) {
 				dt.items.add(f);
 			}
 			
 			this.files = dt.files;
-			
 			return false;
 		}
 		
 		let $form = $(this).closest("form");
 		
-		// 유사 배열을  배열로 변환
+		// 유사 배열을 배열로 변환
 		const fileArr = Array.from(this.files);
 		
 		fileArr.forEach((file, index) => {
@@ -461,13 +452,13 @@ $(function(){
 	});
 	
 	$("body").on("click", ".review-form .img-item", function(){
-		if(! confirm("선택한 파일을 삭제 하시겠습니까 ? ")) {
+		if(!confirm("선택한 파일을 삭제 하시겠습니까?")) {
 			return false;
 		}
 		
 		let filename = $(this).attr("data-filename");
 		
-		for(let i=0; i<sel_files.length; i++) {
+		for(let i = 0; i < sel_files.length; i++) {
 			if(filename === sel_files[i].name) {
 				sel_files.splice(i, 1);
 				break;
@@ -486,37 +477,40 @@ $(function(){
 	});
 });
 
-//리뷰 작성 버튼 클릭 시 모달을 초기화하고 표시
-$('.btnReviewWriteForm').click(function() {
-    $('#reviewModal').modal('show');
-    var saleNum = $(this).data('salenum');
-    $('input[name="num"]').val(saleNum);
+// 리뷰 작성 버튼 클릭 이벤트 위임
+$(document).on('click', '.btnReviewSend', function() {
+    let form = document.forms['reviewForm'];
+    let formData = new FormData(form);
+    
+    if (form.score.value === "0") {
+        alert("평점은 1점부터 가능합니다.");
+        return false;
+    }
+
+    let content = form.content.value.trim();
+    if (!content) {
+        alert("리뷰를 입력하세요.");
+        form.content.focus();
+        return false;
+    }
+
+    let url = "${pageContext.request.contextPath}/room/reviewWrite";
+	
+	const fn = function(data) {
+		if(data.state === "true") {
+			$('.btnReviewWriteForm').remove();
+			$('.review-form').remove();
+		} else {
+			alert("리뷰 등록 중 오류가 발생했습니다.");
+		}
+	};
+	
+	ajaxFun(url, "post", formData, "json", fn, true);
 });
 
-// 리뷰 등록 버튼 클릭 시 AJAX로 리뷰 전송
-$('.btnReviewSend').click(function() {
-    var form = $('form[name="reviewForm"]')[0];
-    var formData = new FormData(form);
 
-    $.ajax({
-        type: "POST",
-        url: "${pageContext.request.contextPath}/room/reviewWrite",
-        data: formData,
-        processData: false,
-        contentType: false,
-        success: function(response) {
-            if (response.state === "true") {
-                alert("리뷰가 등록되었습니다.");
-                $('#reviewModal').modal('hide');
-                location.reload(); // 페이지 새로고침
-            } else {
-                alert("리뷰 등록 중 오류가 발생했습니다.");
-            }
-        },
-        error: function() {
-            alert("리뷰 등록 중 오류가 발생했습니다.");
-        }
-    });
+//모달이 닫힐 때마다 초기화
+$(document).on('hidden.bs.modal', '#reviewModal', function(e) {
+    $(this).find("form")[0].reset();
 });
-
 </script>

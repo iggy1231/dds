@@ -124,12 +124,12 @@
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="reviewModalLabel">리뷰 작성</h5>
+                <h5 class="modal-title btnReviewWriteForm" id="reviewModalLabel">리뷰 작성</h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
                 <div class="review-form border border-secondary p-3 mt-2">
-                    <form name="reviewForm">
+                    <form name="reviewForm" enctype="multipart/form-data">
                         <div class="p-1">
                             <p class="star">
                                 <a href="#" class="on"><i class="bi bi-star-fill"></i></a>
@@ -139,18 +139,20 @@
                                 <a href="#" class="on"><i class="bi bi-star-fill"></i></a>
                                 <input type="hidden" name="score" value="5">
                                 <input type="hidden" name="num" value="${dto.num}">
+                                <input type="hidden" name="review_num" value="${dto.review_num}">
                             </p>
                         </div>
                         <div class="p-1">
-                            <textarea name="review" class="form-control"></textarea>
+                            <textarea name="content" class="form-control"></textarea>
                         </div>
                         <div class="p-1">
                             <div class="img-grid">
                                 <img class="item img-add" src="${pageContext.request.contextPath}/resources/images/add_photo.png">
                             </div>
-                            <input type="file" name="selectFile" accept="image/*" multiple class="form-control" style="display: none;">
+                            <input type="file" name="photoFile" accept="image/*" multiple class="form-control" style="display: none;">
                         </div>
                         <div class="p-1 text-end">
+                        	<input type="hidden" name="review_num" value="${dto.review_num }">
                             <button type="button" class="btn btn-dark btnReviewSend ps-5 pe-5">등록하기</button>
                         </div>
                     </form>
@@ -159,6 +161,8 @@
         </div>
     </div>
 </div>
+
+
 </c:forEach>
 
 

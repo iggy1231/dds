@@ -190,6 +190,11 @@
 .deleteQuestion, .notifyQuestion { cursor: pointer; padding-left: 5px; }
 .deleteQuestion:hover, .notifyQuestion:hover { font-weight: 500; color: #2478FF; }
 
+.customratio {
+	--bs-aspect-ratio: 60%;
+	width: 83%;
+}
+
 </style>
 
 <script type="text/javascript">
@@ -670,10 +675,10 @@ function printReview(data) {
 		let photo = item.photo;
 		// let deletePermit = item.deletePermit;
 
-		out += '<div class="mt-3 border-bottom">';
+		out += '<div class="mt-3">';
 		out += '  <div class="row p-2">';
 		out += '    <div class="col-md-8 order-md-1">';
-		out += '      <div class="row">';
+		out += '      <div class="row ms-3">';
 		out += '        <div class="col-auto pt-0 ps-2 pe-1 score-star">';
 		for(let i=1; i<=5; i++) {
 		    out += '          <span class="item fs-6 ' + (score>=i ? 'on' : '') + '"><i class="bi bi-star-fill"></i></span>';
@@ -686,18 +691,19 @@ function printReview(data) {
 		out += '        </div>';
 		out += '      </div>';
 		out += '      <div class="row">';
-		out += '        <div class="col mt-2 p-2 fs-5 ps-3">' + content + '</div>';
+		out += '        <div class="col mt-2 p-2 fs-5 ps-3 ms-4">' + content + '</div>';
 		out += '      </div>';
 		out += '    </div>';
 		if(photo && photo.length > 0) {
 		    out += '    <div class="col-md-4 text-end order-md-2">';
-		    out += '      <div class="ratio ratio-4x3">';
+		    out += '      <div class="ratio customratio ms-3">';
 		    out += '        <img class="border rounded img-fluid" src="' + photo + '">';
 		    out += '      </div>';
 		    out += '    </div>';
 		}
 		out += '  </div>';
 		out += '</div>';
+		out += '<hr class = "mx-4">';
 
 	}
 	if(dataCount > 0) {

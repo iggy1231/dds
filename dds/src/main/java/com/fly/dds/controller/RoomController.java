@@ -440,41 +440,54 @@ public class RoomController {
 
 	    return response;
 	}
+	
 	@GetMapping("payComplete")
 	public String payCompletePage(@RequestParam Map<String, String> params, Model model) {
 	    model.addAllAttributes(params);
 	    return ".room.payComplete";
 	}
 	
-	@GetMapping("review")
-	public String roomReview() {
-		return "room/review";
-	}
 	
 	@PostMapping("reviewWrite")
-	public Map<String, Object> writeReviewSubmit(RoomReview dto,
-			HttpSession session) throws Exception {
-		
-		String root = session.getServletContext().getRealPath("/");
-		String pathname = root + "uploads" + File.separator + "review";
-		
-		String state = "true";
-		
-		try {
-			SessionInfo info = (SessionInfo)session.getAttribute("member");
-			dto.setNickName(info.getNickName());
+	@ResponseBody
+	public Map<String, Object> writeReviewSubmit(RoomReview dto, HttpSession session) throws Exception {
+	    String root = session.getServletContext().getRealPath("/");
+	    String pathname = root + "uploads" + File.separator + "review";
 
-			reviewService.insertRoomReview(dto, pathname);
-			
-		} catch (Exception e) {
-			state = "false";
-		}
-		
-		Map<String, Object> model = new HashMap<String, Object>();
-		model.put("state", state);
-		
-		return model;
+	    String state = "true";
+
+	    try {
+	        SessionInfo info = (SessionInfo) session.getAttribute("member");
+	        dto.setUser_num(info.getUser_num());
+	        dto.setNickName(info.getNickName());
+
+	        // num 필드 및 review_num 필드 기본값 설정
+	        if (dto.getNum() == 0) {
+	            dto.setNum(1);  // defaultNumValue는 적절한 기본값으로 설정
+	        }
+	        if (dto.getReview_num() == 0) {
+	            dto.setReview_num(1);  // defaultReviewNumValue는 적절한 기본값으로 설정
+	        }
+
+	        // 파일 업로드 처리
+	        if (dto.getPhotoFile() != null && !dto.getPhotoFile().isEmpty()) {
+	            String filename = fileManager.doFileUpload(dto.getPhotoFile(), pathname);
+	            dto.setPhoto(filename);
+	        }
+
+	        reviewService.insertRoomReview(dto, pathname);
+
+	    } catch (Exception e) {
+	        state = "false";
+	        e.printStackTrace();
+	    }
+
+	    Map<String, Object> model = new HashMap<String, Object>();
+	    model.put("state", state);
+	    return model;
 	}
+
+
 	
 	@ResponseBody
 	@GetMapping("reviewlist")

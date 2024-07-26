@@ -24,12 +24,12 @@ public class RoomReviewServiceImpl implements RoomReviewService {
 	public void insertRoomReview(RoomReview dto, String pathname) throws Exception {
 		try {
 			
+			mapper.insertRoomReview(dto);
 			
 			String filename;
 	        filename = fileManager.doFileUpload(dto.getPhotoFile(), pathname);
 	        dto.setPhoto(filename);
 			
-	        mapper.insertRoomReview(dto);
 	        
 		} catch (Exception e) {
 			e.printStackTrace();
