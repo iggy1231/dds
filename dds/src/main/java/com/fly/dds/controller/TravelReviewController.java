@@ -20,7 +20,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
-import com.fly.dds.common.FileManager;
 import com.fly.dds.domain.SessionInfo;
 import com.fly.dds.domain.TravelReview;
 import com.fly.dds.domain.TravelReviewReply;
@@ -95,6 +94,8 @@ public class TravelReviewController {
     
     @PostMapping("create")
     public String createReview(HttpSession session,
+    		@RequestParam String region_main,
+    		@RequestParam String region_sub,
             @RequestParam String subject,
             @RequestParam String content,
             @RequestParam List<MultipartFile> selectFile) {
@@ -106,6 +107,8 @@ public class TravelReviewController {
         try {
             TravelReview dto = new TravelReview();
             
+            dto.setRegion_main(region_main);
+            dto.setRegion_sub(region_sub);
             dto.setSubject(subject);
             dto.setContent(content);
             dto.setSelectFile(selectFile);

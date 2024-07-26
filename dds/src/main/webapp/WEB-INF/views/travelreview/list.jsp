@@ -227,6 +227,7 @@ function searchList() {
                 <thead>
                     <tr>
                         <th width="60">번호</th>
+                        <th>지역</th>
                         <th>제목</th>
                         <th width="100">작성자</th>
                         <th width="100">작성일</th>
@@ -237,6 +238,7 @@ function searchList() {
                     <c:forEach var="dto" items="${list}" varStatus="status">
                         <tr>
                             <td>${dataCount - (page-1) * size - status.index}</td>
+                            <td>${dto.region_main} ${dto.region_sub}</td>
                             <td class="left">
                                 <a href="${pageContext.request.contextPath}/travelreview/article?num=${dto.num}&page=${page}">${dto.subject}</a>
                             </td>

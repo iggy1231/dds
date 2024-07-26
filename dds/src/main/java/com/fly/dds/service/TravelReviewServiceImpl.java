@@ -26,6 +26,7 @@ public class TravelReviewServiceImpl implements TravelReviewService {
 			dto.setNum(seq);
 			
 			mapper.insertReview(dto);
+			mapper.insertReviewArea(dto);
 			
 			if (!dto.getSelectFile().isEmpty()) {
 				for (MultipartFile mf : dto.getSelectFile()) {
@@ -38,10 +39,7 @@ public class TravelReviewServiceImpl implements TravelReviewService {
 
 					mapper.insertFile(dto);
 				}
-			}	
-			
-			
-			
+			}		
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -64,6 +62,10 @@ public class TravelReviewServiceImpl implements TravelReviewService {
 		
 		try {
 			list = mapper.listReview(map);
+			for(TravelReview dto:list) {
+				dto.setRegion_main(mapper.findAreaByNum(dto.getNum()).getRegion_main());
+				dto.setRegion_sub(mapper.findAreaByNum(dto.getNum()).getRegion_sub());
+			}
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -85,6 +87,9 @@ public class TravelReviewServiceImpl implements TravelReviewService {
 		
 		try {
 			dto = mapper.findByNum(num);
+			TravelReview t=mapper.findAreaByNum(num);
+			dto.setRegion_main(t.getRegion_main());
+			dto.setRegion_sub(t.getRegion_sub());
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

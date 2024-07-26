@@ -9,6 +9,11 @@
 			 SYSDATE, 0, #{user_num} )
 	</insert>
 	
+	<insert id="insertReviewArea" parameterType="com.fly.dds.domain.TravelReview">
+		insert into travelreview_region(REGION_NUM, REGION_MAIN, REGION_SUB, NUM)
+		values(travelreview_region_seq.nextval, #{region_main}, #{region_sub}, #{num})
+	</insert>
+	
 	<sql id="where-list">
 		<choose>
 			<when test="schType == 'all' ">
@@ -50,6 +55,11 @@
 		SELECT NUM, NICKNAME, SUBJECT, CONTENT, REG_DATE, HITCOUNT, USER_NUM
 		FROM travelreview
 		WHERE num = #{num}
+	</select>
+	
+	<select id="findAreaByNum" parameterType="long" resultType="com.fly.dds.domain.TravelReview">
+		select region_main, region_sub from travelreview_region
+ 		where num=#{num}
 	</select>
 	
 	<update id="updateHitCount" parameterType="Long">
