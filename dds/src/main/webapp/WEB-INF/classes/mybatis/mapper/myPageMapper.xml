@@ -194,6 +194,25 @@
 		where user_num=#{user_num} AND status='대기'
 	</select>
 	
+	<select id="listIngCompanion" parameterType="map" resultType="com.fly.dds.domain.Companion">
+		select distinct c.num, c.nickname, subject, reg_date, sdate, edate,
+		total_people, gender, age, region_main AS mainRegion, photo
+		from companion c
+		join companion_info ci on c.num=ci.num
+		join companion_age ca on c.num=ca.num
+		join companion_region cr on c.num=cr.num
+		join member_profile m on c.user_num=m.user_num
+		join member_companioninfo m2 on m2.num=c.num
+		where m2.status='참여' AND m2.user_num=#{user_num} AND c.status = 1
+		OFFSET #{offset} ROWS FETCH FIRST #{size} ROWS ONLY
+	</select>
+	
+	<select id="ingCompanionCount" parameterType="long" resultType="Integer">
+		SELECT NVL(COUNT(*), 0)
+		from member_companioninfo
+		where user_num=#{user_num} AND status='대기'
+	</select>
+	
 	<select id="companionThumbnail" parameterType="long" resultType="String">
 		select filename 
 		from companion_file

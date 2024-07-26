@@ -53,9 +53,14 @@ public interface MyPageMapper {
     public int wishCompanionCount(Long user_num);
     
     // 동행 대기
-    public List<Companion> listWaitingCompanion(Map<String, Object> map);
+    public List<Companion> listIngCompanion(Map<String, Object> map);
     public int waitingCompanionCount(Long user_num);
+    
     public String companionThumbnail(long num);
+    
+    // 동행 참여
+    public List<Companion> listWaitingCompanion(Map<String, Object> map);
+    public int ingCompanionCount(Long user_num);
     
     // 위시리스트 숙소
     public List<Room> listWishRoom(Map<String, Object> map);
