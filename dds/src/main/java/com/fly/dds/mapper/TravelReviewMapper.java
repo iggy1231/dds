@@ -10,9 +10,11 @@ import com.fly.dds.domain.TravelReview;
 @Mapper
 public interface TravelReviewMapper {
 	public void insertReview(TravelReview dto);
+	public void insertReviewArea(TravelReview dto);
 	public int dataCount(Map<String, Object> map);
 	public List<TravelReview> listReview(Map<String, Object> map);
 	public TravelReview findByNum(long num);
+	public TravelReview findAreaByNum(long num);
 	public void updateHitCount(long num);
 	public void updateReview(TravelReview dto);
 	public void deleteReview(long num);

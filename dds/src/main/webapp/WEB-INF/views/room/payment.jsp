@@ -187,7 +187,7 @@ ul.payment-info li span.total {
         </li>
       </ul>
       <div class="d-flex justify-content-center mt-4 mb-3 pt-2">
-        <button class="text-center text-white fs-5 btn btn-primary px-4 py-2 rounded" id="final_price" onclick="requestPay()" value="${total_price - point_price}">${total_price - point_price}원 결제하기</button>
+        <button class="text-center text-white fs-5 btn btn-primary px-4 py-2 rounded" id="final_price" onclick="requestPay()" value="${total_price - point_price}*${edate-sdate}">${total_price - point_price}*${edate-sdate}원 결제하기</button>
       </div>
     </div>
   </div>

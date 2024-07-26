@@ -19,6 +19,10 @@ public class TravelReview {
 	
 	private long fileNum;
 	private String imageFilename;
+	
+	private String region_main;
+	private String region_sub;
+	
 	public long getNum() {
 		return num;
 	}
@@ -91,6 +95,16 @@ public class TravelReview {
 	public void setImageFilename(String imageFilename) {
 		this.imageFilename = imageFilename;
 	}
-	
-
+	public String getRegion_main() {
+		return region_main;
+	}
+	public void setRegion_main(String region_main) {
+		this.region_main = region_main;
+	}
+	public String getRegion_sub() {
+		return region_sub;
+	}
+	public void setRegion_sub(String region_sub) {
+		this.region_sub = region_sub;
+	}
 }

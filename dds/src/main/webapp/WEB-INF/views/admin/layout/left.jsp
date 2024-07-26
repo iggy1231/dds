@@ -177,7 +177,7 @@
                   </a>
                 </li>
                 <li class="menu-item">
-                  <a href="layouts-without-navbar.html" class="menu-link">
+                  <a href="${pageContext.request.contextPath}/admin/couponManage/list" class="menu-link">
                     <div data-i18n="Without navbar">쿠폰</div>
                   </a>
               </ul>
