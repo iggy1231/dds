@@ -40,7 +40,7 @@ p {
 
 <div class="container border border-top-0 border-bottom-0">
 		<div>
-			<h3>${dto.name}</h3>
+			<h3 class="mt-3">${dto.name}</h3>
 			<p>${dto.region_Main} ${dto.region_Sub}</p>
 			<div>
 				<c:forEach var="tag" items="${tagList}">

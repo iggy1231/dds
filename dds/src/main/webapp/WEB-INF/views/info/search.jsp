@@ -34,13 +34,16 @@
 .carousel-item img {
 	height: 700px;
 }
+.card footer span, .card-body h3, .card-body p {
+	font-weight: bold;
+}
 </style>
 <div class="container border border-top-0 border-bottom-0">
 			<div>
-			<h3> ${kwd}에 대한 검색 결과 </h3>
+			<h3 class="ms-5 mt-3"> ${kwd}에 대한 검색 결과 </h3>
 			<hr>
 			<div class="row justify-content-between">
-				<span class="col">검색 결과 ${dataCount}건</span>
+				<h3 class="ms-5 col">검색 결과 ${dataCount}건</h3>
 				<div class="col text-end">
 					<button type="button" class="btn listTypebtn1 active" data-bs-toggle="button">가나다순</button>
 					<button type="button" class="btn listTypebtn2" data-bs-toggle="button">인기순</button>
@@ -52,9 +55,8 @@
 
 		
 		<div class="body-main">
-			<p>전체글</p>
 			<div class="list-content" data-pageNo="0" data-totalPage="0"></div>
-			<div class="list-footer">
+			<div class="list-footer text-end">
 				<span class="more-btn btn btn-light">&nbsp;더보기&nbsp;<i class="bi bi-chevron-down"></i>&nbsp;</span>
 			</div>
 		</div>

@@ -12,4 +12,5 @@ public interface MemberMapper {
 	public long memberSeq();
 	public void insertMember(Map<String, Object> map);
 	public void insertMemberInfo(Map<String, Object> map);
+	public void insertMemberProfile(Map<String, Object> map);
 }

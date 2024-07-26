@@ -36,6 +36,7 @@ public class MemberServiceImpl implements MemberService {
 			map.put("num", seq);
 			mapper.insertMember(map);
 			mapper.insertMemberInfo(map);
+			mapper.insertMemberProfile(map);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}	

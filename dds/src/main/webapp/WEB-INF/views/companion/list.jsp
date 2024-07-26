@@ -37,6 +37,17 @@
 .carousel-item {
 	text-align: center;
 }
+.card footer span, .card-body h3, .card-body p {
+	font-weight: bold;
+}
+.carousel-control-prev-icon {
+	background-color: gray;
+}
+.carousel-control-next-icon {
+	background-color: gray;
+}
+
+
 </style>
 
 <div class="container border border-top-0 border-bottom-0">
@@ -77,52 +88,53 @@
 		      <button class="btn btn-outline-secondary" value="제주">제주</button>
 		    </div>
 		  </div>
-		  <button class="carousel-control-prev" type="button" data-bs-target="#selectAreabtn" data-bs-slide="prev">
-		    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+		  <button class="carousel-control-prev" type="button">
+		    <span class="carousel-control-prev-icon" aria-hidden="true" data-bs-target="#selectAreabtn" data-bs-slide="prev"></span>
 		    <span class="visually-hidden">Previous</span>
 		  </button>
-		  <button class="carousel-control-next" type="button" data-bs-target="#selectAreabtn" data-bs-slide="next">
-		    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+		  <button class="carousel-control-next" type="button">
+		    <span class="carousel-control-next-icon" aria-hidden="true" data-bs-target="#selectAreabtn" data-bs-slide="next"></span>
 		    <span class="visually-hidden">Next</span>
 		  </button>
 		</div>
-    	<p>지역 별 최신 글
+		<hr>
+    	<h3>지역 별 최신 글</h3>
     	<div id="areaList-carousel" class="carousel slide">
-			<div class="carousel-inner">
+			<div class="carousel-inner px-3">
 				<div class="carousel-item active"></div>
 				<div class="carousel-item"></div>
 				<div class="carousel-item"></div>
 			</div>
-			<button class="carousel-control-prev" type="button" data-bs-target="#areaList-carousel" data-bs-slide="prev">
-				<span class="carousel-control-prev-icon" aria-hidden="true"></span>
+			<button class="carousel-control-prev" type="button">
+				<span class="carousel-control-prev-icon" aria-hidden="true"  data-bs-target="#areaList-carousel" data-bs-slide="prev"></span>
 				<span class="visually-hidden">Previous</span>
 			</button>
-			<button class="carousel-control-next" type="button" data-bs-target="#areaList-carousel" data-bs-slide="next">
-				<span class="carousel-control-next-icon" aria-hidden="true"></span>
+			<button class="carousel-control-next" type="button">
+				<span class="carousel-control-next-icon" aria-hidden="true"  data-bs-target="#areaList-carousel" data-bs-slide="next"></span>
 				<span class="visually-hidden">Next</span>
 			</button>
 		</div>
 		<hr>
-		<p>지역 별 인기 글
+		<h3>지역 별 인기 글</h3>
     	<div id="areaPopularList-carousel" class="carousel slide">
-			<div class="carousel-inner">
+			<div class="carousel-inner px-3">
 				<div class="carousel-item active"></div>
 				<div class="carousel-item"></div>
 				<div class="carousel-item"></div>
 			</div>
-			<button class="carousel-control-prev" type="button" data-bs-target="#areaPopularList-carousel" data-bs-slide="prev">
-				<span class="carousel-control-prev-icon" aria-hidden="true"></span>
+			<button class="carousel-control-prev " type="button">
+				<span class="carousel-control-prev-icon" aria-hidden="true" data-bs-target="#areaPopularList-carousel" data-bs-slide="prev"></span>
 				<span class="visually-hidden">Previous</span>
 			</button>
-			<button class="carousel-control-next" type="button" data-bs-target="#areaPopularList-carousel" data-bs-slide="next">
-				<span class="carousel-control-next-icon" aria-hidden="true"></span>
+			<button class="carousel-control-next" type="button">
+				<span class="carousel-control-next-icon" aria-hidden="true"  data-bs-target="#areaPopularList-carousel" data-bs-slide="next"></span>
 				<span class="visually-hidden">Next</span>
 			</button>
 		</div>
 		<hr>
 		<button class="btn btn-outline-secondary"onclick="writeForm();">동행 구인 작성</button>
 		<hr>
-		<p>전체 글
+		<h3>전체 글</h3>
 		<div class="scroll-list">
 			<ul class="list-group list-group-flush">
 				 <li class="list-group-item">
@@ -208,14 +220,14 @@ function addNextPage(data) {
 		}
 		if(i<data.list.length) {
 			htmlText+='<div class="col card" onclick="article('+data.list[i].num+')">';
-			htmlText+='<img src="${pageContext.request.contextPath}/uploads/companion/'+data.list[i].saveFilename+'" class="card-img-top" alt="...">';
-			htmlText+='<div class="card-body"><p>'+data.list[i].subject+'</p>';
-			htmlText+='<a href="#">'+data.list[i].age+'대 </a>';
-			htmlText+='<a href="">'+data.list[i].gender+'</a>';
+			htmlText+='<img src="${pageContext.request.contextPath}/uploads/companion/'+data.list[i].saveFilename+'" class="card-img-top" alt="">';
+			htmlText+='<div class="card-body">';
+			htmlText+='<a href="#">#'+data.list[i].age+'대 </a>';
+			htmlText+='<a href="#">#'+data.list[i].gender+' </a>';
+			htmlText+='<a href="#">#'+data.list[i].theme+' </a>';
 			htmlText+='		<h3>'+data.list[i].subject+'</h2>';
-			htmlText+='		<p>'+data.list[i].content+'</p>';
 			for(let j=0;j<data.list[i].region_main.length;j++) {
-				htmlText+='<span class="card-text">'+data.list[i].region_main[j]+' '+data.list[i].region_sub[j]+'</span>';
+				htmlText+='<span class="card-text">'+data.list[i].region_main[j]+' '+data.list[i].region_sub[j]+' </span>';
 			}
 			htmlText+='</div></div>';
 		} else {
@@ -248,13 +260,13 @@ function addNextPage2(data) {
 		if(i<data.list.length) {
 			htmlText+='<div class="col card" onclick="article('+data.list[i].num+')">';
 			htmlText+='<img src="${pageContext.request.contextPath}/uploads/companion/'+data.list[i].saveFilename+'" class="card-img-top" alt="...">';
-			htmlText+='<div class="card-body"><p>'+data.list[i].subject+'</p>';
-			htmlText+='<a href="#">'+data.list[i].age+'대 </a>';
-			htmlText+='<a href="">'+data.list[i].gender+'</a>';
+			htmlText+='<div class="card-body">';
+			htmlText+='<a href="#">#'+data.list[i].age+'대 </a>';
+			htmlText+='<a href="#">#'+data.list[i].gender+' </a>';
+			htmlText+='<a href="#">#'+data.list[i].theme+' </a>';
 			htmlText+='		<h3>'+data.list[i].subject+'</h2>';
-			htmlText+='		<p>'+data.list[i].content+'</p>';
 			for(let j=0;j<data.list[i].region_main.length;j++) {
-				htmlText+='<span class="card-text">'+data.list[i].region_main[j]+' '+data.list[i].region_sub[j]+'</span>';
+				htmlText+='<span class="card-text">'+data.list[i].region_main[j]+' '+data.list[i].region_sub[j]+' </span>';
 			}
 			htmlText+='</div></div>';
 		} else {
@@ -321,19 +333,18 @@ function scroll_load(data) {
 	
 	sentinel.style.display = 'none';
 	
-	
-	console.log(data);
 	for(let item of data.list) {
 		let htmlText="";
 		htmlText='<li><div class="card flex-row" onclick="article('+item.num+')">';
 		htmlText+='	<img src="${pageContext.request.contextPath}/uploads/companion/'+item.saveFilename+'" class="card-img-top" alt="...">';
 		htmlText+='		<div class="card-body">';
-		htmlText+='<a href="#">'+item.age+'대 </a>';
-		htmlText+='<a href="">'+item.gender+'</a>';
+		htmlText+='<a href="#">#'+item.age+'대 </a>';
+		htmlText+='<a href="#">#'+item.gender+' </a>';
+		htmlText+='<a href="#">#'+item.theme+' </a>';
 		htmlText+='		<h3>'+item.subject+'</h2>';
 		htmlText+='		<p>'+item.content+'</p>';
 		for(let idx=0;idx<item.region_main.length;idx++) {
-			htmlText+='<span class="card-text">'+item.region_main[idx]+' '+item.region_sub[idx]+'</span>';
+			htmlText+='<span class="card-text">'+item.region_main[idx]+' '+item.region_sub[idx]+' </span>';
 		}
 		htmlText+='		<footer><p>'+item.sdate+'~'+item.edate+'</p>';
 		htmlText+='		</footer></div>';
