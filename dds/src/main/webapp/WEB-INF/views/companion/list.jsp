@@ -46,7 +46,44 @@
 .carousel-control-next-icon {
 	background-color: gray;
 }
-
+.travel-info-item {
+        border: 1px solid #e0e0e0;
+        border-radius: 8px;
+        overflow: hidden;
+        transition: box-shadow 0.3s;
+        background-color: white;
+        margin-bottom: 20px;
+        position: relative;
+    }
+    .travel-info-item:hover {
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    }
+    .travel-info-item img {
+        width: 100%;
+        height: 200px;
+        object-fit: cover;
+    }
+    .travel-info-item-body {
+        padding: 16px;
+    }
+    .travel-info-item-title {
+        font-size: 16px;
+        font-weight: bold;
+        color: #333;
+    }
+    .travel-info-item-location {
+        font-size: 14px;
+        color: #777;
+        margin: 8px 0;
+    }
+    .travel-info-item-location i {
+        color: #00AEEF;
+        margin-right: 5px;
+    }
+    .travel-info-item-tags {
+        font-size: 12px;
+        color: #999;
+    }
 
 </style>
 
@@ -219,17 +256,17 @@ function addNextPage(data) {
 			htmlText+='<div class="row">';
 		}
 		if(i<data.list.length) {
-			htmlText+='<div class="col card" onclick="article('+data.list[i].num+')">';
-			htmlText+='<img src="${pageContext.request.contextPath}/uploads/companion/'+data.list[i].saveFilename+'" class="card-img-top" alt="">';
-			htmlText+='<div class="card-body">';
-			htmlText+='<a href="#">#'+data.list[i].age+'대 </a>';
-			htmlText+='<a href="#">#'+data.list[i].gender+' </a>';
-			htmlText+='<a href="#">#'+data.list[i].theme+' </a>';
-			htmlText+='		<h3>'+data.list[i].subject+'</h2>';
+			htmlText+='<div class="col">';
+			htmlText+='	<div class="travel-info-item" onclick="article('+data.list[i].num+');">';
+			htmlText+='	<img src="${pageContext.request.contextPath}/uploads/companion/'+data.list[i].saveFilename+'" onerror=this.src="${pageContext.request.contextPath}/resources/images/noimage.png">';
+			htmlText+='	<div class="travel-info-item-body">';
+			htmlText+='		<a class="travel-info-item-title" href="">'+data.list[i].subject+'</a>';
+			htmlText+='		<p class="travel-info-item-location">';
 			for(let j=0;j<data.list[i].region_main.length;j++) {
-				htmlText+='<span class="card-text">'+data.list[i].region_main[j]+' '+data.list[i].region_sub[j]+' </span>';
-			}
-			htmlText+='</div></div>';
+				htmlText+='		<i class="bi bi-geo-alt-fill">'+data.list[i].region_main[j]+' '+data.list[i].region_sub[j]+'</i></p>';
+			}	
+			htmlText+='		<span class="travel-info-item-tags">#'+data.list[i].theme+' #'+data.list[i].age+'대 #'+data.list[i].gender+'</span>';
+			htmlText+='</div></div></div>';
 		} else {
 			htmlText+='<div class="col"></div>';
 		}
@@ -258,17 +295,17 @@ function addNextPage2(data) {
 			htmlText+='<div class="row">';
 		}
 		if(i<data.list.length) {
-			htmlText+='<div class="col card" onclick="article('+data.list[i].num+')">';
-			htmlText+='<img src="${pageContext.request.contextPath}/uploads/companion/'+data.list[i].saveFilename+'" class="card-img-top" alt="...">';
-			htmlText+='<div class="card-body">';
-			htmlText+='<a href="#">#'+data.list[i].age+'대 </a>';
-			htmlText+='<a href="#">#'+data.list[i].gender+' </a>';
-			htmlText+='<a href="#">#'+data.list[i].theme+' </a>';
-			htmlText+='		<h3>'+data.list[i].subject+'</h2>';
+			htmlText+='<div class="col">';
+			htmlText+='	<div class="travel-info-item" onclick="article('+data.list[i].num+');">';
+			htmlText+='	<img src="${pageContext.request.contextPath}/uploads/companion/'+data.list[i].saveFilename+'" onerror=this.src="${pageContext.request.contextPath}/resources/images/noimage.png">';
+			htmlText+='	<div class="travel-info-item-body">';
+			htmlText+='		<a class="travel-info-item-title" href="">'+data.list[i].subject+'</a>';
+			htmlText+='		<p class="travel-info-item-location">';
 			for(let j=0;j<data.list[i].region_main.length;j++) {
-				htmlText+='<span class="card-text">'+data.list[i].region_main[j]+' '+data.list[i].region_sub[j]+' </span>';
-			}
-			htmlText+='</div></div>';
+				htmlText+='		<i class="bi bi-geo-alt-fill">'+data.list[i].region_main[j]+' '+data.list[i].region_sub[j]+'</i></p>';
+			}	
+			htmlText+='		<span class="travel-info-item-tags">#'+data.list[i].theme+' #'+data.list[i].age+'대 #'+data.list[i].gender+'</span>';
+			htmlText+='</div></div></div>';
 		} else {
 			htmlText+='<div class="col"></div>';
 		}
@@ -336,7 +373,7 @@ function scroll_load(data) {
 	for(let item of data.list) {
 		let htmlText="";
 		htmlText='<li><div class="card flex-row" onclick="article('+item.num+')">';
-		htmlText+='	<img src="${pageContext.request.contextPath}/uploads/companion/'+item.saveFilename+'" class="card-img-top" alt="...">';
+		htmlText+='	<img src="${pageContext.request.contextPath}/uploads/companion/'+item.saveFilename+'" class="card-img-top" onerror=this.src="${pageContext.request.contextPath}/resources/images/noimage.png">';
 		htmlText+='		<div class="card-body">';
 		htmlText+='<a href="#">#'+item.age+'대 </a>';
 		htmlText+='<a href="#">#'+item.gender+' </a>';

@@ -51,12 +51,13 @@ public class MemberController {
 		info.setActivity(dto.getActivity());
 		info.setPhoto(dto.getPhoto());
 		
-		session.setMaxInactiveInterval(30 * 60); // 세션유지시간 30분, 기본:30분
+		session.setMaxInactiveInterval(30 * 60);
 
 		session.setAttribute("member", info);
 		
 		String uri = (String) session.getAttribute("preLoginURI");
 		session.removeAttribute("preLoginURI");
+		System.out.println("after:"+uri);
 		if (uri == null) {
 			uri = "redirect:/";
 		} else {
@@ -68,10 +69,7 @@ public class MemberController {
 	
 	@GetMapping("logout")
 	public String logout(HttpSession session) {
-		// 세션에 저장된 정보 지우기
 		session.removeAttribute("member");
-
-		// 세션에 저장된 모든 정보 지우고, 세션초기화
 		session.invalidate();
 
 		return "redirect:/";
@@ -81,13 +79,15 @@ public class MemberController {
 	public String signup(@RequestParam String userId,
 			@RequestParam String userPwd,
 			@RequestParam String userName,
-			@RequestParam String userNickname) {
+			@RequestParam String userNickname,
+			@RequestParam String userBirth) {
 		
 		Map<String, Object> map=new HashMap<String, Object>();
 		map.put("userId", userId);
 		map.put("userPwd", userPwd);
 		map.put("userName", userName);
 		map.put("userNickname", userNickname);
+		map.put("userBirth", userBirth);
 		
 		service.signupMember(map);
 		

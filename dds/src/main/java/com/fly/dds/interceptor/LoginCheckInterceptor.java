@@ -54,16 +54,13 @@ public class LoginCheckInterceptor implements HandlerInterceptor {
 					if(queryString != null) {
 						uri += "?" + queryString;
 					}
-					
+					System.out.println("pre:"+uri);
 					session.setAttribute("preLoginURI", uri);
 					response.sendRedirect(cp + "/member/login");
 				}
 				
 			} else {
 				// 로그인 된 경우
-				
-				
-				
 				if(uri.indexOf("admin") != -1 && ! info.getUserId().equals("admin")) {
 					
 					flag = false;

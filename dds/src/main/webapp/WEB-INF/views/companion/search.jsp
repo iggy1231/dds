@@ -20,19 +20,44 @@
 .body-container {
 	max-width: 800px;
 }
-.card {
-	margin: 0 5px;
-	padding: 0px;
-}
-.card p {
-	margin: 0px;
-}
-.carousel-item img {
-	height: 700px;
-}
-.card footer span, .card-body h3, .card-body p {
-	font-weight: bold;
-}
+.travel-info-item {
+        border: 1px solid #e0e0e0;
+        border-radius: 8px;
+        overflow: hidden;
+        transition: box-shadow 0.3s;
+        background-color: white;
+        margin-bottom: 20px;
+        position: relative;
+    }
+    .travel-info-item:hover {
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    }
+    .travel-info-item img {
+        width: 100%;
+        height: 200px;
+        object-fit: cover;
+    }
+    .travel-info-item-body {
+        padding: 16px;
+    }
+    .travel-info-item-title {
+        font-size: 16px;
+        font-weight: bold;
+        color: #333;
+    }
+    .travel-info-item-location {
+        font-size: 14px;
+        color: #777;
+        margin: 8px 0;
+    }
+    .travel-info-item-location i {
+        color: #00AEEF;
+        margin-right: 5px;
+    }
+    .travel-info-item-tags {
+        font-size: 12px;
+        color: #999;
+    }
 </style>
 <div class="container border border-top-0 border-bottom-0">
 		<div>
@@ -138,18 +163,16 @@ function addNewContent(data) {
 		}
 		
 		htmlText+='<div class="col">';
-		htmlText+='	<span class="card" onclick="article('+data.list[index].num+');">';
-		htmlText+='	<img src="${pageContext.request.contextPath}/uploads/companion/'+data.list[index].saveFilename+'" class="card-img-top" alt="...">';
-		htmlText+='		<span class="card-body">';
-		htmlText+='<a href="#">#'+data.list[index].age+'대 </a>';
-		htmlText+='<a href="#">#'+data.list[index].gender+' </a>';
-		htmlText+='<a href="#">#'+data.list[index].theme+' </a>';
-		htmlText+='		<h3>'+data.list[index].subject+'</h2>';
-		for(let idx=0;idx<data.list[index].region_main.length;idx++) {
-			 htmlText+='<span class="card-text">'+data.list[index].region_main[idx]+' '+data.list[index].region_sub[idx]+' </span>';
-		}
-		htmlText+='		<footer><p>'+data.list[index].sdate+'~'+data.list[index].edate+'</p>';
-		htmlText+='		</footer></div>';
+		htmlText+='	<div class="travel-info-item" onclick="article('+data.list[index].num+');">';
+		htmlText+='	<img src="${pageContext.request.contextPath}/uploads/companion/'+data.list[index].saveFilename+'" onerror=this.src="${pageContext.request.contextPath}/resources/images/noimage.png">';
+		htmlText+='	<div class="travel-info-item-body">';
+		htmlText+='		<a class="travel-info-item-title" href="">'+data.list[index].subject+'</a>';
+		htmlText+='		<p class="travel-info-item-location">';
+		for(let j=0;j<data.list[index].region_main.length;j++) {
+			htmlText+='		<i class="bi bi-geo-alt-fill">'+data.list[index].region_main[j]+' '+data.list[index].region_sub[j]+'</i></p>';
+		}	
+		htmlText+='		<span class="travel-info-item-tags">#'+data.list[index].theme+' #'+data.list[index].age+'대 #'+data.list[index].gender+'</span>';
+		htmlText+='</div></div></div>';
 	}
 	htmlText+='</div><br>';
 	$(".list-content").append(htmlText);
@@ -176,17 +199,16 @@ function nextPopularList(data) {
 		}
 		
 		htmlText+='<div class="col">';
-		htmlText+='	<span class="card" onclick="article('+data.list[index].num+');">';
-		htmlText+='	<img src="${pageContext.request.contextPath}/uploads/companion/'+data.list[index].saveFilename+'" class="card-img-top" alt="...">';
-		htmlText+='		<span class="card-body">';
-		htmlText+='<a href="#">'+data.list[index].age+'대 </a>';
-		htmlText+='<a href="#">'+data.list[index].gender+' </a>';
-		htmlText+='<a href="#">#'+data.list[index].theme+' </a>';
-		for(let idx=0;idx<data.list[index].region_main.length;idx++) {
-			 htmlText+='<span class="card-text">'+data.list[index].region_main[idx]+' '+data.list[index].region_sub[idx]+' </span>';
-		}
-		htmlText+='		<footer><p>'+data.list[index].sdate+'~'+data.list[index].edate+'</p>';
-		htmlText+='		</footer></div>';
+		htmlText+='	<div class="travel-info-item" onclick="article('+data.list[index].num+');">';
+		htmlText+='	<img src="${pageContext.request.contextPath}/uploads/companion/'+data.list[index].saveFilename+'" onerror=this.src="${pageContext.request.contextPath}/resources/images/noimage.png">';
+		htmlText+='	<div class="travel-info-item-body">';
+		htmlText+='		<a class="travel-info-item-title" href="">'+data.list[index].subject+'</a>';
+		htmlText+='		<p class="travel-info-item-location">';
+		for(let j=0;j<data.list[index].region_main.length;j++) {
+			htmlText+='		<i class="bi bi-geo-alt-fill">'+data.list[index].region_main[j]+' '+data.list[index].region_sub[j]+'</i></p>';
+		}	
+		htmlText+='		<span class="travel-info-item-tags">#'+data.list[index].theme+' #'+data.list[index].age+'대 #'+data.list[index].gender+'</span>';
+		htmlText+='</div></div></div>';
 	}
 	htmlText+='</div><br>';
 	$(".list-content").append(htmlText);

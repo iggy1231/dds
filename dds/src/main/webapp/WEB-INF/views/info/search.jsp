@@ -24,19 +24,44 @@
 .body-container {
 	max-width: 800px;
 }
-.card {
-	margin: 0 5px;
-	padding: 0px;
-}
-.card p {
-	margin: 0px;
-}
-.carousel-item img {
-	height: 700px;
-}
-.card footer span, .card-body h3, .card-body p {
-	font-weight: bold;
-}
+.travel-info-item {
+        border: 1px solid #e0e0e0;
+        border-radius: 8px;
+        overflow: hidden;
+        transition: box-shadow 0.3s;
+        background-color: white;
+        margin-bottom: 20px;
+        position: relative;
+    }
+    .travel-info-item:hover {
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    }
+    .travel-info-item img {
+        width: 100%;
+        height: 200px;
+        object-fit: cover;
+    }
+    .travel-info-item-body {
+        padding: 16px;
+    }
+    .travel-info-item-title {
+        font-size: 16px;
+        font-weight: bold;
+        color: #333;
+    }
+    .travel-info-item-location {
+        font-size: 14px;
+        color: #777;
+        margin: 8px 0;
+    }
+    .travel-info-item-location i {
+        color: #00AEEF;
+        margin-right: 5px;
+    }
+    .travel-info-item-tags {
+        font-size: 12px;
+        color: #999;
+    }
 </style>
 <div class="container border border-top-0 border-bottom-0">
 			<div>
@@ -153,17 +178,16 @@ function addNewContent(data) {
 		let tags=data.list[index].tags;
 		
 		htmlText+='<div class="col">';
-		htmlText+='	<span class="card" onclick="article('+num+','+contentId+');">';
-		htmlText+='		<img src="'+thumbnail+'" class="card-img-top" alt="...">';
-		htmlText+='		<span class="card-body">';
-		htmlText+='			<p>'+name+'</p>';
-		htmlText+='			<p class="card-text">'+region_Main+' '+region_Sub+'</p><footer>';
+		htmlText+='	<div class="travel-info-item" onclick="article('+num+','+contentId+');">';
+		htmlText+='	<img src="'+thumbnail+'" alt="...">';
+		htmlText+='	<div class="travel-info-item-body">';
+		htmlText+='		<a class="travel-info-item-title" href="">'+name+'</a>';
+		htmlText+='		<p class="travel-info-item-location">';
+		htmlText+='		<i class="bi bi-geo-alt-fill">'+region_Main+' '+region_Sub+'</i></p>';
 		tags.forEach((tag)=>{
-			htmlText+='			<span>#'+tag+'</span>';		
-		})
-		htmlText+='		</footer></span>';
-		htmlText+='	</span>';
-		htmlText+='</div>';
+		htmlText+='		<span class="travel-info-item-tags">#'+tag+'</span>';
+		});
+		htmlText+='</div></div></div>';
 	}
 	htmlText+='</div><br>';
 	$(".list-content").append(htmlText);
@@ -197,17 +221,16 @@ function nextPopularList(data) {
 		let tags=data.list[index].tags;
 		
 		htmlText+='<div class="col">';
-		htmlText+='	<span class="card" onclick="article('+num+','+contentId+');">';
-		htmlText+='		<img src="'+thumbnail+'" class="card-img-top" alt="...">';
-		htmlText+='		<span class="card-body">';
-		htmlText+='			<p>'+name+'</p>';
-		htmlText+='			<p class="card-text">'+region_Main+' '+region_Sub+'</p><footer>';
+		htmlText+='	<div class="travel-info-item" onclick="article('+num+','+contentId+');">';
+		htmlText+='	<img src="'+thumbnail+'" alt="...">';
+		htmlText+='	<div class="travel-info-item-body">';
+		htmlText+='		<a class="travel-info-item-title" href="">'+name+'</a>';
+		htmlText+='		<p class="travel-info-item-location">';
+		htmlText+='		<i class="bi bi-geo-alt-fill">'+region_Main+' '+region_Sub+'</i></p>';
 		tags.forEach((tag)=>{
-			htmlText+='			<span>#'+tag+'</span>';		
-		})
-		htmlText+='		</footer></span>';
-		htmlText+='	</span>';
-		htmlText+='</div>';
+		htmlText+='		<span class="travel-info-item-tags">#'+tag+'</span>';
+		});
+		htmlText+='</div></div></div>';
 	}
 	htmlText+='</div><br>';
 	$(".list-content").append(htmlText);	
