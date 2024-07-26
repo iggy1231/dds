@@ -138,7 +138,7 @@
             <tr>
                 <td>객실/구역명</td>
                 <td><input type="text" name="names" class="form-control" placeholder="객실/구역명" value="${list.name}">
-                <input type="hidden" name="detail_num" value="${list.detail_num}">
+                <input type="hidden" name="detail_nums" value="${list.detail_num}">
                 </td>
             </tr>
             <tr>
@@ -151,11 +151,15 @@
             </tr>
             <tr>
                 <td>객실설명</td>
-                <td><textarea name="detail_contents"  class="form-control" placeholder="옵션 상세 설명" style="height:100px; ">${list.detail_content}</textarea></td>
+                <td><textarea name="detail_contents"  class="form-control" placeholder="옵션 상세 설명" style="height:100px; ">${list.content}</textarea></td>
             </tr>
            <tr>
    				 <td class="col-sm-2">객실/구역 썸네일</td>
-    		     <td><input type="file" name="detailPhotoFiles" class="form-control" placeholder="객실/구역 썸네일" value="${list.detail_photo}"></td>
+    		     <td>
+    		     	<input type="file" name="detailPhotoFiles" class="form-control" placeholder="객실/구역 썸네일">
+    		     	<label>${list.detail_photo}</label>
+    		     	<input type="hidden" name="detail_photos" value="${list.detail_photo}">
+    		     </td>
 			</tr>
             <tr>
 				<td>할인율</td>
@@ -306,39 +310,44 @@ document.getElementById('addOptionBtn').addEventListener('click', function() {
             <td class="table-light col-sm-2">객실 옵션 ${optionCount}</td>
             <td>
                 <table class="table mb-2 option-table">
-                    <tr>
-                        <td>객실/구역명</td>
-                        <td><input type="text" name="names" class="form-control" placeholder="객실/구역명" value="${dto.name}"></td>
-                    </tr>
-                    <tr>
-                        <td>최대 인원수</td>
-                        <td><input type="text" name="peoples" class="form-control" placeholder="최대 인원수" value="${dto.people}"></td>
-                    </tr>
-                    <tr>
-                        <td>옵션가격</td>
-                        <td><input type="text" name="prices" class="form-control" placeholder="옵션 가격" value="${dto.price}"></td>
-                    </tr>
-                    <tr>
-                        <td>상세설명</td>
-                        <td><textarea name="detail_contents"  class="form-control" placeholder="옵션 상세 설명" style="height:100px; "></textarea></td>
-                    </tr>
-                    <tr>
-      				 <td class="col-sm-2">객실/구역 썸네일</td>
-       		         <td><input type="file" name="detailPhotoFiles" class="form-control" placeholder="객실/구역 썸네일" value="${dto.thumbnail}"></td>
-   					</tr>
-                    
-                    <tr>
-    					<td>할인율</td>
-    						<td>
-    							<input type="text" name="discounts" class="form-control" value="${dto.discount}">
-    						</td>
-    					</tr>
-    				<tr>
-    						<td>포인트</td>
-    						<td>
-    							<input type="text" name="points" class="form-control" value="100" readonly>
-    						</td>
-    				</tr>
+                <tr>
+	                <td>객실/구역명</td>
+	                <td><input type="text" name="names" class="form-control" placeholder="객실/구역명" value="">
+	                <input type="hidden" name="detail_nums" value="0">
+	                </td>
+	            </tr>
+	            <tr>
+	                <td>최대 인원수</td>
+	                <td><input type="text" name="peoples" class="form-control" placeholder="최대 인원수" value="">
+	            </tr>
+	            <tr>
+	                <td>옵션가격</td>
+	                <td><input type="text" name="prices" class="form-control" placeholder="옵션 가격" value=""></td>
+	            </tr>
+	            <tr>
+	                <td>객실설명</td>
+	                <td><textarea name="detail_contents"  class="form-control" placeholder="옵션 상세 설명" style="height:100px; "></textarea></td>
+	            </tr>
+	           <tr>
+	   				 <td class="col-sm-2">객실/구역 썸네일</td>
+	    		     <td>
+	    		     	<input type="file" name="detailPhotoFiles" class="form-control" placeholder="객실/구역 썸네일">
+	    		     	<label></label>
+	    		     	<input type="hidden" name="detail_photos" value="">
+	    		     </td>
+				</tr>
+	            <tr>
+					<td>할인율</td>
+						<td>
+							<input type="text" name="discounts" class="form-control" value="">
+						</td>
+				</tr>
+				<tr>
+							<td>포인트</td>
+							<td>
+								<input type="text" name="points" class="form-control" value="100" readonly value="" >
+							</td>
+						</tr>
                 </table>
             </td>
         </tr>

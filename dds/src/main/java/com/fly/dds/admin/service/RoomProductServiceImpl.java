@@ -84,11 +84,11 @@ public class RoomProductServiceImpl implements RoomProductService {
 	    	// 룸 테이블 추가
 	        mapper.updateRoom(dto);
 	        
-	    	
 	     // 옵션 업데이트
 	        List<String> names = dto.getNames();
 	        if (names != null && !names.isEmpty()) {
 	            for (int i = 0; i < names.size(); i++) {
+	            	dto.setDetail_num(dto.getDetail_nums().get(i));
 	                dto.setName(names.get(i));
 	                dto.setPeople(dto.getPeoples().get(i));
 	                dto.setPrice(dto.getPrices().get(i));
@@ -97,10 +97,21 @@ public class RoomProductServiceImpl implements RoomProductService {
 
 	                // 파일 처리
 	                filename = fileManager.doFileUpload(dto.getDetailPhotoFiles().get(i), pathname);
-	                dto.setDetail_photo(filename);
+	                if(filename != null) {
+	                	dto.setDetail_photo(filename);
+	                } else {
+						dto.setDetail_photo(dto.getDetail_photos().get(i));
+					}
+	                
+	                // INSERT 또는 UPDATE
+	                if (dto.getDetail_num() == 0) {
+	                    mapper.insertRoomDetail(dto);
+	                } else {
+	                    mapper.updateRoomDetail(dto);
+	                }
 
 	                // UPDATE
-	                mapper.updateRoomDetail(dto);
+	               //  mapper.updateRoomDetail(dto);
 	            }
 	        }
 	    	

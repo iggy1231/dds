@@ -96,7 +96,7 @@
 	</select>
 	
 	<select id="listDetail" parameterType="map" resultType="com.fly.dds.domain.Room">
-	select detail_num , people , price , name , d.content , point , r.num , discount , detail_photo 
+	select detail_num , people , price , name , d.content , point , r.num , discount , detail_photo , d.content
 	from room_detail d
 	join room r on d.num = r.num
 	where r.num=#{num}
