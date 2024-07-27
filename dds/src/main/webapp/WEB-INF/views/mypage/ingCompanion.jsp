@@ -2,18 +2,24 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 
+
 <div class="content-container">
+<div class="row">
+<c:forEach var="list2" items="${list}">
+	<div class="col-md-4 col-sm-6 col-xs-12">
 	<div class="content-card">
-		<img src="https://via.placeholder.com/300x200" alt="Content Image">
+		<img src="${pageContext.request.contextPath}/uploads/companion/${list2.saveFilename}" alt="Content Image">
 		<div class="card-body">
-			<h5>8월 19일부터 25일 6박 7일 홈스골 지역 동행인구해요!!</h5>
+			<h5>${list2.subject}</h5>
 			<div class="meta">
-				<span><i class="bi bi-person-circle"></i>&nbsp;yunsu...</span> <span>20대
-					· 여자</span> <span class="location">순천</span>
+				<span><img src="${pageContext.request.contextPath}/uploads/mypage/${list2.photo}">&nbsp;${list2.nickname}</span> 
+				<span>${list2.age} 대 · ${list2.gender}</span> <span class="location">${list2.mainRegion}</span>
 			</div>
 		</div>
 	</div>
 </div>
-
+</c:forEach>
+</div>
+</div>
 <div class="page-navigation">${dataCount == 0 ? "등록된 댓글이 없습니다." : paging}
 </div>

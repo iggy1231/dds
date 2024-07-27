@@ -568,6 +568,130 @@ public class MyPageController {
 		return "mypage/waitingCompanion";
 	}
 	
+	@GetMapping("ingcompanion")
+	public String ingCompanion(
+			 @RequestParam(value = "pageNo", defaultValue = "1") int current_page,
+    		HttpSession session,
+    		Model model
+    		) {
+			 
+		    
+		Map<String, Object> map = new HashMap<>();
+	    int size = 9;
+	    int dataCount = 0;
+	    
+	    
+	    SessionInfo Info = (SessionInfo)session.getAttribute("member");
+
+	    
+	    Long user_num = Info.getUser_num();
+	    
+	    map.put("user_num", user_num);
+	    
+	    dataCount = service.ingCompanionCount(user_num);
+	    int total_page=myUtil.pageCount(dataCount, size);
+	    if(total_page < current_page) current_page = total_page;
+	    int offset = (current_page - 1) * size;
+	    map.put("offset", offset);
+	    map.put("size", size);
+	    List<Companion> list = service.listIngCompanion(map);
+	    
+	    
+	    String paging = myUtil.pagingMethod(current_page, total_page, "listIngCompanion");
+	    
+		model.addAttribute("dataCount" , dataCount);    
+		model.addAttribute("list",list);
+		model.addAttribute("paging", paging);
+	
+		model.addAttribute("pageNo",current_page);
+	
+		model.addAttribute("total_page",total_page);
+	
+		return "mypage/ingCompanion";
+	}
+	
+	@GetMapping("pastcompanion")
+	public String pastCompanion(
+			 @RequestParam(value = "pageNo", defaultValue = "1") int current_page,
+    		HttpSession session,
+    		Model model
+    		) {
+			 
+		    
+		Map<String, Object> map = new HashMap<>();
+	    int size = 9;
+	    int dataCount = 0;
+	    
+	    
+	    SessionInfo Info = (SessionInfo)session.getAttribute("member");
+
+	    
+	    Long user_num = Info.getUser_num();
+	    
+	    map.put("user_num", user_num);
+	    
+	    dataCount = service.pastCompanionCount(user_num);
+	    int total_page=myUtil.pageCount(dataCount, size);
+	    if(total_page < current_page) current_page = total_page;
+	    int offset = (current_page - 1) * size;
+	    map.put("offset", offset);
+	    map.put("size", size);
+	    List<Companion> list = service.listPastCompanion(map);
+	    
+	    String paging = myUtil.pagingMethod(current_page, total_page, "listPastCompanion");
+	    
+		model.addAttribute("dataCount" , dataCount);    
+		model.addAttribute("list",list);
+		model.addAttribute("paging", paging);
+	
+		model.addAttribute("pageNo",current_page);
+	
+		model.addAttribute("total_page",total_page);
+	
+		return "mypage/pastCompanion";
+	}
+	
+	@GetMapping("mycompanion")
+	public String myCompanion(
+			 @RequestParam(value = "pageNo", defaultValue = "1") int current_page,
+    		HttpSession session,
+    		Model model
+    		) {
+			 
+		    
+		Map<String, Object> map = new HashMap<>();
+	    int size = 9;
+	    int dataCount = 0;
+	    
+	    
+	    SessionInfo Info = (SessionInfo)session.getAttribute("member");
+
+	    
+	    Long user_num = Info.getUser_num();
+	    
+	    map.put("user_num", user_num);
+	    
+	    dataCount = service.myCompanionCount(user_num);
+	    int total_page=myUtil.pageCount(dataCount, size);
+	    if(total_page < current_page) current_page = total_page;
+	    int offset = (current_page - 1) * size;
+	    map.put("offset", offset);
+	    map.put("size", size);
+	    List<Companion> list = service.listMyCompanion(map);
+	    
+	    String paging = myUtil.pagingMethod(current_page, total_page, "listMyCompanion");
+	    
+		model.addAttribute("dataCount" , dataCount);    
+		model.addAttribute("list",list);
+		model.addAttribute("paging", paging);
+	
+		model.addAttribute("pageNo",current_page);
+	
+		model.addAttribute("total_page",total_page);
+	
+		return "mypage/myCompanion";
+	}
+	
 	@PostMapping("/cancelReservation")
     @ResponseBody
     public String cancelReservation(@RequestParam("saleNum") long saleNum,

@@ -12,7 +12,7 @@
 		<div class="card-body">
 			<h5>${list1.subject}</h5>
 			<div class="meta">
-				<span><img src="${pageContext.request.contextPath}/uploads/mypage/${list1.photo}">&nbsp;${list1.nickname}</span> 
+				<span><i class="bi bi-person-circle"></i><img src="${pageContext.request.contextPath}/uploads/mypage/${list1.photo}">&nbsp;${list1.nickname}</span> 
 				<span>${list1.age} 대 · ${list1.gender}</span> <span class="location">${list1.mainRegion}</span>
 			</div>
 		</div>
