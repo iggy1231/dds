@@ -35,9 +35,10 @@
 								<tbody class="table-border-bottom-0">
 									<c:forEach var="list" items="${list}" varStatus="status">
 										<tr class="text-center">
-											<td>${list.sale_num} <input type="hidden" id="saleNum" value="${list.sale_num}"> 
-											<input type="hidden" id="final_price" value="${list.final_price}"> <input type="hidden" id="card_num" value="${list.card_num}">
-											<input type="hidden" id="user_num" value="${list.user_num}">
+											<td>${list.sale_num}  <input type="hidden" id="sale_num-${list.sale_num}" value="${list.sale_num}">
+            <input type="hidden" id="final_price-${list.sale_num}" value="${list.final_price}">
+            <input type="hidden" id="card_num-${list.sale_num}" value="${list.card_num}">
+            <input type="hidden" id="user_num-${list.sale_num}" value="${list.user_num}">
 											</td>
 											<td>${list.reg_date}</td>
 											<td>${list.sdate} 15:00</td>
@@ -52,7 +53,7 @@
 											<td>${list.detail_num}</td>
 											<td>${list.user_num}</td>
 											<td>${list.nickName}</td>	
-											<td> <input type="text" id="description-${list.sale_num}"> <button type="button" onclick="getToken('${list.imp_uid}',null);" > 환 불 </button> </td>			
+											<td> <input type="text" id="description-${list.sale_num}"> <button type="button" onclick="getToken('${list.imp_uid}',0);" > 환 불 </button> </td>			
 										</tr>
 									</c:forEach>
 								</tbody>
@@ -104,26 +105,9 @@
 		</div>
 	</div>
 
-<script>
-/*
-function getToken(num,point) {
-    let url = "${pageContext.request.contextPath}/admin/product/token";
-    let query = "";
+<script type="text/javascript">
 
-    const fn = function(data) {
-        let state = data.state;
-        if (state === "true") {
-            alert("불러오기 성공");
-            console.log(data.access_token);
-            let access_token = data.access_token;
-            cancel(num,access_token,point);
-        } else {
-            alert("불러오기 실패");
-        }
-    };
-    ajaxFun(url, "post", query, "json", fn);
-}
-*/
+
 function getToken(num, point) {
     // ajaxFun 함수 정의
     function ajaxFun(url, method, query, dataType, successCallback) {
@@ -157,20 +141,21 @@ function getToken(num, point) {
 
     // ajaxFun 함수 호출
     ajaxFun(url, "post", query, "json", fn);
+    
 }
 
 function cancel(num, access_token,point) {
     let url = "${pageContext.request.contextPath}/admin/product/cancel";
-    let sale_num = document.getElementById('saleNum').value;
-    let card_num = document.getElementById('card_num').value;
-    let user_num = document.getElementById('user_num').value;
-    let final_price = document.getElementById('final_price').value;
-    let description = document.getElementById('description-' + sale_num).value;
+    let card_num = document.getElementById('card_num-'+${sale_num}).value;
+    let user_num = document.getElementById('user_num-'+${sale_num}).value;
+    let final_price = document.getElementById('final_price-'+${sale_num}).value;
+    let description = document.getElementById('description-'+${sale_num}).value;
+    let sale_num = document.getElementById('sale_num-'+${sale_num}).value;
 
     let formData = {
         imp_uid: num,
         reason: description,
-        access_token: access_token // 액세스 토큰 추가
+        access_token: access_token, // 액세스 토큰 추가
         sale_num : sale_num,
         card_num : card_num,
         final_price : final_price,
