@@ -177,7 +177,27 @@
 			<button class="col btn btn-outline-secondary"onclick="myArticle();" data-bs-toggle="modal" data-bs-target="#alertModal">내 동행 확인하기</button>
 		</div>
 		<hr>
-		<h2 class="color-text">전체 글</h2>
+		<div class="row">
+			<h2 class="col color-text">전체 글</h2>
+			<div class="col color-text">
+				성별
+				<input type="radio" value="all" name="gender" checked>남/여
+				<input type="radio" value="male" name="gender">남자만
+				<input type="radio" value="female" name="gender">여자만
+			</div>
+			<div class="col color-text">
+				연령대
+				<select name="age">
+					<option value="all" selected>모두</option>
+					<option value="10">10대</option>
+					<option value="20">20대</option>
+					<option value="30">30대</option>
+					<option value="40">40대</option>
+					<option value="50">50대</option>
+					<option value="60">60대 이상</option>
+				</select>
+			</div>
+		</div>
 		<div class="scroll-list">
 			<ul class="list-group list-group-flush">
 				 <li class="list-group-item">
@@ -202,6 +222,17 @@
 			</div>
 <script type="text/javascript">
 $(function(){
+	$("input[name=gender]").change(function(){
+		$('.list-group-item').prevAll().remove();
+		listPage(1);
+	});
+	
+	
+	$("select[name=age]").change(function(){
+		$('.list-group-item').prevAll().remove();		
+		listPage(1);	
+	});
+	
 	$('.carousel-item .btn').click(function(){
 		let mainRegion=$(this).val();
 		
@@ -282,7 +313,12 @@ function addNextPage(data) {
 			for(let j=0;j<data.list[i].region_main.length;j++) {
 				htmlText+='		<i class="bi bi-geo-alt-fill">'+data.list[i].region_main[j]+' '+data.list[i].region_sub[j]+'</i></p>';
 			}	
-			htmlText+='		<span class="travel-info-item-tags">#'+data.list[i].theme+' #'+data.list[i].age+'대 #'+data.list[i].gender+'</span>';
+			htmlText+='		<span class="travel-info-item-tags">#'+data.list[i].theme+' #'+data.list[i].age+'대 #';
+			switch (data.list[i].gender) {
+				case "male" : htmlText+='남자만</span>'; break;
+				case "female" : htmlText+='여자만</span>'; break;
+				default : htmlText+='남/여</span>'; break;
+			}
 			htmlText+='</div></div></div>';
 		} else {
 			htmlText+='<div class="col"></div>';
@@ -321,7 +357,12 @@ function addNextPage2(data) {
 			for(let j=0;j<data.list[i].region_main.length;j++) {
 				htmlText+='		<i class="bi bi-geo-alt-fill">'+data.list[i].region_main[j]+' '+data.list[i].region_sub[j]+'</i></p>';
 			}	
-			htmlText+='		<span class="travel-info-item-tags">#'+data.list[i].theme+' #'+data.list[i].age+'대 #'+data.list[i].gender+'</span>';
+			htmlText+='		<span class="travel-info-item-tags">#'+data.list[i].theme+' #'+data.list[i].age+'대 #';
+			switch (data.list[i].gender) {
+				case "male" : htmlText+='남자만</span>'; break;
+				case "female" : htmlText+='여자만</span>'; break;
+				default : htmlText+='남/여</span>'; break;
+			}
 			htmlText+='</div></div></div>';
 		} else {
 			htmlText+='<div class="col"></div>';
@@ -369,7 +410,10 @@ function ajaxFun(url, method, formData, dataType, fn, file = false) {
 
 function listPage(page) {
 	let url="${pageContext.request.contextPath}/companion/companionList";
-	let query="pageNo="+page;
+	let gender=$("input[name=gender]:checked").val();
+	let age=$("select[name=age] option:selected").val();
+	let query="pageNo="+page+"&gender="+gender+"&age="+age;
+
 	
 	const fn=function(data) {
 		scroll_load(data);
@@ -393,7 +437,11 @@ function scroll_load(data) {
 		htmlText+='	<img src="${pageContext.request.contextPath}/uploads/companion/'+item.saveFilename+'" class="card-img-top" onerror=this.src="${pageContext.request.contextPath}/resources/images/noimage.png">';
 		htmlText+='		<div class="card-body">';
 		htmlText+='<a href="#">#'+item.age+'대 </a>';
-		htmlText+='<a href="#">#'+item.gender+' </a>';
+		switch (item.gender) {
+			case "male" : htmlText+='<a href="#">#남자만 </a>'; break;
+			case "female" : htmlText+='<a href="#">#여자만 </a>'; break;
+			default : htmlText+='<a href="#">#남/여 </a>'; break;
+		}
 		htmlText+='<a href="#">#'+item.theme+' </a>';
 		htmlText+='		<h3>'+item.subject+'</h2>';
 		htmlText+='		<p>'+item.content+'</p>';
@@ -404,7 +452,7 @@ function scroll_load(data) {
 		htmlText+='		</footer></div>';
 		htmlText+='	</div>';
 		htmlText+='</li>';
-		$(".list-group").append(htmlText);	
+		$(".list-group").prepend(htmlText);	
 	}
 	
 	

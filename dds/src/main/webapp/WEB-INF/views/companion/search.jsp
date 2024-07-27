@@ -171,7 +171,12 @@ function addNewContent(data) {
 		for(let j=0;j<data.list[index].region_main.length;j++) {
 			htmlText+='		<i class="bi bi-geo-alt-fill">'+data.list[index].region_main[j]+' '+data.list[index].region_sub[j]+'</i></p>';
 		}	
-		htmlText+='		<span class="travel-info-item-tags">#'+data.list[index].theme+' #'+data.list[index].age+'대 #'+data.list[index].gender+'</span>';
+		htmlText+='		<span class="travel-info-item-tags">#'+data.list[index].theme+' #'+data.list[index].age+'대 #';
+		switch (data.list[index].gender) {
+			case "male" : htmlText+='남자만</span>'; break;
+			case "female" : htmlText+='여자만</span>'; break;
+			default : htmlText+='남/여</span>'; break;
+		}
 		htmlText+='</div></div></div>';
 	}
 	htmlText+='</div><br>';
@@ -207,7 +212,12 @@ function nextPopularList(data) {
 		for(let j=0;j<data.list[index].region_main.length;j++) {
 			htmlText+='		<i class="bi bi-geo-alt-fill">'+data.list[index].region_main[j]+' '+data.list[index].region_sub[j]+'</i></p>';
 		}	
-		htmlText+='		<span class="travel-info-item-tags">#'+data.list[index].theme+' #'+data.list[index].age+'대 #'+data.list[index].gender+'</span>';
+		htmlText+='		<span class="travel-info-item-tags">#'+data.list[index].theme+' #'+data.list[index].age+'대 #';
+		switch (data.list[index].gender) {
+			case "male" : htmlText+='남자만</span>'; break;
+			case "female" : htmlText+='여자만</span>'; break;
+			default : htmlText+='남/여</span>'; break;
+		}
 		htmlText+='</div></div></div>';
 	}
 	htmlText+='</div><br>';

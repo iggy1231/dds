@@ -56,6 +56,20 @@
 		OFFSET #{offset} ROWS FETCH FIRST #{size} ROWS ONLY
 	</select>
 	
+	<select id="listCompanionGenderAge" parameterType="map" resultType="com.fly.dds.domain.Companion">
+		select c.num, nickname, subject, content, TO_CHAR(reg_date, 'YYYY-MM-DD') AS reg_date, hitcount, status, user_num,
+		TO_CHAR(sdate, 'YYYY-MM-DD') AS sdate, TO_CHAR(edate, 'YYYY-MM-DD') AS edate, 
+		gender, total_people, current_people, estimate_cost
+		from companion c join companion_info ci on c.num=ci.num
+		join companion_age ca on ca.num=c.num
+		WHERE gender=#{gender} 
+		<if test="age != 'all'">
+			AND age=#{age}
+		</if>
+		order by reg_date DESC, subject ASC
+		OFFSET #{offset} ROWS FETCH FIRST #{size} ROWS ONLY
+	</select>
+	
 	<select id="numBymainRegion" parameterType="String" resultType="long">
 		select distinct num from companion_region where region_main=#{mainRegion}
 	</select>

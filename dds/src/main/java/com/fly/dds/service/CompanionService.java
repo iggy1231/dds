@@ -12,6 +12,7 @@ public interface CompanionService {
 	public Companion findByNum(long num);
 	public int dataCountall();
 	public List<Companion> listCompanion(Map<String, Object> map);
+	public List<Companion> listCompanionGenderAge(Map<String, Object> map);
 	public List<Companion> listBymainRegion(Map<String, Object> map);
 	public List<Companion> similiarList(Map<String, Object> map);
 	public int likeCount(long num);

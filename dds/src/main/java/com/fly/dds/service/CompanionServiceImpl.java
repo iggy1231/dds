@@ -147,6 +147,39 @@ public class CompanionServiceImpl implements CompanionService {
 		
 		return result;
 	}
+	
+	@Override
+	public List<Companion> listCompanionGenderAge(Map<String, Object> map) {
+		List<Companion> list=null;
+		List<Companion> result=new ArrayList<Companion>();
+		try {
+			list=mapper.listCompanionGenderAge(map);
+			for(Companion dto:list) {
+				String theme=mapper.findThemeByNum(dto.getNum());
+				List<Companion> region=mapper.findRegionByNum(dto.getNum());
+				String age=mapper.findAgeByNum(dto.getNum());
+				
+				dto.setTheme(theme);
+				List<String> mainRegionList=new ArrayList<String>();
+				List<String> subRegionList=new ArrayList<String>();
+				for(Companion c:region) {
+					mainRegionList.add(c.getMainRegion());
+					subRegionList.add(c.getSubRegion());
+				}
+				dto.setRegion_main(mainRegionList);
+				dto.setRegion_sub(subRegionList);
+				dto.setAge(age);
+				
+				dto.setSaveFilename(mapper.findFileByNum(dto.getNum()));
+				
+				result.add(dto);
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		return result;
+	}
 
 	@Override
 	public List<Companion> listBymainRegion(Map<String, Object> map) {

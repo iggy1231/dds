@@ -24,6 +24,7 @@ public interface CompanionMapper {
 	
 	public int dataCountall();
 	public List<Companion> listCompanion(Map<String, Object> map);
+	public List<Companion> listCompanionGenderAge(Map<String, Object> map);
 	
 	public long numBymainRegion(String mainRegion);
 	public List<Companion> listBymainRegion(Map<String, Object> map);

@@ -41,7 +41,9 @@ public class CompanionController {
 	
 	@ResponseBody
 	@GetMapping("companionList")
-	public Map<String, Object> companionList(@RequestParam(value = "pageNo", defaultValue = "1") int current_page) {
+	public Map<String, Object> companionList(@RequestParam(value = "pageNo", defaultValue = "1") int current_page,
+			@RequestParam(value="gender") String gender,
+			@RequestParam(value="age") String age) {
 		Map<String, Object> model=new HashMap<String, Object>();
 		int size=5;
 		int dataCount=service.dataCountall();
@@ -57,8 +59,10 @@ public class CompanionController {
 		Map<String, Object> map=new HashMap<String, Object>();
 		map.put("offset", offset);
 		map.put("size", size);
+		map.put("gender", gender);
+		map.put("age", age);
 		
-		List<Companion> list=service.listCompanion(map);
+		List<Companion> list=service.listCompanionGenderAge(map);
 		
 		model.put("total_page", total_page);
 		model.put("pageNo", current_page);
