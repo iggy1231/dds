@@ -71,9 +71,9 @@ public class MemberManageController {
         return ".admin.memberManage.list";
     }
 	
-	@GetMapping("report")
-	public String membermanage() {
+	@GetMapping("reportbanlist")
+	public String listManage() {
 		
-		return ".admin.banManage.report";
+		return ".admin.banManage.list";
 	}
 }

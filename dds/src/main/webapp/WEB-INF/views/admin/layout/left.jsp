@@ -198,7 +198,7 @@
                   </a>
                 </li>
                 <li class="menu-item">
-                  <a href="${pageContext.request.contextPath}/admin/membermanage/report" class="menu-link">
+                  <a href="${pageContext.request.contextPath}/admin/membermanage/reportbanlist" class="menu-link">
                     <div data-i18n="Account">신고/차단</div>
                   </a>
                 </li>
