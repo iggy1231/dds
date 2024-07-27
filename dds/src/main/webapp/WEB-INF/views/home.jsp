@@ -59,6 +59,16 @@
             transform: translateY(-22%);
         }
         
+        .carousel-item {
+    height: 45vh; /* 원하는 vh 값을 설정하세요 */
+}
+
+.carousel-item img {
+    height: 100%; /* 이미지가 캐러셀의 높이에 맞게 조정되도록 설정 */
+    object-fit: cover; /* 이미지를 잘라서 맞춤 */
+}
+        
+        
 .testimonial-item {
     position: relative;
     display: flex;
@@ -427,24 +437,31 @@
             <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
             <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="1" aria-label="Slide 2"></button>
             <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="2" aria-label="Slide 3"></button>
+            <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="3" aria-label="Slide 4"></button>
         </div>
         <div class="rounded carousel-inner">
             <div class="carousel-item active" data-bs-interval="2000">
-                <img src="https://www.yeogi.com/_next/image?url=https%3A%2F%2Fstatic.yeogi.com%2F_next%2Fstatic%2Fmedia%2F03_Kv_PC_Light.c2b0d0f8.png&w=912&q=100" class="d-block w-100" alt="...">
+                <img src="https://i.namu.wiki/i/h3jpSjw3HY2pEAPIyw0NErxH1ctxVpyIBcf9SrCPpYQ1h3M8ggyoPEAoLYZqjY_vYOoxxsJo8xZdrY0dRLiTfw.webp" class="d-block w-100" alt="...">
                 <div class="carousel-caption d-none d-md-block">
                     <h3>순천시 순천만</h3>
                 </div>
             </div>
             <div class="carousel-item" data-bs-interval="2000">
-                <img src="https://www.yeogi.com/_next/image?url=https%3A%2F%2Fstatic.yeogi.com%2F_next%2Fstatic%2Fmedia%2F03_Kv_PC_Light.c2b0d0f8.png&w=912&q=100" class="d-block w-100" alt="...">
+                <img src="https://www.cha.go.kr/unisearch/images/national_treasure/2021030208283100.jpg" class="d-block w-100" alt="...">
                 <div class="carousel-caption d-none d-md-block">
                     <h3>익산시 미륵사지 석탑</h3>
                 </div>
             </div>
             <div class="carousel-item" data-bs-interval="2000">
-                <img src="https://www.yeogi.com/_next/image?url=https%3A%2F%2Fstatic.yeogi.com%2F_next%2Fstatic%2Fmedia%2F03_Kv_PC_Light.c2b0d0f8.png&w=912&q=100" class="d-block w-100" alt="...">
+                <img src="https://i.namu.wiki/i/hkDOgJHC40yiIFKQDRz7YjHpzWrL9vCTT7mve4TF6Lj-GpGsBpvT8WlXbwOT_To1Ndl1zKrVLQ-SiwaGNFOgQA.webp" class="d-block w-100" alt="...">
                 <div class="carousel-caption d-none d-md-block">
                     <h3>부산 해운대</h3>
+                </div>
+            </div>
+            <div class="carousel-item" data-bs-interval="2000">
+                <img src="https://img1.daumcdn.net/thumb/R1280x0/?fname=http://t1.daumcdn.net/brunch/service/user/1jPF/image/6dTBQAAJW6QLbLUaneCZWL3Vhf4.jpg" class="d-block w-100" alt="...">
+                <div class="carousel-caption d-none d-md-block">
+                    <h3>제주도 성산일출봉</h3>
                 </div>
             </div>
         </div>
@@ -568,6 +585,14 @@ $(document).ready(function(){
     }
 });
 </script>				
+
+<script>
+  (function(){var w=window;if(w.ChannelIO){return w.console.error("ChannelIO script included twice.");}var ch=function(){ch.c(arguments);};ch.q=[];ch.c=function(args){ch.q.push(args);};w.ChannelIO=ch;function l(){if(w.ChannelIOInitialized){return;}w.ChannelIOInitialized=true;var s=document.createElement("script");s.type="text/javascript";s.async=true;s.src="https://cdn.channel.io/plugin/ch-plugin-web.js";var x=document.getElementsByTagName("script")[0];if(x.parentNode){x.parentNode.insertBefore(s,x);}}if(document.readyState==="complete"){l();}else{w.addEventListener("DOMContentLoaded",l);w.addEventListener("load",l);}})();
+
+  ChannelIO('boot', {
+    "pluginKey": "a7a42b8e-be02-4a45-be4a-ddab76186545"
+  });
+</script>
         
         
 

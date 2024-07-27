@@ -279,13 +279,13 @@
 	</select>
 	
 	<select id="listMyRoom" parameterType="map" resultType="com.fly.dds.domain.Room">
-	    SELECT thumbnail, subject, rd.name, sdate, edate, (edate - sdate) AS days, rs.sale_num AS saleNum, rd.detail_num AS detailNum, rs.user_num AS userNum
+	    SELECT r.num, thumbnail, subject, rd.name, sdate, edate, (edate - sdate) AS days, rs.sale_num AS saleNum, rd.detail_num AS detailNum, rs.user_num AS userNum
 	    FROM room r
 	    JOIN room_detail rd ON r.num = rd.num
 	    JOIN room_sale rs ON rd.detail_num = rs.detail_num
 	    JOIN member1 m ON m.user_num = rs.user_num
 	    WHERE rs.user_num = #{user_num}
-	    GROUP BY thumbnail, subject, rd.name, sdate, edate, rs.sale_num, rd.detail_num, rs.user_num
+	    GROUP BY thumbnail, subject, rd.name, sdate, edate, rs.sale_num, rd.detail_num, rs.user_num, r.num
 	    ORDER BY sdate ASC
 	</select>
 	
