@@ -62,13 +62,17 @@
         font-size: 12px;
         color: #999;
     }
+    .color-text {
+    	color: #18A8F1;
+    	font-weight: bold;
+    }
 </style>
 <div class="container border border-top-0 border-bottom-0">
 			<div>
-			<h3 class="ms-5 mt-3"> ${kwd}에 대한 검색 결과 </h3>
+			<h2 class="ms-5 mt-3 color-text"> ${kwd}에 대한 검색 결과 </h2>
 			<hr>
 			<div class="row justify-content-between">
-				<h3 class="ms-5 col">검색 결과 ${dataCount}건</h3>
+				<h2 class="ms-5 col color-text">검색 결과 ${dataCount}건</h2>
 				<div class="col text-end">
 					<button type="button" class="btn listTypebtn1 active" data-bs-toggle="button">가나다순</button>
 					<button type="button" class="btn listTypebtn2" data-bs-toggle="button">인기순</button>

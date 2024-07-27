@@ -102,6 +102,10 @@
         font-size: 12px;
         color: #999;
     }
+    .color-text {
+    	color: #18A8F1;
+    	font-weight: bold;
+    }
 </style>
 		<div class="container-fluid py-5 mb-3 hero-header">
 			<div class="row m-2 g-5 align-items-center">
@@ -166,7 +170,7 @@
 	<div class="body-container">	
 		<div class="body-main">
 			<div>
-				<h3>인기글</h3>
+				<h2 class="color-text"><i class="bi bi-info-square"></i>&nbsp;인기 여행 정보</h2>
 				<div class="scroll-list">
 					<ul>
 						<li>
@@ -177,7 +181,7 @@
 				<hr>
 				<div>
 				<div class="row justify-content-between">
-					<h3 class="col">전체 글 ${dataCount}건</h3>
+					<h2 class="col color-text">전체 ${dataCount}건</h2>
 					<div class="col text-end">
 						<button type="button" class="btn listTypebtn1 active" data-bs-toggle="button">가나다순</button>
 						<button type="button" class="btn listTypebtn2" data-bs-toggle="button">인기순</button>

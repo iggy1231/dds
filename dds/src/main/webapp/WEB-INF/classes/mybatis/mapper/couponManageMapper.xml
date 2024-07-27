@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.fly.dds.admin.mapper.CouponManageMapper">
+	<insert id="insertCoupon" parameterType="com.fly.dds.domain.Coupon">
+		insert into coupon(NUM, NAME, RATE_DISCOUNT, CONTENT, COUPON_IMAGE, CODE, ISSUE_DATE, EXPIRY_DATE, USER_NUM)
+		values(coupon_seq.nextval, #{name}, #{rate_discount}, #{content}, #{saveFilename, jdbcType = VARCHAR}, #{code}, #{issue_date}, #{expiry_date}, #{user_num})
+	</insert>
+	
+	<select id="listCoupon" parameterType="map" resultType="com.fly.dds.domain.Coupon">
+		select num, name, rate_discount, content, coupon_image AS saveFilename,
+		TO_CHAR(issue_date, 'YYYY-MM-DD') AS issue_date, TO_CHAR(expiry_date, 'YYYY-MM-DD') AS expiry_date, nickname
+		from coupon c join member_info m on c.user_num=m.user_num
+		order by num asc
+		OFFSET #{offset} ROWS FETCH FIRST #{size} ROWS ONLY
+	</select>
+	
+	<select id="dataCount" resultType="Integer">
+		select NVL(COUNT(*), 0) from coupon
+	</select>
+	
+	<select id="findBynum" parameterType="long" resultType="com.fly.dds.domain.Coupon">
+		select num, name, rate_discount, content, code, coupon_image AS saveFilename,
+		TO_CHAR(issue_date, 'YYYY-MM-DD') AS issue_date, TO_CHAR(expiry_date, 'YYYY-MM-DD') AS expiry_date, nickname
+		from coupon c join member_info m on c.user_num=m.user_num
+        where c.num=#{num}
+	</select>
+	
+	<update id="updateCoupon" parameterType="com.fly.dds.domain.Coupon">
+		update coupon set name=#{name}, rate_discount=#{rate_discount}, content=#{content}, coupon_image=#{saveFilename, jdbcType = VARCHAR}, 
+		code=#{code}, issue_date=#{issue_date}, expiry_date=#{expiry_date}, user_num=#{user_num}
+		where num=#{num}
+	</update>
+	
+	<delete id="deleteCoupon" parameterType="long">
+		delete from coupon where num=#{num}
+	</delete>
+</mapper>

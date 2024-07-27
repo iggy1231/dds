@@ -187,30 +187,35 @@
         <div class="tab-content mt-3">
             <div id="tab-pane-1" class="tab-pane fade show active">
                 <div class="input-container">
-                    <input type="text" placeholder="쿠폰코드를 입력하세요.">
-                    <button>등록</button>
+	            	<input id="couponCode" type="text" placeholder="쿠폰코드를 입력하세요.">
+	            	<button onclick="addCoupon();" data-bs-toggle="modal" data-bs-target="#alertModal">등록</button>
                 </div>
                 <div class="button-group">
                     <button class="btn active" onclick="showCoupons('available')">사용가능한 쿠폰</button>
                     <button class="btn" onclick="showCoupons('expired')">지난 쿠폰</button>
                 </div>
                 <div id="available-coupons" class="coupon-content active">
-                    <div class="coupon-card">
+                <c:forEach var="dto" items="${list1}">
+                	<div class="coupon-card">
                         <div class="coupon-info">
-                            <h4>50% 첫 구매 쿠폰</h4>
-                            <p>ID당 1회, 최대 5천원<br>지오다노 모바일 APP 전용</p>
+                            <h4>${dto.name}</h4>
+                            <p>${dto.content}<br>${dto.content}</p>
                         </div>
                         <div class="coupon-brand">GIORDANO</div>
                     </div>
+                </c:forEach>
+                    
                 </div>
                 <div id="expired-coupons" class="coupon-content">
+                <c:forEach var="dto" items="${list2}">
                     <div class="coupon-card">
                         <div class="coupon-info">
-                            <h4>10% 할인 쿠폰</h4>
-                            <p>2023년 12월 31일 만료</p>
+                            <h4>${dto.name}</h4>
+                            <p>${dto.content}<br>${dto.content}</p>
                         </div>
                         <div class="coupon-brand">EXPIRED</div>
                     </div>
+                </c:forEach>
                 </div>
             </div>
             <div id="tab-pane-2" class="tab-pane fade">
@@ -236,8 +241,41 @@
         </div>
     </div>
 </div>
-
+<div class="modal fade" id="alertModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+		  <div class="modal-dialog">
+		    <div class="modal-content">
+		      <div class="modal-header">
+		        <h1 class="modal-title fs-5" id="staticBackdropLabel"></h1>
+		      </div>
+		      <div class="modal-footer">
+		        <button type="button" class="btn btn-primary" data-bs-dismiss="modal">확인</button>
+		      </div>
+		    </div>
+		  </div>
+		</div>
+		
 <script>
+	function addCoupon() {
+		let code=document.getElementById('couponCode');
+		let url="${pageContext.request.contextPath}/mypage/addcoupon";
+		let query="code="+code.value;
+		
+		const fn = function(data) {
+			let state=data.state;
+			if(state === "true") {
+				$('#alertModal .modal-title').text("쿠폰 등록에 성공했습니다");
+				location.href="${pageContext.request.contextPath}/mypage/coupoint";
+			} else if(state === "used") {
+				$('#alertModal .modal-title').text("이미 사용된 쿠폰 코드입니다");
+				return;
+			} else {
+				$('#alertModal .modal-title').text("쿠폰 등록에 실패했습니다");
+			}
+		}
+		
+		ajaxFun(url, "post", query, "json", fn);
+	}
+	
     function showCoupons(type) {
         var availableBtn = document.querySelector(".button-group .btn:nth-child(1)");
         var expiredBtn = document.querySelector(".button-group .btn:nth-child(2)");
@@ -281,5 +319,29 @@
         } else if (type === 'expiring') {
             history.innerHTML = '<h3>23년 08월</h3><div class="history-item"><div class="date">23.08.15</div><div class="description">포인트 소멸 예정</div><div class="points">-500 P</div></div>';
         }
+    }
+    function ajaxFun(url, method, formData, dataType, fn, file = false) {
+    	const settings = {
+    			type: method, 
+    			data: formData,
+    			dataType:dataType,
+    			success:function(data) {
+    				fn(data);
+    			},
+    			beforeSend: function(jqXHR) {
+    			},
+    			complete: function () {
+    			},
+    			error: function(jqXHR) {
+    				console.log(jqXHR.responseText);
+    			}
+    	};
+    	
+    	if(file) {
+    		settings.processData = false;
+    		settings.contentType = false;
+    	}
+    	
+    	$.ajax(url, settings);
     }
 </script>

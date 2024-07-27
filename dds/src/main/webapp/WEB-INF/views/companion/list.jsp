@@ -84,7 +84,10 @@
         font-size: 12px;
         color: #999;
     }
-
+.color-text {
+    	color: #18A8F1;
+    	font-weight: bold;
+    }
 </style>
 
 <div class="container border border-top-0 border-bottom-0">
@@ -135,7 +138,7 @@
 		  </button>
 		</div>
 		<hr>
-    	<h3>지역 별 최신 글</h3>
+    	<h2 class="color-text">지역 별 최신 글</h2>
     	<div id="areaList-carousel" class="carousel slide">
 			<div class="carousel-inner px-3">
 				<div class="carousel-item active"></div>
@@ -152,7 +155,7 @@
 			</button>
 		</div>
 		<hr>
-		<h3>지역 별 인기 글</h3>
+		<h2 class="color-text">지역 별 인기 글</h2>
     	<div id="areaPopularList-carousel" class="carousel slide">
 			<div class="carousel-inner px-3">
 				<div class="carousel-item active"></div>
@@ -169,9 +172,12 @@
 			</button>
 		</div>
 		<hr>
-		<button class="btn btn-outline-secondary"onclick="writeForm();">동행 구인 작성</button>
+		<div class="row">
+			<button class="col btn btn-outline-secondary"onclick="writeForm();" data-bs-toggle="modal" data-bs-target="#alertModal">동행 구인 작성</button>
+			<button class="col btn btn-outline-secondary"onclick="myArticle();" data-bs-toggle="modal" data-bs-target="#alertModal">내 동행 확인하기</button>
+		</div>
 		<hr>
-		<h3>전체 글</h3>
+		<h2 class="color-text">전체 글</h2>
 		<div class="scroll-list">
 			<ul class="list-group list-group-flush">
 				 <li class="list-group-item">
@@ -182,7 +188,18 @@
 		<hr>
     </div>
 </div>
-
+<div class="modal" id="alertModal" data-bs-keyboard="false" tabindex="-1" aria-hidden="true">
+			  <div class="modal-dialog">
+			    <div class="modal-content">
+			      <div class="modal-header">
+			        <h1 class="modal-title fs-5" id="staticBackdropLabel"></h1>
+			      </div>
+			      <div class="modal-footer">
+			        <button type="button" class="btn btn-primary" data-bs-dismiss="modal">확인</button>
+			      </div>
+			    </div>
+			  </div>
+			</div>
 <script type="text/javascript">
 $(function(){
 	$('.carousel-item .btn').click(function(){
@@ -431,9 +448,21 @@ $(function(){
 });
 
 function writeForm() {
+	if(${empty sessionScope.member}) {
+		$('#alertModal .modal-title').text("글 작성은 로그인 후에만 가능합니다.");
+		return;
+	}
+	$('#alertModal').html('');
 	location.href='${pageContext.request.contextPath}/companion/write';
 }
-
+function myArticle() {
+	if(${empty sessionScope.member}) {
+		$('#alertModal .modal-title').text("내 동행 확인은 로그인 후에만 가능합니다.");
+		return;
+	}
+	$('#alertModal').html('');
+	location.href='${pageContext.request.contextPath}/mypage/companion';
+}
 function article(num) {
 	location.href='${pageContext.request.contextPath}/companion/article?num='+num;
 }
