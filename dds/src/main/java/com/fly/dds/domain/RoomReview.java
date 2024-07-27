@@ -3,7 +3,7 @@ package com.fly.dds.domain;
 import org.springframework.web.multipart.MultipartFile;
 
 public class RoomReview {
-	private int review_num; // 
+	private long review_num; // 
 	private double rating;
 	private String content;
 	private String reg_date;
@@ -57,10 +57,10 @@ public class RoomReview {
 	public void setPhotoFile(MultipartFile photoFile) {
 		this.photoFile = photoFile;
 	}
-	public int getReview_num() {
+	public long getReview_num() {
 		return review_num;
 	}
-	public void setReview_num(int review_num) {
+	public void setReview_num(long review_num) {
 		this.review_num = review_num;
 	}
 	public double getRating() {

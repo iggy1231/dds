@@ -2,6 +2,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 
+
 <style type="text/css">
     @font-face {
         font-family: 'Pretendard-Regular';
@@ -235,7 +236,6 @@
 	cursor: pointer;
 }
 </style>
-
 <div class="my-info">
 	<div class="page-title">
 		<div class="spacing-top"></div>
@@ -320,6 +320,7 @@ function ajaxFun(url, method, formData, dataType, fn, file = false) {
 	$.ajax(url, settings);
 }
 
+
 $(function(){
 	listMyRoom(1);
 	
@@ -387,130 +388,126 @@ function cancelReservation(saleNum, detailNum, userNum) {
 }
 
 
+//---------- 리뷰
 
-//별
-$(function(){
-	$(".review-form .star a").click(function(e){
-		let b = $(this).hasClass("on");
-		$(this).parent().children("a").removeClass("on");
-		$(this).addClass("on").prevAll("a").addClass("on");
-		
-		if(b) {
-			$(this).removeClass("on");
-		}
-		
-		let s = $(this).closest(".review-form").find(".star .on").length;
-		$(this).closest(".review-form").find("input[name=score]").val(s);
-		
-		return false;
-	});
+// 별 선택
+$(document).on("click", ".review-form .star a", function(e){
+    let b = $(this).hasClass("on");
+    $(this).parent().children("a").removeClass("on");
+    $(this).addClass("on").prevAll("a").addClass("on");
+
+    if(b) {
+        $(this).removeClass("on");
+    }
+
+    let s = $(this).closest(".review-form").find(".star .on").length;
+    $(this).closest(".review-form").find("input[name=rating]").val(s);
+
+    return false;
 });
 
-// 이미지
-$(function(){
-	var sel_files = [];
-	
-	$("body").on("click", ".review-form .img-add", function(){
-		$(this).closest(".review-form").find("input[name=photoFile]").trigger("click");
-	});
-	
-	$("form[name=reviewForm] input[name=photoFile]").change(function(e){
-		if(!this.files) {
-			let dt = new DataTransfer();
-			for(let f of sel_files) {
-				dt.items.add(f);
-			}
-			
-			this.files = dt.files;
-			return false;
-		}
-		
-		let $form = $(this).closest("form");
-		
-		// 유사 배열을 배열로 변환
-		const fileArr = Array.from(this.files);
-		
-		fileArr.forEach((file, index) => {
-			sel_files.push(file);
-			
-			const reader = new FileReader();
-			const $img = $("<img>", {"class":"item img-item"});
-			$img.attr("data-filename", file.name);
-			reader.onload = e => {
-				$img.attr("src", e.target.result);		
-			};
-			reader.readAsDataURL(file);
-			$form.find(".img-grid").append($img);
-		});
-		
-		let dt = new DataTransfer();
-		for(let f of sel_files) {
-			dt.items.add(f);
-		}
-		
-		this.files = dt.files;
-	});
-	
-	$("body").on("click", ".review-form .img-item", function(){
-		if(!confirm("선택한 파일을 삭제 하시겠습니까?")) {
-			return false;
-		}
-		
-		let filename = $(this).attr("data-filename");
-		
-		for(let i = 0; i < sel_files.length; i++) {
-			if(filename === sel_files[i].name) {
-				sel_files.splice(i, 1);
-				break;
-			}
-		}
-		
-		let dt = new DataTransfer();
-		for(let f of sel_files) {
-			dt.items.add(f);
-		}
-		
-		const f = this.closest("form");
-		f.selectFile.files = dt.files;
-		
-		$(this).remove();
-	});
+
+/*
+// 이미지 추가
+$(document).on("click", ".review-form .img-add", function(){
+    $(this).closest(".review-form").find("input[name=photoFile]").trigger("click");
 });
 
-// 리뷰 작성 버튼 클릭 이벤트 위임
+$(document).on("change", "form[name^='reviewForm'] input[name=photoFile]", function(e){
+    let sel_files = [];
+    if(!this.files) {
+        let dt = new DataTransfer();
+        for(let f of sel_files) {
+            dt.items.add(f);
+        }
+
+        this.files = dt.files;
+        return false;
+    }
+
+    let $form = $(this).closest("form");
+
+    // 유사 배열을 배열로 변환
+    const fileArr = Array.from(this.files);
+
+    fileArr.forEach((file, index) => {
+        sel_files.push(file);
+
+        const reader = new FileReader();
+        const $img = $("<img>", {"class":"item img-item"});
+        $img.attr("data-filename", file.name);
+        reader.onload = e => {
+            $img.attr("src", e.target.result);        
+        };
+        reader.readAsDataURL(file);
+        $form.find(".img-grid").append($img);
+    });
+
+    let dt = new DataTransfer();
+    for(let f of sel_files) {
+        dt.items.add(f);
+    }
+
+    this.files = dt.files;
+});
+
+$(document).on("click", ".review-form .img-item", function(){
+    if(!confirm("선택한 파일을 삭제 하시겠습니까?")) {
+        return false;
+    }
+
+    let filename = $(this).attr("data-filename");
+    let form = $(this).closest("form")[0];
+    let files = form.photoFile.files;
+    let dt = new DataTransfer();
+
+    for(let i = 0; i < files.length; i++) {
+        if(files[i].name !== filename) {
+            dt.items.add(files[i]);
+        }
+    }
+
+    form.photoFile.files = dt.files;
+    $(this).remove();
+});
+*/
+
+// 리뷰 작성 버튼 클릭 이벤트 위임 - ajax
 $(document).on('click', '.btnReviewSend', function() {
+    const roomId = $(this).data('room-id');
     let form = document.forms['reviewForm'];
     let formData = new FormData(form);
-    
-    if (form.score.value === "0") {
+
+    if (rating === "0") {
         alert("평점은 1점부터 가능합니다.");
         return false;
     }
 
-    let content = form.content.value.trim();
-    if (!content) {
+    if (! content) {
         alert("리뷰를 입력하세요.");
-        form.content.focus();
+        document.getElementById('content').focus();
         return false;
     }
 
-    let url = "${pageContext.request.contextPath}/room/reviewWrite";
-	
-	const fn = function(data) {
-		if(data.state === "true") {
-			$('.btnReviewWriteForm').remove();
-			$('.review-form').remove();
-		} else {
-			alert("리뷰 등록 중 오류가 발생했습니다.");
-		}
-	};
-	
-	ajaxFun(url, "post", formData, "json", fn, true);
+    let url = `${pageContext.request.contextPath}/mypage/reviewWrite`; // URL 경로 확인
+
+    const fn = function(data) {
+        if (data.state === "true") {
+            $('.btnReviewWriteForm').remove();
+            $('.review-form').remove();
+        } else {
+            alert("리뷰 등록 중 오류가 발생했습니다.");
+        }
+    };
+
+    ajaxFun(url, "POST", formData, "json", fn, true); // POST로 설정
 });
 
 
-//모달이 닫힐 때마다 초기화
-$(document).on('hidden.bs.modal', '#reviewModal', function(e) {
+
+// 모달이 닫힐 때마다 초기화
+$(document).on('hidden.bs.modal', function(e) {
     $(this).find("form")[0].reset();
 });
+
 </script>

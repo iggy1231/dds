@@ -1,6 +1,7 @@
 package com.fly.dds.mapper;
 
 import java.sql.SQLException;
+import java.util.Map;
 
 import org.apache.ibatis.annotations.Mapper;
 
@@ -14,7 +15,7 @@ public interface RoomPaymentMapper {
 	public void insertPayment(RoomPayment dto) throws SQLException;
 	public void insertCardData(RoomPayment dto) throws SQLException;
 	public long payMentSeq();
-	
+	public void insertRefund(Map<String, Object> map) throws SQLException;
 	
 	// public void insertUserPoint(Point dto) throws SQLException;
 	

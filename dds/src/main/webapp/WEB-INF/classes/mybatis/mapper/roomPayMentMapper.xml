@@ -30,6 +30,10 @@
   		SELECT room_sale_seq.nextval FROM dual
  	 </select>
  	 
+ 	 <insert id="insertRefund" parameterType="map">
+ 	 	insert into Room_refund(sale_num , refund_state , refund_date, refund_price , card_num , refund_reason , user_num) 
+		values(#{sale_num} , 1 , sysdate , #{refund_preice} , #{card_num} , #{refund_reason} , #{user_num})
+ 	 </insert>
 	 
 <!-- // sale_num
 	public String findBySaleNum();

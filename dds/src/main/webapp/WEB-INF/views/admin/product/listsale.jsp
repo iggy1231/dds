@@ -35,13 +35,16 @@
 								<tbody class="table-border-bottom-0">
 									<c:forEach var="list" items="${list}" varStatus="status">
 										<tr class="text-center">
-											<td>${list.sale_num} <input type="hidden" id="saleNum" value="${list.sale_num}"> </td>
+											<td>${list.sale_num} <input type="hidden" id="saleNum" value="${list.sale_num}"> 
+											<input type="hidden" id="final_price" value="${list.final_price}"> <input type="hidden" id="card_num" value="${list.card_num}">
+											<input type="hidden" id="user_num" value="${list.user_num}">
+											</td>
 											<td>${list.reg_date}</td>
 											<td>${list.sdate} 15:00</td>
 											<td>${list.edate} 11:00</td>
 											<td>${list.total_price}</td>
 											<td>${list.coupon_price}</td>
-											<td>${list.point_price}</td>
+											<td>${list.point_price} </td>
 											<td>${list.discount}</td>
 											<td>${list.final_price}</td>
 											<td>${list.subject}</td>
@@ -159,12 +162,18 @@ function getToken(num, point) {
 function cancel(num, access_token,point) {
     let url = "${pageContext.request.contextPath}/admin/product/cancel";
     let sale_num = document.getElementById('saleNum').value;
+    let card_num = document.getElementById('card_num').value;
+    let user_num = document.getElementById('user_num').value;
+    let final_price = document.getElementById('final_price').value;
     let description = document.getElementById('description-' + sale_num).value;
 
     let formData = {
         imp_uid: num,
         reason: description,
         access_token: access_token // 액세스 토큰 추가
+        sale_num : sale_num,
+        card_num : card_num,
+        final_price : final_price,
     };
 
     const fn = function(data) {

@@ -3,10 +3,10 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.fly.dds.mapper.RoomReviewMapper">
 	<!-- QnA 등록 -->
-	<!--public void insertQnA(RoomQnA dto) throws SQLException;  -->
+	<!--public void insertRoomReview(RoomQnA dto) throws SQLException;  -->
 	<insert id="insertRoomReview" parameterType="com.fly.dds.domain.RoomReview">
 		INSERT INTO room_review(review_num, rating, content, reg_date, photo, num, user_num) 
-		VALUES(room_review_seq.NEXTVAL, #{rating} , #{content}, SYSDATE, #{photo}, #{num} , #{user_num} )
+		VALUES(room_review_seq.NEXTVAL, #{rating} , #{content}, SYSDATE, #{photo , jdbcType=VARCHAR}, #{num} , #{user_num} )
 	</insert>
 	
 	<!--  public Summary findByReviewSummary(Map<String, Object> map); -->

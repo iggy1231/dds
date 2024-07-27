@@ -70,6 +70,17 @@ ul.payment-info li span.total {
 <input type="hidden" id="discount" value=0>
 <input type="hidden" id="email" value="">
 
+<fmt:parseDate var="startDate" value="${sdate}" pattern="yyyy-MM-dd"/>
+<fmt:parseDate var="endDate" value="${edate}" pattern="yyyy-MM-dd"/>
+
+<%-- Date 객체를 밀리초 단위로 변환 --%>
+<c:set var="startTime" value="${startDate.time}"/>
+<c:set var="endTime" value="${endDate.time}"/>
+
+<%-- 밀리초 단위의 차이를 일(day) 단위로 변환 --%>
+<c:set var="differenceInMillis" value="${endTime - startTime}"/>
+<c:set var="differenceInDays" value="${differenceInMillis / (1000 * 60 * 60 * 24)}"/>
+
   <div class="row g-4">
     <div class="col-lg-8">
       <h4 style="font-weight: 700;" class="ps-2 pb-0">✅ 예약 확인 및 결제</h4>
@@ -178,6 +189,7 @@ ul.payment-info li span.total {
       <ul class="payment-info">
         <li>
           <span>객실 가격(1박)</span>
+          <span>${differenceInDays} 박</span>
           <span>${dto.price}원</span>
         </li>
         <hr class="pb-2">
@@ -187,7 +199,7 @@ ul.payment-info li span.total {
         </li>
       </ul>
       <div class="d-flex justify-content-center mt-4 mb-3 pt-2">
-        <button class="text-center text-white fs-5 btn btn-primary px-4 py-2 rounded" id="final_price" onclick="requestPay()" value="${total_price - point_price}*${edate-sdate}">${total_price - point_price}*${edate-sdate}원 결제하기</button>
+        <button class="text-center text-white fs-5 btn btn-primary px-4 py-2 rounded" id="final_price" onclick="requestPay()" value="${( total_price * differenceInDays ) - point_price}">${total_price * differenceInDays - point_price}원 결제하기</button>
       </div>
     </div>
   </div>
@@ -204,6 +216,8 @@ function applyPoint() {
     var couponDiscount = document.getElementById('coupon-discount').innerText.replace(/,/g, '').replace('원', '');
     var finalPrice = document.getElementById('final-price');
     var roomPrice = ${dto.price};
+    
+    final_price = parseInt(final_price);
 
     point = parseInt(point) || 0; // Remove commas for calculation and handle NaN
     couponDiscount = parseInt(couponDiscount) || 0;
@@ -236,6 +250,8 @@ function requestPay() {
 	var userName = document.getElementById('userName').value;
 	var final_price = document.getElementById('final_price').value;
 	var room_name = document.getElementById('name').value;
+	
+	final_price = parseInt(final_price);
 	
     IMP.request_pay({
     	  pg : 'html5_inicis.INIpayTest', // 테스트 시 html5_inicis.INIpayTest 기재 
@@ -274,6 +290,8 @@ function savePaymentInfo(resp) {
 	var imp_uid = resp.imp_uid;
 	var card_name = resp.card_name;
 	var card_num = resp.card_number;
+	
+	final_price = parseInt(final_price);
 	
 	var paymentData = {
 		sale_num : sale_num,
@@ -324,6 +342,8 @@ function completePage(paymentData) {
 	    var subject = document.getElementById('subject').value;
 	    var card_name = paymentData.card_name;
 	    var card_num = paymentData.card_num;
+	    
+	    final_price = parseInt(final_price);
 
 	    var completeData = {
 	        sale_num: sale_num,

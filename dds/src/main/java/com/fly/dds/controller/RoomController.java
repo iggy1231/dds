@@ -294,48 +294,6 @@ public class RoomController {
 		return "redirect:/";
 	}
 	
-	/*
-	@GetMapping("payment") 
-	public String roomPayment(
-			@RequestParam long detail_num,
-	        @RequestParam String sdate,
-	        @RequestParam String edate,
-	        HttpSession session,
-	        Model model) throws Exception {
-	    
-	    try {
-	        // 해당 레코드 가져 오기
-	    	Room dto = service.findByDetail(detail_num);
-	        SessionInfo info = (SessionInfo)session.getAttribute("member");
-	       
-	        
-	        Member member = null;
-	        String tel;
-	        
-	        member = myPageService.findById(info.getUser_num());
-	        tel = member.getTel();
-	       
-	        
-	        // 상세정보 출력
-	        Map<String, Object> map = new HashMap<>();
-	        
-	        model.addAttribute("dto", dto);
-	        
-	       //  System.out.println("테스터 : " + dto + sdate + edate + people + detail_num + photo);
-	        
-	        // 추가된 정보
-	        model.addAttribute("sdate", sdate);
-	        model.addAttribute("edate", edate);
-	        model.addAttribute("detail_num", detail_num);
-	        model.addAttribute("tel",tel);
-	        
-	    } catch (Exception e) {
-	        e.printStackTrace();
-	    }
-	    
-	    return ".room.payment";
-	}
-	*/
 	
 	@GetMapping("payment") 
 	public String roomPayment(
@@ -446,28 +404,23 @@ public class RoomController {
 	    model.addAllAttributes(params);
 	    return ".room.payComplete";
 	}
+
 	
 	
+	// 리뷰 등록 - ajax
 	@PostMapping("reviewWrite")
 	@ResponseBody
-	public Map<String, Object> writeReviewSubmit(RoomReview dto, HttpSession session) throws Exception {
-	    String root = session.getServletContext().getRealPath("/");
-	    String pathname = root + "uploads" + File.separator + "review";
+	public Map<String, Object> writeReviewSubmit(RoomReview dto, 
+			HttpSession session) throws Exception {
+		
+		  Map<String, Object> map = new HashMap<>();
+		SessionInfo info = (SessionInfo) session.getAttribute("member");
+        dto.setUser_num(info.getUser_num());
 
-	    String state = "true";
 
 	    try {
-	        SessionInfo info = (SessionInfo) session.getAttribute("member");
-	        dto.setUser_num(info.getUser_num());
-	        dto.setNickName(info.getNickName());
-
-	        // num 필드 및 review_num 필드 기본값 설정
-	        if (dto.getNum() == 0) {
-	            dto.setNum(1);  // defaultNumValue는 적절한 기본값으로 설정
-	        }
-	        if (dto.getReview_num() == 0) {
-	            dto.setReview_num(1);  // defaultReviewNumValue는 적절한 기본값으로 설정
-	        }
+	    	 String root = session.getServletContext().getRealPath("/");
+	            String pathname = root + "uploads" + File.separator + "roomReview";
 
 	        // 파일 업로드 처리
 	        if (dto.getPhotoFile() != null && !dto.getPhotoFile().isEmpty()) {
@@ -476,15 +429,13 @@ public class RoomController {
 	        }
 
 	        reviewService.insertRoomReview(dto, pathname);
-
+	        map.put("state", "true");
 	    } catch (Exception e) {
-	        state = "false";
-	        e.printStackTrace();
+	    	  e.printStackTrace();
+	            map.put("state", "false");
 	    }
 
-	    Map<String, Object> model = new HashMap<String, Object>();
-	    model.put("state", state);
-	    return model;
+	    return map;
 	}
 
 

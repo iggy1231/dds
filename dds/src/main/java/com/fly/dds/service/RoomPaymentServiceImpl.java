@@ -1,5 +1,7 @@
 package com.fly.dds.service;
 
+import java.util.Map;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -44,6 +46,17 @@ public class RoomPaymentServiceImpl implements RoomPaymentService{
 	public void insertCardData(RoomPayment dto) throws Exception {
 		try {
 			mapper.insertCardData(dto);
+		} catch (Exception e) {
+			e.printStackTrace();
+			throw e;
+		}
+		
+	}
+
+	@Override
+	public void insertRefund(Map<String, Object> map) throws Exception {
+		try {
+			mapper.insertRefund(map);
 		} catch (Exception e) {
 			e.printStackTrace();
 			throw e;
