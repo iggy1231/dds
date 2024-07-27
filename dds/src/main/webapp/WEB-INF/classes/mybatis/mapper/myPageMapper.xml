@@ -359,4 +359,42 @@
         WHERE t.user_num = #{user_num}
     )
 	</select>
+	
+		<select id="findByCode" parameterType="String" resultType="com.fly.dds.domain.Coupon">	
+		select num, name, rate_discount, content, code, coupon_image AS saveFilename,
+		TO_CHAR(issue_date, 'YYYY-MM-DD') AS issue_date, TO_CHAR(expiry_date, 'YYYY-MM-DD') AS expiry_date, nickname
+		from coupon c join member_info m on c.user_num=m.user_num
+        where c.code=#{code}
+	</select>
+	
+	<insert id="addCoupon" parameterType="map">
+		insert into member_coupon(NUM, USER_NUM, USE_STATE)
+		values(#{num}, #{user_num}, 1)
+	</insert>
+	
+	<select id="isUsedCoupon" parameterType="long" resultType="Integer">
+		select NVL(COUNT(*), 0) from member_coupon
+		where num=#{num}
+	</select>
+	
+	<select id="listCouponAvailable" resultType="com.fly.dds.domain.Coupon">
+		select name, rate_discount, content, coupon_image AS saveFilename,
+		TO_CHAR(issue_date, 'YYYY-MM-DD') AS issue_date, TO_CHAR(expiry_date, 'YYYY-MM-DD') AS expiry_date
+		from coupon c
+		join member_coupon m on c.num=m.num
+		where m.use_state=1
+	</select>
+	
+	<select id="listCouponDisabled" resultType="com.fly.dds.domain.Coupon">
+		select name, rate_discount, content, coupon_image AS saveFilename,
+		TO_CHAR(issue_date, 'YYYY-MM-DD') AS issue_date, TO_CHAR(expiry_date, 'YYYY-MM-DD') AS expiry_date
+		from coupon c
+		join member_coupon m on c.num=m.num
+		where m.use_state=0
+	</select>
+	
+	<update id="updateCouponUse">
+		update member_coupon set use_state=0
+		where num IN (select num from coupon where expiry_date &lt; SYSDATE)
+	</update>
 </mapper>

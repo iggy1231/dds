@@ -7,6 +7,7 @@ import java.util.Map;
 import org.apache.ibatis.annotations.Param;
 
 import com.fly.dds.domain.Companion;
+import com.fly.dds.domain.Coupon;
 import com.fly.dds.domain.Info;
 import com.fly.dds.domain.Member;
 import com.fly.dds.domain.MyPage;
@@ -87,4 +88,12 @@ public interface MyPageMapper {
     // 숙소 Review 리스트
     public List<RoomReview> myTripReview(Map<String, Object> map);
     public int myTripCount(Long user_num);
+    
+    // 쿠폰
+	public Coupon findByCode(String code);
+	public void addCoupon(Map<String, Object> map);
+	public int isUsedCoupon(long num);
+	public List<Coupon> listCouponAvailable();
+	public List<Coupon> listCouponDisabled();
+	public void updateCouponUse();
 }

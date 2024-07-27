@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Map;
 
 import com.fly.dds.domain.Companion;
+import com.fly.dds.domain.Coupon;
 import com.fly.dds.domain.Info;
 import com.fly.dds.domain.Member;
 import com.fly.dds.domain.MyPage;
@@ -77,4 +78,12 @@ public interface MyPageService {
     
     public List<RoomReview> myTripReview(Map<String, Object> map);
     public int myTripCount(Long user_num);
+    
+    
+	public Coupon findByCode(String code);
+	public void addCoupon(Map<String, Object> map);
+	public boolean isUsedCoupon(long num);
+	public List<Coupon> listCouponAvailable();
+	public List<Coupon> listCouponDisabled();
+	public void updateCouponUse();
 }

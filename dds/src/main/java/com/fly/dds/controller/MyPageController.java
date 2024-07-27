@@ -2,6 +2,7 @@ package com.fly.dds.controller;
 
 import java.io.File;
 import java.net.http.HttpResponse;
+import java.time.LocalDate;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -20,6 +21,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.fly.dds.common.FileManager;
 import com.fly.dds.common.MyUtil;
 import com.fly.dds.domain.Companion;
+import com.fly.dds.domain.Coupon;
 import com.fly.dds.domain.Info;
 import com.fly.dds.domain.Member;
 import com.fly.dds.domain.MyPage;
@@ -495,9 +497,72 @@ public class MyPageController {
 	}
 	
 	@GetMapping("coupoint")
-    public String coupoint() {
-        return ".four.mypage.coupoint";
-    }
+	public String coupoint(Model model) {
+	    List<Coupon> Available_list = null;
+	    List<Coupon> Disabled_list = null;
+
+	    try {
+	        service.updateCouponUse();
+	        Available_list = service.listCouponAvailable();
+	        Disabled_list = service.listCouponDisabled();
+	    } catch (Exception e) {
+	        e.printStackTrace(); // 예외 발생 시 스택 트레이스 출력
+	    }
+
+	    model.addAttribute("list1", Available_list);
+	    model.addAttribute("list2", Disabled_list);
+
+	    return ".four.mypage.coupoint";
+	}
+
+		
+		@ResponseBody
+		@PostMapping("addcoupon")
+		public Map<String, Object> addCoupon(@RequestParam(value="code") String code,
+				HttpSession session) {
+			Map<String, Object> model=new HashMap<String, Object>();
+			Map<String, Object> map=new HashMap<String, Object>();
+			
+			SessionInfo info=(SessionInfo) session.getAttribute("member");
+			
+			Coupon dto=null;
+			String state="false";
+			try {	
+				dto=service.findByCode(code);
+				if(dto==null) {
+					model.put("state", state);
+					return model;
+				}
+				
+				LocalDate now=LocalDate.now();
+				String[] issue_date=dto.getIssue_date().split("-");
+				String[] expiry_date=dto.getExpiry_date().split("-");
+				LocalDate idate=LocalDate.of(Integer.parseInt(issue_date[0]), Integer.parseInt(issue_date[1]), Integer.parseInt(issue_date[2]));
+				LocalDate edate=LocalDate.of(Integer.parseInt(expiry_date[0]), Integer.parseInt(expiry_date[1]), Integer.parseInt(expiry_date[2]));
+
+				if(!idate.isBefore(now)||!edate.isAfter(now)) {
+					model.put("state", state);
+					return model;
+				}
+				
+				if(service.isUsedCoupon(dto.getNum())) {
+					state="used";
+					model.put("state", state);
+					return model;
+				}
+				
+				map.put("num", dto.getNum());
+				map.put("user_num", info.getUser_num());
+				map.put("use_state", 1);
+				
+				service.addCoupon(map);
+				state="true";
+			} catch (Exception e) {
+				
+			}
+			model.put("state", state);
+			return model;
+		}
 	
 	@GetMapping("inquiReview")
     public String inquiReview() {

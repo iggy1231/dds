@@ -16,6 +16,7 @@ import org.springframework.stereotype.Service;
 
 import com.fly.dds.common.FileManager;
 import com.fly.dds.domain.Companion;
+import com.fly.dds.domain.Coupon;
 import com.fly.dds.domain.Info;
 import com.fly.dds.domain.Member;
 import com.fly.dds.domain.MyPage;
@@ -506,6 +507,75 @@ public class MyPageServiceImpl implements MyPageService {
 			e.printStackTrace();
 		}
 		return result;
+	}
+	
+	@Override
+	public Coupon findByCode(String code) {
+		Coupon dto=null;
+		
+		try {
+			dto=mapper.findByCode(code);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		return dto;
+	}
+
+	@Override
+	public void addCoupon(Map<String, Object> map) {
+		try {
+			mapper.addCoupon(map);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+
+	@Override
+	public boolean isUsedCoupon(long num) {
+		try {
+			if(mapper.isUsedCoupon(num)>0) {
+				return true;
+			}
+			return false;
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return true;
+	}
+
+	@Override
+	public List<Coupon> listCouponAvailable() {
+		List<Coupon> list=null;
+		
+		try {
+			list=mapper.listCouponAvailable();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return list;
+	}
+
+	@Override
+	public List<Coupon> listCouponDisabled() {
+		List<Coupon> list=null;
+		
+		try {
+			list=mapper.listCouponDisabled();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		return list;
+	}
+
+	@Override
+	public void updateCouponUse() {
+		try {
+			mapper.updateCouponUse();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 	}
 	
 }
