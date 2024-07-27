@@ -109,7 +109,8 @@
 
 
 function getToken(num, point) {
-    // ajaxFun 함수 정의
+    // ajaxFun 함수 정의    
+    
     function ajaxFun(url, method, query, dataType, successCallback) {
         $.ajax({
             url: url,
@@ -145,20 +146,23 @@ function getToken(num, point) {
 }
 
 function cancel(num, access_token,point) {
-    let url = "${pageContext.request.contextPath}/admin/product/cancel";
-    let card_num = document.getElementById('card_num-'+${sale_num}).value;
-    let user_num = document.getElementById('user_num-'+${sale_num}).value;
-    let final_price = document.getElementById('final_price-'+${sale_num}).value;
-    let description = document.getElementById('description-'+${sale_num}).value;
-    let sale_num = document.getElementById('sale_num-'+${sale_num}).value;
-
-    let formData = {
+   
+    var cardNum = document.getElementById(`card_num-${sale_num}`).value;
+    var userNum = document.getElementById(`user_num-${sale_num}`).value;
+    var finalPrice = document.getElementById(`final_price-${sale_num}`).value;
+    var description = document.getElementById(`description-${sale_num}`).value;
+    var saleNum = document.getElementById(`sale_num-${sale_num}`).value;
+    
+    var url = "${pageContext.request.contextPath}/admin/product/cancel";
+    
+    var formData = {
         imp_uid: num,
         reason: description,
         access_token: access_token, // 액세스 토큰 추가
-        sale_num : sale_num,
-        card_num : card_num,
-        final_price : final_price,
+        sale_num : saleNum,
+        card_num : cardNum,
+        final_price : finalPrice,
+        user_num : userNum,
     };
 
     const fn = function(data) {
