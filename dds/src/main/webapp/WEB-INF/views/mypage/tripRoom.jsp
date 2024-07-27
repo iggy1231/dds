@@ -137,6 +137,13 @@
                         <div class="p-1">
                             <textarea name="content" id="content" class="form-control"></textarea>        
                         </div>
+                        <div class="p-1">
+							<div class="img-grid">
+								<img class="item img-add" src="${pageContext.request.contextPath}/resources/images/add_photo.png" name="photo">
+							</div>
+								<input type="file" name="photoFile" accept="image/*" class="form-control" style="display: none;">
+							</div>
+                        
                         <div class="p-1 text-end">
                             <button type="button" class="btn btn-dark btnReviewSend ps-5 pe-5" data-room-id="${list2.num}">등록하기</button>
                         </div>
@@ -147,7 +154,6 @@
     </div>
 </div>
 </c:forEach>
-
 
 
 

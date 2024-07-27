@@ -407,7 +407,6 @@ $(document).on("click", ".review-form .star a", function(e){
 });
 
 
-/*
 // 이미지 추가
 $(document).on("click", ".review-form .img-add", function(){
     $(this).closest(".review-form").find("input[name=photoFile]").trigger("click");
@@ -470,26 +469,29 @@ $(document).on("click", ".review-form .img-item", function(){
     form.photoFile.files = dt.files;
     $(this).remove();
 });
-*/
 
-// 리뷰 작성 버튼 클릭 이벤트 위임 - ajax
+//리뷰 작성 버튼 클릭 이벤트 위임 - ajax
 $(document).on('click', '.btnReviewSend', function() {
     const roomId = $(this).data('room-id');
     let form = document.forms['reviewForm'];
     let formData = new FormData(form);
+
+    // 여기에서 rating 변수를 초기화합니다.
+    let rating = form.querySelector('input[name="rating"]').value; 
+    let content = form.querySelector('textarea[name="content"]').value;  
 
     if (rating === "0") {
         alert("평점은 1점부터 가능합니다.");
         return false;
     }
 
-    if (! content) {
+    if (!content) {
         alert("리뷰를 입력하세요.");
         document.getElementById('content').focus();
         return false;
     }
 
-    let url = `${pageContext.request.contextPath}/mypage/reviewWrite`; // URL 경로 확인
+    let url = "${pageContext.request.contextPath}/room/reviewWrite";
 
     const fn = function(data) {
         if (data.state === "true") {

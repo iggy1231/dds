@@ -630,10 +630,10 @@ $(function(){
 //리뷰 -----
 
 $(function(){
-		listReview(1);
+	listRoomReview(1);
 });
 
-function listReview(page) {
+function listRoomReview(page) {
 	let num = '${dto.num}';
 	// let sortNo = $('.reviewSortNo').val();
 	let url = '${pageContext.request.contextPath}/room/reviewlist';
@@ -706,6 +706,7 @@ function printReview(data) {
 		out += '<hr class = "mx-4">';
 
 	}
+	
 	if(dataCount > 0) {
 		out += '<div class="page-navigation">' + paging + '</div>';
 	}

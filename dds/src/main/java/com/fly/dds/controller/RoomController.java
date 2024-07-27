@@ -410,17 +410,14 @@ public class RoomController {
 	// 리뷰 등록 - ajax
 	@PostMapping("reviewWrite")
 	@ResponseBody
-	public Map<String, Object> writeReviewSubmit(RoomReview dto, 
-			HttpSession session) throws Exception {
-		
-		  Map<String, Object> map = new HashMap<>();
-		SessionInfo info = (SessionInfo) session.getAttribute("member");
-        dto.setUser_num(info.getUser_num());
-
+	public Map<String, Object> writeReviewSubmit(RoomReview dto, HttpSession session) throws Exception {
+	    Map<String, Object> map = new HashMap<>();
+	    SessionInfo info = (SessionInfo) session.getAttribute("member");
+	    dto.setUser_num(info.getUser_num());
 
 	    try {
-	    	 String root = session.getServletContext().getRealPath("/");
-	            String pathname = root + "uploads" + File.separator + "roomReview";
+	        String root = session.getServletContext().getRealPath("/");
+	        String pathname = root + "uploads" + File.separator + "roomReview";
 
 	        // 파일 업로드 처리
 	        if (dto.getPhotoFile() != null && !dto.getPhotoFile().isEmpty()) {
@@ -431,12 +428,13 @@ public class RoomController {
 	        reviewService.insertRoomReview(dto, pathname);
 	        map.put("state", "true");
 	    } catch (Exception e) {
-	    	  e.printStackTrace();
-	            map.put("state", "false");
+	        e.printStackTrace();
+	        map.put("state", "false");
 	    }
 
 	    return map;
 	}
+
 
 
 	
@@ -471,6 +469,8 @@ public class RoomController {
 
 			int offset = (current_page - 1) * size;
 			if(offset < 0) offset = 0;
+			
+			
 			
 			map.put("offset", offset);
 			map.put("size", size);
