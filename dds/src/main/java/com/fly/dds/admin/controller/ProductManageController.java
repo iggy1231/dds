@@ -29,6 +29,7 @@ import com.fly.dds.admin.service.RoomProductService;
 import com.fly.dds.common.MyUtil;
 import com.fly.dds.domain.Room;
 import com.fly.dds.domain.RoomPayment;
+import com.fly.dds.service.RoomPaymentService;
 import com.fly.dds.service.RoomService;
 
 @Controller
@@ -41,6 +42,9 @@ public class ProductManageController {
 	@Autowired
 	private RoomService rservice;
 
+	@Autowired
+	private RoomPaymentService rpservice;
+	
 	@Autowired
 	private MyUtil myUtil;
 
@@ -253,7 +257,7 @@ public class ProductManageController {
 		return ".admin.product.listsale";
 	}
 	
-	@PostMapping("/token")
+	@PostMapping("token")
 	public ResponseEntity<Map<String, Object>> getAccessToken() {
 		Map<String, Object> response = new HashMap<>();
 		try {
@@ -292,15 +296,25 @@ public class ProductManageController {
 		return ResponseEntity.ok(response);
 	}
 
-	@PostMapping("/cancel")
+	@PostMapping("cancel")
 	@ResponseBody
 	public ResponseEntity<Map<String, Object>> cancelPayment(@RequestBody Map<String, Object> requestData) {
 	    String accessToken = (String) requestData.get("access_token");
 	    String imp_uid = (String) requestData.get("imp_uid");
 	    String reason = (String) requestData.get("reason");
+	    int refund_price = (int) requestData.get("final_price");
+	    long sale_num = (long) requestData.get("sale_num");
+	    String card_num = (String) requestData.get("card_num");
+	    long user_num = (long) requestData.get("user_num");
 
 	    try {
-
+	    	
+	    	Map<String, Object> map = new HashMap<>();
+	    	map.put("refund_reason"	, reason);
+	    	map.put("sale_num"	, sale_num);
+	    	map.put("refund_price"	, refund_price);
+	    	map.put("card_num"	, card_num);
+	    	map.put("user_num"	, user_num);
 	        RestTemplate restTemplate = new RestTemplate();
 	        String url = "https://api.iamport.kr/payments/cancel";
 
@@ -321,6 +335,7 @@ public class ProductManageController {
 	            Map<String, Object> successResponse = new HashMap<>();
 	            successResponse.put("state", "true");
 	            successResponse.put("response", responseBody);
+	            rpservice.insertRefund(map);
 	            return ResponseEntity.ok().body(successResponse);
 	        } else {
 	            // 실패 처리
