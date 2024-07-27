@@ -1,7 +1,6 @@
 package com.fly.dds.controller;
 
 import java.io.File;
-import java.net.http.HttpResponse;
 import java.time.LocalDate;
 import java.util.HashMap;
 import java.util.List;
@@ -497,14 +496,16 @@ public class MyPageController {
 	}
 	
 	@GetMapping("coupoint")
-	public String coupoint(Model model) {
+	public String coupoint(HttpSession session,
+			Model model) {
 	    List<Coupon> Available_list = null;
 	    List<Coupon> Disabled_list = null;
-
+	    SessionInfo info=(SessionInfo) session.getAttribute("member");
+	    
 	    try {
 	        service.updateCouponUse();
-	        Available_list = service.listCouponAvailable();
-	        Disabled_list = service.listCouponDisabled();
+	        Available_list = service.listCouponAvailable(info.getUser_num());
+	        Disabled_list = service.listCouponDisabled(info.getUser_num());
 	    } catch (Exception e) {
 	        e.printStackTrace(); // 예외 발생 시 스택 트레이스 출력
 	    }
@@ -545,14 +546,15 @@ public class MyPageController {
 					return model;
 				}
 				
-				if(service.isUsedCoupon(dto.getNum())) {
+				map.put("num", dto.getNum());
+				map.put("user_num", info.getUser_num());
+				if(service.isUsedCoupon(map)) {
 					state="used";
 					model.put("state", state);
 					return model;
 				}
 				
-				map.put("num", dto.getNum());
-				map.put("user_num", info.getUser_num());
+
 				map.put("use_state", 1);
 				
 				service.addCoupon(map);

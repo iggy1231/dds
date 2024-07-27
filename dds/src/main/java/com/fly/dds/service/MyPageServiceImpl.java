@@ -532,9 +532,9 @@ public class MyPageServiceImpl implements MyPageService {
 	}
 
 	@Override
-	public boolean isUsedCoupon(long num) {
+	public boolean isUsedCoupon(Map<String, Object> map) {
 		try {
-			if(mapper.isUsedCoupon(num)>0) {
+			if(mapper.isUsedCoupon(map)>0) {
 				return true;
 			}
 			return false;
@@ -545,11 +545,11 @@ public class MyPageServiceImpl implements MyPageService {
 	}
 
 	@Override
-	public List<Coupon> listCouponAvailable() {
+	public List<Coupon> listCouponAvailable(long user_num) {
 		List<Coupon> list=null;
 		
 		try {
-			list=mapper.listCouponAvailable();
+			list=mapper.listCouponAvailable(user_num);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -557,11 +557,11 @@ public class MyPageServiceImpl implements MyPageService {
 	}
 
 	@Override
-	public List<Coupon> listCouponDisabled() {
+	public List<Coupon> listCouponDisabled(long user_num) {
 		List<Coupon> list=null;
 		
 		try {
-			list=mapper.listCouponDisabled();
+			list=mapper.listCouponDisabled(user_num);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

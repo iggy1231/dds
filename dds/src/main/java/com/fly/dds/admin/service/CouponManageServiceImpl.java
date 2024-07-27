@@ -93,4 +93,30 @@ public class CouponManageServiceImpl implements CouponManageService {
 			e.printStackTrace();
 		}
 	}
+
+	@Override
+	public int historyCount() {
+		int result=0;
+		
+		try {
+			result=mapper.historyCount();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		return result;
+	}
+
+	@Override
+	public List<Coupon> listCouponHistory(Map<String, Object> map) {
+		List<Coupon> list=null;
+		
+		try {
+			list=mapper.listCouponHistory(map);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		return list;
+	}
 }

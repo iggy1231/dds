@@ -32,17 +32,32 @@
 							</tr>
 						</c:forEach>
 						<tr>
-							<td colspan="5">
+							<td colspan="6">
 								${paging}
 							</td>
 						</tr>
 						<tr>
-							<td colspan="5">
+							<td colspan="6" class="text-center">
 								<button class="btn" onclick="writeForm();">쿠폰 코드 생성</button>
 								<button class="btn" onclick="updateForm();" data-bs-toggle="modal" data-bs-target="#inputModal">쿠폰 코드 수정</button>
 								<button class="btn" onclick="deleteForm();" data-bs-toggle="modal" data-bs-target="#inputModal">쿠폰 코드 삭제</button>
 							</td>
 						</tr>
+					</tbody>
+				</table>
+				<div class="row">
+    	        	<div>쿠폰 기록 확인</div>
+				</div>
+				<table class="table">
+					<thead>
+						<tr>
+							<td>쿠폰번호</td>
+							<td>회원이름</td>
+							<td>상태</td>
+							<td>등록일</td>
+						</tr>
+					</thead>
+					<tbody id="CouponHistoryList" data-pageNo="0" data-totalPage="0">
 					</tbody>
 				</table>
             </div>
@@ -66,6 +81,79 @@
 		  </div>
 		</div>
          <Script type="text/javascript">
+         $(function(){
+        	 CouponHistoryList(1); 
+         });
+         
+         function ajaxFun(url, method, formData, dataType, fn, file = false) {
+        		const settings = {
+        				type: method, 
+        				data: formData,
+        				success:function(data) {
+        					fn(data);
+        				},
+        				beforeSend: function(jqXHR) {
+        					jqXHR.setRequestHeader('AJAX', true);
+        				},
+        				complete: function () {
+        				},
+        				error: function(jqXHR) {
+        					if(jqXHR.status === 403) {
+        						return false;
+        					} else if(jqXHR.status === 400) {
+        						alert('요청 처리가 실패 했습니다.');
+        						return false;
+        			    	}
+        			    	
+        					console.log(jqXHR.responseText);
+        				}
+        		};
+        		
+        		if(file) {
+        			settings.processData = false;
+        			settings.contentType = false;
+        		}
+        		$.ajax(url, settings);
+        	}
+         
+         	function CouponHistoryList(page) {
+         		let url="${pageContext.request.contextPath}/admin/couponManage/historyList";
+         		let query="pageNo="+page;
+         		
+         		const fn = function(data) {
+         			nextPage(data);
+         		};
+         		
+         		ajaxFun(url, "get", query, "json", fn);
+         	}
+         	
+         	function nextPage(data) {
+         		$('#CouponHistoryList').html('');
+         		
+         		let pageNo = data.pageNo;
+         		let total_page = data.total_page;
+         		
+         		$('#CouponHistoryList').attr('data-pageNo', pageNo);
+         		$('#CouponHistoryList').attr('data-totalPage', total_page);
+
+         		let htmlText="";
+         		
+         		for(let item of data.list) {
+         			htmlText+='<tr>';
+         			htmlText+='	<td>'+item.num+'</td>';
+         			htmlText+='	<td>'+item.nickname+'</td>';
+         			switch (item.use_state) {
+						case "1": htmlText+='	<td>사용가능</td>'; break;
+						case "0": htmlText+='	<td>사용불가</td>'; break;
+					}
+         			htmlText+='	<td>'+item.reg_date+'</td>';
+         			htmlText+='</tr>';
+         		}
+         		
+         		htmlText+='<tr><td colspan="4">'+data.paging+'</td></tr>';
+         		$('#CouponHistoryList').append(htmlText);
+         	}
+         	
          	function writeForm() {
          		location.href="${pageContext.request.contextPath}/admin/couponManage/write"
          	}

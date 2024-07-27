@@ -15,4 +15,6 @@ public interface CouponManageMapper {
 	public Coupon findBynum(long num);
 	public void updateCoupon(Coupon dto);
 	public void deleteCoupon(long num);
+	public int historyCount();
+	public List<Coupon> listCouponHistory(Map<String, Object> map);
 }

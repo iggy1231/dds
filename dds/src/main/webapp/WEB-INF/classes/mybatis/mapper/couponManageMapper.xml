@@ -35,4 +35,16 @@
 	<delete id="deleteCoupon" parameterType="long">
 		delete from coupon where num=#{num}
 	</delete>
+	
+	<select id="historyCount" resultType="integer">
+		select NVL(COUNT(*), 0) from member_coupon
+	</select>
+	
+	<select id="listCouponHistory" parameterType="map" resultType="com.fly.dds.domain.Coupon">
+		select m.num, nickname, use_state, TO_CHAR(m.reg_date, 'YYYY-MM-DD') AS reg_date
+		from member_coupon m
+        join member_info m2 on m.user_num=m2.user_num
+		order by num asc
+		OFFSET #{offset} ROWS FETCH FIRST #{size} ROWS ONLY
+	</select>
 </mapper>

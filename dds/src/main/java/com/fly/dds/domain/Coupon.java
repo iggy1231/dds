@@ -15,6 +15,9 @@ public class Coupon {
 	private String nickname;
 	private String code;
 	
+	private String reg_date;
+	private String use_state;
+	
 	public long getNum() {
 		return num;
 	}
@@ -80,5 +83,17 @@ public class Coupon {
 	}
 	public void setCode(String code) {
 		this.code = code;
+	}
+	public String getReg_date() {
+		return reg_date;
+	}
+	public void setReg_date(String reg_date) {
+		this.reg_date = reg_date;
+	}
+	public String getUse_state() {
+		return use_state;
+	}
+	public void setUse_state(String use_state) {
+		this.use_state = use_state;
 	}
 }

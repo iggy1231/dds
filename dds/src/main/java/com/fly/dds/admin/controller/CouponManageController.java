@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.fly.dds.domain.Coupon;
@@ -31,15 +32,56 @@ public class CouponManageController {
 	@Autowired
 	private MyUtil myUtil;
 	
+	@ResponseBody
+	@GetMapping("historyList")
+	public Map<String, Object> historyList(@RequestParam(value="pageNo", defaultValue="1") int current_page) {
+		Map<String, Object> model=new HashMap<String, Object>();
+		
+		List<Coupon> list=null;
+		int size=10;
+		int historyCount=service.historyCount();
+		int total_page=myUtil.pageCount(historyCount, size);
+		
+		if(current_page>total_page) {
+			current_page=total_page;
+		}
+		
+		int offset=(current_page-1)*size;
+		if(offset<0) {
+			offset=0;
+		}
+		
+		Map<String, Object> map=new HashMap<String, Object>();
+		map.put("offset", offset);
+		map.put("size", size);
+		
+		try {
+			list=service.listCouponHistory(map);
+		} catch (Exception e) {
+		}
+		
+		String paging=myUtil.pagingMethod(current_page, total_page, "CouponHistoryList");
+		
+		model.put("list", list);
+		model.put("pageNo", current_page);
+		model.put("total_page", total_page);
+		model.put("paging", paging);
+		
+		return model;
+	}
+	
 	@GetMapping("list")
-	public String couponList(@RequestParam(value="pageNo", defaultValue="1") int current_page,
+	public String couponList(@RequestParam(value="page", defaultValue="1") int current_page,
 			HttpServletRequest req,
 			Model model) {
 		List<Coupon> list=null;
 		
+		
 		int size=5;
 		int dataCount=service.dataCount();
+		
 		int total_page=myUtil.pageCount(dataCount, size);
+		
 		
 		if(current_page>total_page) {
 			current_page=total_page;

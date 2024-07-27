@@ -82,8 +82,8 @@ public interface MyPageService {
     
 	public Coupon findByCode(String code);
 	public void addCoupon(Map<String, Object> map);
-	public boolean isUsedCoupon(long num);
-	public List<Coupon> listCouponAvailable();
-	public List<Coupon> listCouponDisabled();
+	public boolean isUsedCoupon(Map<String, Object> map);
+	public List<Coupon> listCouponAvailable(long user_num);
+	public List<Coupon> listCouponDisabled(long user_num);
 	public void updateCouponUse();
 }

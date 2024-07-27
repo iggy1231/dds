@@ -13,4 +13,6 @@ public interface CouponManageService {
 	public Coupon findByNum(long num);
 	public void updateCoupon(Coupon dto, String pathname);
 	public void deleteCoupon(long num);
+	public int historyCount();
+	public List<Coupon> listCouponHistory(Map<String, Object> map);
 }
