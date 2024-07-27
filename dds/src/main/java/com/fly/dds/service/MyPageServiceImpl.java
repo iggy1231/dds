@@ -426,5 +426,86 @@ public class MyPageServiceImpl implements MyPageService {
 		}
 		return result;
 	}
+
+	@Override
+	public List<Companion> listIngCompanion(Map<String, Object> map) {
+		List<Companion> list = null;
+		try {
+			list = mapper.listIngCompanion(map);
+			for(Companion dto:list) {
+				dto.setSaveFilename(mapper.companionThumbnail(dto.getNum()));
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		return list;
+	}
+
+	@Override
+	public int ingCompanionCount(Long user_num) {
+		int result = 0;
+		
+		try {
+			result = mapper.ingCompanionCount(user_num);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return result;
+	}
+
+	@Override
+	public List<Companion> listPastCompanion(Map<String, Object> map) {
+		List<Companion> list = null;
+		try {
+			list = mapper.listPastCompanion(map);
+			for(Companion dto:list) {
+				dto.setSaveFilename(mapper.companionThumbnail(dto.getNum()));
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		return list;
+	}
+
+	@Override
+	public int pastCompanionCount(Long user_num) {
+		int result = 0;
+		
+		try {
+			result = mapper.pastCompanionCount(user_num);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return result;
+	}
+
+	@Override
+	public List<Companion> listMyCompanion(Map<String, Object> map) {
+		List<Companion> list = null;
+		try {
+			list = mapper.listMyCompanion(map);
+			for(Companion dto:list) {
+				dto.setSaveFilename(mapper.companionThumbnail(dto.getNum()));
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		return list;
+	}
+
+	@Override
+	public int myCompanionCount(Long user_num) {
+		int result = 0;
+		
+		try {
+			result = mapper.myCompanionCount(user_num);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return result;
+	}
 	
 }

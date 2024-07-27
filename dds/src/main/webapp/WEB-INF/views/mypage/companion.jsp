@@ -3,13 +3,17 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 
 <style>
+
+	.col-md-4 {
+    padding: 0; /* 부모 요소의 패딩을 제거 */
+	}
+	
     .content-card {
         border: 1px solid #ddd;
         border-radius: 10px;
         overflow: hidden;
-        margin: 10px;
-        width: calc(33% - 20px);
-        float: left;
+        margin: 10px 0; /* 상하 마진만 설정하여 좌우 여백 제거 */
+    	width: 100%; /* 부모 요소의 너비를 모두 차지하도록 설정 */
     }
     .content-card img {
         width: 100%;
@@ -45,6 +49,18 @@
     .tab-content.active {
         display: block;
     }
+    
+    @media (max-width: 1200px) {
+    .content-card {
+        width: 100%; /* 반응형에서도 부모 요소에 꽉 차도록 설정 */
+    }
+}
+
+@media (max-width: 768px) {
+    .content-card {
+        width: 100%; /* 반응형에서도 부모 요소에 꽉 차도록 설정 */
+    }
+}
 </style>
 
 <div class="my-info">
@@ -65,7 +81,7 @@
                 <button class="nav-link active" data-bs-toggle="tab" data-bs-target="#tab-waiting" type="button" role="tab" aria-controls="tab-waiting" aria-selected="true">대기중</button>
             </li>
             <li class="nav-item" role="presentation">
-                <button class="nav-link" data-bs-toggle="tab" data-bs-target="#tab-party" type="button" role="tab" aria-controls="tab-party" aria-selected="false">참여중</button>
+                <button class="nav-link" data-bs-toggle="tab" data-bs-target="#tab-ing" type="button" role="tab" aria-controls="tab-ing" aria-selected="false">참여중</button>
             </li>
             <li class="nav-item" role="presentation">
                 <button class="nav-link" data-bs-toggle="tab" data-bs-target="#tab-past" type="button" role="tab" aria-controls="tab-past" aria-selected="false">지난동행</button>
@@ -77,7 +93,7 @@
 
         <div class="tab-content-container" id="nav-content">
             <div class="tab-content active" id="tab-waiting"></div>
-            <div class="tab-content" id="tab-party"></div>
+            <div class="tab-content" id="tab-ing"></div>
             <div class="tab-content" id="tab-past"></div>
             <div class="tab-content" id="tab-my-posts"></div>
         </div>
@@ -107,7 +123,6 @@
     					alert('요청 처리가 실패 했습니다.');
     					return false;
     		    	}
-    		    	
     				console.log(jqXHR.responseText);
     			}
     	};
@@ -126,14 +141,14 @@
     	
         $("button[role='tab']").on("click", function(e){
     		const tab = $(this).attr("aria-controls");
-    		if(tab === "1") {
+    		if(tab === "tab-waiting") {
     			listWaitingCompanion(1);
-    		} else if(tab === "2") {
-    			listReply(1);
-    		} else if(tab === "3") {
-    			listReply(1);
-    		} else if(tab === "4") {
-    			listReply(1);
+    		} else if(tab === "tab-ing") {
+    			listIngCompanion(1);
+    		} else if(tab === "tab-past") {
+    			listPastCompanion(1);
+    		} else if(tab === "tab-my-posts") {
+    			listMyCompanion(1);
     		}
         });
     });
@@ -147,11 +162,27 @@
     	ajaxFun(url, "get", {pageNo : page}, "text", fn);
     }
 
-    function listReply(page) {
-    	let url = '${pageContext.request.contextPath}/mypage/reply';
+    function listIngCompanion(page) {
+    	let url = '${pageContext.request.contextPath}/mypage/ingcompanion';
     	
     	const fn = function(data) {
-    		$('#tab-party').html(data);
+    		$('#tab-ing').html(data);
+    	};
+    	ajaxFun(url, "get", {pageNo : page}, "text", fn);
+    }
+    function listPastCompanion(page) {
+    	let url = '${pageContext.request.contextPath}/mypage/pastcompanion';
+    	
+    	const fn = function(data) {
+    		$('#tab-past').html(data);
+    	};
+    	ajaxFun(url, "get", {pageNo : page}, "text", fn);
+    }
+    function listMyCompanion(page) {
+    	let url = '${pageContext.request.contextPath}/mypage/mycompanion';
+    	
+    	const fn = function(data) {
+    		$('#tab-my-posts').html(data);
     	};
     	ajaxFun(url, "get", {pageNo : page}, "text", fn);
     }

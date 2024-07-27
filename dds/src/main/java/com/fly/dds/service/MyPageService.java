@@ -29,15 +29,18 @@ public interface MyPageService {
 	
 	public void deleteReply(String boardname , long reply_num) throws Exception; 
 	
+	// 위시리스 여행후기
 	public List<MyPage> listWishReview(Map<String, Object> map);
 	public int wishReviewCount(long user_num);
 	
 	// 위시리스트에서 항목 제거
     void removeFromWishlist(long userNum, long travelReviewNum, String table_name) throws Exception;
 	
+    // 위시리스트 동행
     public List<Companion> listWishCompanion(Map<String, Object> map);
     public int wishCompanionCount(Long user_num);
     
+    // 위시리스트 여행정보
     public List<Info> listWishInfo(Map<String, Object> map);
     public int wishInfoCount(Long user_num);
     
@@ -45,14 +48,30 @@ public interface MyPageService {
     public List<Companion> listWaitingCompanion(Map<String, Object> map);
     public int waitingCompanionCount(Long user_num);
     
+    // 동행 참여
+    public List<Companion> listIngCompanion(Map<String, Object> map);
+    public int ingCompanionCount(Long user_num);
+    
+    // 동행 종료
+    public List<Companion> listPastCompanion(Map<String, Object> map);
+    public int pastCompanionCount(Long user_num);
+    
+    // 나의 동행
+    public List<Companion> listMyCompanion(Map<String, Object> map);
+    public int myCompanionCount(Long user_num);
+    
+    // 위시리스트 숙소
     public List<Room> listWishRoom(Map<String, Object> map);
     public int wishRoomCount(Long user_num);
+    
     
     public Map<String, List<Room>> listMyRoom(Map<String, Object> map);
 	
     // 숙소예약 삭제
     void deleteRoom(Map<String, Object> params);
     
+    
+    // 마이 QnA, 마이 리뷰
     public List<RoomQnA> myRoomQnA(Map<String, Object> map);
     public int myRoomQnACount(Long user_num);
     
