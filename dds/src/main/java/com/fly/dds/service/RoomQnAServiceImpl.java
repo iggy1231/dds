@@ -79,5 +79,52 @@ public class RoomQnAServiceImpl implements RoomQnAService {
 		}
 		
 	}
+
+	@Override
+	public int dataCount2(Map<String, Object> map) {
+		int result = 0;
+		
+		try {
+			result = mapper.dataCount2(map);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		return result;
+	}
+
+	@Override
+	public List<RoomQnA> listQnA2(Map<String, Object> map) {
+		List<RoomQnA> list = null;
+		
+		try {
+			list = mapper.listQnA2(map);
+			
+			for(RoomQnA dto : list) {
+				dto.setContent(dto.getContent().replaceAll("\n", "<br>"));
+				
+				
+				if(dto.getAnswer() != null) {
+					dto.setAnswer(dto.getAnswer().replaceAll("\n", "<br>"));
+				}
+			}
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		return list;
+	}
+
+	@Override
+	public void deleteQnA(long qna_num) throws Exception {
+		try {
+			mapper.deleteQnA(qna_num);
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+			throw e;
+		}
+	}
 	
 }

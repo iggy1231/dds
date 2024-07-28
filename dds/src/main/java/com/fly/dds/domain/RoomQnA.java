@@ -1,7 +1,7 @@
 package com.fly.dds.domain;
 
 public class RoomQnA {
-    private long qnaNum;
+    private long qna_num;
     private String subject;
     private String content;
     private String reg_date;
@@ -19,11 +19,12 @@ public class RoomQnA {
 	public void setBoardName(String boardName) {
 		this.boardName = boardName;
 	}
-	public long getQnaNum() {
-		return qnaNum;
+	
+	public long getQna_num() {
+		return qna_num;
 	}
-	public void setQnaNum(long qnaNum) {
-		this.qnaNum = qnaNum;
+	public void setQna_num(long qna_num) {
+		this.qna_num = qna_num;
 	}
 	public String getSubject() {
 		return subject;

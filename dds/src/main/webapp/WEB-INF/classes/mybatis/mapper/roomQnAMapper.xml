@@ -9,11 +9,6 @@
 		VALUES(room_qna_seq.NEXTVAL, #{num} , #{userNum}, #{subject}, #{content}, SYSDATE, 0 )
 	</insert>
 	
-		<update id="updateQnA" parameterType="com.fly.dds.domain.RoomQnA">
-		UPDATE room_qna SET answer = #{answer}, answer_date = SYSDATE
-		WHERE num = #{num}
-	</update>
-	
 	<!-- QnA 개수 -->
 	<!-- public int dataCount(Map<String, Object> map); -->
 	<select id="dataCount" parameterType="map" resultType="Integer">
@@ -25,7 +20,7 @@
 	<!-- listQnA -->
 	<!--  public List<RoomQnA> listQnA(Map<String, Object> map); -->
 	<select id="listQnA" parameterType="map" resultType="com.fly.dds.domain.RoomQnA">
-		SELECT q.qna_num, m.userName, subject, content, reg_date, answer,  answer_date
+		SELECT q.qna_num, m.userName, subject, content, reg_date, answer, answer_date
 		FROM room_qna q
 		JOIN member1 m ON q.user_num = m.user_num
 		WHERE q.num = #{num} AND anonymous = 0
@@ -33,5 +28,49 @@
 		OFFSET #{offset} ROWS FETCH FIRST #{size} ROWS ONLY		
 	</select>
 	
+	
+	<select id="listQnA2" parameterType="map" resultType="com.fly.dds.domain.RoomQnA">
+		SELECT q.qna_num, q.user_num, m.userName, r.subject, q.content, q.reg_date, q.answer, q.answer_date, q.num, r.subject, anonymous
+		FROM room_qna q
+		JOIN room r ON r.num = q.num
+		JOIN member1 m ON m.user_num = q.user_num
+		<where>
+			<if test="mode != null">
+				<if test="mode == 2">
+					AND ( answer IS NOT NULL )
+				</if>
+				<if test="mode == 3">
+					AND ( answer IS NULL )
+				</if>
+			</if>
+		</where>		
+		ORDER BY q.num DESC 
+		OFFSET #{offset} ROWS FETCH FIRST #{size} ROWS ONLY
+	</select>
+	
+	<select id="dataCount2" parameterType="map" resultType="Integer">
+		SELECT NVL(COUNT(*), 0)
+		FROM room_qna
+		<where>
+			<if test="mode != null">
+				<if test="mode == 2">
+					AND ( answer IS NOT NULL )
+				</if>
+				<if test="mode == 3">
+					AND ( answer IS NULL )
+				</if>
+			</if>
+		</where>
+	</select>
+	
+	<update id="updateQnA" parameterType="com.fly.dds.domain.RoomQnA">
+		UPDATE room_qna SET answer = #{answer}, answer_date = SYSDATE, anonymous = #{anonymous}
+		WHERE qna_num = #{qna_num}
+	</update>
+	
+	<delete id="deleteQnA" parameterType="long">
+		DELETE FROM room_qna
+		WHERE qna_num = #{qna_num}
+	</delete>
 	
 </mapper>
