@@ -23,6 +23,37 @@ public class RoomPayment {
 	private String card_num;
 	
 	private String nickName;
+	
+	
+	// room_refund
+	private String refund_date;
+	private String refund_price;
+	private String refund_reason;
+	
+
+	public String getRefund_date() {
+		return refund_date;
+	}
+
+	public void setRefund_date(String refund_date) {
+		this.refund_date = refund_date;
+	}
+
+	public String getRefund_price() {
+		return refund_price;
+	}
+
+	public void setRefund_price(String refund_price) {
+		this.refund_price = refund_price;
+	}
+
+	public String getRefund_reason() {
+		return refund_reason;
+	}
+
+	public void setRefund_reason(String refund_reason) {
+		this.refund_reason = refund_reason;
+	}
 
 	public long getSale_num() {
 		return sale_num;

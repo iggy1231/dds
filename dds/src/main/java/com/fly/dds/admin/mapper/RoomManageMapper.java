@@ -44,6 +44,8 @@ public interface RoomManageMapper {
 	public List<RoomPayment> listSale(Map<String, Object> map);
 	public int saleCount(Map<String, Object> map);
 	
+	public List<RoomPayment> listRefund(Map<String, Object> map);
+	public int refundCount(Map<String, Object> map);
 	
 	
 }

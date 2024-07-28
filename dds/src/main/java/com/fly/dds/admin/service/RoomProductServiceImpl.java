@@ -231,5 +231,31 @@ public class RoomProductServiceImpl implements RoomProductService {
 		return result;
 	}
 
+	@Override
+	public List<RoomPayment> listRefund(Map<String, Object> map) {
+		List<RoomPayment> list = null;
+		
+		try {
+			list = mapper.listRefund(map);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		return list;
+	}
+
+	@Override
+	public int refundCount(Map<String, Object> map) {
+		int result = 0;
+		
+		try {
+			result = mapper.refundCount(map);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		return result;
+	}
+
 	
 }

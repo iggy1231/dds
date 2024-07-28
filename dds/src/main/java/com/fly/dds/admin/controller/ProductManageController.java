@@ -348,8 +348,43 @@ public class ProductManageController {
 	        return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(errorResponse);
 	    }
 	    
-	    
-	    
+	}
+	
+	@RequestMapping("listRefund")
+	public String listRefund(@RequestParam(value = "page", defaultValue = "1") int current_page, 
+			HttpServletRequest req,
+			Model model) throws Exception {
+		
+		int size = 20;
+		int total_page;
+		int dataCount;
+
+		Map<String, Object> map = new HashMap<String, Object>();
+		
+		dataCount = service.refundCount(map);
+		total_page = myUtil.pageCount(dataCount, size);
+		
+		if (current_page > total_page) {
+			current_page = total_page;
+		}
+
+		int offset = (current_page - 1) * size;
+		if (offset < 0)
+			offset = 0;
+		
+		map.put("offset", offset);
+		map.put("size", size);
+		
+		List<RoomPayment> list = service.listRefund(map);
+		
+		model.addAttribute("list", list);
+		model.addAttribute("dataCount", dataCount);
+		model.addAttribute("page", current_page);
+		model.addAttribute("size", size);
+		model.addAttribute("total_page", total_page);
+
+		
+		return ".admin.product.listRefund";
 	}
 
 
