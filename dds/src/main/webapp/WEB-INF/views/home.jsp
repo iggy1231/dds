@@ -491,42 +491,17 @@
             <h1 class="mb-3 display-6 text-black" style="font-weight: 600;">여행 동행 리스트</h1>
         </div>
                 <div class="testimonial-carousel owl-carousel">
-                    <div class="testimonial-item text-center rounded pb-4">
-                        <div class="d-flex justify-content-center align-items-center testimonial-comment bg-primary rounded p-4" style="height: 200px;">
-						    <h4 class="text-center lh-lg">제주도 함께 동행하실분 모십니다!<br>함께 즐거운 추억 만들어요! :)</h4>
-						</div>
-                        <div style="margin-top: -35px;">
-                            <h3 class="mb-0 mt-3">익명의 고양이</h3>
-                   			 <h4 class="p-3 mb-0"><i class="text-primary bi bi-geo-alt-fill"></i>  제주도&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;<i class="text-primary bi bi-person-circle"></i>  5인</h4>
-                        </div> 
-                    </div>
-                    <div class="testimonial-item text-center rounded pb-4">
-                        <div class="d-flex justify-content-center align-items-center testimonial-comment bg-primary rounded p-4" style="height: 200px;">
-						    <h4 class="text-center lh-lg">제주도 함께 동행하실분 모십니다!<br>함께 즐거운 추억 만들어요! :)</h4>
-						</div>
-                        <div style="margin-top: -35px;">
-                            <h3 class="mb-0 mt-3">익명의 고양이</h3>
-                   			 <h4 class="p-3 mb-0"><i class="text-primary bi bi-geo-alt-fill"></i>  제주도&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;<i class="text-primary bi bi-person-circle"></i>  5인</h4>
-                        </div> 
-                    </div>
-                    <div class="testimonial-item text-center rounded pb-4">
-                        <div class="d-flex justify-content-center align-items-center testimonial-comment bg-primary rounded p-4" style="height: 200px;">
-						    <h4 class="text-center lh-lg">제주도 함께 동행하실분 모십니다!<br>함께 즐거운 추억 만들어요! :)</h4>
-						</div>
-                        <div style="margin-top: -35px;">
-                            <h3 class="mb-0 mt-3">익명의 고양이</h3>
-                   			 <h4 class="p-3 mb-0"><i class="text-primary bi bi-geo-alt-fill"></i>  제주도&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;<i class="text-primary bi bi-person-circle"></i>  5인</h4>
-                        </div> 
-                    </div>
-                    <div class="testimonial-item text-center rounded pb-4">
-                        <div class="d-flex justify-content-center align-items-center testimonial-comment bg-primary rounded p-4" style="height: 200px;">
-						    <h4 class="text-center lh-lg">제주도 함께 동행하실분 모십니다!<br>함께 즐거운 추억 만들어요! :)</h4>
-						</div>
-                        <div style="margin-top: -35px;">
-                            <h3 class="mb-0 mt-3">익명의 고양이</h3>
-                   			 <h4 class="p-3 mb-0"><i class="text-primary bi bi-geo-alt-fill"></i>  제주도&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;<i class="text-primary bi bi-person-circle"></i>  5인</h4>
-                        </div> 
-                    </div>
+                	<c:forEach var="companion" items="${companions}">
+	                    <div class="testimonial-item text-center rounded pb-4">
+	                        <div class="d-flex justify-content-center align-items-center testimonial-comment bg-primary rounded p-4" style="height: 200px;">
+							    <h4 class="text-center lh-lg">${companion.subject}</h4>
+							</div>
+	                        <div style="margin-top: -35px;">
+	                            <h3 class="mb-0 mt-3">${companion.nickname}</h3>
+	                   			 <h4 class="p-3 mb-0"><i class="text-primary bi bi-geo-alt-fill"></i>  ${companion.mainRegion}&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;<i class="text-primary bi bi-person-circle"></i>  ${companion.total_people}인</h4>
+	                        </div> 
+	                    </div>
+                	</c:forEach>
                 </div>
             </div>
         </div>
