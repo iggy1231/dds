@@ -138,20 +138,6 @@ ul.payment-info li span.total {
 		        <h4 id="point-used" class="total  text-end" style="color: #A6A6A6;">0원</h4>
 		    </div>
 		</div>
-		<!--  
-		<div class="px-3 rounded row gx-4 gy-1 pt-3 d-flex justify-content-between align-items-center">
-		    <h5 class="flex-grow-1 col">쿠폰 할인</h5>
-		    <div class="col-3 d-flex align-items-end">
-		        <h4 id="coupon-discount" class="total  text-end" style="color: #A6A6A6;">0원</h4>
-		    </div>
-		</div>
-		<div class="px-3 rounded row gx-4 gy-1 pt-3 d-flex justify-content-between align-items-center">
-		    <h5 class="flex-grow-1 col">총 할인된 금액</h5>
-		    <div class="col-3 d-flex align-items-end">
-		        <h4 id="total-discount" class="total  text-end" style="color: #A6A6A6;">${final_price }원</h4>
-		    </div>
-		</div>
-		-->
 		<hr class="m-3 my-2">
 		<div class="px-3 rounded row gx-4 gy-3 mt-2 pt-3 d-flex justify-content-between align-items-center">
 		    <h3 class="flex-grow-1 col fw-semibold">최종 가격</h3>
@@ -208,34 +194,7 @@ ul.payment-info li span.total {
 </div>
 
 
-<script>
-function applyPoint() {
-    var pointField = document.getElementById('point');
-    var point = pointField.value.replace(/,/g, '');
-    var pointUsed = document.getElementById('point-used');
-    var couponDiscount = document.getElementById('coupon-discount').innerText.replace(/,/g, '').replace('원', '');
-    var finalPrice = document.getElementById('final-price');
-    var roomPrice = ${dto.price};
-    
-    final_price = parseInt(final_price);
 
-    point = parseInt(point) || 0; // Remove commas for calculation and handle NaN
-    couponDiscount = parseInt(couponDiscount) || 0;
-
-    if (!isNaN(point)) {
-        pointUsed.innerText = formatNumber(point) + '원';
-        var totalDiscount = point + couponDiscount;
-        document.getElementById('total-discount').innerText = formatNumber(totalDiscount) + '원';
-        finalPrice.innerText = formatNumber(roomPrice - totalDiscount) + '원';
-    } else {
-        pointUsed.innerText = '0원';
-        finalPrice.innerText = formatNumber(roomPrice - couponDiscount) + '원';
-    }
-}
-
-
-
-</script>
 
 
 <script src="https://cdn.iamport.kr/v1/iamport.js"></script>
