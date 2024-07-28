@@ -146,12 +146,16 @@ function getToken(num, point,sale_num) {
 }
 
 function cancel(num, access_token,point,sale_num) {
-	console.log("셀넘" + sale_num)
-	var sale_num = sale_num;
-	 var cardNum = document.getElementById("card_num-"+sale_num).value;
+		console.log("셀넘" + sale_num)
+		var sale_num = sale_num;
+	 	var cardNum = document.getElementById("card_num-"+sale_num).value;
 	    var userNum = document.getElementById("user_num-"+sale_num).value;
 	    var finalPrice = document.getElementById("final_price-"+sale_num).value;
 	    var description = document.getElementById("description-"+sale_num).value;
+	    
+	    sale_num = parseInt(sale_num, 10); 
+	    userNum = parseInt(userNum, 10);   
+	    finalPrice = parseInt(finalPrice, 10); 
     
     var url = "${pageContext.request.contextPath}/admin/product/cancel";
     
@@ -169,6 +173,7 @@ function cancel(num, access_token,point,sale_num) {
         let state = data.state;
         if (state === "true") {
             alert("환불 성공");
+            window.location.reload();
         } else {
             alert("환불 실패");
             console.log(data.message);
