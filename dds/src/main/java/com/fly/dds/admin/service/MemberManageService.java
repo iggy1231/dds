@@ -11,4 +11,7 @@ public interface MemberManageService {
 	public int dataCount(Map<String, Object> map) throws Exception;
 	public int reportCount() throws Exception;
 	public List<ReportManage> listReportMember(ReportManage dto);
+	
+	public int banCount() throws Exception;
+	public List<ReportManage> listBan();
 }

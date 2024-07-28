@@ -26,7 +26,7 @@
 				INSTR(nickname, #{kwd}) &gt; 0	
 		</sql>
 		
-			<select id="listReportMember" parameterType="map" resultType="com.fly.dds.admin.domain.ReportManage">
+	<select id="listReportMember" parameterType="map" resultType="com.fly.dds.admin.domain.ReportManage">
 	    select num , reason , user_num , reporter_num , isreply , reportpage , article_num , reg_date , state
 	     from declaration
 	</select>
@@ -35,4 +35,17 @@
 		select nvl(count(*),0)
 		from declaration
 	</select>
+	
+	<select id="listBan" resultType="com.fly.dds.admin.domain.ReportManage">
+		select num , reason , ban_sdate , ban_edate , ban_state , b.user_num , nickname
+		from ban b 
+		join member_info m on b.user_num = m.user_num
+	</select>
+	
+	<select id="banCount" resultType="Integer">
+		select nvl(count(*),0)
+		from ban
+	</select>
+	
+	
 </mapper>

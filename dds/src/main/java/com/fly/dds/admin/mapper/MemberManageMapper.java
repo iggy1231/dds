@@ -15,4 +15,7 @@ public interface MemberManageMapper {
 	public int dataCount(Map<String, Object> map) throws SQLException;
 	public int reportCount() throws SQLException;
 	public List<ReportManage> listReportMember(ReportManage dto);
+	
+	public int banCount() throws SQLException;
+	public List<ReportManage> listBan();
 }

@@ -67,4 +67,31 @@ public class MemberManageServiceImpl implements MemberManageService {
 		return result;
 	}
 
+	@Override
+	public int banCount() throws Exception {
+		int result = 0;
+		
+		try {
+			result=mapper.banCount();
+		} catch (Exception e) {
+			e.printStackTrace();
+			throw e;
+		}
+		
+		return result;
+	}
+
+	@Override
+	public List<ReportManage> listBan() {
+	List<ReportManage> list = null;
+		
+		try {
+			list = mapper.listBan();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		return list;
+	}
+
 }
