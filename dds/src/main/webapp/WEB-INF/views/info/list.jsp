@@ -37,10 +37,12 @@
 	padding: 0px;
 }
 .scroll-list li {
+	height: 120px;
 	margin-bottom: 10px;
 }
 .scroll-list .card img {
 	width: 25%;
+	object-fit: scale-down;
 }
 .card p {
 	margin: 0px;
@@ -173,9 +175,7 @@
 				<h2 class="color-text"><i class="bi bi-info-square"></i>&nbsp;인기 여행 정보</h2>
 				<div class="scroll-list">
 					<ul>
-						<li>
-							<div class="sentinel-1" data-loading="false"></div>
-						</li>
+						<li class="sentinel-1" data-loading="false"></li>
 					</ul>
 				</div>
 				<hr>

@@ -11,7 +11,7 @@
 				</div>
 				<table class="table">
 					<thead>
-						<tr>
+						<tr class="table-primary">
 							<td>번호</td>
 							<td>이름</td>
 							<td>내용</td>
@@ -50,7 +50,7 @@
 				</div>
 				<table class="table">
 					<thead>
-						<tr>
+						<tr class="table-primary">
 							<td>쿠폰번호</td>
 							<td>회원이름</td>
 							<td>상태</td>
