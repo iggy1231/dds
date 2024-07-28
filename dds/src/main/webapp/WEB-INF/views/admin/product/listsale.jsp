@@ -53,7 +53,7 @@
 											<td>${list.detail_num}</td>
 											<td>${list.user_num}</td>
 											<td>${list.nickName}</td>	
-											<td> <input type="text" id="description-${list.sale_num}"> <button type="button" onclick="getToken('${list.imp_uid}',0);" > 환 불 </button> </td>			
+											<td> <input type="text" id="description-${list.sale_num}"> <button type="button" onclick="getToken('${list.imp_uid}',0,${list.sale_num});" > 환 불 </button> </td>			
 										</tr>
 									</c:forEach>
 								</tbody>
@@ -108,9 +108,8 @@
 <script type="text/javascript">
 
 
-function getToken(num, point) {
+function getToken(num, point,sale_num) {
     // ajaxFun 함수 정의    
-    
     function ajaxFun(url, method, query, dataType, successCallback) {
         $.ajax({
             url: url,
@@ -133,8 +132,9 @@ function getToken(num, point) {
         if (state === "true") {
             alert("불러오기 성공");
             console.log(data.access_token);
+            console.log(sale_num);
             let access_token = data.access_token;
-            cancel(num, access_token, point);
+            cancel(num, access_token, point,sale_num);
         } else {
             alert("불러오기 실패");
         }
@@ -145,13 +145,13 @@ function getToken(num, point) {
     
 }
 
-function cancel(num, access_token,point) {
-   
-    var cardNum = document.getElementById(`card_num-${sale_num}`).value;
-    var userNum = document.getElementById(`user_num-${sale_num}`).value;
-    var finalPrice = document.getElementById(`final_price-${sale_num}`).value;
-    var description = document.getElementById(`description-${sale_num}`).value;
-    var saleNum = document.getElementById(`sale_num-${sale_num}`).value;
+function cancel(num, access_token,point,sale_num) {
+	console.log("셀넘" + sale_num)
+	var sale_num = sale_num;
+	 var cardNum = document.getElementById("card_num-"+sale_num).value;
+	    var userNum = document.getElementById("user_num-"+sale_num).value;
+	    var finalPrice = document.getElementById("final_price-"+sale_num).value;
+	    var description = document.getElementById("description-"+sale_num).value;
     
     var url = "${pageContext.request.contextPath}/admin/product/cancel";
     
@@ -159,7 +159,7 @@ function cancel(num, access_token,point) {
         imp_uid: num,
         reason: description,
         access_token: access_token, // 액세스 토큰 추가
-        sale_num : saleNum,
+        sale_num : sale_num,
         card_num : cardNum,
         final_price : finalPrice,
         user_num : userNum,

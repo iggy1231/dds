@@ -57,6 +57,7 @@ public class RoomPaymentServiceImpl implements RoomPaymentService{
 	public void insertRefund(Map<String, Object> map) throws Exception {
 		try {
 			mapper.insertRefund(map);
+			System.out.println("insertrefund 호출 성공");
 		} catch (Exception e) {
 			e.printStackTrace();
 			throw e;
