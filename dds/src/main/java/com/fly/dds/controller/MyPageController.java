@@ -9,13 +9,20 @@ import java.util.Map;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpEntity;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.client.RestTemplate;
 
 import com.fly.dds.common.FileManager;
 import com.fly.dds.common.MyUtil;
@@ -30,6 +37,7 @@ import com.fly.dds.domain.RoomReview;
 import com.fly.dds.domain.SessionInfo;
 import com.fly.dds.domain.TravelReview;
 import com.fly.dds.service.MyPageService;
+import com.fly.dds.service.RoomPaymentService;
 
 @Controller
 @RequestMapping("/mypage/*")
@@ -39,6 +47,9 @@ public class MyPageController {
 	
 	@Autowired
 	private MyUtil myUtil;
+	
+	@Autowired
+	private RoomPaymentService rpservice;
 	
 	@Autowired
 	private FileManager fileManager;
@@ -447,8 +458,8 @@ public class MyPageController {
         Map<String, Object> result = new HashMap<>();
         try {
             SessionInfo info = (SessionInfo) session.getAttribute("member");
-            long userNum = info.getUser_num();
-            service.removeFromWishlist(userNum, num, table_name); // 서비스 메소드 호출
+            long user_num = info.getUser_num();
+            service.removeFromWishlist(user_num, num, table_name); // 서비스 메소드 호출
             result.put("success", true);
         } catch (Exception e) {
             result.put("success", false);
@@ -761,14 +772,14 @@ public class MyPageController {
 	
 	@PostMapping("/cancelReservation")
     @ResponseBody
-    public String cancelReservation(@RequestParam("saleNum") long saleNum,
-                                    @RequestParam("detailNum") long detailNum,
-                                    @RequestParam("userNum") long userNum) {
-		System.out.println("saleNum: " + saleNum + ", detailNum: " + detailNum + ", userNum: " + userNum); // 로그 추가
+    public String cancelReservation(@RequestParam("sale_num") long sale_num,
+                                    @RequestParam("detail_num") long detail_num,
+                                    @RequestParam("user_num") long user_num) {
+		System.out.println("sale_num: " + sale_num + ", detail_num: " + detail_num + ", user_num: " + user_num); // 로그 추가
 		Map<String, Object> params = new HashMap<>();
-        params.put("sale_num", saleNum);
-        params.put("detail_num", detailNum);
-        params.put("user_num", userNum);
+        params.put("sale_num", sale_num);
+        params.put("detail_num", detail_num);
+        params.put("user_num", user_num);
 
         try {
             service.deleteRoom(params);
@@ -882,6 +893,103 @@ public class MyPageController {
 		model.addAttribute("total_page",total_page);
 
 		return "mypage/myReview";
-	}	
+	}
+	
+	@PostMapping("token")
+	public ResponseEntity<Map<String, Object>> getAccessToken() {
+		Map<String, Object> response = new HashMap<>();
+		try {
+			RestTemplate restTemplate = new RestTemplate();
+			String url = "https://api.iamport.kr/users/getToken";
+
+			Map<String, String> body = new HashMap<>();
+			body.put("imp_key", "7846183717363020"); // 포트원 API 키
+			body.put("imp_secret", "ZV0MSr5pDwiDrchZaPzIJQl578nG28CJ9NOkTrcQVrlyGXxLKRhAzN6t3C7kO3aR7JPG6w2ibBAUbct0"); // 포트원
+																														// API
+																														// 시크릿
+
+			HttpHeaders headers = new HttpHeaders();
+			headers.setContentType(MediaType.APPLICATION_JSON);
+
+			HttpEntity<Map<String, String>> entity = new HttpEntity<>(body, headers);
+			ResponseEntity<Map> responseEntity = restTemplate.postForEntity(url, entity, Map.class);
+
+			if (responseEntity.getStatusCode() != HttpStatus.OK) {
+				throw new Exception("Failed to get access token: " + responseEntity.getStatusCode());
+			}
+
+			Map<String, Object> responseBody = responseEntity.getBody();
+
+			if (responseBody == null || !responseBody.containsKey("response")) {
+				throw new Exception("Failed to get access token: invalid response");
+			}
+
+			Map<String, String> responseData = (Map<String, String>) responseBody.get("response");
+			response.put("state", "true");
+			response.put("access_token", responseData.get("access_token"));
+		} catch (Exception e) {
+			response.put("state", "false");
+			response.put("message", "Failed to get access token: " + e.getMessage());
+		}
+		return ResponseEntity.ok(response);
+	}
+
+	@PostMapping("cancel")
+	@ResponseBody
+	public ResponseEntity<Map<String, Object>> cancelPayment(@RequestBody Map<String, Object> requestData) {
+	    String accessToken = (String) requestData.get("access_token");
+	    String imp_uid = (String) requestData.get("imp_uid");
+	    String reason = (String) requestData.get("reason");
+	    Integer refund_price = null;
+	    long sale_num =((Integer) requestData.get("sale_num")).longValue();
+	    String card_num = (String) requestData.get("card_num");
+	    long user_num =  Long.parseLong((String) requestData.get("user_num"));   
+	    		
+	    try {
+	    	String final_price = (String) requestData.get("final_price");
+	    	refund_price = Integer.parseInt(final_price);
+	    	Map<String, Object> map = new HashMap<>();
+	    	map.put("refund_reason"	, reason);
+	    	map.put("sale_num"	, sale_num);
+	    	map.put("refund_price"	, refund_price);
+	    	map.put("card_num"	, card_num);
+	    	map.put("user_num"	, user_num);
+	        RestTemplate restTemplate = new RestTemplate();
+	        String url = "https://api.iamport.kr/payments/cancel";
+	        rpservice.insertRefund(map);
+
+	        Map<String, Object> body = new HashMap<>();
+	        body.put("imp_uid", imp_uid);
+	        body.put("reason", reason);
+
+	        HttpHeaders headers = new HttpHeaders();
+	        headers.setContentType(MediaType.APPLICATION_JSON);
+	        headers.set("Authorization", accessToken);
+
+	        HttpEntity<Map<String, Object>> entity = new HttpEntity<>(body, headers);
+	        ResponseEntity<Map> response = restTemplate.postForEntity(url, entity, Map.class);
+
+	        if (response.getStatusCode() == HttpStatus.OK) {
+	            Map<String, Object> responseBody = response.getBody();
+	            // 성공 처리
+	            Map<String, Object> successResponse = new HashMap<>();
+	            successResponse.put("state", "true");
+	            successResponse.put("response", responseBody);
+	            return ResponseEntity.ok().body(successResponse);
+	        } else {
+	            // 실패 처리
+	            throw new Exception("Failed to cancel payment: " + response.getStatusCode());
+	        }
+	    } catch (Exception e) {
+	        e.printStackTrace();
+	        Map<String, Object> errorResponse = new HashMap<>();
+	        errorResponse.put("state", "false");
+	        errorResponse.put("message", e.getMessage());
+	        return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(errorResponse);
+	    }
+	    
+	    
+	    
+	}
 	
 }

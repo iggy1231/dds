@@ -23,4 +23,15 @@
 		ORDER BY score DESC
         ]]>
     </select>
+    
+    <select id="homeCompanion" parameterType="map" resultType="com.fly.dds.domain.Companion">
+		SELECT DISTINCT c.num, subject, nickname,region_main AS mainRegion, total_people
+		FROM companion c
+		JOIN companion_info ci ON c.num = ci.num
+		JOIN companion_age ca ON c.num = ca.num
+		JOIN companion_region cr ON c.num = cr.num
+		JOIN member_profile m ON c.user_num = m.user_num
+		ORDER BY dbms_random.value
+		OFFSET #{offset} ROWS FETCH FIRST #{size} ROWS ONLY
+	</select>
 </mapper>

@@ -6,6 +6,7 @@ import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.fly.dds.domain.Companion;
 import com.fly.dds.domain.Home;
 import com.fly.dds.mapper.HomeMapper;
 
@@ -20,6 +21,20 @@ public class HomeServiceImpl implements HomeService {
 
 		try {
 			list = mapper.homeRoom(map);
+
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+
+		return list;
+	}
+
+	@Override
+	public List<Companion> homeCompanion(Map<String, Object> map) {
+		List<Companion> list = null;
+
+		try {
+			list = mapper.homeCompanion(map);
 
 		} catch (Exception e) {
 			e.printStackTrace();

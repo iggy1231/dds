@@ -279,19 +279,19 @@
 	</select>
 	
 	<select id="listMyRoom" parameterType="map" resultType="com.fly.dds.domain.Room">
-	    SELECT r.num, thumbnail, subject, rd.name, sdate, edate, (edate - sdate) AS days, rs.sale_num AS saleNum, rd.detail_num AS detailNum, rs.user_num AS userNum
+	    SELECT r.num, thumbnail, subject, rd.name, sdate, edate, (edate - sdate) AS days, rs.sale_num,
+	     rd.detail_num, rs.user_num, pc.imp_uid , pc.card_name , pc.card_num , rs.final_price
 	    FROM room r
 	    JOIN room_detail rd ON r.num = rd.num
 	    JOIN room_sale rs ON rd.detail_num = rs.detail_num
 	    JOIN member1 m ON m.user_num = rs.user_num
+	    left outer join room_pay_cash pc on rs.sale_num = pc.sale_num
+	    left outer join room_refund rr on rs.sale_num = rr.sale_num
 	    WHERE rs.user_num = #{user_num}
-	    GROUP BY thumbnail, subject, rd.name, sdate, edate, rs.sale_num, rd.detail_num, rs.user_num, r.num
+	    and rr.sale_num is null 
+	    GROUP BY thumbnail, subject, rd.name, sdate, edate, rs.sale_num, rd.detail_num, rs.user_num, r.num, pc.imp_uid , pc.card_name , pc.card_num , rs.final_price
 	    ORDER BY sdate ASC
 	</select>
-	
-	<delete id="deleteRoom" parameterType="map">
-    	DELETE FROM room_sale WHERE sale_num = #{sale_num} and detail_num = #{detail_num} and user_num = #{user_num} 
-	</delete>
 	
 	<select id="myRoomQnA" parameterType="map" resultType="com.fly.dds.domain.RoomQnA">
 	    SELECT qna_num, userName, subject, content, TO_CHAR(reg_date, 'yyyy-mm-dd') AS reg_date, answer, TO_CHAR(answer_date, 'yyyy-mm-dd') AS answer_date, boardname
@@ -397,4 +397,6 @@
 		update member_coupon set use_state=0
 		where num IN (select num from coupon where expiry_date &lt; SYSDATE)
 	</update>
+	
+	
 </mapper>

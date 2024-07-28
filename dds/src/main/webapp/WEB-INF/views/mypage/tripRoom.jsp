@@ -37,7 +37,10 @@
 					<span>체크인</span><br> <span>${list1.sdate}</span>
 				</div>
 				<div>
-					<span>|</span>
+					<span>|<input type="hidden" id="sale_num-${list1.sale_num}" value="${list1.sale_num}">
+				            <input type="hidden" id="final_price-${list1.sale_num}" value="${list1.final_price}">
+				            <input type="hidden" id="card_num-${list1.sale_num}" value="${list1.card_num}">
+				            <input type="hidden" id="user_num-${list1.sale_num}" value="${list1.user_num}"></span>
 				</div>
 				<div>
 					<span>체크아웃</span><br> <span>${list1.edate}</span>
@@ -47,7 +50,7 @@
 			<!-- 예약 취소 버튼과 더보기 버튼을 오른쪽 하단에 배치 -->
 			<div class="flex-item"
 				style="display: flex; justify-content: flex-end; margin-top: 10px;">
-				        <button class="btn btn-primary" style="margin-right: 5px;" onclick="cancelReservation(${list1.saleNum}, ${list1.detailNum}, ${list1.userNum})">예약 취소</button>
+				      <input type="text" id="description-${list1.sale_num}">  <button class="btn btn-primary" style="margin-right: 5px;" onclick="getToken('${list1.imp_uid}', null, ${list1.sale_num});">예약 취소</button>
 				<div class="dropdown">
 					<button onclick="toggleDropdown()"
 						class="btn btn-outline-secondary">...</button>

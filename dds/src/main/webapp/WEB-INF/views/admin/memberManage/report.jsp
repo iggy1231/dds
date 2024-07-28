@@ -39,9 +39,9 @@ $(function(){
 		const tab = $(this).attr("aria-controls");
 		
 		if(tab === "1") { // 주문관리
-			location.href = "${pageContext.request.contextPath}/admin/order/status";
+			location.href = "${pageContext.request.contextPath}/admin/memberManage/report";
 		} else if( tab === "2") { // 배송관리
-			location.href = "${pageContext.request.contextPath}/admin/order/delivery";
+			location.href = "${pageContext.request.contextPath}/admin/memberManage/ban";
 		}
 	});
 });
@@ -57,10 +57,10 @@ $(function(){
 		
 			<ul class="nav nav-tabs mt-5" id="myTab" role="tablist">
 				<li class="nav-item" role="presentation">
-					<button class="nav-link ${orderStatus=='status'?'active':''}" id="tab-1" data-bs-toggle="tab" data-bs-target="#tab-pane" type="button" role="tab" aria-controls="1" aria-selected="${orderStatus=='status'?'true':'false'}">신고</button>
+					<button class="nav-link" id="tab-1"  type="button" role="tab" aria-controls="1" aria-selected="true">신고</button>
 				</li>
 				<li class="nav-item" role="presentation">
-					<button class="nav-link ${orderStatus=='delivery'?'active':''}" id="tab-2" data-bs-toggle="tab" data-bs-target="#tab-pane" type="button" role="tab" aria-controls="2" aria-selected="${orderStatus=='delivery'?'true':'false'}">차단</button>
+					<button class="nav-link" id="tab-2"  type="button" role="tab" aria-controls="2" aria-selected="false">차단</button>
 				</li>
 			</ul>
 			
@@ -99,15 +99,20 @@ $(function(){
 					<tbody>
 						<c:forEach var="dto" items="${list}" varStatus="status">
 							<tr valign="middle">
-								<td>${dto.orderNum}</td>
-								<td>${dto.orderStateInfo}</td>
-								<td>${dto.userName}</td>
-								<td>${dto.orderDate}</td>
-								<td><fmt:formatNumber value="${dto.payment}"/></td>
-								<td>${orderStatus=="status"?dto.totalQty:dto.invoiceNumber}</td>
-								<td>${dto.detailCancelCount}</td>
+								<td>${dto.num}</td>
+								<td>${dto.reason}</td>
+								<td>${dto.reportPage}</td>
+								<td>${dto.reg_date}</td>
+								<td>${dto.reporter_num}</td>
 								<td>
-									<span class="orderStatus-update" data-orderNum="${dto.orderNum}">${orderStatus=="status"?"상태변경":"배송변경"}</span>
+								  <c:choose>
+								    <c:when test="${dto.state == 1}">
+								      확인완료
+								    </c:when>
+								    <c:otherwise>
+								      확인요망
+								    </c:otherwise>
+								  </c:choose>
 								</td>
 							</tr>
 						</c:forEach>

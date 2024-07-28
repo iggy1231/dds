@@ -355,22 +355,22 @@ function listReply(page) {
 // 페이지 로드 시점에서 각 버튼에 이벤트 리스너 추가
 document.querySelectorAll('.btn.btn-primary').forEach(function(button) {
     button.addEventListener('click', function() {
-        var saleNum = this.getAttribute('data-saleNum');
-        var detailNum = this.getAttribute('data-detailNum');
-        var userNum = this.getAttribute('data-userNum');
-        cancelReservation(saleNum, detailNum, userNum);
+        var sale_num = this.getAttribute('data-sale_num');
+        var detail_num = this.getAttribute('data-detail_num');
+        var user_num = this.getAttribute('data-user_num');
+        cancelReservation(sale_num, detail_num, user_num);
     });
 });
 
-function cancelReservation(saleNum, detailNum, userNum) {
+function cancelReservation(sale_num, detail_num, user_num) {
     if (confirm("정말 예약을 취소하시겠습니까?")) {
         $.ajax({
             type: "POST",
             url: "${pageContext.request.contextPath}/mypage/cancelReservation",
             data: {
-                saleNum: saleNum,
-                detailNum: detailNum,
-                userNum: userNum
+                sale_num: sale_num,
+                detail_num: detail_num,
+                user_num: user_num
             },
             success: function(response) {
                 if (response === "success") {
@@ -512,4 +512,94 @@ $(document).on('hidden.bs.modal', function(e) {
     $(this).find("form")[0].reset();
 });
 
+</script>
+
+<script type="text/javascript">
+
+
+function getToken(num, point,sale_num) {
+    // ajaxFun 함수 정의    
+    function ajaxFun(url, method, query, dataType, successCallback) {
+        $.ajax({
+            url: url,
+            method: method,
+            data: query,
+            dataType: dataType,
+            success: successCallback,
+            error: function(xhr, status, error) {
+                console.error("AJAX 요청 실패:", status, error);
+                alert("AJAX 요청에 실패했습니다.");
+            }
+        });
+    }
+
+    let url = "${pageContext.request.contextPath}/mypage/token";
+    let query = "";
+
+    const fn = function(data) {
+        let state = data.state;
+        if (state === "true") {
+            alert("불러오기 성공");
+            console.log(data.access_token);
+            console.log(sale_num);
+            let access_token = data.access_token;
+            cancel(num, access_token, point,sale_num);
+        } else {
+            alert("불러오기 실패");
+        }
+    };
+
+    // ajaxFun 함수 호출
+    ajaxFun(url, "post", query, "json", fn);
+    
+}
+
+function cancel(num, access_token,point,sale_num) {
+	console.log("셀넘" + sale_num)
+	var sale_num = sale_num;
+	 var cardNum = document.getElementById("card_num-"+sale_num).value;
+	    var user_num = document.getElementById("user_num-"+sale_num).value;
+	    var finalPrice = document.getElementById("final_price-"+sale_num).value;
+	    var description = document.getElementById("description-"+sale_num).value;
+    
+    var url = "${pageContext.request.contextPath}/mypage/cancel";
+    
+    var formData = {
+        imp_uid: num,
+        reason: description,
+        access_token: access_token, // 액세스 토큰 추가
+        sale_num : sale_num,
+        card_num : cardNum,
+        final_price : finalPrice,
+        user_num : user_num,
+    };
+
+    const fn = function(data) {
+        let state = data.state;
+        if (state === "true") {
+            alert("환불 성공");
+            window.location.reload();
+        } else {
+            alert("환불 실패");
+            console.log(data.message);
+        }
+    };
+
+    // ajaxFun 함수 예시
+    function ajaxFun(url, type, data, dataType, successFn) {
+        $.ajax({
+            url: url,
+            type: type,
+            contentType: "application/json",
+            data: JSON.stringify(data),
+            dataType: dataType,
+            success: successFn,
+            error: function(xhr, status, error) {
+                alert("전송 실패: " + xhr.responseText);
+            }
+        });
+    }
+
+    ajaxFun(url, "post", formData, "json", fn);
+};
 </script>

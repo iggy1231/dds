@@ -14,6 +14,16 @@ public class ReportManage {
 	private int ban_state;
 	private String ban_sdate;
 	
+	private int state;
+	
+	public int getState() {
+		return state;
+	}
+	public void setState(int state) {
+		this.state = state;
+	}
+	
+	
 	public long getNum() {
 		return num;
 	}
