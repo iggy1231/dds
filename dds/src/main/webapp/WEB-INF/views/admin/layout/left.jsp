@@ -136,8 +136,8 @@
                   </a>
                 </li>
                 <li class="menu-item">
-                  <a href="layouts-without-navbar.html" class="menu-link">
-                    <div data-i18n="Without navbar">주문상세</div>
+                  <a href="${pageContext.request.contextPath}/admin/product/listRefund" class="menu-link">
+                    <div data-i18n="Without navbar">숙소 환불리스트</div>
                   </a>
                 </li>
               </ul>
