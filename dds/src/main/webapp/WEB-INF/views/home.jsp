@@ -220,7 +220,80 @@
     filter: brightness(75%); /* 호버 시 이미지 밝기를 70%로 낮춤 */
 }
 
+.input-group-text, .form-control {
+            border-radius: 0;
+        }
+        .datepicker {
+            z-index: -9999;
+        }
+        .input-group.date {
+            display: flex;
+        }
+        .input-group.date .form-control {
+            border-right: none;
+        }
+        .input-group.date .input-group-append .input-group-text {
+            border-left: none;
+        }
+        
+/* Datepicker 셀 스타일 수정 */
+.datepicker-days td, .datepicker-days th {
+    border-radius: 50% !important; /* 완벽한 원형으로 변경 */
+    padding: 0.75em; /* 셀 내 여백 */
+    text-align: center; /* 셀 텍스트 정렬 */
+}
 
+/* 오늘 날짜 스타일 */
+.datepicker-days .today {
+    background-color: #D5D5D5; /* 오늘 날짜 배경색 */
+    color: #fff; /* 오늘 날짜 텍스트 색상 */
+    background-image : #D5D5D5;
+}
+
+/* 선택된 날짜 스타일 */
+.datepicker-days .active {s
+    background-color: #18A8F1; /* 선택된 날짜 배경색 */
+    color: #fff; /* 선택된 날짜 텍스트 색상 */
+}
+
+/* 날짜 선택 버튼 스타일 */
+.datepicker-buttons {
+    background-color: #18A8F1; /* 버튼 배경색 */
+    color: #fff; /* 버튼 텍스트 색상 */
+    border: none; /* 버튼 테두리 제거 */
+    border-radius: 0.375rem; /* 버튼 모서리 둥글기 */
+}
+
+/* 날짜 선택 버튼 호버 스타일 */
+.datepicker-buttons:hover {
+    background-color: #0056b3; /* 호버 시 버튼 배경색 */
+}
+        
+.datepicker .datepicker-switch {
+    width: 145px;
+    background: #f8f9fa; /* 배경색 수정 */
+}
+
+.datepicker table tr td.day.focused,
+.datepicker table tr td.day:hover {
+    background: #e9ecef; /* 날짜 선택 시 배경 색상 */
+    cursor: pointer;
+}
+
+.datepicker table tr td.today {
+    background-color: #ffc107; /* 오늘 날짜 강조 색상 */
+}
+
+.datepicker table tr td.selected {
+    background-color: #007bff; /* 선택된 날짜 색상 */
+    color: #fff; /* 선택된 날짜 텍스트 색상 */
+}        
+        
+        
+        
+ .custom-height {
+    height: 60px; /* 원하는 높이값으로 수정하세요 */
+} 
         
 </style>
 
@@ -242,27 +315,31 @@
 						                <a class="nav-link" id="overseas-tab" data-bs-toggle="tab" href="#overseas" role="tab" aria-controls="overseas" aria-selected="false">여행 정보</a>
 						            </li>
 						        </ul>
-						        <div class="tab-content mt-3" id="myTabContent">
-						            <div class="tab-pane fade show active" id="domestic" role="tabpanel" aria-labelledby="domestic-tab">
-						                <form class="d-flex" name="searchForm" action="${pageContext.request.contextPath}/search/main" method="post">
-						                    <div class="input-group">
-						                        <span class="input-group-text"><i class="p-2 bi bi-search"></i></span>
-						                        <input name="search_term" type="text" class="p-3 form-control" placeholder="여행지나 숙소를 검색해보세요">
-						                    </div>
-						                    <button type="button" class="p-3 btn btn-outline-secondary mx-2">
-						                        <i class=" bi bi-calendar"></i> 07.08 월 - 07.09 화 (1박)
-						                    </button>
-						                    <button type="button" class="p-3  btn btn-outline-secondary mx-2">
-						                        <i class="bi bi-people"></i> 인원 2
-						                    </button>
-						                    <button type="submit" class="p-3  btn btn-primary">검색</button>
-						                </form>
+						        <div class="tab-content mt-1" id="myTabContent">
+						            <div class="tab-pane fade show active my-3" id="domestic" role="tabpanel" aria-labelledby="domestic-tab">
+						                <form class="d-flex" name="searchForm" action="${pageContext.request.contextPath}/room/list">
+						                    <div class="py-3 input-group custom-height">
+									        <span class="input-group-text custom-height rounded-start"><i class="bi bi-search"></i></span> <!-- 여기에 클래스 추가 -->
+									        <input name="kwd" type="text" class="form-control custom-height rounded-end" placeholder="여행지나 숙소를 검색해보세요" autocomplete='off'>
+									    </div>
+									    <div class="py-3 input-group mx-1 custom-height"> 
+									        <span class="input-group-text custom-height rounded-start"><i class="bi bi-calendar"></i></span>
+									        <input name="sdate" type="text" id="startDate" class="form-control custom-height" placeholder="시작 날짜" autocomplete='off'>
+									        <input name="edate" type="text" id="endDate" class="form-control custom-height rounded-end" placeholder="종료 날짜" autocomplete='off'>
+									    </div>
+									    <div class="py-3 input-group custom-height"> 
+									        <span class="input-group-text custom-height rounded-start"><i class="bi bi-people"></i></span>
+									        <input name="people" type="text" class="form-control custom-height" placeholder="인원 입력" autocomplete='off'>
+									    <button type="submit" class="btn btn-primary ms-1 custom-height rounded-end">검색</button>
+									    </div>
+										</form>
 						            </div>
 						            <div class="tab-pane fade" id="overseas" role="tabpanel" aria-labelledby="overseas-tab">
-						                <form class="d-flex" name="searchForm" action="${pageContext.request.contextPath}/" method="post">
+						                <form class="d-flex" name="searchForm" action="${pageContext.request.contextPath}/info/search">
 						                    <div class="input-group mr-1 pe-2">
 						                        <span class="input-group-text"><i class="p-2 bi bi-search"></i></span>
-						                        <input name="search_term" type="text" class="p-3 form-control" placeholder="원하는 여행지를 검색해보세요">
+						                        <input name="kwd" type="text" class="p-3 form-control" placeholder="원하는 여행지를 검색해보세요">
+						                    	<input type="hidden" name="schType" value="all">
 						                    </div>
 						                    <button type="submit" class="p-3  btn btn-primary">검색</button>
 						                </form>
@@ -278,9 +355,10 @@
 <div class="container-xxl py-5">
     <div class="container">
         <div class="col-lg-12">
-            <div class="text-start mx-auto mb-5 wow slideInLeft" data-wow-delay="0.1s">
-                <h1 class="mb-3 display-6 text-primary" style="font-weight: 600;">진행중 이벤트</h1>
-            </div>
+            <div class="text-start mx-auto mb-5 wow slideInLeft d-flex justify-content-between align-items-center" data-wow-delay="0.1s">
+    			<h1 class="mb-3 display-6 text-primary" style="font-weight: 600;">진행중 이벤트</h1>
+    			<a href="${pageContext.request.contextPath}/event/progress/list" style="font-size: 1rem;">자세히 ></a>
+			</div>
             <div class="row g-4">
                 <div class="col-lg-4 col-md-6 wow fadeInUp" data-wow-delay="0.3s">
                     <div class="property-item rounded overflow-hidden">
@@ -333,97 +411,23 @@
         <div class="tab-content">
             <div id="tab-1" class="tab-pane fade show p-0 active">
                 <div class="row g-4">
-                    <div class="col-lg-4 col-md-6 wow fadeInUp" data-wow-delay="0.3s">
+                <c:forEach var="room" items="${topRatedRooms}">
+                   <div class="col-lg-4 col-md-6 wow fadeInUp" data-wow-delay="0.3s">
                         <div class="property-item rounded overflow-hidden">
                             <div class="position-relative overflow-hidden">
-                                <a href=""><img class="ratio ratio-4x3 img-fluid img-fluid-hover" src="https://ppss.kr/wp-content/uploads/2023/02/1-2.jpeg" alt=""></a>
-                                <div class="bg-primary rounded text-white position-absolute start-0 top-0 m-4 py-1 px-3">★ 9.6</div>
-                                <div class="display-9 bg-white rounded-top text-primary position-absolute start-0 bottom-0 mx-4 pt-1 px-3"><h5 style="font-weight: 600;">펜션</h5></div>
+                                <a href="${pageContext.request.contextPath}/room/detail/${room.num}"><img class="ratio ratio-4x3 img-fluid img-fluid-hover" src="${room.thumbnail}" alt="${room.subject}"></a>
+                                <div class="bg-primary rounded text-white position-absolute start-0 top-0 m-4 py-1 px-3">★ ${room.rating}</div>
+                                <div class="display-9 bg-white rounded-top text-primary position-absolute start-0 bottom-0 mx-4 pt-1 px-3"><h5 style="font-weight: 600;">${room.roomType}</h5></div>
                             </div>
                             <div class="px-4 py-2 pb-3">
-                                <h4 class="text-primary my-2 pt-1" style="font-weight: 600;">50,000원</h4>
-                                <a class="d-block h4 mb-2" href="" style="font-weight: 600;">익산 함께해요 펜션</a>
-                                <h6 class="display-10 py-1" style="color: #666565;"><i class="text-primary bi bi-geo-alt-fill"></i>&nbsp;서울시 마포구 oo로</h6>
-                                <h6 class="display-10" style="color: #666565;"><i class="text-primary bi bi-chat-fill"></i>&nbsp;&nbsp;199개</h6>
+                                <h4 class="text-primary my-2 pt-1" style="font-weight: 600;">${room.price}원</h4>
+                                <a class="d-block h4 mb-2" href="${pageContext.request.contextPath}/room/detail/${room.num}" style="font-weight: 600;">${room.subject}</a>
+                                <h6 class="display-10 py-1" style="color: #666565;"><i class="text-primary bi bi-geo-alt-fill"></i>&nbsp;${room.addr1}</h6>
+                                <h6 class="display-10" style="color: #666565;"><i class="text-primary bi bi-chat-fill"></i>&nbsp;&nbsp;${room.reviewCount}개</h6>
                             </div>
                         </div>
                     </div>
-                    <div class="col-lg-4 col-md-6 wow fadeInUp" data-wow-delay="0.3s">
-                        <div class="property-item rounded overflow-hidden">
-                            <div class="position-relative overflow-hidden">
-                                <a href=""><img class="ratio ratio-4x3 img-fluid img-fluid-hover" src="${pageContext.request.contextPath}/resources/images/숙소_예시.jpg" alt=""></a>
-                                <div class="bg-primary rounded text-white position-absolute start-0 top-0 m-4 py-1 px-3">★ 9.6</div>
-                                <div class="display-9 bg-white rounded-top text-primary position-absolute start-0 bottom-0 mx-4 pt-1 px-3"><h5 style="font-weight: 600;">펜션</h5></div>
-                            </div>
-                            <div class="px-4 py-2 pb-3">
-                                <h4 class="text-primary my-2 pt-1" style="font-weight: 600;">50,000원</h4>
-                                <a class="d-block h4 mb-2" href="" style="font-weight: 600;">익산 함께해요 펜션</a>
-                                <h6 class="display-10 py-1" style="color: #666565;"><i class="text-primary bi bi-geo-alt-fill"></i>&nbsp;서울시 마포구 oo로</h6>
-                                <h6 class="display-10" style="color: #666565;"><i class="text-primary bi bi-chat-fill"></i>&nbsp;&nbsp;199개</h6>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-lg-4 col-md-6 wow fadeInUp" data-wow-delay="0.3s">
-                        <div class="property-item rounded overflow-hidden">
-                            <div class="position-relative overflow-hidden">
-                                <a href=""><img class="ratio ratio-4x3 img-fluid img-fluid-hover" src="${pageContext.request.contextPath}/resources/images/숙소_예시.jpg" alt=""></a>
-                                <div class="bg-primary rounded text-white position-absolute start-0 top-0 m-4 py-1 px-3">★ 9.6</div>
-                                <div class="display-9 bg-white rounded-top text-primary position-absolute start-0 bottom-0 mx-4 pt-1 px-3"><h5 style="font-weight: 600;">펜션</h5></div>
-                            </div>
-                            <div class="px-4 py-2 pb-3">
-                                <h4 class="text-primary my-2 pt-1" style="font-weight: 600;">50,000원</h4>
-                                <a class="d-block h4 mb-2" href="" style="font-weight: 600;">익산 함께해요 펜션</a>
-                                <h6 class="display-10 py-1" style="color: #666565;"><i class="text-primary bi bi-geo-alt-fill"></i>&nbsp;서울시 마포구 oo로</h6>
-                                <h6 class="display-10" style="color: #666565;"><i class="text-primary bi bi-chat-fill"></i>&nbsp;&nbsp;199개</h6>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-lg-4 col-md-6 wow fadeInUp" data-wow-delay="0.3s">
-                        <div class="property-item rounded overflow-hidden">
-                            <div class="position-relative overflow-hidden">
-                                <a href=""><img class="ratio ratio-4x3  img-fluid img-fluid-hover" src="${pageContext.request.contextPath}/resources/images/숙소_예시.jpg" alt=""></a>
-                                <div class="bg-primary rounded text-white position-absolute start-0 top-0 m-4 py-1 px-3">★ 9.6</div>
-                                <div class="display-9 bg-white rounded-top text-primary position-absolute start-0 bottom-0 mx-4 pt-1 px-3"><h5 style="font-weight: 600;">펜션</h5></div>
-                            </div>
-                            <div class="px-4 py-2 pb-3">
-                                <h4 class="text-primary my-2 pt-1" style="font-weight: 600;">50,000원</h4>
-                                <a class="d-block h4 mb-2" href="" style="font-weight: 600;">익산 함께해요 펜션</a>
-                                <h6 class="display-10 py-1" style="color: #666565;"><i class="text-primary bi bi-geo-alt-fill"></i>&nbsp;서울시 마포구 oo로</h6>
-                                <h6 class="display-10" style="color: #666565;"><i class="text-primary bi bi-chat-fill"></i>&nbsp;&nbsp;199개</h6>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-lg-4 col-md-6 wow fadeInUp" data-wow-delay="0.3s">
-                        <div class="property-item rounded overflow-hidden">
-                            <div class="position-relative overflow-hidden">
-                                <a href=""><img class="ratio ratio-4x3  img-fluid img-fluid-hover" src="${pageContext.request.contextPath}/resources/images/숙소_예시.jpg" alt=""></a>
-                                <div class="bg-primary rounded text-white position-absolute start-0 top-0 m-4 py-1 px-3">★ 9.6</div>
-                                <div class="display-9 bg-white rounded-top text-primary position-absolute start-0 bottom-0 mx-4 pt-1 px-3"><h5 style="font-weight: 600;">펜션</h5></div>
-                            </div>
-                            <div class="px-4 py-2 pb-3">
-                                <h4 class="text-primary my-2 pt-1" style="font-weight: 600;">50,000원</h4>
-                                <a class="d-block h4 mb-2" href="" style="font-weight: 600;">익산 함께해요 펜션</a>
-                                <h6 class="display-10 py-1" style="color: #666565;"><i class="text-primary bi bi-geo-alt-fill"></i>&nbsp;서울시 마포구 oo로</h6>
-                                <h6 class="display-10" style="color: #666565;"><i class="text-primary bi bi-chat-fill"></i>&nbsp;&nbsp;199개</h6>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-lg-4 col-md-6 wow fadeInUp" data-wow-delay="0.3s">
-                        <div class="property-item rounded overflow-hidden">
-                            <div class="position-relative overflow-hidden">
-                                <a href=""><img class="ratio ratio-4x3  img-fluid img-fluid-hover" src="${pageContext.request.contextPath}/resources/images/숙소_예시.jpg" alt=""></a>
-                                <div class="bg-primary rounded text-white position-absolute start-0 top-0 m-4 py-1 px-3">★ 9.6</div>
-                                <div class="display-9 bg-white rounded-top text-primary position-absolute start-0 bottom-0 mx-4 pt-1 px-3"><h5 style="font-weight: 600;">펜션</h5></div>
-                            </div>
-                            <div class="px-4 py-2 pb-3">
-                                <h4 class="text-primary my-2 pt-1" style="font-weight: 600;">50,000원</h4>
-                                <a class="d-block h4 mb-2" href="" style="font-weight: 600;">익산 함께해요 펜션</a>
-                                <h6 class="display-10 py-1" style="color: #666565;"><i class="text-primary bi bi-geo-alt-fill"></i>&nbsp;서울시 마포구 oo로</h6>
-                                <h6 class="display-10" style="color: #666565;"><i class="text-primary bi bi-chat-fill"></i>&nbsp;&nbsp;199개</h6>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+                </c:forEach>
             </div>
         </div>
     </div>
@@ -592,6 +596,61 @@ $(document).ready(function(){
   ChannelIO('boot', {
     "pluginKey": "a7a42b8e-be02-4a45-be4a-ddab76186545"
   });
+</script>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/js/bootstrap-datepicker.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/locales/bootstrap-datepicker.ko.min.js"></script>
+<script type="text/javascript">
+    $(document).ready(function() {
+        // Datepicker 초기화 코드
+        $('#startDate').datepicker({
+            format: 'yyyy-mm-dd',
+            autoclose: true,
+            todayHighlight: true,
+            startDate: new Date(),
+            language: 'ko'  // 한글 로케일 설정
+        }).on('changeDate', function(selected) {
+            var startDate = new Date(selected.date.valueOf());
+            $('#endDate').datepicker('setStartDate', startDate);
+        });
+
+        $('#endDate').datepicker({
+            format: 'yyyy-mm-dd',
+            autoclose: true,
+            todayHighlight: true,
+            startDate: new Date(),
+            language: 'ko'  // 한글 로케일 설정
+        }).on('changeDate', function(selected) {
+            var endDate = new Date(selected.date.valueOf());
+            $('#startDate').datepicker('setEndDate', endDate);
+        });
+
+        // 공통 링크 클릭 이벤트
+        $('.destination-link').click(function(e) {
+            e.preventDefault();  // 기본 동작 방지
+
+            // 클릭한 링크의 data-kwd 속성 값 가져오기
+            var kwd = $(this).data('kwd');
+
+            // 오늘 날짜와 오늘 날짜 +2 계산
+            var today = new Date();
+            var dd = String(today.getDate()).padStart(2, '0');
+            var mm = String(today.getMonth() + 1).padStart(2, '0'); // January is 0!
+            var yyyy = today.getFullYear();
+
+            var startDate = yyyy + '-' + mm + '-' + dd;
+            today.setDate(today.getDate() + 2);
+            var dd2 = String(today.getDate()).padStart(2, '0');
+            var mm2 = String(today.getMonth() + 1).padStart(2, '0'); // January is 0!
+            var endDate = yyyy + '-' + mm2 + '-' + dd2;
+			
+            
+            
+            // 링크 생성
+            var url = "${pageContext.request.contextPath}/room/list?kwd=" + kwd + "&sdate=" + startDate + "&edate=" + endDate + "&people=2";
+            window.location.href = url;
+        });
+    });
 </script>
         
         
