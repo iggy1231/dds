@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.web.multipart.MultipartFile;
 
 public class Room {
+
 	private long num;
 	private String subject;
 	private String content;
@@ -60,59 +61,14 @@ public class Room {
 	private String edate;
 	private int days;
 	
-	private long saleNum;
-    private long detailNum;
-    private long userNum;
+	private long sale_num;
+    private long user_num;
+    
+    private String imp_uid;
+	private String card_name;
+	private String card_num;
 	
-	
-
-	public long getSaleNum() {
-		return saleNum;
-	}
-
-	public void setSaleNum(long saleNum) {
-		this.saleNum = saleNum;
-	}
-
-	public long getDetailNum() {
-		return detailNum;
-	}
-
-	public void setDetailNum(long detailNum) {
-		this.detailNum = detailNum;
-	}
-
-	public long getUserNum() {
-		return userNum;
-	}
-
-	public void setUserNum(long userNum) {
-		this.userNum = userNum;
-	}
-
-	public String getSdate() {
-		return sdate;
-	}
-
-	public void setSdate(String sdate) {
-		this.sdate = sdate;
-	}
-
-	public String getEdate() {
-		return edate;
-	}
-
-	public void setEdate(String edate) {
-		this.edate = edate;
-	}
-
-	public int getDays() {
-		return days;
-	}
-
-	public void setDays(int days) {
-		this.days = days;
-	}
+	private int final_price;
 
 	public long getNum() {
 		return num;
@@ -442,4 +398,75 @@ public class Room {
 		this.ratingCount = ratingCount;
 	}
 
+	public String getSdate() {
+		return sdate;
+	}
+
+	public void setSdate(String sdate) {
+		this.sdate = sdate;
+	}
+
+	public String getEdate() {
+		return edate;
+	}
+
+	public void setEdate(String edate) {
+		this.edate = edate;
+	}
+
+	public int getDays() {
+		return days;
+	}
+
+	public void setDays(int days) {
+		this.days = days;
+	}
+
+	public long getSale_num() {
+		return sale_num;
+	}
+
+	public void setSale_num(long sale_num) {
+		this.sale_num = sale_num;
+	}
+
+	public long getUser_num() {
+		return user_num;
+	}
+
+	public void setUser_num(long user_num) {
+		this.user_num = user_num;
+	}
+
+	public String getImp_uid() {
+		return imp_uid;
+	}
+
+	public void setImp_uid(String imp_uid) {
+		this.imp_uid = imp_uid;
+	}
+
+	public String getCard_name() {
+		return card_name;
+	}
+
+	public void setCard_name(String card_name) {
+		this.card_name = card_name;
+	}
+
+	public String getCard_num() {
+		return card_num;
+	}
+
+	public void setCard_num(String card_num) {
+		this.card_num = card_num;
+	}
+
+	public int getFinal_price() {
+		return final_price;
+	}
+
+	public void setFinal_price(int final_price) {
+		this.final_price = final_price;
+	}
 }

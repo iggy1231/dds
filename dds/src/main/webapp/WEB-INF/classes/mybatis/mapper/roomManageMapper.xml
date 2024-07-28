@@ -107,6 +107,8 @@
         join room r on d.num = r.num
         join member_info m on s.user_num = m.user_num
         left outer join room_pay_cash pc on s.sale_num = pc.sale_num
+        left outer join room_refund rr on pc.sale_num = rr.sale_num
+        where ( rr.sale_num is null )
         OFFSET #{offset} ROWS FETCH FIRST #{size} ROWS ONLY
 	</select>
 	

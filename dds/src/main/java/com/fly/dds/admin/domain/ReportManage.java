@@ -13,6 +13,25 @@ public class ReportManage {
 	private String ban_edate;
 	private int ban_state;
 	private String ban_sdate;
+	private String nickName;
+	
+	private int state;
+	
+	
+	
+	public String getNickName() {
+		return nickName;
+	}
+	public void setNickName(String nickName) {
+		this.nickName = nickName;
+	}
+	public int getState() {
+		return state;
+	}
+	public void setState(int state) {
+		this.state = state;
+	}
+	
 	
 	public long getNum() {
 		return num;

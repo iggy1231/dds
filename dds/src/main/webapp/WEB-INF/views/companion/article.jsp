@@ -39,6 +39,12 @@ table tr>td:nth-child(2) {
 .replyAnswer textarea {
 	width: 100%;
 }
+.carousel-control-prev-icon {
+	background-color: gray;
+}
+.carousel-control-next-icon {
+	background-color: gray;
+}
 .travel-info-item {
         border: 1px solid #e0e0e0;
         border-radius: 8px;
@@ -80,9 +86,10 @@ table tr>td:nth-child(2) {
 </style>
 
 <div class="container border border-top-0 border-bottom-0">
-		<div class="body-title">
-			<h3>${dto.subject}</h3>
+		<div>
+			<h3 class="mt-3">${dto.subject}</h3>
 			<p>조회수 :${dto.hitcount} 작성일 :${dto.reg_date}
+			<hr>
 		</div>
 	<div class="body-container">
 		<div id="imgFiles" class="carousel slide">
@@ -476,9 +483,10 @@ function similiarList(mainRegion) {
 } 
 
 function addNextPage(data) {
-	console.log(data);
-	$("#areaList-carousel .carousel-item:first").addClass('areaNewList');
-	$("#areaList-carousel .carousel-item").html("");
+	$("#areaList-carousel .carousel-inner>div").removeClass('active');
+	$("#areaList-carousel .carousel-inner>div").addClass('carousel-item');
+	$("#areaList-carousel .carousel-inner .carousel-item:first").addClass('areaNewList active');
+	$("#areaList-carousel .carousel-inner .carousel-item").html("");
 	
 	let htmlText='<div class="row">';
 	for(let i=0;i<12;i++) {
@@ -495,7 +503,7 @@ function addNextPage(data) {
 		}
 		if(i<data.list.length) {
 			
-			htmlText+='<div class="col">';
+			htmlText+='<div class="col notEmpty">';
 			htmlText+='	<div class="travel-info-item" onclick="article('+data.list[i].num+');">';
 			htmlText+='	<img src="${pageContext.request.contextPath}/uploads/companion/'+data.list[i].saveFilename+'" onerror=this.src="${pageContext.request.contextPath}/resources/images/noimage.png">';
 			htmlText+='	<div class="travel-info-item-body">';
@@ -513,6 +521,13 @@ function addNextPage(data) {
 	htmlText+='</div>';
 	$(".areaNewList").append(htmlText);
 	$(".areaNewList:first").removeClass('areaNewList');
+	
+	for(let i=1;i<=3;i++) {
+		let arr=$("#areaList-carousel .carousel-inner>div:nth-child("+i+")").find(".notEmpty");
+		if(arr.length==0) {
+			$("#areaList-carousel .carousel-inner>div:nth-child("+i+")").removeClass('carousel-item');
+		}
+	}
 }
 function replyDelete(reply_num) {
 	let url="${pageContext.request.contextPath}/companion/deleteReply";

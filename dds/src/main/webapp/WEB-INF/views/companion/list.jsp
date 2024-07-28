@@ -286,9 +286,10 @@ function nextPage2(mainRegion) {
 } 
 
 function addNextPage(data) {
-	console.log(data)
-	$("#areaList-carousel .carousel-item:first").addClass('areaNewList');
-	$("#areaList-carousel .carousel-item").html("");
+	$("#areaList-carousel .carousel-inner>div").removeClass('active');
+	$("#areaList-carousel .carousel-inner>div").addClass('carousel-item');
+	$("#areaList-carousel .carousel-inner .carousel-item:first").addClass('areaNewList active');
+	$("#areaList-carousel .carousel-inner .carousel-item").html("");
 	
 	let htmlText='<div class="row">';
 	for(let i=0;i<12;i++) {
@@ -304,7 +305,7 @@ function addNextPage(data) {
 			htmlText+='<div class="row">';
 		}
 		if(i<data.list.length) {
-			htmlText+='<div class="col">';
+			htmlText+='<div class="col notEmpty">';
 			htmlText+='	<div class="travel-info-item" onclick="article('+data.list[i].num+');">';
 			htmlText+='	<img src="${pageContext.request.contextPath}/uploads/companion/'+data.list[i].saveFilename+'" onerror=this.src="${pageContext.request.contextPath}/resources/images/noimage.png">';
 			htmlText+='	<div class="travel-info-item-body">';
@@ -327,12 +328,21 @@ function addNextPage(data) {
 	htmlText+='</div>';
 	$(".areaNewList").append(htmlText);
 	$(".areaNewList:first").removeClass('areaNewList');
+	
+	for(let i=1;i<=3;i++) {
+		let arr=$("#areaList-carousel .carousel-inner>div:nth-child("+i+")").find(".notEmpty");
+		if(arr.length==0) {
+			$("#areaList-carousel .carousel-inner>div:nth-child("+i+")").removeClass('carousel-item');
+		}
+	}
+	
 }
 
 function addNextPage2(data) {
-	console.log(data);
-	$("#areaPopularList-carousel .carousel-item:first").addClass('popularNewList');
-	$("#areaPopularList-carousel .carousel-item").html("");
+	$("#areaPopularList-carousel .carousel-inner>div").removeClass('active')
+	$("#areaPopularList-carousel .carousel-inner>div").addClass('carousel-item');
+	$("#areaPopularList-carousel .carousel-inner .carousel-item:first").addClass('popularNewList active');
+	$("#areaPopularList-carousel .carousel-inner .carousel-item").html("");
 	
 	let htmlText='<div class="row">';
 	for(let i=0;i<12;i++) {
@@ -348,7 +358,7 @@ function addNextPage2(data) {
 			htmlText+='<div class="row">';
 		}
 		if(i<data.list.length) {
-			htmlText+='<div class="col">';
+			htmlText+='<div class="col notEmpty">';
 			htmlText+='	<div class="travel-info-item" onclick="article('+data.list[i].num+');">';
 			htmlText+='	<img src="${pageContext.request.contextPath}/uploads/companion/'+data.list[i].saveFilename+'" onerror=this.src="${pageContext.request.contextPath}/resources/images/noimage.png">';
 			htmlText+='	<div class="travel-info-item-body">';
@@ -370,7 +380,15 @@ function addNextPage2(data) {
 	}
 	htmlText+='</div>';
 	$(".popularNewList").append(htmlText);
-	$(".popularNewListLfirst").removeClass('popularNewList');
+	$(".popularNewList:first").removeClass('popularNewList');
+	
+	for(let i=1;i<=3;i++) {
+		let arr=$("#areaPopularList-carousel .carousel-inner>div:nth-child("+i+")").find(".notEmpty");
+		console.log(arr);
+		if(arr.length==0) {
+			$("#areaPopularList-carousel .carousel-inner>div:nth-child("+i+")").removeClass('carousel-item');
+		}
+	}
 }
 
 const sentinel = document.querySelector('.sentinel');

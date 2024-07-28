@@ -302,14 +302,12 @@ public class ProductManageController {
 	    String accessToken = (String) requestData.get("access_token");
 	    String imp_uid = (String) requestData.get("imp_uid");
 	    String reason = (String) requestData.get("reason");
-	    Integer refund_price = null;
-	    long sale_num =((Integer) requestData.get("sale_num")).longValue();
+	    Integer refund_price = (Integer) requestData.get("final_price");
+	    long sale_num =((Number) requestData.get("sale_num")).longValue();
 	    String card_num = (String) requestData.get("card_num");
-	    long user_num =  Long.parseLong((String) requestData.get("user_num"));   
+	    long user_num =((Number) requestData.get("user_num")).longValue();  
 	    		
 	    try {
-	    	String final_price = (String) requestData.get("final_price");
-	    	refund_price = Integer.parseInt(final_price);
 	    	Map<String, Object> map = new HashMap<>();
 	    	map.put("refund_reason"	, reason);
 	    	map.put("sale_num"	, sale_num);
