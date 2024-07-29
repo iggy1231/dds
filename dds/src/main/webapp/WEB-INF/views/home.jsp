@@ -492,7 +492,7 @@
         </div>
                 <div class="testimonial-carousel owl-carousel">
                 	<c:forEach var="companion" items="${companions}">
-	                    <div class="testimonial-item text-center rounded pb-4">
+	                    <div class="testimonial-item text-center rounded pb-4" onclick="companionArticle(${companion.num});">
 	                        <div class="d-flex justify-content-center align-items-center testimonial-comment bg-primary rounded p-4" style="height: 200px;">
 							    <h4 class="text-center lh-lg">${companion.subject}</h4>
 							</div>
@@ -529,6 +529,11 @@
        
 	
 <script>
+function companionArticle(num) {
+	location.href='${pageContext.request.contextPath}/companion/article?num='+num;
+}
+
+
 $(document).ready(function(){
     $('.testimonial-carousel').owlCarousel({
         loop: true,

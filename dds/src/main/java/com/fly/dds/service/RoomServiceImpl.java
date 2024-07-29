@@ -105,6 +105,19 @@ public class RoomServiceImpl implements RoomService {
 		
 	}
 
+	@Override
+	public boolean isLiked(Map<String, Object> map) {
+		try {
+			if(mapper.isLiked(map)>0) {
+				return true;
+			}
+			return false;
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return false;
+	}
+
 	/*
 	 * @Override public List<Room> searchRoom(Map<String, Object> map) { return
 	 * mapper.searchRoom(map); }

@@ -17,5 +17,5 @@ public interface roomMapper {
 	public List<Room> listDetail(Map<String, Object> map);
 	public List<Room> listPhoto(Map<String, Object> map);
 	public void insertRoomWishList(Map<String, Object> map) throws SQLException;
-	
+	public int isLiked(Map<String, Object> map);
 }

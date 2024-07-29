@@ -399,7 +399,7 @@
 <body>
     <div class="container">
         <div class="post"> 
-            <div class="post-title">${dto.subject}</div>
+            <div class="post-title">${dto.subject} | ${dto.region_main} ${dto.region_sub}</div>
             <div class="post-content">
                 ${dto.content}
                 <c:forEach var="imageFile" items="${fileList}">
