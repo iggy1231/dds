@@ -79,7 +79,7 @@
                             <textarea name="description" id="description" class="form-control"></textarea>
                         </div>
                         <div class="p-1 text-end">
-                            <button type="button" class="btn btn-dark btnRefundSend ps-5 pe-5" onclick="submitRefund()">등록하기</button>
+                            <button type="button" class="btn btn-dark btnRefundSend ps-5 pe-5" onclick="getToken('${list1.imp_uid}',null,${list1.sale_num})">등록하기</button>
                         </div>
                     </form>
                 </div>

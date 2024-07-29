@@ -331,7 +331,7 @@ $(function(){
 		} else if(tab === "2") {
 			listReply(1);
 		}
-    });z
+    });
 });
 
 function listMyRoom(page) {
@@ -560,7 +560,7 @@ function cancel(num, access_token,point,sale_num) {
 	 var cardNum = document.getElementById("card_num-"+sale_num).value;
 	    var user_num = document.getElementById("user_num-"+sale_num).value;
 	    var finalPrice = document.getElementById("final_price-"+sale_num).value;
-	    var description = document.getElementById("description-"+sale_num).value;
+	    var description = document.getElementById("description").value;
     
     var url = "${pageContext.request.contextPath}/mypage/cancel";
     

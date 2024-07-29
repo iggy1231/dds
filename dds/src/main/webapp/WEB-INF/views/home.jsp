@@ -415,13 +415,13 @@
                    <div class="col-lg-4 col-md-6 wow fadeInUp" data-wow-delay="0.3s">
                         <div class="property-item rounded overflow-hidden">
                             <div class="position-relative overflow-hidden">
-                                <a href="${pageContext.request.contextPath}/room/detail/${room.num}"><img class="ratio ratio-4x3 img-fluid img-fluid-hover" src="${room.thumbnail}" alt="${room.subject}"></a>
+                                <a href="${pageContext.request.contextPath}/room/article?num=${room.num}"><img class="ratio ratio-4x3 img-fluid img-fluid-hover" src="${room.thumbnail}" alt="${room.subject}"></a>
                                 <div class="bg-primary rounded text-white position-absolute start-0 top-0 m-4 py-1 px-3">★ ${room.rating}</div>
                                 <div class="display-9 bg-white rounded-top text-primary position-absolute start-0 bottom-0 mx-4 pt-1 px-3"><h5 style="font-weight: 600;">${room.roomType}</h5></div>
                             </div>
                             <div class="px-4 py-2 pb-3">
                                 <h4 class="text-primary my-2 pt-1" style="font-weight: 600;">${room.price}원</h4>
-                                <a class="d-block h4 mb-2" href="${pageContext.request.contextPath}/room/detail/${room.num}" style="font-weight: 600;">${room.subject}</a>
+                                <a class="d-block h4 mb-2" href="${pageContext.request.contextPath}/room/article?num=${room.num}" style="font-weight: 600;">${room.subject}</a>
                                 <h6 class="display-10 py-1" style="color: #666565;"><i class="text-primary bi bi-geo-alt-fill"></i>&nbsp;${room.addr1}</h6>
                                 <h6 class="display-10" style="color: #666565;"><i class="text-primary bi bi-chat-fill"></i>&nbsp;&nbsp;${room.reviewCount}개</h6>
                             </div>
