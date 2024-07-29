@@ -67,14 +67,13 @@
 <!-- Content wrapper -->
 <div class="content-wrapper">
             <!-- Content -->
-   <div class="container mt-5 ">
-	<div class="body-container">
-		<div class="body-title">
-			<h3 class="ps-1 text-primary fw-semibold"><i class="bi bi-app"></i> 숙소 상품관리 </h3>
-		</div>
+   <div class="container-xxl flex-grow-1 container-p-y">
+   <h3 class="ps-1 text-primary fw-semibold"><i class="bi bi-app"></i> 숙소 상품관리 </h3>
+	<div class="card">
+		
 		<div class="body-main">
 			<form name="productForm" method="post" action="${pageContext.request.contextPath}/admin/product/write" enctype="multipart/form-data">
-				<table class="table mt-5 table-form">
+				<table class="table mt-2 table-form">
 					<tr>
 						<td class="table-light col-sm-2">카테고리</td>
 						<td>
@@ -89,7 +88,7 @@
 							</div>
 						</td>
 					</tr>
-					<tr>
+					<tr> 
 						<td class="table-light col-sm-2">상품명</td>
 						<td>
 							<input type="text" name="subject" class="form-control" value="${dto.subject}">

@@ -3,6 +3,7 @@ package com.fly.dds.controller;
 import java.io.File;
 import java.net.URLDecoder;
 import java.net.URLEncoder;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -126,6 +127,7 @@ public class RoomController {
 	        @RequestParam String sdate,
 	        @RequestParam String edate,
 	        @RequestParam int people,
+	        @RequestParam(defaultValue="popular") String sort,
 	        @RequestParam(defaultValue="all") String roomType,
 	        @RequestParam(defaultValue="priceType1") String priceType,
 	        @RequestParam(defaultValue="") String[] keywords,
@@ -151,7 +153,8 @@ public class RoomController {
 	    map.put("priceType", priceType);
 	    map.put("keywords", keywords);
 	    map.put("facilities", facilities);
-
+	    map.put("sort", sort);
+	    
 	    dataCount = service.dataCount(map);
 	    total_page = myUtil.pageCount(dataCount, size);
 	    
@@ -189,7 +192,7 @@ public class RoomController {
 	    if (query.length() > 0) {
 	        listUrl += "?" + query.toString();
 	    }
-	    
+
 	    String paging = myUtil.pagingUrl(current_page, total_page, listUrl);
 	    
 	    model.addAttribute("list", list);
@@ -202,12 +205,22 @@ public class RoomController {
 	    model.addAttribute("total_page", total_page);
 	    model.addAttribute("dataCount", dataCount);
 	    model.addAttribute("paging", paging);
+	    model.addAttribute("sort", sort);
 	    model.addAttribute("roomType", roomType);
 	    model.addAttribute("priceType", priceType);
-	    model.addAttribute("keywords", keywords);
-	    model.addAttribute("facilities", facilities);
 	    
+	    if(keywords.length!=0) {
+	    	model.addAttribute("keywords", Arrays.toString(keywords));
+	    } else {
+	    	model.addAttribute("keywords", keywords);
+	    }
 	    
+	    if(keywords.length!=0) {
+	    	model.addAttribute("facilities", Arrays.toString(facilities));
+	    } else {
+	    	model.addAttribute("facilities", facilities);
+	    }
+
 	    return ".room.list";
 	}
 	
