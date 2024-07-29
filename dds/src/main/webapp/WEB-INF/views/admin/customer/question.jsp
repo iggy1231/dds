@@ -81,7 +81,7 @@ $(function(){
 	<!-- Content -->
 	<div class="container-xxl flex-grow-1 container-p-y">
 		<h4 class="py-3 mb-4">
-			<span class="text-muted fw-light"> <i class="bi bi-exclamation-square"></i> 문의사항 관리 </span>
+			<span class="ps-3 fw-semibold fs-3 text-center mb-3 text-primary"> <i class="bi bi-exclamation-square"></i> 문의사항 관리 </span>
 		</h4>
 		<div class="card">
 			<div class="card mt-2">

@@ -212,13 +212,12 @@ function deleteFaq(num, page) {
 	<!-- Content -->
 	<div class="container-xxl flex-grow-1 container-p-y">
     
-    <div class="body-title">
-		<h2><i class="fa-solid fa-clipboard-question"></i> 자주하는 질문 </h2>
+    <div class="body-title mb-3">
+		<span class="ps-3 fw-semibold fs-3 text-center mb-3 text-primary"><i class='fs-3 bx bx-clipboard'></i> 자주하는 질문 </span>
     </div>
     
-    <div class="body-main">
-
-		<div>
+    <div class="card">
+		<div class="card-header pb-0">
 			<ul class="tabs">
 				<li id="tab-0" data-categoryNum="0">모두</li>
 				<c:forEach var="dto" items="${listCategory}">
@@ -226,8 +225,8 @@ function deleteFaq(num, page) {
 				</c:forEach>
 			</ul>
 		</div>
-		<div id="tab-content" style="padding: 15px 10px 5px;"></div>
-		
+		<div id="tab-content" class="table-responsive text-nowrap">
+		</div>
 		<table class="table">
 			<tr>
 				<td align="left" width="100">
