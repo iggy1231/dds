@@ -69,6 +69,16 @@ hr {
     filter: brightness(70%); /* 호버 시 이미지 밝기를 70%로 낮춤 */
 }
 
+.keyword-btn:hover {
+	background-color: #18A8F1 !important; 
+	color: #FFFFFF;
+}
+
+.keyword-btn.active {
+	background-color: #18A8F1 !important; 
+	color: #FFFFFF;
+}
+
 
 
 </style>
@@ -171,13 +181,12 @@ hr {
                                         <div class="mb-3">
                                             <h4 class="pb-2" style="font-weight: 600;">키워드</h4>
                                              <div id="keywords">
-		                                        <button type="button" class="m-1 mb-2 px-3 py-1 btn border border-gray rounded-pill keyword-btn" onclick=""># 가족여행</button>
-		                                        <button type="button" class="m-1 mb-2 px-3 py-1 btn border border-gray rounded-pill keyword-btn" onclick=""># 스파</button>
-		                                        <button type="button" class="m-1 mb-2 px-3 py-1 btn border border-gray rounded-pill keyword-btn" onclick=""># 힙한감성</button>
-		                                        <button type="button" class="m-1 mb-2 px-3 py-1 btn border border-gray rounded-pill keyword-btn" onclick=""># OTT</button>
-		                                        <button type="button" class="m-1 mb-2 px-3 py-1 btn border border-gray rounded-pill keyword-btn" onclick=""># 피고내</button>
-		                                        <button type="button" class="m-1 mb-2 px-3 py-1 btn border border-gray rounded-pill keyword-btn" onclick=""># 감성숙소</button>
-		                                        <button type="button" class="m-1 mb-2 px-3 py-1 btn border border-gray rounded-pill keyword-btn" onclick=""># 뷰맛집</button>
+		                                        <button type="button" class="m-1 mb-2 px-3 py-1 btn border border-gray rounded-pill keyword-btn" onclick="">가족여행</button>
+		                                        <button type="button" class="m-1 mb-2 px-3 py-1 btn border border-gray rounded-pill keyword-btn" onclick="">힙한감성</button>
+		                                        <button type="button" class="m-1 mb-2 px-3 py-1 btn border border-gray rounded-pill keyword-btn" onclick="">뷰맛집</button>
+		                                        <button type="button" class="m-1 mb-2 px-3 py-1 btn border border-gray rounded-pill keyword-btn" onclick="">감성숙소</button>
+		                                        <button type="button" class="m-1 mb-2 px-3 py-1 btn border border-gray rounded-pill keyword-btn" onclick="">연인끼리</button>
+		                                        <button type="button" class="m-1 mb-2 px-3 py-1 btn border border-gray rounded-pill keyword-btn" onclick="">친구와함께</button>
 		                                    </div>
 		                                 </div>
                                     </div>
@@ -188,11 +197,12 @@ hr {
                                             <h4 class="pb-2" style="font-weight: 600;">시설</h4>
                                              <div id="keywords">
 		                                        <button type="button" class="m-1 mb-2 px-3 py-1 btn border border-gray rounded-pill keyword-btn" onclick="">사우나</button>
+		                                        <button type="button" class="m-1 mb-2 px-3 py-1 btn border border-gray rounded-pill keyword-btn" onclick="">취사가능</button>
+		                                        <button type="button" class="m-1 mb-2 px-3 py-1 btn border border-gray rounded-pill keyword-btn" onclick="">바비큐</button>
 		                                        <button type="button" class="m-1 mb-2 px-3 py-1 btn border border-gray rounded-pill keyword-btn" onclick="">수영장</button>
-		                                        <button type="button" class="m-1 mb-2 px-3 py-1 btn border border-gray rounded-pill keyword-btn" onclick="">바비큐시설</button>
+		                                        <button type="button" class="m-1 mb-2 px-3 py-1 btn border border-gray rounded-pill keyword-btn" onclick="">노래방</button>
+		                                        <button type="button" class="m-1 mb-2 px-3 py-1 btn border border-gray rounded-pill keyword-btn" onclick="">스파</button>
 		                                        <button type="button" class="m-1 mb-2 px-3 py-1 btn border border-gray rounded-pill keyword-btn" onclick="">피트니스</button>
-		                                        <button type="button" class="m-1 mb-2 px-3 py-1 btn border border-gray rounded-pill keyword-btn" onclick="">수영장</button>
-		                                        <button type="button" class="m-1 mb-2 px-3 py-1 btn border border-gray rounded-pill keyword-btn" onclick="">공용화장실</button>
 		                                    </div>
 		                                 </div>
                                     </div>
