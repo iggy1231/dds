@@ -18,11 +18,9 @@
 <div class="content-wrapper">
 	<!-- Content -->
 	<div class="container-xxl flex-grow-1 container-p-y">
-		<h4 class="py-3 mb-4">
-			<span class="text-muted fw-light">상품관리 /</span> 상품 리스트
-		</h4>
 		<div class="card">
-			<div class="card mt-2">
+			<div class="card-header">
+			
 		<ul class="nav nav-tabs px-4 mt-3 " id="myTab" role="tablist">
             <li class="nav-item" role="presentation">
                 <button class="nav-link active" data-bs-toggle="tab" data-bs-target="#tab-content" type="button" role="tab" aria-controls="1" aria-selected="false"> 숙소 </button>
@@ -31,6 +29,7 @@
                 <button class="nav-link" data-bs-toggle="tab" data-bs-target="#tab-content" type="button" role="tab" aria-controls="2" aria-selected="false"> 투어 </button>
             </li>
         </ul>
+
         <div class="tab-content m-1 p-1" id="nav-content"></div>
 		</div>
 	</div>
