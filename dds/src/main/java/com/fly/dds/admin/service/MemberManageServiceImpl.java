@@ -127,7 +127,7 @@ public class MemberManageServiceImpl implements MemberManageService {
 			int banState = dto.getBan_state();
 			 LocalDateTime bandate = convertStringToLocalDateTime(dto.getBan_edate());
 			if(banState == 1 && bandate.isBefore(LocalDateTime.now())) {
-				System.out.println(bandate);
+				System.out.println("밴시간확인" +bandate);
 				mapper.updateBan(user_num);
 				dto.setBan_state(0);
 			}
