@@ -261,7 +261,14 @@
         </div>
         <div class="col-md-4 text-end p-3">
         	<div class="d-flex justify-content-end align-items-center">
-        	<button class="heart-button" type="button" onclick="wish(${dto.num})"><i class="bi bi-heart" style="color: #A6A6A6;"></i></button>
+        	<button class="heart-button" type="button" onclick="wish(${dto.num})">
+        		<c:if test="${liked eq 'true'}">
+        			<i class="bi bi-heart-fill" style="color: #A6A6A6;"></i>
+        		</c:if>
+        		<c:if test="${liked eq 'false'}">
+        			<i class="bi bi-heart" style="color: #A6A6A6;"></i>
+        		</c:if>
+        	</button>
            <button class="fs-5 btn btn-primary">예약하기</button>
            </div>
         </div>
@@ -512,21 +519,22 @@
 <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=0b59618d7930e511d9920498a877b177&libraries=services"></script>
 <script type="text/javascript">
 function wish(num) {
-    
+	if('${liked}'=='true') {
+		alert('이미 위시리스트에 담긴 상품입니다');
+		return;
+	}
+	
     var form = document.createElement('form');
     form.method = 'POST';
     form.action = '${pageContext.request.contextPath}/room/insertWishList';
-
     
     var input = document.createElement('input');
-    input.type = 'hidden';
+    input.type = 'hidden'
     input.name = 'num';
     input.value = num;
-
     
     form.appendChild(input);
 
-    
     document.body.appendChild(form);
     form.submit();
 }

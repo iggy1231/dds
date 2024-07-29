@@ -34,7 +34,7 @@
 					</div>
 					<div
 						class="display-9 bg-white rounded-top text-primary position-absolute start-0 bottom-0 mx-4 pt-1 px-3">
-						<h5 style="font-weight: 600;">순천</h5>
+						<h5 style="font-weight: 600;">${list.region_main}</h5>
 					</div>
 				</div>
 				<div class="px-4 py-2 pb-3">

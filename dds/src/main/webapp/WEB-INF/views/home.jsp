@@ -415,7 +415,7 @@
                    <div class="col-lg-4 col-md-6 wow fadeInUp" data-wow-delay="0.3s">
                         <div class="property-item rounded overflow-hidden">
                             <div class="position-relative overflow-hidden">
-                                <a href="${pageContext.request.contextPath}/room/article?num=${room.num}"><img class="ratio ratio-4x3 img-fluid img-fluid-hover" src="${room.thumbnail}" alt="${room.subject}"></a>
+                                <a href="${pageContext.request.contextPath}/room/article?num=${room.num}"><img class="ratio ratio-4x3 img-fluid img-fluid-hover" src="${pageContext.request.contextPath}/uploads/room/${room.thumbnail}" alt="${room.subject}"></a>
                                 <div class="bg-primary rounded text-white position-absolute start-0 top-0 m-4 py-1 px-3">★ ${room.rating}</div>
                                 <div class="display-9 bg-white rounded-top text-primary position-absolute start-0 bottom-0 mx-4 pt-1 px-3"><h5 style="font-weight: 600;">${room.roomType}</h5></div>
                             </div>
@@ -492,7 +492,7 @@
         </div>
                 <div class="testimonial-carousel owl-carousel">
                 	<c:forEach var="companion" items="${companions}">
-	                    <div class="testimonial-item text-center rounded pb-4">
+	                    <div class="testimonial-item text-center rounded pb-4" onclick="companionArticle(${companion.num});">
 	                        <div class="d-flex justify-content-center align-items-center testimonial-comment bg-primary rounded p-4" style="height: 200px;">
 							    <h4 class="text-center lh-lg">${companion.subject}</h4>
 							</div>
@@ -529,6 +529,11 @@
        
 	
 <script>
+function companionArticle(num) {
+	location.href='${pageContext.request.contextPath}/companion/article?num='+num;
+}
+
+
 $(document).ready(function(){
     $('.testimonial-carousel').owlCarousel({
         loop: true,

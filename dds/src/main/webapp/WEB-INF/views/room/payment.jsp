@@ -252,6 +252,10 @@ function savePaymentInfo(resp) {
 	
 	final_price = parseInt(final_price);
 	
+	if(card_name == null){
+		card_name = '간편결제';
+	}
+	
 	var paymentData = {
 		sale_num : sale_num,
 		sdate : sdate,

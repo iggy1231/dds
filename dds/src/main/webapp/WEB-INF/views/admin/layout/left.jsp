@@ -193,17 +193,17 @@
               </a>
               <ul class="menu-sub">
                 <li class="menu-item">
-                  <a href="${pageContext.request.contextPath}/admin/membermanage/list" class="menu-link">
+                  <a href="${pageContext.request.contextPath}/admin/memberManage/list" class="menu-link">
                     <div data-i18n="Account">회원리스트</div>
                   </a>
                 </li>
                 <li class="menu-item">
-                  <a href="${pageContext.request.contextPath}/admin/membermanage/report" class="menu-link">
+                  <a href="${pageContext.request.contextPath}/admin/memberManage/report" class="menu-link">
                     <div data-i18n="Account">신고</div>
                   </a>
                 </li>
                 <li class="menu-item">
-                  <a href="${pageContext.request.contextPath}/admin/membermanage/banlist" class="menu-link">
+                  <a href="${pageContext.request.contextPath}/admin/memberManage/banlist" class="menu-link">
                     <div data-i18n="Account">차단</div>
                   </a>
                 </li>

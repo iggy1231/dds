@@ -1,5 +1,9 @@
 package com.fly.dds.admin.service;
 
+import java.sql.Timestamp;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
 import java.util.List;
 import java.util.Map;
 
@@ -93,5 +97,54 @@ public class MemberManageServiceImpl implements MemberManageService {
 		
 		return list;
 	}
+
+	@Override
+	public void insertBan(MemberManage dto) {
+		try {
+			mapper.insertBan(dto);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+	}
+
+	@Override
+	public void updateBan(Long user_num) {
+		try {
+			mapper.updateBan(user_num);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+	}
+
+	@Override
+	public MemberManage checkBan(Long user_num) throws Exception {
+		MemberManage dto = null;
+		try {
+			dto = mapper.checkBan(user_num);
+			
+			int banState = dto.getBan_state();
+			 LocalDateTime bandate = convertStringToLocalDateTime(dto.getBan_edate());
+			if(banState == 1 && bandate.isBefore(LocalDateTime.now())) {
+				System.out.println(bandate);
+				mapper.updateBan(user_num);
+				dto.setBan_state(0);
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+			throw e;
+		}
+		
+		return dto;
+	}
+
+    private LocalDateTime convertStringToLocalDateTime(String banEdate) throws DateTimeParseException {
+
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+
+
+        return LocalDateTime.parse(banEdate, formatter);
+    }
 
 }

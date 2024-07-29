@@ -4,11 +4,20 @@
 <mapper namespace="com.fly.dds.admin.mapper.MemberManageMapper">
 
 	<select id="listMember" parameterType="map" resultType="com.fly.dds.admin.domain.MemberManage" >
-	 select m.user_num , userid , nickname , reg_date , email , gender , tel , enabled , ban_state , num 
-	from member1 m
-	left outer join member_info i on m.user_num = i.user_num
-	left outer join ( select rownum , num , ban_state , user_num from ban where rownum = 1 order by num desc) b on m.user_num = b.user_num
-	order by user_num
+	 SELECT m.user_num, userid, nickname, reg_date, email, gender, tel, enabled, b.ban_state, b.num
+FROM member1 m
+LEFT OUTER JOIN member_info i ON m.user_num = i.user_num
+LEFT OUTER JOIN (
+    SELECT user_num, num, ban_state
+    FROM (
+        SELECT user_num, num, ban_state,
+               ROW_NUMBER() OVER (PARTITION BY user_num ORDER BY num DESC) AS rn
+        FROM ban
+        WHERE ban_state = 1
+    ) t
+    WHERE t.rn = 1
+) b ON m.user_num = b.user_num
+ORDER BY m.user_num
 	</select>
 	
 		<select id="dataCount" parameterType="map" resultType="Integer">
@@ -46,6 +55,23 @@
 		select nvl(count(*),0)
 		from ban
 	</select>
+	
+	<insert id="insertBan" parameterType="com.fly.dds.admin.domain.MemberManage">
+		insert into ban ( num , reason , ban_sdate , ban_edate , ban_state , user_num )
+		values ( ban_seq.nextval , #{reason} , sysdate , sysdate + #{ban_date} , 1 , #{user_num} )
+	</insert>
+	
+	<update id="updateBan" parameterType="Long">
+		update ban set ban_state = 0 where user_num = ${user_num}
+	</update>
+	
+	<select id="checkBan" parameterType="Long" resultType="com.fly.dds.admin.domain.MemberManage">
+		select rownum , ban_state , TO_CHAR(ban_edate, 'yyyy-mm-dd hh24:mi:ss') as ban_edate 
+		from 
+		( select rownum , ban_state , ban_edate , user_num from ban order by num desc) 
+		where user_num = ${user_num} and rownum = 1
+	</select>
+	
 	
 	
 </mapper>

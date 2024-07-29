@@ -128,5 +128,8 @@
 		insert into room_wish_list ( user_num , num ) values ( #{user_num} , #{num} )
 	</insert>
 
-	
+	<select id="isLiked" parameterType="map" resultType="Integer">
+	    select NVL(count(*), 0) from room_wish_list
+        where num=#{num} AND user_num=#{user_num}
+     </select>
 </mapper>

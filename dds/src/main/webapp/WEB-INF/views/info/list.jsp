@@ -35,6 +35,7 @@
 }
 .scroll-list ul {
 	padding: 0px;
+	list-style: none; /* ul의 기본 패딩과 마진 제거 */
 }
 .scroll-list li {
 	height: 120px;
@@ -43,6 +44,7 @@
 .scroll-list .card img {
 	width: 25%;
 	object-fit: scale-down;
+	object-fit: cover; /* 이미지가 카드 내에서 잘 보이도록 수정 */
 }
 .card p {
 	margin: 0px;
@@ -58,12 +60,17 @@
 	margin-top: 10px;
 }
 .hero-header {
-	background-image: url('/dds/resources/images/infomain.jpg');
+	background-image: url('${pageContext.request.contextPath}/resources/images/infomain.jpg');
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
 }
-.card footer span, .card-body h3, .card-body p {
+
+.card footer {
+    color: #A4A6AA; /* footer의 색상을 변경 */
+}
+
+.card-body h3, .card-body p {
 	font-weight: bold;
 }
     .travel-info-item {
@@ -87,7 +94,7 @@
         padding: 16px;
     }
     .travel-info-item-title {
-        font-size: 16px;
+        font-size: 20px;
         font-weight: bold;
         color: #333;
     }
@@ -108,13 +115,46 @@
     	color: #18A8F1;
     	font-weight: bold;
     }
+    
+    .custom-margin-right {
+        margin-left:  400px !important; /* 원하는 만큼의 공간으로 조절 */
+    }
+    
+    @media (max-width: 1200px) {
+            .custom-margin-right {
+                margin-left: 300px !important; /* 화면 크기에 따라 조정 */
+            }
+        }
+
+        @media (max-width: 992px) {
+            .custom-margin-right {
+                margin-left: 200px !important; /* 화면 크기에 따라 조정 */
+            }
+        }
+
+        @media (max-width: 768px) {
+            .custom-margin-right {
+                margin-left: 100px !important; /* 화면 크기에 따라 조정 */
+            }
+        }
+
+        @media (max-width: 576px) {
+            .custom-margin-right {
+                margin-left: 50px !important; /* 화면 크기에 따라 조정 */
+            }
+        }
+        
+     .btn.listTypebtn1.active, .btn.listTypebtn2.active {
+    background-color: #18A8F1	; /* Primary color */
+    color: #fff; /* Text color white */
+}
 </style>
 		<div class="container-fluid py-5 mb-3 hero-header">
 			<div class="row m-2 g-5 align-items-center">
 				<div class="col-md-12">
-					<h2 class="mb-1 text-light display-5" style="font-weight: 600;">두둥실
+					<h2 class="mb-1 text-light display-5 custom-margin-right" style="font-weight: 600;">두둥실
 						떠나는</h2>
-					<h2 class="mb-1 text-light display-5" style="font-weight: 600;">신나는
+					<h2 class="mb-1 text-light display-5 custom-margin-right" style="font-weight: 600;">신나는
 						여행</h2>
 					<div class="container mt-4">
 					<div class="search-form-container">
@@ -141,7 +181,7 @@
 				</div>
 			</div>
 		</div>
-	<div class="container border border-top-0 border-bottom-0">
+	<div class="container-xxl py-5">
 			<div id="info-carousel" class="carousel slide">
 			  <div class="carousel-indicators">
 			    <button type="button" data-bs-target="#info-carousel" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
@@ -150,13 +190,22 @@
 			  </div>
 			  <div class="carousel-inner">
 			    <div class="carousel-item active">
-			      <img src="${pageContext.request.contextPath}/resources/images/infobanner1.png" class="d-block w-100" alt="...">
+			      <img src="${pageContext.request.contextPath}/resources/images/infobanner1.jpg" class="d-block w-100 rounded-5" alt="전라남도 순천">
+			    	<div class="carousel-caption d-none d-md-block">
+			    		<h3>전라남도 순천</h3>
+			    	</div>
 			    </div>
 			    <div class="carousel-item">
-			      <img src="${pageContext.request.contextPath}/resources/images/infobanner2.png" class="d-block w-100" alt="...">
+			      <img src="${pageContext.request.contextPath}/resources/images/infobanner2.jpg" class="d-block w-100 rounded-5" alt="서울 특별시">
+			    	<div class="carousel-caption d-none d-md-block">
+			    		<h3>서울 특별시</h3>
+			    	</div>
 			    </div>
 			    <div class="carousel-item">
-			      <img src="${pageContext.request.contextPath}/resources/images/infobanner3.png" class="d-block w-100" alt="...">
+			      <img src="${pageContext.request.contextPath}/resources/images/infobanner3.jpg" class="d-block w-100 rounded-5" alt="부산 광역시">
+			    	<div class="carousel-caption d-none d-md-block">
+			    		<h3>부산 광역시</h3>
+			    	</div>
 			    </div>
 			  </div>
 			  <button class="carousel-control-prev" type="button" data-bs-target="#info-carousel" data-bs-slide="prev">
@@ -169,10 +218,10 @@
 			  </button>
 			</div>
 			<hr>
-	<div class="body-container">	
+	<div class="container">	
 		<div class="body-main">
 			<div>
-				<h2 class="color-text"><i class="bi bi-info-square"></i>&nbsp;인기 여행 정보</h2>
+				<h2 class="color-text"><i class="bi bi-info-circle"></i>&nbsp;인기 여행 정보</h2>
 				<div class="scroll-list">
 					<ul>
 						<li class="sentinel-1" data-loading="false"></li>
