@@ -500,4 +500,44 @@ function addNewContent(data) {
 	htmlText+='</div><br>';
 	$(".list-content").append(htmlText);	
 }
+
+$(function(){
+	$('.listTypebtn1').click(function() {
+		$('.listTypebtn2').removeClass("active");
+		$('.list-content').html("");
+		listPage(1);
+	});
+	
+	$('.listTypebtn2').click(function() {
+		$('.listTypebtn1').removeClass("active");
+		$('.list-content').html("");
+		popularListPage(1);
+	});
+	
+	$('.list-footer .more-btn').click(function(){
+		let pageNo = $('.list-content').attr('data-pageNo');
+		let total_page = $('.list-content').attr('data-totalPage');
+		pageNo++;
+		
+		if($(".listTypebtn1").hasClass("active") === true) {
+			if(pageNo>=total_page) {
+				$('.list-footer .more-btn').hide();
+				listPage(pageNo);
+			} else {
+				listPage(pageNo);
+			}
+		} else if($(".listTypebtn2").hasClass("active") === true) {	
+			if(pageNo>=total_page) {
+				$('.list-footer .more-btn').hide();
+				popularListPage(pageNo);
+			} else {
+				popularListPage(pageNo);
+			}
+		}
+	});
+});
+
+function article(num, contentId) {
+	location.href="${pageContext.request.contextPath}/info/load?num="+num+"&contentId="+contentId;
+}
 </script>
