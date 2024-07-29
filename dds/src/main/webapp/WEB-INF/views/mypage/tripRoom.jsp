@@ -50,7 +50,8 @@
 			<!-- 예약 취소 버튼과 더보기 버튼을 오른쪽 하단에 배치 -->
 			<div class="flex-item"
 				style="display: flex; justify-content: flex-end; margin-top: 10px;">
-				      <input type="text" id="description-${list1.sale_num}">  <button class="btn btn-primary" style="margin-right: 5px;" onclick="getToken('${list1.imp_uid}', null, ${list1.sale_num});">예약 취소</button>
+				      <!--  <input type="text" id="description-${list1.sale_num}"> -->  
+    <button class="btn btn-primary" style="margin-right: 5px;" data-bs-toggle="modal" data-bs-target="#refundModal" data-sale-num="${list1.sale_num}" data-imp-uid="${list1.imp_uid}">예약 취소</button>
 				<div class="dropdown">
 					<button onclick="toggleDropdown()"
 						class="btn btn-outline-secondary">...</button>
@@ -62,6 +63,31 @@
 		</div>
 	</div>
 </div>
+<!-- 수정된 부분 시작: 예약 취소 모달 추가 -->
+<div class="modal fade" id="refundModal" tabindex="-1" aria-labelledby="refundModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title btnRefundWriteForm" id="refundModalLabel">취소 사유</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <div class="review-form border border-secondary p-3 mt-2">
+                    <form name="refundForm" id="refundForm" enctype="multipart/form-data">
+                        <div class="p-1">
+                            <label for="description">취소 사유:</label>
+                            <textarea name="description" id="description" class="form-control"></textarea>
+                        </div>
+                        <div class="p-1 text-end">
+                            <button type="button" class="btn btn-dark btnRefundSend ps-5 pe-5" onclick="submitRefund()">등록하기</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- 수정된 부분 끝 -->
 </c:forEach>
 <hr>
 <h5 class="mt-3">두둥! 추억!</h5>

@@ -24,11 +24,12 @@
 					<i class="bx bx-reset d-block d-sm-none"></i> <span
 						class="d-none d-sm-block">Reset</span>
 				</button>
-				<div class="mb-3 col-md-6">
-					<label for="content" class="form-label mb-1 mt-2">자기소개</label> <input
-							class="form-control" type="text" id="content" name="content"
-							value="${dto.content}"/>
+				<div class="mb-3 col-md-12">
+					<label for="content" class="form-label mb-1 mt-2">자기소개</label> 
+					<input class="form-control" type="text" id="content" name="content" value="${dto.content}" style="width: 100%;"/>
 				</div>
+
+
 			</div>
 		</div>
 	</div>
@@ -84,7 +85,7 @@
 			</div>
 			<div class="mt-2">
 				<button type="submit" class="btn btn-primary me-2">저장</button>
-				<button type="reset" class="btn btn-outline-secondary">수정취소</button>
+				<button type="reset" class="btn btn-outline-secondary" onclick="window.location.href='${pageContext.request.contextPath}/mypage/profile'">수정취소</button>
 			</div>
 </div>
 		</form>
@@ -111,41 +112,83 @@
 </div>
 
 <script type="text/javascript">
-$(function() {
+$(document).ready(function() {
+    let img = "${dto.photo}";
+    let originalValues = {
+        userId: "${dto.userId}",
+        userName: "${dto.userName}",
+        pwd: "${dto.pwd}",
+        nickName: "${dto.nickName}",
+        tel: "${dto.tel}",
+        content: "${dto.content}",
+        birth: "${dto.birth}",
+        gender: "${dto.gender}"
+    };
 
-	let img = "${dto.photo}";
-	if(img) {
-		$('.profile-photo').attr('src', '${pageContext.request.contextPath}/uploads/mypage/'+img);
-	} else {
-		$('.profile-photo').attr('src', '${pageContext.request.contextPath}/resources/images/profile_image_default.png');
-	}
-	
-	$(".write-form input[name=photoFile]").change(function(){
-		let file = this.files[0];
-		if(! file) {
-			
-			let img2;
-			if( img ) {
-				img2 = "${pageContext.request.contextPath}/uploads/mypage/" + img;
-			} else {
-				img2 = "${pageContext.request.contextPath}/resources/images/profile_image_default.png";
-			}
-			$('.profile-photo').attr('src', img2);
-			
-			return false;
-		}
-		
-		if(! file.type.match("image.*")) {
-			this.focus();
-			return false;
-		}
-		
-		
-		let reader = new FileReader();
-		reader.onload = function(e) {
-			$('.profile-photo').attr('src', e.target.result);
-		}
-		reader.readAsDataURL(file);
-	});
+    if (img) {
+        console.log("Image found:", img);
+        $('.profile-photo').attr('src', '${pageContext.request.contextPath}/uploads/mypage/' + img);
+    } else {
+        console.log("No image found, setting default.");
+        $('.profile-photo').attr('src', '${pageContext.request.contextPath}/resources/images/profile_image_default.png');
+    }
+
+    $(".write-form input[name=photoFile]").change(function() {
+        let file = this.files[0];
+        if (!file) {
+            let img2;
+            if (img) {
+                img2 = "${pageContext.request.contextPath}/uploads/mypage/" + img;
+            } else {
+                img2 = "${pageContext.request.contextPath}/resources/images/profile_image_default.png";
+            }
+            $('.profile-photo').attr('src', img2);
+            console.log("No file selected, resetting image.");
+            return false;
+        }
+
+        if (!file.type.match("image.*")) {
+            this.focus();
+            console.log("Invalid file type:", file.type);
+            return false;
+        }
+
+        let reader = new FileReader();
+        reader.onload = function(e) {
+            $('.profile-photo').attr('src', e.target.result);
+            console.log("File selected, updating image.");
+        }
+        reader.readAsDataURL(file);
+    });
+
+    // RESET 버튼 클릭 시 폼 초기화
+    $(".account-image-reset").click(function() {
+        console.log("Reset button clicked.");
+
+        // 이미지 초기화
+        if (img) {
+            $('.profile-photo').attr('src', '${pageContext.request.contextPath}/uploads/mypage/' + img);
+            console.log("Resetting to original image:", img);
+        } else {
+            $('.profile-photo').attr('src', '${pageContext.request.contextPath}/resources/images/profile_image_default.png');
+            console.log("Resetting to default image.");
+        }
+
+        // 폼의 모든 입력 값 초기화
+        $("#formAccountSettings")[0].reset();
+        console.log("Form reset.");
+
+        // 수동으로 폼 필드 값 초기화
+        $('#Id').val(originalValues.userId);
+        $('#Name').val(originalValues.userName);
+        $('#password').val(originalValues.pwd);
+        $('#nickName').val(originalValues.nickName);
+        $('#phoneNumber').val(originalValues.tel);
+        $('#content').val(originalValues.content);
+        $('#birth').val(originalValues.birth);
+        $('#gender').val(originalValues.gender).trigger('change');
+        console.log("Form fields manually reset to original values.");
+    });
 });
 </script>
+

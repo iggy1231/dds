@@ -331,7 +331,7 @@ $(function(){
 		} else if(tab === "2") {
 			listReply(1);
 		}
-    });
+    });z
 });
 
 function listMyRoom(page) {

@@ -29,7 +29,7 @@
 </update>
 
 	<update id="updateInfo" parameterType="com.fly.dds.domain.Member">
-		UPDATE member_info SET nickname=#{nickName} , gender=#{gender} , tel=#{tel} , modify_date = sysdate
+		UPDATE member_info SET nickname=#{nickName} , gender=#{gender} , tel=#{tel} , modify_date = sysdate, email=#{email}
 		WHERE user_num = #{user_num}
 	</update>
 	
