@@ -6,12 +6,9 @@ import javax.servlet.http.HttpSession;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.servlet.HandlerInterceptor;
 import org.springframework.web.servlet.ModelAndView;
 
-import com.fly.dds.admin.domain.MemberManage;
-import com.fly.dds.admin.service.MemberManageService;
 import com.fly.dds.domain.SessionInfo;
 
 /*
@@ -23,8 +20,7 @@ import com.fly.dds.domain.SessionInfo;
 
 public class LoginCheckInterceptor implements HandlerInterceptor {
 	private final Logger logger = LoggerFactory.getLogger(LoginCheckInterceptor.class);
-	@Autowired
-	MemberManageService service;
+
 	
 	/*
 	 * 클라이언트 요청 처리 전에 실행
@@ -46,7 +42,6 @@ public class LoginCheckInterceptor implements HandlerInterceptor {
 			
 			if(info == null) {
 				// 로그인 안된 경우
-				System.out.println("여기테스트1");
 			
 				flag = false;
 				
@@ -70,14 +65,6 @@ public class LoginCheckInterceptor implements HandlerInterceptor {
 				
 			} else {
 				// 로그인 된 경우
-				System.out.println("여기테스트2");
-				MemberManage dto;
-                dto = service.checkBan(info.getUser_num());
-                System.out.println("로그인 체크!");
-                if(dto.getBan_state() == 1) {
-                    session.invalidate();
-                    return false;
-                }
 				
 				if(uri.indexOf("admin") != -1 && ! info.getUserId().equals("admin")) {
 

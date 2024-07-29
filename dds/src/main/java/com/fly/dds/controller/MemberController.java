@@ -13,6 +13,8 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import com.fly.dds.admin.domain.MemberManage;
+import com.fly.dds.admin.service.MemberManageService;
 import com.fly.dds.domain.Member;
 import com.fly.dds.domain.SessionInfo;
 import com.fly.dds.service.MemberService;
@@ -22,6 +24,9 @@ import com.fly.dds.service.MemberService;
 public class MemberController {
 	@Autowired
 	private MemberService service;
+	
+	@Autowired
+	private MemberManageService mmservice;
 	
 	@GetMapping("login")
 	public String loginForm() {
@@ -50,6 +55,23 @@ public class MemberController {
 		info.setStatus(dto.getStatus());
 		info.setActivity(dto.getActivity());
 		info.setPhoto(dto.getPhoto());
+		
+		
+        try {
+        	MemberManage dto2;
+			dto2 = mmservice.checkBan(info.getUser_num());
+		        if(dto2.getBan_state() == 1) {
+		            session.invalidate();
+		            model.addAttribute("dto2",dto2);
+		            return "/member/login";
+		}
+        }catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+       
+    
+		
 		
 		session.setMaxInactiveInterval(30 * 60);
 

@@ -66,9 +66,9 @@ ORDER BY m.user_num
 	</update>
 	
 	<select id="checkBan" parameterType="Long" resultType="com.fly.dds.admin.domain.MemberManage">
-		select rownum , ban_state , TO_CHAR(ban_edate, 'yyyy-mm-dd hh24:mi:ss') as ban_edate 
+		select rownum , reason , ban_state , TO_CHAR(ban_edate, 'yyyy-mm-dd hh24:mi:ss') as ban_edate 
 		from 
-		( select rownum , ban_state , ban_edate , user_num from ban order by num desc) 
+		( select rownum , reason , ban_state , ban_edate , user_num from ban order by num desc) 
 		where user_num = ${user_num} and rownum = 1
 	</select>
 	
