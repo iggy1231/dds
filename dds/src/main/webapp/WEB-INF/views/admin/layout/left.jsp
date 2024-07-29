@@ -85,16 +85,6 @@
                     <div data-i18n="Without menu">Analytics</div>
                   </a>
                 </li>
-                <li class="menu-item">
-                  <a href="layouts-without-navbar.html" class="menu-link">
-                    <div data-i18n="Without navbar">eCommerce</div>
-                  </a>
-                </li>
-                <li class="menu-item">
-                  <a href="layouts-without-navbar.html" class="menu-link">
-                    <div data-i18n="Without navbar">CRM</div>
-                  </a>
-                </li>
               </ul>
             </li>
             
@@ -105,8 +95,8 @@
             <!-- 상품관리 -->
             <li class="menu-item">
               <a href="javascript:void(0);" class="menu-link menu-toggle">
-                <i class="menu-icon tf-icons bx bx-layout"></i>
-                <div data-i18n="Layouts">상품관리</div>
+                <i class='menu-icon tf-icons bx bx-purchase-tag-alt'></i>
+                <div data-i18n="Layouts">상품관리</div> 
               </a>
 
               <ul class="menu-sub">
@@ -125,7 +115,7 @@
             <!-- 주문관리 -->
             <li class="menu-item">
               <a href="javascript:void(0);" class="menu-link menu-toggle">
-                <i class="menu-icon tf-icons bx bx-layout"></i>
+                <i class="menu-icon tf-icons bx bx-receipt"></i>
                 <div data-i18n="Layouts">주문관리</div>
               </a>
 
@@ -145,16 +135,11 @@
             <!-- 리뷰 및 문의 -->
             <li class="menu-item">
               <a href="javascript:void(0);" class="menu-link menu-toggle">
-                <i class="menu-icon tf-icons bx bx-layout"></i>
+                <i class="menu-icon tf-icons bx bx-message-square-dots"></i>
                 <div data-i18n="Layouts">리뷰 및 문의</div>
               </a>
 
               <ul class="menu-sub">
-                <li class="menu-item">
-                  <a href="${pageContext.request.contextPath}/admin/customer/review" class="menu-link">
-                    <div data-i18n="Without menu">상품리뷰</div>
-                  </a>
-                </li>
                 <li class="menu-item">
                   <a href="${pageContext.request.contextPath}/admin/customer/question" class="menu-link">
                     <div data-i18n="Without navbar">상품Q&A</div>
@@ -166,7 +151,7 @@
             <!-- 고객센터관리 -->
             <li class="menu-item">
               <a href="javascript:void(0);" class="menu-link menu-toggle">
-                <i class="menu-icon tf-icons bx bx-layout"></i>
+                <i class="menu-icon tf-icons bx bx-user-voice"></i>
                 <div data-i18n="Layouts">고객센터 관리</div>
               </a>
 
@@ -188,7 +173,7 @@
             </li>
             <li class="menu-item">
               <a href="javascript:void(0);" class="menu-link menu-toggle">
-                <i class="menu-icon tf-icons bx bx-dock-top"></i>
+                <i class="menu-icon tf-icons bx bxs-user-detail"></i> 
                 <div data-i18n="Account Settings">회원관리</div>
               </a>
               <ul class="menu-sub">
@@ -210,26 +195,6 @@
               </ul>
             </li>
             
-            <!-- 글관리 -->
-            <li class="menu-item">
-              <a href="javascript:void(0);" class="menu-link menu-toggle">
-                <i class="menu-icon tf-icons bx bx-lock-open-alt"></i>
-                <div data-i18n="Authentications">글관리</div>
-              </a>
-              <ul class="menu-sub">
-                <li class="menu-item">
-                  <a href="auth-login-basic.html" class="menu-link" target="_blank">
-                    <div data-i18n="Basic">게시글관리</div>
-                  </a>
-                </li>
-                <li class="menu-item">
-                  <a href="auth-register-basic.html" class="menu-link" target="_blank">
-                    <div data-i18n="Basic">자주묻는질문</div>
-                  </a>
-                </li>
-              </ul>
-            </li>
-            
             <!-- 이벤트 -->
             <li class="menu-item">
               <a href="${pageContext.request.contextPath}/admin/eventManage/all/list" class="menu-link">
@@ -238,11 +203,11 @@
               </a>
             </li>
             
-            <!-- Settings -->
+            <!-- Settings --> 
             <li class="menu-header small text-uppercase"><span class="menu-header-text">Settings</span></li>
             <li class="menu-item">
               <a
-                href="https://github.com/themeselection/sneat-html-admin-template-free/issues"
+                href=""
                 target="_blank"
                 class="menu-link"
               >
@@ -252,11 +217,12 @@
             </li>
             <li class="menu-item">
               <a
-                href="https://themeselection.com/demo/sneat-bootstrap-html-admin-template/documentation/"
+               href="${pageContext.request.contextPath}/member/logout"
+				onclick="confirmLogout()"
                 target="_blank"
                 class="menu-link"
               >
-                <i class="menu-icon tf-icons bx bx-file"></i>
+                <i class="menu-icon tf-icons bx bx-log-out"></i>
                 <div data-i18n="Documentation">LogOut</div>
               </a>
             </li>
