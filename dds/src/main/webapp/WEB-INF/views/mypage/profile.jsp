@@ -458,6 +458,42 @@ $('.tab-content').on('click', '.deleteQuestion', function() {
          });
      }   
 });
+
+$(function(){
+	$('.listRecent').click(function() {
+		$('.listPast').removeClass("active");
+		$('.list-content').html("");
+		listPage(1);
+	});
+	
+	$('.listPast').click(function() {
+		$('.listTypebtn1').removeClass("active");
+		$('.listRecent').html("");
+		popularListPage(1);
+	});
+	
+	$('.list-footer .more-btn').click(function(){
+		let pageNo = $('.list-content').attr('data-pageNo');
+		let total_page = $('.list-content').attr('data-totalPage');
+		pageNo++;
+		
+		if($(".listRecent").hasClass("active") === true) {
+			if(pageNo>=total_page) {
+				$('.list-footer .more-btn').hide();
+				listPage(pageNo);
+			} else {
+				listPage(pageNo);
+			}
+		} else if($(".listPast").hasClass("active") === true) {	
+			if(pageNo>=total_page) {
+				$('.list-footer .more-btn').hide();
+				popularListPage(pageNo);
+			} else {
+				popularListPage(pageNo);
+			}
+		}
+	});
+});
 </script>
 
 

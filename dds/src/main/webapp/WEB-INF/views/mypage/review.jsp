@@ -2,6 +2,13 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 
+<div class="row justify-content-between">
+	<h2 class="col color-text">전체 ${dataCount}건</h2>
+		<div class="col text-end">
+				<button type="button" class="btn listRecent active" data-bs-toggle="button">가나다순</button>
+				<button type="button" class="btn listPast" data-bs-toggle="button">인기순</button>
+		</div>
+</div>
 <div class="row g-4">
 
 	<c:forEach var="list" items="${list}">
