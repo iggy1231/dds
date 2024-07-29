@@ -21,7 +21,7 @@
 	max-width: 800px;
 }
 .map {
-	width: 100%; height:450px; border: 1px solid #777;
+	width: 100%; height:450px;
 }
 #likeIcon, .btnReplyLike>i {
 	color: red;
@@ -92,9 +92,12 @@ p{
 			<h3><i class="bi bi-geo-alt-fill"></i>&nbsp;지도</h3>
 			<div id="map" class="map"></div><hr>
 			<h3><i class="bi bi-telephone-fill"></i>&nbsp;연락처</h3>
-			<p>주소 </p><p>${dto.addr1} ${dto.addr2} (우편번호 : ${dto.zipcode})</p>
-			<p>전화번호 <p> ${dto.tel}</p>
-			<p>홈페이지 </p><p>${dto.homepage}</p><hr>
+			<p style="font-weight: bold; font-size: 20px;">📍&nbsp;주소 </p>
+			<p>${dto.addr1} ${dto.addr2} (우편번호 : ${dto.zipcode})</p>
+			<p style="font-weight: bold; font-size: 20px;">☎️&nbsp;전화번호</p>
+			<p> ${dto.tel}</p>
+			<p style="font-weight: bold; font-size: 20px;">🏡&nbsp;홈페이지</p>
+			<p>${dto.homepage}</p><hr>
 		</div>
 		<div class="reply">
 			<form name="replyForm" method="post">

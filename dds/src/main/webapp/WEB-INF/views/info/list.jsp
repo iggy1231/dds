@@ -152,9 +152,9 @@
 		<div class="container-fluid py-5 mb-3 hero-header">
 			<div class="row m-2 g-5 align-items-center">
 				<div class="col-md-12">
-					<h2 class="mb-1 text-light display-5 custom-margin-right" style="font-weight: 600;">두둥실
+					<h2 class="mb-1 text-light display-5" style="font-weight: 600;">두둥실
 						떠나는</h2>
-					<h2 class="mb-1 text-light display-5 custom-margin-right" style="font-weight: 600;">신나는
+					<h2 class="mb-1 text-light display-5" style="font-weight: 600;">신나는
 						여행</h2>
 					<div class="container mt-4">
 					<div class="search-form-container">
