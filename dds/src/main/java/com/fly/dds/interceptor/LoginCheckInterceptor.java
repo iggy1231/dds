@@ -46,6 +46,7 @@ public class LoginCheckInterceptor implements HandlerInterceptor {
 			
 			if(info == null) {
 				// 로그인 안된 경우
+				System.out.println("여기테스트1");
 			
 				flag = false;
 				
@@ -69,6 +70,7 @@ public class LoginCheckInterceptor implements HandlerInterceptor {
 				
 			} else {
 				// 로그인 된 경우
+				System.out.println("여기테스트2");
 				MemberManage dto;
                 dto = service.checkBan(info.getUser_num());
                 System.out.println("로그인 체크!");
