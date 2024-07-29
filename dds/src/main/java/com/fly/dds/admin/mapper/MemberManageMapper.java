@@ -18,4 +18,8 @@ public interface MemberManageMapper {
 	
 	public int banCount() throws SQLException;
 	public List<ReportManage> listBan();
+	
+	public void insertBan(MemberManage dto);
+	public void updateBan(Long user_num);
+	public MemberManage checkBan(Long user_num) throws SQLException;
 }

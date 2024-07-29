@@ -28,6 +28,7 @@
                     <c:forEach var="list" items="${list}">
                     <tbody class="table-border-bottom-0">
                       <tr>
+                    <form name="banForm" action="${pageContext.request.contextPath}/admin/memberManage/ban" method="post">
                         <td><i class="fab fa-angular fa-lg text-danger me-3"></i> <strong>${list.user_num}</strong></td>
                         <td>${list.userId}</td>
                         <td>${list.nickName}</td>
@@ -49,20 +50,17 @@
                 </c:choose>
                 </td>
                         <td>
-                          <div class="dropdown">
-                            <button type="button" class="btn p-0 dropdown-toggle hide-arrow" data-bs-toggle="dropdown">
-                              <i class="bx bx-dots-vertical-rounded"></i>
-                            </button>
-                            <div class="dropdown-menu">
-                              <a class="dropdown-item" href="javascript:void(0);"
-                                ><i class="bx bx-edit-alt me-1"></i> Edit</a
-                              >
-                              <a class="dropdown-item" href="javascript:void(0);"
-                                ><i class="bx bx-trash me-1"></i> Delete</a
-                              >
-                            </div>
-                          </div>
+               				    <select name="ban_date">
+                                	<option value="1"> 1일 </option>
+                                	<option value="7"> 7일 </option>
+                                	<option value="9999"> 영구 </option>
+                                </select>
                         </td>
+                        <td>
+                        	<input type="text" name="reason"> <input type="hidden" name="user_num" value="${list.user_num}">
+                        </td>
+                        <td> <button type="submit"> 차단</button> </td>
+                    </form>
                       </tr>
                     </tbody>
                     </c:forEach>
@@ -74,3 +72,5 @@
               <!--/ Hoverable Table rows -->
             </div>
           </div>
+          
+          
