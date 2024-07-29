@@ -36,19 +36,44 @@ p {
 	text-align: left;
 }
 
+.subject-style {
+    font-size: 40px; /* 폰트 사이즈를 키움 */
+    font-weight: bold; /* 폰트를 굵게 설정 */
+}
+
+.region-style {
+	font-size: 30px;
+	color: #18A8F1;
+}
+
+.tag-style{
+	font-size: 23px;
+	color: #A4A6AA;
+}
+
+h3{
+	font-size: 30px;
+	font-weight: bold;
+	color: #4E4F55;
+}
+
+p{
+	font-size: 20px;
+}
+
 </style>
 
-<div class="container border border-top-0 border-bottom-0">
+<div class="container-xxl py-5">
 		<div>
-			<h3 class="mt-3">${dto.name}</h3>
-			<p>${dto.region_Main} ${dto.region_Sub}</p>
+			<h3 class="mt-3 subject-style">${dto.name}</h3>
+			<p class="region-style"><i class="bi bi-geo-alt"></i>&nbsp;${dto.region_Main} ${dto.region_Sub}</p>
 			<div>
 				<c:forEach var="tag" items="${tagList}">
-					<span><a href="#">#${tag}</a></span>
+					<span><a class="tag-style" href="#">#${tag}</a></span>
 				</c:forEach>
 			</div><hr>
 		</div>
-	<div class="body-container">	
+	<div class="container">	
 		<div class="body-main">
 			<div class="resultLayout"></div>
 			<div id="carouselExample" class="carousel slide">
@@ -62,14 +87,14 @@ p {
 			    <span class="visually-hidden">Next</span>
 			  </button>
 			</div><hr>
-			<h3>소개</h3>
+			<h3><i class="bi bi-book-half"></i>&nbsp;소개</h3>
 			<p>${dto.overview}</p><hr>
-			<h3>지도</h3>
+			<h3><i class="bi bi-geo-alt-fill"></i>&nbsp;지도</h3>
 			<div id="map" class="map"></div><hr>
-			<h3>연락처</h3>
-			<p>주소 : ${dto.addr1} ${dto.addr2} (우편번호 : ${dto.zipcode})</p>
-			<p>전화번호 : ${dto.tel}</p>
-			<p>홈페이지 : ${dto.homepage}</p><hr>
+			<h3><i class="bi bi-telephone-fill"></i>&nbsp;연락처</h3>
+			<p>주소 </p><p>${dto.addr1} ${dto.addr2} (우편번호 : ${dto.zipcode})</p>
+			<p>전화번호 <p> ${dto.tel}</p>
+			<p>홈페이지 </p><p>${dto.homepage}</p><hr>
 		</div>
 		<div class="reply">
 			<form name="replyForm" method="post">
