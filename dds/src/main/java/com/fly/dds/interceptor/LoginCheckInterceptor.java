@@ -6,9 +6,12 @@ import javax.servlet.http.HttpSession;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.servlet.HandlerInterceptor;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.fly.dds.admin.domain.MemberManage;
+import com.fly.dds.admin.service.MemberManageService;
 import com.fly.dds.domain.SessionInfo;
 
 /*
@@ -20,6 +23,8 @@ import com.fly.dds.domain.SessionInfo;
 
 public class LoginCheckInterceptor implements HandlerInterceptor {
 	private final Logger logger = LoggerFactory.getLogger(LoginCheckInterceptor.class);
+	@Autowired
+	MemberManageService service;
 	
 	/*
 	 * 클라이언트 요청 처리 전에 실행
@@ -29,7 +34,7 @@ public class LoginCheckInterceptor implements HandlerInterceptor {
 	public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler)
 			throws Exception {
 		boolean flag = true;
-		
+
 		try {
 			HttpSession session = request.getSession();
 			SessionInfo info = (SessionInfo)session.getAttribute("member");
@@ -37,8 +42,11 @@ public class LoginCheckInterceptor implements HandlerInterceptor {
 			String uri = request.getRequestURI();
 			String queryString = request.getQueryString();
 			
+			
+			
 			if(info == null) {
 				// 로그인 안된 경우
+			
 				flag = false;
 				
 				if(isAjaxRequest(request)) {
@@ -61,8 +69,16 @@ public class LoginCheckInterceptor implements HandlerInterceptor {
 				
 			} else {
 				// 로그인 된 경우
+				MemberManage dto;
+                dto = service.checkBan(info.getUser_num());
+                System.out.println("로그인 체크!");
+                if(dto.getBan_state() == 1) {
+                    session.invalidate();
+                    return false;
+                }
+				
 				if(uri.indexOf("admin") != -1 && ! info.getUserId().equals("admin")) {
-					
+
 					flag = false;
 					response.sendRedirect(cp + "/member/noAuthorized");
 				}

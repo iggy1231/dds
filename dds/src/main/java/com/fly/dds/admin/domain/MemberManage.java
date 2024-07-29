@@ -14,7 +14,16 @@ public class MemberManage {
 	private String email;
 	private String gender;
 	private String tel;
+	private int ban_date;
 	
+	
+	
+	public int getBan_date() {
+		return ban_date;
+	}
+	public void setBan_date(int ban_date) {
+		this.ban_date = ban_date;
+	}
 	public long getNum() {
 		return num;
 	}
