@@ -126,7 +126,10 @@ public class RoomController {
 	        @RequestParam String sdate,
 	        @RequestParam String edate,
 	        @RequestParam int people,
-	        
+	        @RequestParam(defaultValue="all") String roomType,
+	        @RequestParam(defaultValue="priceType1") String priceType,
+	        @RequestParam(defaultValue="") String[] keywords,
+	        @RequestParam(defaultValue="") String[] facilities,
 	        HttpServletRequest req,
 	        Model model) throws Exception {
 	    
@@ -143,6 +146,11 @@ public class RoomController {
 	    map.put("sdate", java.sql.Date.valueOf(sdate));
 	    map.put("edate", java.sql.Date.valueOf(edate));
 	    map.put("people", people);
+	    
+	    map.put("roomType", roomType);
+	    map.put("priceType", priceType);
+	    map.put("keywords", keywords);
+	    map.put("facilities", facilities);
 
 	    dataCount = service.dataCount(map);
 	    total_page = myUtil.pageCount(dataCount, size);
@@ -194,6 +202,11 @@ public class RoomController {
 	    model.addAttribute("total_page", total_page);
 	    model.addAttribute("dataCount", dataCount);
 	    model.addAttribute("paging", paging);
+	    model.addAttribute("roomType", roomType);
+	    model.addAttribute("priceType", priceType);
+	    model.addAttribute("keywords", keywords);
+	    model.addAttribute("facilities", facilities);
+	    
 	    
 	    return ".room.list";
 	}

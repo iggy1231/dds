@@ -78,8 +78,9 @@ hr {
 	background-color: #18A8F1 !important; 
 	color: #FFFFFF;
 }
-
-
+#keywords input, #facility input {
+	display: none;
+}
 
 </style>
 
@@ -111,7 +112,13 @@ hr {
                 </div>
 
                         <div class="row g-4">
+
                             <div class="col-lg-3">
+                            	<form name="filterForm" action="${pageContext.request.contextPath}/room/list" method="get">
+                            		<input type="hidden" name="kwd" value="${kwd}">
+                            		<input type="hidden" name="sdate" value="${sdate}">
+                            		<input type="hidden" name="edate" value="${edate}">
+                            		<input type="hidden" name="people" value="${people}">
                              	<!-- 필터 start -->
                                 <div class="p-3 border border-1 rounded pr-4 row g-4">
                                 <h3 class="pb-2" style="font-weight: 700;"><i class="bi bi-filter-left"></i>  필터</h3>
@@ -119,20 +126,20 @@ hr {
                                         <div class="mb-2">
                                             <h4 class="pb-2" style="font-weight: 600;">숙소유형</h4>
                                             <div class="pb-2 form-check">
-											  <input class="p-2 form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault1" checked>
-											  <label class="form-check-label" for="flexRadioDefault1">
+											  <input class="p-2 form-check-input" type="radio" name="roomType" id="roomTypeAll" value="all" ${roomType=='all' ? 'checked' : ''}>
+											  <label class="form-check-label" for="roomTypeAll">
 											    전체
 											  </label>
 											</div>
 											<div class="pb-2 form-check">
-											  <input class="p-2 form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault2">
-											  <label class="form-check-label" for="flexRadioDefault2">
+											  <input class="p-2 form-check-input" type="radio" name="roomType" value="펜션" id="roomTypePension" ${roomType=='펜션' ? 'checked' : ''}>
+											  <label class="form-check-label" for="roomTypePension">
 											    펜션
 											  </label>
 											</div>
 											<div class="pb-2 form-check">
-											  <input class="p-2 form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault3">
-											  <label class="form-check-label" for="flexRadioDefault3">
+											  <input class="p-2 form-check-input" type="radio" name="roomType" value="캠핑/글램핑" id="roomTypeCamping" ${roomType=='캠핑/글램핑' ? 'checked' : ''}>
+											  <label class="form-check-label" for="roomTypeCamping">
 											    캠핑/글램핑
 											  </label>
 											</div>
@@ -144,31 +151,31 @@ hr {
                                         <div class="mb-3">
                                             <h4 class="pb-2" style="font-weight: 600;">가격대</h4>
                                             <div class="pb-2 form-check">
-											  <input class="p-2 form-check-input" type="radio" name="flexRadioPrice" id="flexRadioPrice1" checked>
+											  <input class="p-2 form-check-input" type="radio" name="priceType" value="priceType1" id="priceType1" ${priceType=='priceType1' ? 'checked' : ''}>
 											  <label class="form-check-label" for="flexRadioPrice1">
 											    0 원 ~ 10 만원
 											  </label>
 											</div>
 											<div class="pb-2 form-check">
-											  <input class="p-2 form-check-input" type="radio" name="flexRadioPrice" id="flexRadioPrice2">
+											  <input class="p-2 form-check-input" type="radio" name="priceType" value="priceType2" id="priceType2" ${priceType=='priceType2' ? 'checked' : ''}>
 											  <label class="form-check-label" for="flexRadioPrice2">
 											    10 만원 ~ 20 만원
 											  </label>
 											</div>
 											<div class="pb-2 form-check">
-											  <input class="p-2 form-check-input" type="radio" name="flexRadioPrice" id="flexRadioPrice3">
+											  <input class="p-2 form-check-input" type="radio" name="priceType" value="priceType3" id="priceType3" ${priceType=='priceType3' ? 'checked' : ''}>
 											  <label class="form-check-label" for="flexRadioPrice3">
 											    20 만원 ~ 30 만원
 											  </label>
 											</div>
 											<div class="pb-2 form-check">
-											  <input class="p-2 form-check-input" type="radio" name="flexRadioPrice" id="flexRadioPrice4">
+											  <input class="p-2 form-check-input" type="radio" name="priceType" value="priceType4" id="priceType4" ${priceType=='priceType4' ? 'checked' : ''}>
 											  <label class="form-check-label" for="flexRadioPrice4">
 											    30 만원 ~ 40 만원
 											  </label>
 											</div>
 											<div class="pb-2 form-check">
-											  <input class="p-2 form-check-input" type="radio" name="flexRadioPrice" id="flexRadioPrice5">
+											  <input class="p-2 form-check-input" type="radio" name="priceType" value="priceType5" id="priceType5" ${priceType=='priceType5' ? 'checked' : ''}>
 											  <label class="form-check-label" for="flexRadioPrice5">
 											    40만원 ~ 
 											  </label>
@@ -181,6 +188,13 @@ hr {
                                         <div class="mb-3">
                                             <h4 class="pb-2" style="font-weight: 600;">키워드</h4>
                                              <div id="keywords">
+                                             	<input type="checkbox" name="keywords" class="m-1 mb-2 px-3 py-1 btn border border-gray rounded-pill keyword-btn" value="가족여행">
+                                             	<input type="checkbox" name="keywords" class="m-1 mb-2 px-3 py-1 btn border border-gray rounded-pill keyword-btn" value="힙한감성">
+                                             	<input type="checkbox" name="keywords" class="m-1 mb-2 px-3 py-1 btn border border-gray rounded-pill keyword-btn" value="뷰맛집">
+                                             	<input type="checkbox" name="keywords" class="m-1 mb-2 px-3 py-1 btn border border-gray rounded-pill keyword-btn" value="감성숙소">
+                                             	<input type="checkbox" name="keywords" class="m-1 mb-2 px-3 py-1 btn border border-gray rounded-pill keyword-btn" value="연인끼리">
+                                             	<input type="checkbox" name="keywords" class="m-1 mb-2 px-3 py-1 btn border border-gray rounded-pill keyword-btn" value="친구와함께">
+		                                       
 		                                        <button type="button" class="m-1 mb-2 px-3 py-1 btn border border-gray rounded-pill keyword-btn" onclick="">가족여행</button>
 		                                        <button type="button" class="m-1 mb-2 px-3 py-1 btn border border-gray rounded-pill keyword-btn" onclick="">힙한감성</button>
 		                                        <button type="button" class="m-1 mb-2 px-3 py-1 btn border border-gray rounded-pill keyword-btn" onclick="">뷰맛집</button>
@@ -195,7 +209,16 @@ hr {
                                     <div class="col-lg-12">
                                         <div class="mb-3">
                                             <h4 class="pb-2" style="font-weight: 600;">시설</h4>
-                                             <div id="keywords">
+                                             <div id="facility">
+                                             	<input type="checkbox" name="facilities" class="m-1 mb-2 px-3 py-1 btn border border-gray rounded-pill keyword-btn" value="사우나">
+                                             	<input type="checkbox" name="facilities" class="m-1 mb-2 px-3 py-1 btn border border-gray rounded-pill keyword-btn" value="취사가능">
+                                             	<input type="checkbox" name="facilities" class="m-1 mb-2 px-3 py-1 btn border border-gray rounded-pill keyword-btn" value="바비큐">
+                                             	<input type="checkbox" name="facilities" class="m-1 mb-2 px-3 py-1 btn border border-gray rounded-pill keyword-btn" value="감성숙소">
+                                             	<input type="checkbox" name="facilities" class="m-1 mb-2 px-3 py-1 btn border border-gray rounded-pill keyword-btn" value="수영장">
+                                             	<input type="checkbox" name="facilities" class="m-1 mb-2 px-3 py-1 btn border border-gray rounded-pill keyword-btn" value="노래방">
+                                             	<input type="checkbox" name="facilities" class="m-1 mb-2 px-3 py-1 btn border border-gray rounded-pill keyword-btn" value="스파">
+                                             	<input type="checkbox" name="facilities" class="m-1 mb-2 px-3 py-1 btn border border-gray rounded-pill keyword-btn" value="피트니스">
+                                                                                          
 		                                        <button type="button" class="m-1 mb-2 px-3 py-1 btn border border-gray rounded-pill keyword-btn" onclick="">사우나</button>
 		                                        <button type="button" class="m-1 mb-2 px-3 py-1 btn border border-gray rounded-pill keyword-btn" onclick="">취사가능</button>
 		                                        <button type="button" class="m-1 mb-2 px-3 py-1 btn border border-gray rounded-pill keyword-btn" onclick="">바비큐</button>
@@ -207,6 +230,7 @@ hr {
 		                                 </div>
                                     </div>
                                 </div>
+                            </form>
                             </div>
                  <!-- 필터 end -->
 
@@ -249,7 +273,19 @@ hr {
                     </div>
                 </div>
             </div>
+<script type="text/javascript">
+	$('input[name=roomType]').change(function(){
+		const f=document.filterForm;
+	
+		f.submit();
+	});
 
+	$('input[name=priceType]').change(function(){
+		const f=document.filterForm;
+		
+		f.submit();
+	});
+</script>
 
 
 
