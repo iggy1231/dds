@@ -32,7 +32,7 @@
 }
 .scroll-list {
 	overflow-y: auto;
-	height: 600px;
+	height: 900px;
 }
 .carousel-item {
 	text-align: center;
@@ -67,17 +67,17 @@
         padding: 16px;
     }
     .travel-info-item-title {
-        font-size: 16px;
+        font-size: 20px;
         font-weight: bold;
         color: #333;
     }
     .travel-info-item-location {
-        font-size: 14px;
+        font-size: 18px;
         color: #777;
         margin: 8px 0;
     }
     .travel-info-item-location i {
-        color: #00AEEF;
+        color: #18A8F1;
         margin-right: 5px;
     }
     .travel-info-item-tags {
@@ -88,44 +88,83 @@
     	color: #18A8F1;
     	font-weight: bold;
     }
-</style>
+    
+    .companion-header {
+    	 background-image: url('${pageContext.request.contextPath}/resources/images/companion_header.png');
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+    }
+    
+     .search-form-container {
+            max-width: 1200px;
+            margin: auto; 
+            padding: 20px;
+            margin-top: 15px; 
+        }
+        
+ .carousel-item .btn-area {
+    margin: 4px;
+    font-size: 18px;
+}    
 
-<div class="container border border-top-0 border-bottom-0">
-    <div class="body-container">
-    		<div class="search-form-container">
-				<form class="d-flex" name="searchForm" action="${pageContext.request.contextPath}/companion/search">
-					<div class="input-group">
-						<span class="input-group-text"><i class="p-2 bi bi-search"></i></span>
-						<input name="kwd" type="text" class="p-3 form-control" placeholder="">
-						<input name="mainRegion" type="hidden" value="전체">
-						<button type="button" onclick="kwdCheck();" class="btn btn-primary">검색</button>
-					</div>
-				</form>
-			</div>
-    	<hr>
+.companion-img {
+    transition: filter 0.3s ease;
+}
+
+.companion-img:hover {
+    filter: brightness(70%);
+}
+   
+        
+</style>
+<div class="container-fluid py-5 mb-3 companion-header" style="font-family: pretendard;">
+    <div class="pt-1 pb-4">
+        <div class="row m-2 g-5 align-items-center">
+            <div class="col-md-12">
+                <div class="search-form-container">
+                    <!-- 텍스트 위치 변경 -->
+                    <h4 class="px-5 text-light display-5 text-start mb-3 header-text" style="font-weight: 500; padding-left: 70px;">두둥실 함께 떠나요!</h4>
+                    <form class="d-flex search-form-container" name="searchForm" action="${pageContext.request.contextPath}/companion/search">
+                        <div class="px-5 input-group">
+                            <span class="input-group-text"><i class="p-2 bi bi-search"></i></span>
+                            <input name="kwd" type="text" class="p-2 form-control" placeholder="지역이나 키워드 검색">
+                            <input name="mainRegion" type="hidden" value="전체">
+                            <button type="button" onclick="kwdCheck();" class="btn btn-primary">검색</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="container">
+    <div class="">
+		  <h2 class="m-3 text-center fw-semibold color-text mt-5">🗺️ 원하는 지역 선택</h2>
     	<div id="selectAreabtn" class="carousel slide">
 		  <div class="carousel-inner" data-pageNo="0" data-totalPage="0">
-		    <div class="carousel-item active">
-		      <button class="btn btn-outline-secondary active" value="전체">전체</button>
-		      <button class="btn btn-outline-secondary" value="서울">서울</button>
-		      <button class="btn btn-outline-secondary" value="인천">인천</button>
-		      <button class="btn btn-outline-secondary" value="대전">대전</button>
-		      <button class="btn btn-outline-secondary" value="대구">대구</button>
-		      <button class="btn btn-outline-secondary" value="광주">광주</button>
-		      <button class="btn btn-outline-secondary" value="부산">부산</button>
-		      <button class="btn btn-outline-secondary" value="울산">울산</button>
-		      <button class="btn btn-outline-secondary" value="세종">세종</button>
+		    <div class="carousel-item active p-3">
+		      <button class="btn btn-outline-primary btn-area active px-4 py-2" value="전체">전체</button>
+		      <button class="btn btn-outline-primary btn-area px-4 py-2" value="서울">서울</button>
+		      <button class="btn btn-outline-primary btn-area px-4 py-2" value="인천">인천</button>
+		      <button class="btn btn-outline-primary btn-area px-4 py-2" value="대전">대전</button>
+		      <button class="btn btn-outline-primary btn-area px-4 py-2" value="대구">대구</button>
+		      <button class="btn btn-outline-primary btn-area px-4 py-2" value="광주">광주</button>
+		      <button class="btn btn-outline-primary btn-area px-4 py-2" value="부산">부산</button>
+		      <button class="btn btn-outline-primary btn-area px-4 py-2" value="울산">울산</button>
+		      <button class="btn btn-outline-primary btn-area px-4 py-2" value="세종">세종</button>
 		    </div>
-		    <div class="carousel-item">
-		      <button class="btn btn-outline-secondary" value="경기">경기</button>
-		      <button class="btn btn-outline-secondary" value="강원">강원</button>
-		      <button class="btn btn-outline-secondary" value="충북">충북</button>
-		      <button class="btn btn-outline-secondary" value="충남">충남</button>
-		      <button class="btn btn-outline-secondary" value="경북">경북</button>
-		      <button class="btn btn-outline-secondary" value="경남">경남</button>
-		      <button class="btn btn-outline-secondary" value="전북">전북</button>
-		      <button class="btn btn-outline-secondary" value="전남">전남</button>
-		      <button class="btn btn-outline-secondary" value="제주">제주</button>
+		    <div class="carousel-item p-3">
+		      <button class="btn btn-outline-primary btn-area px-4 py-2" value="경기">경기</button>
+		      <button class="btn btn-outline-primary btn-area px-4 py-2" value="강원">강원</button>
+		      <button class="btn btn-outline-primary btn-area px-4 py-2" value="충북">충북</button>
+		      <button class="btn btn-outline-primary btn-area px-4 py-2" value="충남">충남</button>
+		      <button class="btn btn-outline-primary btn-area px-4 py-2" value="경북">경북</button>
+		      <button class="btn btn-outline-primary btn-area px-4 py-2" value="경남">경남</button>
+		      <button class="btn btn-outline-primary btn-area px-4 py-2" value="전북">전북</button>
+		      <button class="btn btn-outline-primary btn-area px-4 py-2" value="전남">전남</button>
+		      <button class="btn btn-outline-primary btn-area px-4 py-2" value="제주">제주</button>
 		    </div>
 		  </div>
 		  <button class="carousel-control-prev" type="button">
@@ -137,10 +176,10 @@
 		    <span class="visually-hidden">Next</span>
 		  </button>
 		</div>
-		<hr>
-    	<h2 class="color-text">지역 별 최신 글</h2>
+		<hr class="m-4">
+    	<h2 class="color-text m-4">지역 별 최신 글</h2>
     	<div id="areaList-carousel" class="carousel slide">
-			<div class="carousel-inner px-3">
+			<div class="carousel-inner px-4">
 				<div class="carousel-item active"></div>
 				<div class="carousel-item"></div>
 				<div class="carousel-item"></div>
@@ -154,10 +193,11 @@
 				<span class="visually-hidden">Next</span>
 			</button>
 		</div>
-		<hr>
-		<h2 class="color-text">지역 별 인기 글</h2>
+		
+		<hr class="m-4">
+		<h2 class="color-text m-4">지역 별 인기 글</h2>
     	<div id="areaPopularList-carousel" class="carousel slide">
-			<div class="carousel-inner px-3">
+			<div class="carousel-inner px-4">
 				<div class="carousel-item active"></div>
 				<div class="carousel-item"></div>
 				<div class="carousel-item"></div>
@@ -171,21 +211,21 @@
 				<span class="visually-hidden">Next</span>
 			</button>
 		</div>
-		<hr>
-		<div class="row">
-			<button class="col btn btn-outline-secondary"onclick="writeForm();" data-bs-toggle="modal" data-bs-target="#alertModal">동행 구인 작성</button>
-			<button class="col btn btn-outline-secondary"onclick="myArticle();" data-bs-toggle="modal" data-bs-target="#alertModal">내 동행 확인하기</button>
+		<hr class="m-4">
+		<div class="row mx-5 my-3">
+			<button class="col btn btn-outline-primary" onclick="writeForm();" data-bs-toggle="modal" data-bs-target="#alertModal">동행 구인 작성</button>
+			<button class="ms-3 col btn btn-outline-primary" onclick="myArticle();" data-bs-toggle="modal" data-bs-target="#alertModal">내 동행 확인하기</button>
 		</div>
-		<hr>
+		<hr class="m-4">
 		<div class="row">
-			<h2 class="col color-text">전체 글</h2>
-			<div class="col color-text">
-				성별
-				<input type="radio" value="all" name="gender" checked>남/여
-				<input type="radio" value="male" name="gender">남자만
-				<input type="radio" value="female" name="gender">여자만
+			<h2 class="col color-text m-4">전체 글</h2>
+			<div class="col color-text m-4 fs-5 text-center">
+				성별 선택 :
+				<input type="radio" value="all" name="gender" checked class="ms-2">  남/여
+				<input type="radio" value="male" name="gender" class="ms-2">  남자만
+				<input type="radio" value="female" name="gender" class="ms-2">  여자만
 			</div>
-			<div class="col color-text">
+			<div class="col color-text m-4 fs-5 text-end">
 				연령대
 				<select name="age">
 					<option value="all" selected>모두</option>
@@ -198,19 +238,18 @@
 				</select>
 			</div>
 		</div>
-		<div class="scroll-list">
+		<div class="scroll-list mx-4">
 			<ul class="list-group list-group-flush">
-				 <li class="list-group-item">
-					<div class="sentinel" data-loading="false"></div>
+				 <li class="list-group-item mb-3">
+					<div class="sentinel m-3" data-loading="false"></div>
 				 </li>
 			</ul>
 		</div>
-		<hr>
     </div>
 </div>
-<div class="modal" id="alertModal" data-bs-keyboard="false" tabindex="-1" aria-hidden="true">
-			  <div class="modal-dialog">
-			    <div class="modal-content">
+<div class="modal  px-4" id="alertModal" data-bs-keyboard="false" tabindex="-1" aria-hidden="true">
+			  <div class="modal-dialog px-4">
+			    <div class="modal-content  px-4">
 			      <div class="modal-header">
 			        <h1 class="modal-title fs-5" id="staticBackdropLabel"></h1>
 			      </div>
@@ -307,7 +346,7 @@ function addNextPage(data) {
 		if(i<data.list.length) {
 			htmlText+='<div class="col notEmpty">';
 			htmlText+='	<div class="travel-info-item" onclick="article('+data.list[i].num+');">';
-			htmlText+='	<img src="${pageContext.request.contextPath}/uploads/companion/'+data.list[i].saveFilename+'" onerror=this.src="${pageContext.request.contextPath}/resources/images/noimage.png">';
+			htmlText+='	<img src="${pageContext.request.contextPath}/uploads/companion/'+data.list[i].saveFilename+'" onerror=this.src="${pageContext.request.contextPath}/resources/images/noimage.png" class = "companion-img">';
 			htmlText+='	<div class="travel-info-item-body">';
 			htmlText+='		<a class="travel-info-item-title" href="">'+data.list[i].subject+'</a>';
 			htmlText+='		<p class="travel-info-item-location">';
@@ -360,7 +399,7 @@ function addNextPage2(data) {
 		if(i<data.list.length) {
 			htmlText+='<div class="col notEmpty">';
 			htmlText+='	<div class="travel-info-item" onclick="article('+data.list[i].num+');">';
-			htmlText+='	<img src="${pageContext.request.contextPath}/uploads/companion/'+data.list[i].saveFilename+'" onerror=this.src="${pageContext.request.contextPath}/resources/images/noimage.png">';
+			htmlText+='	<img src="${pageContext.request.contextPath}/uploads/companion/'+data.list[i].saveFilename+'" onerror=this.src="${pageContext.request.contextPath}/resources/images/noimage.png" class = "companion-img">';
 			htmlText+='	<div class="travel-info-item-body">';
 			htmlText+='		<a class="travel-info-item-title" href="">'+data.list[i].subject+'</a>';
 			htmlText+='		<p class="travel-info-item-location">';
@@ -451,8 +490,8 @@ function scroll_load(data) {
 	
 	for(let item of data.list) {
 		let htmlText="";
-		htmlText='<li><div class="card flex-row" onclick="article('+item.num+')">';
-		htmlText+='	<img src="${pageContext.request.contextPath}/uploads/companion/'+item.saveFilename+'" class="card-img-top" onerror=this.src="${pageContext.request.contextPath}/resources/images/noimage.png">';
+		htmlText='<li><div class="card flex-row mb-3" onclick="article('+item.num+')">';
+		htmlText+='	<img src="${pageContext.request.contextPath}/uploads/companion/'+item.saveFilename+'" class="card-img-top companion-img" onerror=this.src="${pageContext.request.contextPath}/resources/images/noimage.png">';
 		htmlText+='		<div class="card-body">';
 		htmlText+='<a href="#">#'+item.age+'대 </a>';
 		switch (item.gender) {

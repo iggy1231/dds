@@ -18,7 +18,7 @@
 	background-color: white;
 }
 .body-container {
-	max-width: 800px;
+	max-width: 1000px;
 }
 .headerImage {
 	width: 100%;
@@ -83,12 +83,20 @@ table tr>td:nth-child(2) {
         font-size: 12px;
         color: #999;
     }
+    
+    .color-text {
+    	color: #18A8F1;
+    }
+    
 </style>
 
-<div class="container border border-top-0 border-bottom-0">
+<div class="container border mt-5 rounded">
 		<div>
-			<h3 class="mt-3">${dto.subject}</h3>
-			<p>조회수 :${dto.hitcount} 작성일 :${dto.reg_date}
+			<h3 class="mt-4 fs-2 fw-semibold text-center pt-3">${dto.subject}</h3>
+			<div class="d-flex justify-content-between px-3 fs-5 fw-medium">
+				<p class="m-0 ps-2">조회수 : ${dto.hitcount}</p>
+				<p class="m-0 pe-2">작성일 : ${dto.reg_date}</p>
+			</div>
 			<hr>
 		</div>
 	<div class="body-container">
@@ -109,31 +117,31 @@ table tr>td:nth-child(2) {
 		    <span class="visually-hidden">Next</span>
 		  </button>
 		</div>				
-		<div class="body-main">
-			<h3>여행 일정</h3>
+		<div class="body-main mt-4">
+			<h3>📅 여행 일정</h3>
 			<div>
-				<p>${dto.sdate} ~ ${dto.edate}
+				<p class="fs-5 p-2">${dto.sdate} ~ ${dto.edate}
 				<c:forEach var="area" items="${dto.region_main}" varStatus="stat">
 					<span>${dto.region_main[stat.index]}/${dto.region_sub[stat.index]}</span>
 				</c:forEach>
 			</div>
 			<hr>
-			<h3>여행 소개</h3>
+			<h3>🗺️ 여행 소개</h3>
 			<div>
-				<p>${dto.content}
+				<p class="fs-5 p-2">${dto.content}
 			</div>
 			<hr>
-			<h3>상세 정보</h3>
-			<div>
-				<p>#${dto.theme}</p>
-				<p>#${dto.gender}</p>
+			<h3>📢 상세 정보</h3>
+			<div class="fs-5 p-2">
+				<p># ${dto.theme}</p>
+				<p># ${dto.gender}</p>
 				<span>${dto.age}대</span>
-				<p>현재 인원 : ${dto.current_people}/${dto.total_people} 명
+				<p><i class="bi bi-people-fill color-text pe-2"></i>현재 인원 : ${dto.current_people}/${dto.total_people} 명
 				<p>예상 비용 : ${dto.estimate_cost} 원
 			</div>
 			<hr>
 			<c:if test="${dto.status==0}">
-				<h3>이미 종료된 동행입니다</h3>
+				<h4 class="my-2"><i class="bi bi-exclamation-circle-fill"></i> 이미 종료된 동행입니다</h4>
 			</c:if>
 			<c:if test="${dto.user_num==sessionScope.member.user_num&&dto.status!=0}">
 				<h3>동행 신청 확인하기</h3>
