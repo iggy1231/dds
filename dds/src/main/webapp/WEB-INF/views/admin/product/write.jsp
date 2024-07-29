@@ -68,7 +68,7 @@
 <div class="content-wrapper">
             <!-- Content -->
    <div class="container-xxl flex-grow-1 container-p-y">
-   <h3 class="ps-1 text-primary fw-semibold"><i class="bi bi-app"></i> 숙소 상품관리 </h3>
+   <h3 class="ps-1 text-primary fw-semibold"><i class="bi bi-app"></i> 숙소 상품추가 </h3>
 	<div class="card">
 		
 		<div class="body-main">
