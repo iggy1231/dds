@@ -195,6 +195,19 @@
 	width: 83%;
 }
 
+.facility-item {
+    display: inline-block;
+    margin-right: 8px;
+    padding: 5px 13px;
+    border: 1px solid #D5D5D5;
+    border-radius: 10px;
+    color: #696969;
+}
+
+.bg-primary {
+	background-color:  #18A8F1 !important;
+}
+
 </style>
 
 <script type="text/javascript">
@@ -305,7 +318,7 @@
     <div id="facility" class="row mb-5 mt-4 p-1">
         <div class="col-12">
             <h3 class="fw-semibold pb-2">시설 정보</h3>
-            <p class="fs-5 fw-medium py-3">${dto.facility_content} </p>
+            <p id="facilityContent" class="fs-5 fw-medium py-3">${dto.facility_content}</p>
         </div>
     </div>
     
@@ -525,37 +538,39 @@ function wish(num) {
 		return;
 	}
 	
-    var form = document.createElement('form');
-    form.method = 'POST';
-    form.action = '${pageContext.request.contextPath}/room/insertWishList';
-    
-    var input = document.createElement('input');
-    input.type = 'hidden'
-    input.name = 'num';
-    input.value = num;
-    
-    var page = document.createElement('input');
-    page.type = 'hidden'
-    page.name = 'page';
-    page.value = '${page}';
-    
-    var sdate = document.createElement('input');
-    sdate.type = 'hidden'
-    sdate.name = 'sdate';
-    sdate.value = '${sdate}';
-    
-    var edate = document.createElement('input');
-    edate.type = 'hidden'
-    edate.name = 'edate';
-    edate.value = '${edate}';
-    
-    form.appendChild(input);
-    form.appendChild(page);
-    form.appendChild(sdate);
-    form.appendChild(edate);
+	  if(confirm('상품을 위시리스트에 추가하시겠습니까?')) {
+	        var form = document.createElement('form');
+	        form.method = 'POST';
+	        form.action = '${pageContext.request.contextPath}/room/insertWishList';
+	        
+	        var input = document.createElement('input');
+	        input.type = 'hidden';
+	        input.name = 'num';
+	        input.value = num;
+	        
+	        var page = document.createElement('input');
+	        page.type = 'hidden';
+	        page.name = 'page';
+	        page.value = '${page}';
+	        
+	        var sdate = document.createElement('input');
+	        sdate.type = 'hidden';
+	        sdate.name = 'sdate';
+	        sdate.value = '${sdate}';
+	        
+	        var edate = document.createElement('input');
+	        edate.type = 'hidden';
+	        edate.name = 'edate';
+	        edate.value = '${edate}';
+	        
+	        form.appendChild(input);
+	        form.appendChild(page);
+	        form.appendChild(sdate);
+	        form.appendChild(edate);
 
-    document.body.appendChild(form);
-    form.submit();
+	        document.body.appendChild(form);
+	        form.submit();
+	    }
 }
 
 var mapContainer = document.getElementById('map'), // 지도를 표시할 div 
@@ -841,7 +856,7 @@ function printQuestion(data) {
         let question_date = item.reg_date;
         let answer = item.answer;
         let answer_date = item.answer_date;
-        let answerState = answer ? '<span class="text-primary">답변완료</span>' : '<span class="text-secondary">답변대기</span>';
+        let answerState = answer ? '<span class="text-primary fs-6">답변완료</span>' : '<span class="text-secondary fs-6">답변대기</span>';
         let anonymous = item.anonymous;
 
         out += '<div class="mt-1 border-bottom">';
@@ -849,9 +864,9 @@ function printQuestion(data) {
         out += '  <div class="mt-2 p-2 fs-5">' + question + '</div>';
 
         out += '  <div class="row p-2">';
-        out += '     <div class="col-auto pt-2 pe-0">' + answerState + '</div>';
-        out += '     <div class="col-auto pt-2 px-0">&nbsp;|&nbsp;' + userName + '</div>';
-        out += '     <div class="col-auto pt-2 px-0">&nbsp;|&nbsp;<span>' + question_date + '</span>';
+        out += '     <div class="col-auto pt-2 pe-0 fs-6">' + answerState + '</div>';
+        out += '     <div class="col-auto pt-2 px-0 fs-6">&nbsp;|&nbsp;' + userName + '</div>';
+        out += '     <div class="col-auto pt-2 px-0 fs-6">&nbsp;|&nbsp;<span>' + question_date + '</span>';
         if (anonymous === 0) {
             out += '       |<span class="notifyQuestion" data-num="' + num + '">신고</span>';
         }
@@ -862,11 +877,11 @@ function printQuestion(data) {
         out += '  </div>';
         if (answer) {
             out += '  <div class="p-3 pt-0 answer-content" style="display: none;">';
-            out += '    <div class="bg-light">';
+            out += '    <div class="" style="background-color: #f3f5f7;">';
             out += '      <div class="p-3 pb-0">';
-            out += '        <label class="text-bg-primary px-2"> 관리자 </label> <label>' + answer_date + '</label>';
+            out += '        <label class="bg-primary text-white px-2 fs-6"> 관리자 </label> <label class = "fs-6 ps-2">' + answer_date + '</label>';
             out += '      </div>';
-            out += '      <div class="p-3 pt-1">' + answer + '</div>';
+            out += '      <div class="p-3 pt-1 fs-5 my-2">' + answer + '</div>';
             out += '    </div>';
             out += '  </div>';
         }
@@ -1032,8 +1047,9 @@ $(function(){
 	});	
 	
 	$('.btnMyQuestion').click(function(){
-		location.href = '${pageContext.request.contextPath}/myPage/review?mode=qna';
+		location.href = '${pageContext.request.contextPath}/mypage/inquiReview';
 	});
+	
 });
 
 function sendOk(detailNum) {
@@ -1047,6 +1063,18 @@ function scrollToRooms() {
     window.scrollTo({
         top: offset,
         behavior: 'smooth'
+    });
+}
+
+window.onload = function() {
+    var facilityContent = document.getElementById('facilityContent');
+    var facilities = facilityContent.textContent.split(',');
+    facilityContent.innerHTML = '';
+    facilities.forEach(function(facility) {
+        var span = document.createElement('span');
+        span.textContent = facility.trim();
+        span.className = 'facility-item';
+        facilityContent.appendChild(span);
     });
 }
 
