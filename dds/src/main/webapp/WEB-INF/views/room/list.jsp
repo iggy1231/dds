@@ -104,9 +104,9 @@ hr {
                     </div>
                     <div class="sort ps-3 py-3 rounded d-flex justify-content-between" style="background-color: #F2F2F2;">
                         <select id="sort" name="sortlist" class="border-0 form-select-sm me-3" style="background-color: #F2F2F2;" form="fruitform">
-                            <option value="volvo">인기순</option>
-                            <option value="saab">낮은 가격순</option>
-                            <option value="opel">높은 가격순</option>
+                            <option value="popular" ${sort=='popular'?'selected':''}>인기순</option>
+                            <option value="lowprice" ${sort=='lowprice'?'selected':''}>낮은 가격순</option>
+                            <option value="highprice" ${sort=='highprice'?'selected':''}>높은 가격순</option>
                         </select>
                     </div>
                 </div>
@@ -119,6 +119,7 @@ hr {
                             		<input type="hidden" name="sdate" value="${sdate}">
                             		<input type="hidden" name="edate" value="${edate}">
                             		<input type="hidden" name="people" value="${people}">
+                            		<input type="hidden" name="sort" value="${sort}">
                              	<!-- 필터 start -->
                                 <div class="p-3 border border-1 rounded pr-4 row g-4">
                                 <h3 class="pb-2" style="font-weight: 700;"><i class="bi bi-filter-left"></i>  필터</h3>
@@ -195,12 +196,12 @@ hr {
                                              	<input type="checkbox" name="keywords" class="m-1 mb-2 px-3 py-1 btn border border-gray rounded-pill keyword-btn" value="연인끼리">
                                              	<input type="checkbox" name="keywords" class="m-1 mb-2 px-3 py-1 btn border border-gray rounded-pill keyword-btn" value="친구와함께">
 		                                       
-		                                        <button type="button" class="m-1 mb-2 px-3 py-1 btn border border-gray rounded-pill keyword-btn" onclick="">가족여행</button>
-		                                        <button type="button" class="m-1 mb-2 px-3 py-1 btn border border-gray rounded-pill keyword-btn" onclick="">힙한감성</button>
-		                                        <button type="button" class="m-1 mb-2 px-3 py-1 btn border border-gray rounded-pill keyword-btn" onclick="">뷰맛집</button>
-		                                        <button type="button" class="m-1 mb-2 px-3 py-1 btn border border-gray rounded-pill keyword-btn" onclick="">감성숙소</button>
-		                                        <button type="button" class="m-1 mb-2 px-3 py-1 btn border border-gray rounded-pill keyword-btn" onclick="">연인끼리</button>
-		                                        <button type="button" class="m-1 mb-2 px-3 py-1 btn border border-gray rounded-pill keyword-btn" onclick="">친구와함께</button>
+		                                        <button type="button" class="m-1 mb-2 px-3 py-1 btn border border-gray rounded-pill keyword-btn">가족여행</button>
+		                                        <button type="button" class="m-1 mb-2 px-3 py-1 btn border border-gray rounded-pill keyword-btn">힙한감성</button>
+		                                        <button type="button" class="m-1 mb-2 px-3 py-1 btn border border-gray rounded-pill keyword-btn">뷰맛집</button>
+		                                        <button type="button" class="m-1 mb-2 px-3 py-1 btn border border-gray rounded-pill keyword-btn">감성숙소</button>
+		                                        <button type="button" class="m-1 mb-2 px-3 py-1 btn border border-gray rounded-pill keyword-btn">연인끼리</button>
+		                                        <button type="button" class="m-1 mb-2 px-3 py-1 btn border border-gray rounded-pill keyword-btn">친구와함께</button>
 		                                    </div>
 		                                 </div>
                                     </div>
@@ -229,6 +230,8 @@ hr {
 		                                    </div>
 		                                 </div>
                                     </div>
+                                    <button type="submit" class="btn border border-gray rounded-pill keyword-btn">필터 적용</button>
+                                    <button type="button" class="btn border border-gray rounded-pill keyword-btn" onclick="resetFilter();">새로고침</button>
                                 </div>
                             </form>
                             </div>
@@ -274,16 +277,55 @@ hr {
                 </div>
             </div>
 <script type="text/javascript">
-	$('input[name=roomType]').change(function(){
-		const f=document.filterForm;
+	function resetFilter() {
+		location.href="${pageContext.request.contextPath}/room/list?kwd=${kwd}&sdate=${sdate}&edate=${edate}&people=${people}";
+	}
+
+	$('#keywords button').click(function(){
+		let num=$('#keywords button').index(this);
+		if($(this).hasClass('active')) {
+			$(this).removeClass('active');
+			$('#keywords input').eq(num).prop('checked', false);
+		} else {
+			$(this).addClass('active');
+			$('#keywords input').eq(num).prop('checked', true);
+		}
+	});
 	
+	$('#facility button').click(function(){
+		let num=$('#facility button').index(this);
+		if($(this).hasClass('active')) {
+			$(this).removeClass('active');
+			$('#facility input').eq(num).prop('checked', false);
+		} else {
+			$(this).addClass('active');
+			$('#facility input').eq(num).prop('checked', true);
+		}
+	});
+	
+	$('#sort').change(function(){
+		const f=document.filterForm;
+		f.sort.value=$(this).val();
 		f.submit();
 	});
-
-	$('input[name=priceType]').change(function(){
-		const f=document.filterForm;
+	
+	$(function() {
+		let arr='${keywords}';
+		let arr2='${facilities}';
 		
-		f.submit();
+		for(let i=0;i<6;i++) {
+			if(arr.indexOf($('#keywords input').eq(i).val())!=-1) {
+				$('#keywords input').eq(i).prop('checked', true);
+				$('#keywords button').eq(i).addClass('active');
+			}
+		}
+		
+		for(let i=0;i<7;i++) {
+			if(arr2.indexOf($('#facility input').eq(i).val())!=-1) {
+				$('#facility input').eq(i).prop('checked', true);
+				$('#facility button').eq(i).addClass('active');
+			}
+		}
 	});
 </script>
 
