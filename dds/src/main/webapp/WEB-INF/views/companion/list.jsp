@@ -217,15 +217,15 @@
 			<button class="ms-3 col btn btn-outline-primary" onclick="myArticle();" data-bs-toggle="modal" data-bs-target="#alertModal">내 동행 확인하기</button>
 		</div>
 		<hr class="m-4">
-		<div class="row">
-			<h2 class="col color-text m-4">전체 글</h2>
-			<div class="col color-text m-4 fs-5 text-center">
+		<div class="row  align-middle m-3">
+			<h2 class="col color-text align-middle">전체 글</h2>
+			<div class="col color-text fs-5 text-center align-middle mt-1">
 				성별 선택 :
-				<input type="radio" value="all" name="gender" checked class="ms-2">  남/여
-				<input type="radio" value="male" name="gender" class="ms-2">  남자만
-				<input type="radio" value="female" name="gender" class="ms-2">  여자만
+				<input type="radio" value="all" name="gender" checked class="ms-1">  남/여
+				<input type="radio" value="male" name="gender" class="ms-1">  남자만
+				<input type="radio" value="female" name="gender" class="ms-1">  여자만
 			</div>
-			<div class="col color-text m-4 fs-5 text-end">
+			<div class="col color-text fs-5 text-end align-middle mt-1">
 				연령대
 				<select name="age">
 					<option value="all" selected>모두</option>

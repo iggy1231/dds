@@ -144,15 +144,20 @@ table tr>td:nth-child(2) {
 				<h4 class="my-2"><i class="bi bi-exclamation-circle-fill"></i> 이미 종료된 동행입니다</h4>
 			</c:if>
 			<c:if test="${dto.user_num==sessionScope.member.user_num&&dto.status!=0}">
-				<h3>동행 신청 확인하기</h3>
+				<h3 class="m-2 mb-3"><i class="fa-solid fa-people-group pe-2"></i>동행 신청 확인하기</h3>
 				<c:forEach var="item" items="${partyList}">
-					<span>${item.nickname} 참여중</span>
-					<form name="vanishForm" action="${pageContext.request.contextPath}/companion/vanish" method="post">
-						<input type="hidden" name="num" value="${dto.num}">
-						<input type="hidden" name="user_num" value="${item.user_num}">
-						<button class="btn btn-outline-secondary" type="submit">추방</button>
-					</form>
+				    <div class="d-flex align-items-center ms-3">
+				        <span class="fs-5 p-2 rounded mb-2" style="background-color: #E4E4E4;">
+				            <i class="bi bi-person-circle"></i> ${item.nickname} 참여중
+				        </span>
+				        <form name="vanishForm" action="${pageContext.request.contextPath}/companion/vanish" method="post" class="ms-2">
+				            <input type="hidden" name="num" value="${dto.num}">
+				            <input type="hidden" name="user_num" value="${item.user_num}">
+				            <button class="btn btn-outline-secondary" type="submit">추방</button>
+				        </form>
+				    </div>
 				</c:forEach>
+
 				<div>
 					<c:forEach var="item" items="${waitingList}">
 						<span>${item.nickname}</span>
@@ -172,11 +177,11 @@ table tr>td:nth-child(2) {
 				<hr>
 				<div>
 				<div class="row">
-					<form class="col" action="${pageContext.request.contextPath}/companion/updateCompanion">
+					<form class="col ms-3" action="${pageContext.request.contextPath}/companion/updateCompanion">
 					<input type="hidden" name="num" value="${dto.num}">
 					<button class="btn btn-outline-secondary" type="submit">수정</button>
 				</form>
-				<form class="col" name="articleForm" action="#" method="post">
+				<form class="col-2" name="articleForm" action="#" method="post">
 					<input type="hidden" name="num" value="${dto.num}">
 					<button class="btn btn-outline-secondary" onclick="deleteCompanion();">삭제</button>
 					<button class="btn btn-outline-secondary" onclick="endCompanion();">마감</button>
@@ -185,13 +190,13 @@ table tr>td:nth-child(2) {
 				</div>
 			</c:if>
 			<c:if test="${dto.user_num!=sessionScope.member.user_num&&dto.status!=0}">
-				<h3>동행자 정보</h3>
+				<h3><i class="fa-solid fa-people-group pe-2"></i>동행자 정보</h3>
 				<div>
 					<c:forEach var="item" items="${partyList}">
-						<p>${item.nickname} 참여중
+						<p class="fs-5"><i class="bi bi-person-circle pe-2"></i>${item.nickname} 참여중
 					</c:forEach>
 				</div>
-				<button class="btn btn-outline-secondary" onclick="apply();" data-bs-toggle="modal" data-bs-target="#alertModal">동행 참여하기</button>
+				<button class="btn btn-outline-secondary mt-3" onclick="apply();" data-bs-toggle="modal" data-bs-target="#alertModal">동행 참여하기</button>
 			</c:if>
 			<hr>
 			<div>
@@ -233,16 +238,16 @@ table tr>td:nth-child(2) {
 				</tr>
 			</table>
 			</form>
-			<table class="table table-borderless">
-				<thead>
-					<tr class="table-primary bold">
+			<table class="table table-borderless align-middle">
+				<thead class="text-center">
+					<tr class="table-primary bold text-center">
 					<td width="10%">
 						<span>작성자</span>
 					</td>
 					<td>
 						<span>내용</span>
 					</td>
-					<td width="10%">
+					<td width="15%">
 						<span>작성일</span>
 					</td>
 					<td width="10%">
@@ -252,16 +257,16 @@ table tr>td:nth-child(2) {
 						<span>신고/삭제</span>
 					</td>
 					<td width="10%">
-						<span></span>
+						<span>답글작성</span>
 					</td>
 				</tr>
 				</thead>
-				<tbody class="reply-list"></tbody>
+				<tbody class="reply-list text-center align-middle"></tbody>
 
 			</table>	
 			</div>		
 			<hr>
-			<h3>비슷한 동행 보기</h3>
+			<h3 class="my-3">비슷한 동행 보기</h3>
     		<div id="areaList-carousel" class="carousel slide">
 				<div class="carousel-inner">
 					<div class="carousel-item active">
