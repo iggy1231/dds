@@ -27,7 +27,43 @@
 		SELECT NVL(COUNT(distinct r.num), 0)
 		FROM room r
 		join room_detail d on r.num = d.num
-		where instr(subject , #{kwd}) &gt; 0
+		<where>
+			instr(subject , #{kwd}) &gt; 0
+			
+			<if test="roomType != 'all'">
+				AND r.room_type=#{roomType}
+			</if>
+			
+			<choose>
+				<when test="priceType=='priceType1'">
+					AND d.price <![CDATA[<=]]> 100000
+				</when>
+				<when test="priceType=='priceType2'">
+					AND d.price <![CDATA[>]]> 100000 AND d.price <![CDATA[<=]]> 200000
+				</when>
+				<when test="priceType=='priceType3'">
+					AND d.price <![CDATA[>]]> 200000 AND d.price <![CDATA[<=]]> 300000
+				</when>
+				<when test="priceType=='priceType4'">
+					AND d.price <![CDATA[>]]> 300000 AND d.price <![CDATA[<=]]> 400000
+				</when>
+				<when test="priceType=='priceType5'">
+					AND d.price <![CDATA[>]]> 400000
+				</when>
+			</choose>
+				
+			<if test="keywords != null">
+				<foreach collection="keywords" item="arr" open="(" close=")" separator=",">
+					AND INSTR(key_value, #{arr}) &gt; 0
+				</foreach>
+			</if>
+			
+			<if test="facilities != null" >
+				<foreach collection="facilities" item="arr" open="(" close=")" separator=",">
+					AND INSTR(FACILITY_CONTENT, #{arr}) &gt; 0
+				</foreach>
+			</if>
+		</where>   
 		and people &gt;= #{people}
 	</select>
 	
@@ -83,16 +119,52 @@
 	<!-- public List<Room> searchRoom(String kwd, String sdate, String edate, int people);  -->
 	<select id="listRoom" parameterType="map" resultType="com.fly.dds.domain.Room">
 		SELECT r.num, r.subject, r.addr1, r.addr2, r.room_type, NVL(AVG(rr.rating), 0) AS rating, NVL(COUNT(rr.review_num), 0) AS review_count, 
-				MIN(d.price) AS price, r.facility_content AS facility_content, r.key_value AS key_value , r.thumbnail , MIN(d.people) as people
-		FROM room r 
+        MIN(d.price) AS price, r.facility_content AS facility_content, r.key_value AS key_value , r.thumbnail , MIN(d.people) as people, NVL(wishCount, 0) AS wishCount
+		FROM room r
+        LEFT OUTER JOIN (
+            select COUNT(user_num) AS wishCount, t1.num from room_wish_list t1 join room t2 on t1.num=t2.num group by t1.num
+        ) rl on r.num = rl.num
 		LEFT OUTER JOIN room_detail d ON r.num = d.num
 		LEFT OUTER JOIN room_review rr ON r.num = rr.num
-		where instr(subject , #{kwd}) &gt; 0
-		and people &gt;= #{people}
 		and active = 1
-		GROUP BY r.num, r.subject, r.addr1, r.addr2, r.room_type, r.facility_content, r.key_value , r.thumbnail
-		ORDER BY price DESC
-		OFFSET #{offset} ROWS FETCH FIRST #{size} ROWS ONLY	
+		<where>
+			instr(subject , #{kwd}) &gt; 0
+			
+			<if test="roomType != 'all'">
+				AND r.room_type=#{roomType}
+			</if>
+			
+			<choose>
+				<when test="priceType=='priceType1'">
+					AND d.price <![CDATA[<=]]> 100000
+				</when>
+				<when test="priceType=='priceType2'">
+					AND d.price <![CDATA[>]]> 100000 AND d.price <![CDATA[<=]]> 200000
+				</when>
+				<when test="priceType=='priceType3'">
+					AND d.price <![CDATA[>]]> 200000 AND d.price <![CDATA[<=]]> 300000
+				</when>
+				<when test="priceType=='priceType4'">
+					AND d.price <![CDATA[>]]> 300000 AND d.price <![CDATA[<=]]> 400000
+				</when>
+				<when test="priceType=='priceType5'">
+					AND d.price <![CDATA[>]]> 400000
+				</when>
+			</choose>
+				
+			<if test="keywords != null">
+				<foreach collection="keywords" item="arr" open="(" close=")" separator=",">
+					AND INSTR(key_value, #{arr}) &gt; 0
+				</foreach>
+			</if>
+			
+			<if test="facilities != null" >
+				<foreach collection="facilities" item="arr" open="(" close=")" separator=",">
+					AND INSTR(FACILITY_CONTENT, #{arr}) &gt; 0
+				</foreach>
+			</if>
+		</where>   
+		GROUP BY r.num, r.subject, r.addr1, r.addr2, r.room_type, r.facility_content, r.key_value , r.thumbnail, wishCount    
 	</select>
 	
 	<select id="listDetail" parameterType="map" resultType="com.fly.dds.domain.Room">
