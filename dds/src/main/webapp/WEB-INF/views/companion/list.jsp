@@ -124,7 +124,7 @@
             <div class="col-md-12">
                 <div class="search-form-container">
                     <!-- 텍스트 위치 변경 -->
-                    <h4 class="px-5 text-light display-5 text-start mb-3 header-text" style="font-weight: 500; padding-left: 70px;">두둥실 함께 떠나요!</h4>
+                    <h4 class="px-5 text-light display-5 text-start mb-3 header-text" style="font-weight: 500; padding-left: 70px;">두둥실과 함께 떠나는 특별한 여정</h4>
                     <form class="d-flex search-form-container" name="searchForm" action="${pageContext.request.contextPath}/companion/search">
                         <div class="px-5 input-group">
                             <span class="input-group-text"><i class="p-2 bi bi-search"></i></span>

@@ -10,7 +10,7 @@
     font-style: normal;
 }      
         .hero-header {
-            background-image: url('${pageContext.request.contextPath}/resources/images/main_header.png');
+            background-image: url('${pageContext.request.contextPath}/resources/images/main_header2.png');
             background-size: cover;
             background-position: center;
             background-repeat: no-repeat;
@@ -60,7 +60,7 @@
         }
         
         .carousel-item {
-    height: 45vh; /* 원하는 vh 값을 설정하세요 */
+    height: 300px; /* 원하는 vh 값을 설정하세요 */
 }
 
 .carousel-item img {
@@ -434,7 +434,7 @@
 </div>
         <!-- Property List End -->
         
-<div class="container-xxl pt-4">
+<div class="container-xxl pt-4 mt-5">
     <div class="container">
 	   <div id="carouselExampleCaptions" class="carousel slide" data-bs-ride="carousel">
         <div class="carousel-indicators">

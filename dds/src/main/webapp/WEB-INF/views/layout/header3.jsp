@@ -2,22 +2,6 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 
-<style type="text/css">
-    .profile-pic {
-        width: 45px;
-        height: 45px;
-        border-radius: 50%;
-        object-fit: cover;
-    }
-    
-        @media (max-width: 1000px) {
-        .navbar {
-            margin-bottom: 5px;
-        }
-    }
-
-</style>
-
 <div class="nav-bar bg-transparent">
     <div class="thin-blue-bar"></div>
 
@@ -34,16 +18,25 @@
         <div class="collapse navbar-collapse px-5" id="navbarCollapse">
             <div class="navbar-nav mx-auto">
                 <div class="nav-item dropdown">
-                    <a href="${pageContext.request.contextPath}/room/main" class="nav-link text-start text-nowrap"><img alt="" src="${pageContext.request.contextPath}/resources/images/menu_room.png" style="width: 35px;">&nbsp;&nbsp;&nbsp;숙소</a>
+                    <a href="${pageContext.request.contextPath}" class="nav-link dropdown-toggle text-start" data-bs-toggle="dropdown"><img alt="" src="${pageContext.request.contextPath}/resources/images/menu_room.png" style="width: 35px;">&nbsp;&nbsp;&nbsp;숙소</a>
+                    <div class="dropdown-menu rounded-0 m-0">
+                        <a href="${pageContext.request.contextPath}/room/main" class="dropdown-item">숙소 전체보기</a>
+                        <a href="${pageContext.request.contextPath}/" class="dropdown-item">내 예약</a>
+                    </div>
                 </div>
                 <div class="nav-item dropdown">
-                    <a href="${pageContext.request.contextPath}/tour/main" class="nav-link text-start text-nowrap" data-bs-toggle="dropdown"><img alt="" src="${pageContext.request.contextPath}/resources/images/menu_tour.png" style="width: 35px;">&nbsp;&nbsp;&nbsp;투어</a>
+                    <a href="#" class="nav-link dropdown-toggle text-start" data-bs-toggle="dropdown"><img alt="" src="${pageContext.request.contextPath}/resources/images/menu_tour.png" style="width: 35px;">&nbsp;&nbsp;&nbsp;투어</a>
+                    <div class="dropdown-menu rounded-0 m-0">
+                        <a href="${pageContext.request.contextPath}/" class="dropdown-item">투어 전체보기</a>
+                        <a href="${pageContext.request.contextPath}/" class="dropdown-item">내 예약</a>
+                    </div>
                 </div>
                 <div class="nav-item dropdown">
                     <a href="#" class="nav-link dropdown-toggle text-start" data-bs-toggle="dropdown"><img alt="" src="${pageContext.request.contextPath}/resources/images/menu_여행.png" style="width: 35px;">&nbsp;&nbsp;&nbsp;여행</a>
                     <div class="dropdown-menu rounded-0 m-0">
-                        <a href="${pageContext.request.contextPath}/info/list" class="dropdown-item">여행정보</a>
-                        <a href="${pageContext.request.contextPath}/travelreview/list" class="dropdown-item">여행루기</a>
+                        <a href="${pageContext.request.contextPath}/info/list" class="dropdown-item">여행 정보</a>
+                        <a href="${pageContext.request.contextPath}/travelreview/list" class="dropdown-item">여행기</a>
+                        <a href="${pageContext.request.contextPath}/" class="dropdown-item">플래너</a>
                     </div>
                 </div>
                 <div class="nav-item">
@@ -84,9 +77,9 @@
         
         <c:if test="${sessionScope.member != null}">
 					<c:choose>
-						<c:when test="${not empty sessionScope.member.photo}">
+						<c:when test="${not empty sessionScope.member_profile.photo}">
 							<c:set var="profileImage"
-								value="${pageContext.request.contextPath}/uploads/mypage/${sessionScope.member.photo}" />
+								value="${pageContext.request.contextPath}/uploads/member/${sessionScope.member_profile.photo}" />
 						</c:when>
 						<c:otherwise>
 							<c:set var="profileImage"
@@ -100,17 +93,16 @@
 							<div class="dropdown">
 								<a class="nav-link dropdown-toggle" href="#"
 									id="profileDropdown" role="button" data-bs-toggle="dropdown"
-									aria-expanded="false"> <img src="${pageContext.request.contextPath}/uploads/member/${profileImage}"
+									aria-expanded="false"> <img src="${profileImage}"
 									alt="Profile Picture" class="profile-pic">
 								</a>
-								<ul class="dropdown-menu dropdown-menu-start mb-3"
+								<ul class="dropdown-menu dropdown-menu-end"
 									aria-labelledby="profileDropdown">
-									<li class="dropdown-header d-flex align-items-center">
-										<img src="${profileImage}" alt="Profile Picture" class="profile-pic">
+									<li class="dropdown-header"><img src="${profileImage}"
+										alt="Profile Picture" class="profile-pic">
 										<div class="user-info">
-											<span class="user-name ms-3">${sessionScope.member.userName}</span>
-										</div>
-									</li>
+											<span class="user-name">${sessionScope.member.userName}</span>
+										</div></li>
 									<li><hr class="dropdown-divider"></li>
 									<li><a class="dropdown-item"
 										href="${pageContext.request.contextPath}/mypage/coupoint"><i
