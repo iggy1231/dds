@@ -533,7 +533,25 @@ function wish(num) {
     input.name = 'num';
     input.value = num;
     
+    var page = document.createElement('input');
+    page.type = 'hidden'
+    page.name = 'page';
+    page.value = '${page}';
+    
+    var sdate = document.createElement('input');
+    sdate.type = 'hidden'
+    sdate.name = 'sdate';
+    sdate.value = '${sdate}';
+    
+    var edate = document.createElement('input');
+    edate.type = 'hidden'
+    edate.name = 'edate';
+    edate.value = '${edate}';
+    
     form.appendChild(input);
+    form.appendChild(page);
+    form.appendChild(sdate);
+    form.appendChild(edate);
 
     document.body.appendChild(form);
     form.submit();

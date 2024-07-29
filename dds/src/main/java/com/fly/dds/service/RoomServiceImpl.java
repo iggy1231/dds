@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.fly.dds.domain.Room;
+import com.fly.dds.domain.RoomReview;
 import com.fly.dds.mapper.roomMapper;
 
 @Service
@@ -33,7 +34,11 @@ public class RoomServiceImpl implements RoomService {
 
 		try {
 			list = mapper.listRoom(map);
-
+			for(Room dto:list) {
+				RoomReview dto2=mapper.findReviewSummaryByNum(dto.getNum());
+				dto.setRating(dto2.getRating());
+				dto.setRatingCount(dto2.getRatingCount());
+			}
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

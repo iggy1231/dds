@@ -68,7 +68,8 @@ public class RoomController {
 	
 	@RequestMapping("article")
 	public String roomArticle(@RequestParam long num,
-            @RequestParam String page,
+            @RequestParam(defaultValue="1") String page,
+            @RequestParam(defaultValue="2") String people,
             @RequestParam(defaultValue = "") String kwd,
             HttpSession session,
             @RequestParam String sdate,
@@ -310,6 +311,9 @@ public class RoomController {
 	@PostMapping("insertWishList")
 	public String insertWishList(
 			@RequestParam long num,
+			@RequestParam String page,
+			@RequestParam String sdate,
+			@RequestParam String edate,
 			HttpSession session
 			) {
 		 SessionInfo info = (SessionInfo)session.getAttribute("member");
@@ -325,7 +329,7 @@ public class RoomController {
 			e.printStackTrace();
 		}
 		
-		return "redirect:/";
+		 return "redirect:/room/article?num="+num+"&page="+page+"&sdate="+sdate+"&edate="+edate;
 	}
 	
 	

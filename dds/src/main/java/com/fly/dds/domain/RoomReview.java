@@ -8,6 +8,7 @@ public class RoomReview {
 	private String content;
 	private String reg_date;
 	
+	private int ratingCount;
 	private int score;
 	
 	private MultipartFile photoFile; // selectFile;
@@ -99,8 +100,10 @@ public class RoomReview {
 	public void setUser_num(long user_num) {
 		this.user_num = user_num;
 	}
-	
-	
-	
-	
+	public int getRatingCount() {
+		return ratingCount;
+	}
+	public void setRatingCount(int ratingCount) {
+		this.ratingCount = ratingCount;
+	}
 }

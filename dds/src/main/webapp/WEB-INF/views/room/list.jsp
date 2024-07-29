@@ -255,8 +255,8 @@ hr {
 
                             <h5 class="mb-2 text-muted fw-semibold">${dto.addr1} , ${dto.addr2}</h5>
                             <div class="d-flex align-items-center mb-2">
-                                <h5 class="p-2 text-white rounded border-primary mr-2" style="background-color: #18A8F1; font-size: 0.875rem;">★ 10.0</h5>
-                                <h6 class="px-3 text-muted">5조5억명 평가</h6>
+                                <h5 class="p-2 text-white rounded border-primary mr-2" style="background-color: #18A8F1; font-size: 0.875rem;">★ ${dto.rating}</h5>
+                                <h6 class="px-3 text-muted">${dto.ratingCount}명 평가</h6>
                             </div>
                             <h4 class="text-end mb-0">할인가 <strong class="text-primary">${dto.price}원 /박</strong></h4>
                         </div>

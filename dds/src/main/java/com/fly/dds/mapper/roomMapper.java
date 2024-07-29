@@ -7,6 +7,7 @@ import java.util.Map;
 import org.apache.ibatis.annotations.Mapper;
 
 import com.fly.dds.domain.Room;
+import com.fly.dds.domain.RoomReview;
 
 @Mapper
 public interface roomMapper {
@@ -18,4 +19,5 @@ public interface roomMapper {
 	public List<Room> listPhoto(Map<String, Object> map);
 	public void insertRoomWishList(Map<String, Object> map) throws SQLException;
 	public int isLiked(Map<String, Object> map);
+	public RoomReview findReviewSummaryByNum(long num);
 }
