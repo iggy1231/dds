@@ -236,14 +236,15 @@
 
 <!-- 이미지 갤러리 섹션 -->
 <div class="image-gallery row mb-4">
-    <div class="col-md-6 pe-1 d-flex align-items-stretch">
-        <img src="${pageContext.request.contextPath}/uploads/room/${dto.thumbnail}" class="img-fluid rounded w-100 left-img" alt="메인 이미지">
-    </div>
+    <div class="col-md-6 pe-1 d-flex align-items-stretch" style="height: 600px;">
+    <img src="${pageContext.request.contextPath}/uploads/room/${dto.thumbnail}" class="img-fluid rounded w-100 left-img" alt="메인 이미지" style="object-fit: cover; height: 100%;">
+</div>
+
     <div class="col-md-6 right-col">
         <div class="row g-3">
     <c:forEach var="photo" items="${photo}" begin="0" end="3">
-            <div class="col-6 d-flex align-items-stretch">
-                <img src="${pageContext.request.contextPath}/uploads/room/${photo.photo}" class="img-fluid rounded w-100 right-img" alt="이미지">
+            <div class="col-6 d-flex align-items-stretch" style="height: 292.01px;">
+                <img src="${pageContext.request.contextPath}/uploads/room/${photo.photo}" class="img-fluid rounded w-100 right-img" alt="이미지" style="object-fit: cover; height: 100%;">
             </div>
     </c:forEach>
           
@@ -263,13 +264,13 @@
         	<div class="d-flex justify-content-end align-items-center">
         	<button class="heart-button" type="button" onclick="wish(${dto.num})">
         		<c:if test="${liked eq 'true'}">
-        			<i class="bi bi-heart-fill" style="color: #A6A6A6;"></i>
+        			<i class="bi bi-heart-fill" style="color: #FF2424;"></i>
         		</c:if>
         		<c:if test="${liked eq 'false'}">
         			<i class="bi bi-heart" style="color: #A6A6A6;"></i>
         		</c:if>
         	</button>
-           <button class="fs-5 btn btn-primary">예약하기</button>
+           		<button class="fs-5 btn btn-primary" onclick="scrollToRooms()">예약하기</button>
            </div>
         </div>
     </div>
@@ -1038,6 +1039,15 @@ $(function(){
 function sendOk(detailNum) {
     var form = document.getElementById('reservationForm_' + detailNum);
     form.submit();
+}
+
+function scrollToRooms() {
+    var target = document.getElementById("rooms");
+    var offset = target.getBoundingClientRect().top + window.scrollY - 135;
+    window.scrollTo({
+        top: offset,
+        behavior: 'smooth'
+    });
 }
 
 </script>
