@@ -73,6 +73,7 @@ public class RoomController {
             @RequestParam String sdate,
 	        @RequestParam String edate,
             Model model) throws Exception {
+        SessionInfo info=(SessionInfo) session.getAttribute("member");
         
         kwd = URLDecoder.decode(kwd, "utf-8");
 
@@ -96,7 +97,14 @@ public class RoomController {
         // 사진 출력
         List<Room> photo = service.listPhoto(map);
         
+        map.put("user_num", info.getUser_num());
         
+        String liked="false";
+        if(service.isLiked(map)) {
+        	liked="true";
+        }
+        
+        model.addAttribute("liked", liked);
         model.addAttribute("detail" , detail);
         model.addAttribute("photo" , photo);
         model.addAttribute("dto", dto);

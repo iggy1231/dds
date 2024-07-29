@@ -8,7 +8,7 @@
 	<h5 class="card-header">프로필 상세</h5>
 	<!-- Account -->
 	
-		<form action="${pageContext.request.contextPath}/mypage/profileUpdate" id="formAccountSettings" method="POST" enctype="multipart/form-data" class="write-form">
+		<form name="updateForm" action="${pageContext.request.contextPath}/mypage/profileUpdate" id="formAccountSettings" method="POST" enctype="multipart/form-data" class="write-form">
 	<div class="card-body">
 		<div class="d-flex align-items-start align-items-sm-center gap-4">
 			<img alt="user-avatar"
@@ -57,9 +57,9 @@
 						name="nickName" value="${dto.nickName}" />
 				</div>
 				<div class="mb-3 col-md-6">
-					<label for="passwordCheck" class="form-label">패스워드 확인</label> <input
-						type="text" class="form-control" id="passwordCheck" name="passwordCheck"
-						placeholder="패스워드를 입력하세요" />
+					<label for="passwordCheck" class="form-label">이메일</label> <input
+						type="text" class="form-control" id="email" name="email"
+						value="${dto.email}"/>
 				</div>
 				<div class="mb-3 col-md-6">
 					<label class="form-label" for="phoneNumber">전화번호</label>
@@ -82,9 +82,14 @@
 						class="form-control" type="date" id="birth" name="birth"
 						placeholder="생년월일" value="${dto.birth}"/>
 				</div>
+				<div class="mb-3 col-md-6">
+					<label for="passwordCheck" class="form-label">패스워드 확인</label> <input
+						type="password" class="form-control" id="passwordCheck" name="passwordCheck"
+						placeholder="현재 패스워드를 입력하세요" />
+				</div>
 			</div>
 			<div class="mt-2">
-				<button type="submit" class="btn btn-primary me-2">저장</button>
+				<button type="button" class="btn btn-primary me-2" onclick="updateSubmit();">저장</button>
 				<button type="reset" class="btn btn-outline-secondary" onclick="window.location.href='${pageContext.request.contextPath}/mypage/profile'">수정취소</button>
 			</div>
 </div>
@@ -112,6 +117,20 @@
 </div>
 
 <script type="text/javascript">
+function updateSubmit() {
+	const f=document.updateForm;
+	let check=f.passwordCheck.value;
+	console.log(check);
+	console.log('${dto.pwd}');
+	if(check=='${dto.pwd}') {
+		f.submit();
+	} else {
+		console.log('패스워드가 불일치합니다');
+		alert('패스워드가 불일치합니다');
+		return false;
+	}
+}
+
 $(document).ready(function() {
     let img = "${dto.photo}";
     let originalValues = {
@@ -159,8 +178,8 @@ $(document).ready(function() {
             console.log("File selected, updating image.");
         }
         reader.readAsDataURL(file);
-    });
-
+    });    
+    
     // RESET 버튼 클릭 시 폼 초기화
     $(".account-image-reset").click(function() {
         console.log("Reset button clicked.");
