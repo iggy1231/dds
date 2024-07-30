@@ -18,8 +18,9 @@
 
 				<div class="flex-item">
 					<div class="px-1 py-2 pb-3">
-						<a class="d-block h4 mb-2 mt-2" href=""
-							style="font-size: 24px; font-weight: 600;">${list1.subject}</a>
+						<a class="d-block h4 mb-2 mt-2"
+						href="#" onclick="roomArticle(${list1.num});"
+						style="font-size: 24px; font-weight: 600;">${list1.subject}</a>
 						<h6 class="display-10" style="color: #666565;">${list1.name} • ${list1.days}박</h6>
 
 					</div>
