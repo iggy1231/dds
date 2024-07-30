@@ -130,7 +130,7 @@ public class RoomController {
 	        @RequestParam int people,
 	        @RequestParam(defaultValue="popular") String sort,
 	        @RequestParam(defaultValue="all") String roomType,
-	        @RequestParam(defaultValue="priceType1") String priceType,
+	        @RequestParam(defaultValue="all") String priceType,
 	        @RequestParam(defaultValue="") String[] keywords,
 	        @RequestParam(defaultValue="") String[] facilities,
 	        HttpServletRequest req,

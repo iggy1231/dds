@@ -34,7 +34,8 @@
 				AND r.room_type=#{roomType}
 			</if>
 			
-			<choose>
+			<if test="priceType != 'all'">
+				<choose>
 				<when test="priceType=='priceType1'">
 					AND d.price <![CDATA[<=]]> 100000
 				</when>
@@ -51,6 +52,7 @@
 					AND d.price <![CDATA[>]]> 400000
 				</when>
 			</choose>
+			</if>
 				
 			<if test="keywords != null">
 				<foreach collection="keywords" item="arr">
@@ -135,7 +137,8 @@
 					AND r.room_type=#{roomType}
 				</if>
 				
-				<choose>
+				<if test="priceType != 'all'">
+					<choose>
 					<when test="priceType=='priceType1'">
 						AND d.price <![CDATA[<=]]> 100000
 					</when>
@@ -152,6 +155,7 @@
 						AND d.price <![CDATA[>]]> 400000
 					</when>
 				</choose>
+				</if>
 					
 				<if test="keywords != null">
 					<foreach collection="keywords" item="arr">
