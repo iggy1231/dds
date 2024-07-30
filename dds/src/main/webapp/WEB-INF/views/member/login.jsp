@@ -110,10 +110,10 @@
                                                 <i class="input-icon bi bi-lock-fill"></i>
                                             </div>
                                             <button type="button" onclick="sendLogin();" class="btn mt-4" data-bs-toggle="modal" data-bs-target="#alertModal">submit</button>
-                                            <p class="mb-0 mt-4 text-center"><a href="#0" class="forgetPwd link">Forgot your password?</a></p>
+                                            <p class="mb-0 mt-4 text-center"><a href="#0" class="forgetPwd link">${message}</a></p>
                                             <c:if test="${not empty dto2.reason}">
-    <p>${dto2.reason}의 사유로 ${dto2.ban_edate} 까지 차단되었습니다.</p>
-</c:if>
+											    <p>${dto2.reason}의 사유로 ${dto2.ban_edate} 까지 차단되었습니다.</p>
+											</c:if>
                                         </form>
                                     </div>
                                 </div>

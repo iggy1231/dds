@@ -5,8 +5,8 @@
 <div class="row justify-content-between">
 	<h2 class="col color-text">전체 ${dataCount}건</h2>
 		<div class="col text-end">
-				<button type="button" class="btn listRecent active" data-bs-toggle="button">최신순</button>
-				<button type="button" class="btn listPast" data-bs-toggle="button">과거순</button>
+				<button id="listRecent" type="button" class="btn active" data-bs-toggle="button">최신순</button>
+				<button id="listPast" type="button" class="btn" data-bs-toggle="button">과거순</button>
 		</div>
 </div>
 <div class="row g-4">
@@ -62,5 +62,4 @@
 
 <div class="page-navigation">${dataCount == 0 ? "등록된 댓글이 없습니다." : paging}
 </div>
-
 
