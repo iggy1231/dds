@@ -229,7 +229,7 @@
     </c:otherwise>
 </c:choose>
 
-<img src="${profileImage}" alt="Profile Image" class="profile-image">
+<img src="${profileImage}" alt="Profile Image" class="profile-image"/>
 					<div class="profile-content">
 						<div class="nickname">${dto.nickName}</div>
 						<div class="details">${dto.ageDecade}대 • ${dto.gender}</div>

@@ -84,56 +84,40 @@
         
         <c:if test="${sessionScope.member != null}">
 					<c:choose>
-						<c:when test="${not empty sessionScope.member.photo}">
-							<c:set var="profileImage"
-								value="${pageContext.request.contextPath}/uploads/mypage/${sessionScope.member.photo}" />
-						</c:when>
-						<c:otherwise>
-							<c:set var="profileImage"
-								value="${pageContext.request.contextPath}/resources/images/profile_image_default.png" />
-						</c:otherwise>
-					</c:choose>
+    <c:when test="${not empty sessionScope.member.photo}">
+        <c:set var="profileImage" value="${pageContext.request.contextPath}/uploads/mypage/${sessionScope.member.photo}" />
+    </c:when>
+    <c:otherwise>
+        <c:set var="profileImage" value="${pageContext.request.contextPath}/resources/images/profile_image_default.png" />
+    </c:otherwise>
+</c:choose>
+
 
 					<nav class="ms-lg-3">
-						<div class="container-fluid">
-							<a class="navbar-brand" href="#"></a>
-							<div class="dropdown">
-								<a class="nav-link dropdown-toggle" href="#"
-									id="profileDropdown" role="button" data-bs-toggle="dropdown"
-									aria-expanded="false"> <img src="${pageContext.request.contextPath}/uploads/member/${profileImage}"
-									alt="Profile Picture" class="profile-pic">
-								</a>
-								<ul class="dropdown-menu dropdown-menu-start mb-3"
-									aria-labelledby="profileDropdown">
-									<li class="dropdown-header d-flex align-items-center">
-										<img src="${profileImage}" alt="Profile Picture" class="profile-pic">
-										<div class="user-info">
-											<span class="user-name ms-3">${sessionScope.member.userName}</span>
-										</div>
-									</li>
-									<li><hr class="dropdown-divider"></li>
-									<li><a class="dropdown-item"
-										href="${pageContext.request.contextPath}/mypage/coupoint"><i
-											class="fas fa-user-cog me-2"></i>쿠폰·포인트</a></li>
-									<li><a class="dropdown-item"
-										href="${pageContext.request.contextPath}/mypage/wishList"><i
-											class="fas fa-users me-2"></i>위시리스트</a></li>
-									<li><a class="dropdown-item"
-										href="${pageContext.request.contextPath}/mypage/inquiReview"><i
-											class="fas fa-file-alt me-2"></i>문의·리뷰</a></li>
-									<li><a class="dropdown-item"
-										href="${pageContext.request.contextPath}/mypage/myTrip"><i
-											class="fas fa-file-alt me-2"></i>내여행</a></li>
-									<li><a class="dropdown-item"
-										href="${pageContext.request.contextPath}/mypage/profile"><i
-											class="fas fa-file-alt me-2"></i>프로필</a></li>
-									<li><a class="dropdown-item" href="${pageContext.request.contextPath}/member/logout"
-										onclick="confirmLogout()"><i
-											class="fas fa-sign-out-alt me-2"></i> 로그아웃</a></li>
-								</ul>
-							</div>
-						</div>
-					</nav>
+    <div class="container-fluid">
+        <a class="navbar-brand" href="#"></a>
+        <div class="dropdown">
+            <a class="nav-link dropdown-toggle" href="#" id="profileDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                <img src="${profileImage}" alt="Profile Picture" class="profile-pic">
+            </a>
+            <ul class="dropdown-menu dropdown-menu-start mb-3" aria-labelledby="profileDropdown">
+                <li class="dropdown-header d-flex align-items-center">
+                    <img src="${profileImage}" alt="Profile Picture" class="profile-pic">
+                    <div class="user-info">
+                        <span class="user-name ms-3">${sessionScope.member.userName}</span>
+                    </div>
+                </li>
+                <li><hr class="dropdown-divider"></li>
+                <li><a class="dropdown-item" href="${pageContext.request.contextPath}/mypage/coupoint"><i class="fas fa-user-cog me-2"></i>쿠폰·포인트</a></li>
+                <li><a class="dropdown-item" href="${pageContext.request.contextPath}/mypage/wishList"><i class="fas fa-users me-2"></i>위시리스트</a></li>
+                <li><a class="dropdown-item" href="${pageContext.request.contextPath}/mypage/inquiReview"><i class="fas fa-file-alt me-2"></i>문의·리뷰</a></li>
+                <li><a class="dropdown-item" href="${pageContext.request.contextPath}/mypage/myTrip"><i class="fas fa-file-alt me-2"></i>내여행</a></li>
+                <li><a class="dropdown-item" href="${pageContext.request.contextPath}/mypage/profile"><i class="fas fa-file-alt me-2"></i>프로필</a></li>
+                <li><a class="dropdown-item" href="${pageContext.request.contextPath}/member/logout" onclick="confirmLogout()"><i class="fas fa-sign-out-alt me-2"></i> 로그아웃</a></li>
+            </ul>
+        </div>
+    </div>
+</nav>
 		</c:if>
     </nav>
         </div>

@@ -22,7 +22,7 @@
 	</insert>
 	
 	<insert id="insertMemberProfile" parameterType="map">
-		insert into member_profile(USER_NUM, CONTENT, PHOTO, MBTI) values(#{num}, '자기소개', '프로필', 'MBTI')
+		insert into member_profile(USER_NUM, CONTENT, PHOTO, MBTI) values(#{num}, NULL, NULL, 'MBTI')
 	</insert>
 	
 	<select id="memberSeq" resultType="Long">
