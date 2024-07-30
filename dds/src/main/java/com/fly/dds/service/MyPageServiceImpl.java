@@ -146,6 +146,7 @@ public class MyPageServiceImpl implements MyPageService {
 		List<TravelReview> list = null;
 		try {
 			list = mapper.listReview(map);
+			
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

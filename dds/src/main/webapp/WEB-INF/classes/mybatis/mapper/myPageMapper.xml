@@ -52,16 +52,22 @@
 	</delete>
 	
 	<select id="listReview" parameterType="map" resultType="com.fly.dds.domain.TravelReview">
-	    SELECT t.NUM,SUBJECT,TO_CHAR(REG_DATE, 'YYYY-MM-dd') REG_DATE, HITCOUNT,LIKECOUNT,REPLYCOUNT, imageFileName,
+	    SELECT t.NUM,SUBJECT,TO_CHAR(REG_DATE, 'YYYY-MM-dd') REG_DATE, HITCOUNT,LIKECOUNT,REPLYCOUNT,
 	    region_main, region_sub
 		FROM TRAVELREVIEW t
 		join travelreview_region tr on t.num=tr.num
 		left outer join ( select num , count(*) as likecount from travelReview_like group by num) l on t.num = l.num
 		left outer join ( select num , count(*) as replycount from travelReview_reply group by num ) r on t.num = r.num
-		left outer join TravelReview_File f ON t.num = f.num 
 		where user_num = #{user_num}
 		ORDER BY NUM DESC
 		OFFSET #{offset} ROWS FETCH FIRST #{size} ROWS ONLY
+	</select>
+	
+	<select id="findThumbnailByNum" parameterType="long" resultType="String">
+		select imagefilename from TravelReview_File
+        where num=#{num}
+        ORDER BY file_num
+        FETCH FIRST 1 ROWS ONLY
 	</select>
 	
 	<!-- 글개수 -->

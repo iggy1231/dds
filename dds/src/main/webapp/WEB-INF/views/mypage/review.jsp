@@ -5,13 +5,13 @@
 <div class="row justify-content-between">
 	<h2 class="col color-text">전체 ${dataCount}건</h2>
 		<div class="col text-end">
-				<button type="button" class="btn listRecent active" data-bs-toggle="button">가나다순</button>
-				<button type="button" class="btn listPast" data-bs-toggle="button">인기순</button>
+				<button type="button" class="btn listRecent active" data-bs-toggle="button">최신순</button>
+				<button type="button" class="btn listPast" data-bs-toggle="button">과거순</button>
 		</div>
 </div>
 <div class="row g-4">
-
 	<c:forEach var="list" items="${list}">
+
 		<div class="col-lg-4 col-md-6 wow fadeInUp" data-wow-delay="0.3s">
 			<div class="property-item rounded overflow-hidden">
 				<div class="position-relative overflow-hidden">
