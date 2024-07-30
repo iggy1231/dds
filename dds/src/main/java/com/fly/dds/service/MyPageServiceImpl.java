@@ -147,6 +147,10 @@ public class MyPageServiceImpl implements MyPageService {
 		try {
 			list = mapper.listReview(map);
 			
+			for(TravelReview dto:list) {
+				dto.setImageFilename(mapper.findThumbnailByNum(dto.getNum()));
+				
+			}
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
