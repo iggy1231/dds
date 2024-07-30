@@ -7,6 +7,7 @@ import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
@@ -24,6 +25,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.fly.dds.admin.domain.MemberManage;
 import com.fly.dds.admin.service.MemberManageService;
+import com.fly.dds.common.AESUtil;
 import com.fly.dds.common.FileManager;
 import com.fly.dds.common.MyUtil;
 import com.fly.dds.domain.Member;
@@ -39,9 +41,12 @@ import com.fly.dds.service.RoomQnAService;
 import com.fly.dds.service.RoomReviewService;
 import com.fly.dds.service.RoomService;
 
+
 @Controller
 @RequestMapping(value = "/room/*")
 public class RoomController {
+
+	
 	@Autowired
 	private RoomService service;
 	
@@ -66,6 +71,7 @@ public class RoomController {
 	@Autowired
 	private FileManager fileManager;
 	
+
 	@GetMapping("main")
 	public String roomMain(HttpSession session , Model model) {
 		SessionInfo info=(SessionInfo) session.getAttribute("member");
@@ -83,59 +89,123 @@ public class RoomController {
 		return ".room.main";
 	}
 	
-	@RequestMapping("article")
-	public String roomArticle(@RequestParam long num,
-            @RequestParam(defaultValue="1") String page,
-            @RequestParam(defaultValue="2") String people,
-            @RequestParam(defaultValue = "") String kwd,
-            HttpSession session,
-            @RequestParam String sdate,
-	        @RequestParam String edate,
-            Model model) throws Exception {
-        SessionInfo info=(SessionInfo) session.getAttribute("member");
-        
-        kwd = URLDecoder.decode(kwd, "utf-8");
+	 @GetMapping("article")
+	    public String roomArticleRedirect(HttpServletRequest request, HttpSession session, Model model) throws Exception {
+	        String num = request.getParameter("num");
+	        String page = request.getParameter("page");
+	        String sdate = request.getParameter("sdate");
+	        String edate = request.getParameter("edate");
+	        String people = request.getParameter("people");
 
-        String query = "page=" + page;
-        if (kwd.length() != 0) {
-            query += 
-                    "&kwd=" + URLEncoder.encode(kwd, "UTF-8");
-        }
+	        // 매개변수를 암호화하여 리디렉션 URL 생성
+	        String params = "num=" + num + "&page=" + page + "&sdate=" + sdate + "&edate=" + edate + "&people=" + people;
+	        String encryptedParams = AESUtil.encrypt(params);
+	        String redirectUrl = "/room/articleRedirect?data=" + URLEncoder.encode(encryptedParams, "UTF-8");
 
-        // 해당 레코드 가져 오기
-        Room dto = service.findByNum(num);
-        if (dto == null) {
-            return "redirect:/room/list?" + query;
-        }
-        
-        // 상세정보 출력
-        Map<String, Object> map = new HashMap<>();
-        map.put("num", num);
-        List<Room> detail = service.listDetail(map);
-        
-        // 사진 출력
-        List<Room> photo = service.listPhoto(map);
-        
-        map.put("user_num", info.getUser_num());
-        
-        String liked="false";
-        if(service.isLiked(map)) {
-        	liked="true";
-        }
-        
-        model.addAttribute("liked", liked);
-        model.addAttribute("detail" , detail);
-        model.addAttribute("photo" , photo);
-        model.addAttribute("dto", dto);
-        model.addAttribute("page", page);
-        model.addAttribute("kwd", kwd);
-        model.addAttribute("sdate", sdate);
-        model.addAttribute("edate", edate);
-        model.addAttribute("query", query);
-        
-       
-        return ".room.article";
-    }
+	        return "redirect:" + redirectUrl;
+	    }
+
+	    @GetMapping("articleRedirect")
+	    public String roomArticle(@RequestParam String data, Model model, HttpSession session) throws Exception {
+	        // 암호화된 매개변수 복호화
+	        String decryptedParams = AESUtil.decrypt(URLDecoder.decode(data, "UTF-8"));
+	        Map<String, String> params = Arrays.stream(decryptedParams.split("&"))
+	                .map(param -> param.split("="))
+	                .collect(Collectors.toMap(entry -> entry[0], entry -> entry[1]));
+
+	        long num = Long.parseLong(params.get("num"));
+	        String page = params.get("page");
+	        String sdate = params.get("sdate");
+	        String edate = params.get("edate");
+	        String people = params.get("people");
+
+	        SessionInfo info = (SessionInfo) session.getAttribute("member");
+
+	        // 해당 레코드 가져오기
+	        Room dto = service.findByNum(num);
+	        if (dto == null) {
+	            return "redirect:/room/list";
+	        }
+
+	        // 상세정보 출력
+	        Map<String, Object> map = new HashMap<>();
+	        map.put("num", num);
+	        List<Room> detail = service.listDetail(map);
+
+	        // 사진 출력
+	        List<Room> photo = service.listPhoto(map);
+
+	        map.put("user_num", info.getUser_num());
+
+	        String liked = "false";
+	        if (service.isLiked(map)) {
+	            liked = "true";
+	        }
+
+	        model.addAttribute("liked", liked);
+	        model.addAttribute("detail", detail);
+	        model.addAttribute("photo", photo);
+	        model.addAttribute("dto", dto);
+	        model.addAttribute("page", page);
+	        model.addAttribute("sdate", sdate);
+	        model.addAttribute("edate", edate);
+	        model.addAttribute("people", people);
+
+	        return ".room.article";
+	    }
+
+	    @GetMapping("payment")
+	    public String roomPaymentRedirect(HttpServletRequest request, HttpSession session, Model model) throws Exception {
+	        String detail_num = request.getParameter("detail_num");
+	        String sdate = request.getParameter("sdate");
+	        String edate = request.getParameter("edate");
+
+	        // 매개변수를 암호화하여 리디렉션 URL 생성
+	        String params = "detail_num=" + detail_num + "&sdate=" + sdate + "&edate=" + edate;
+	        String encryptedParams = AESUtil.encrypt(params);
+	        String redirectUrl = "/room/paymentRedirect?data=" + URLEncoder.encode(encryptedParams, "UTF-8");
+
+	        return "redirect:" + redirectUrl;
+	    }
+
+	    @GetMapping("paymentRedirect")
+	    public String roomPayment(@RequestParam String data, Model model, HttpSession session) throws Exception {
+	        // 암호화된 매개변수 복호화
+	        String decryptedParams = AESUtil.decrypt(URLDecoder.decode(data, "UTF-8"));
+	        Map<String, String> params = Arrays.stream(decryptedParams.split("&"))
+	                .map(param -> param.split("="))
+	                .collect(Collectors.toMap(entry -> entry[0], entry -> entry[1]));
+
+	        long detail_num = Long.parseLong(params.get("detail_num"));
+	        String sdate = params.get("sdate");
+	        String edate = params.get("edate");
+
+	        // 해당 레코드 가져오기
+	        Room dto = service.findByDetail(detail_num);
+	        SessionInfo info = (SessionInfo) session.getAttribute("member");
+
+	        Member member = myPageService.findById(info.getUser_num());
+	        String tel = member.getTel();
+
+	        // 상세정보 출력
+	        model.addAttribute("dto", dto);
+	        model.addAttribute("sdate", sdate);
+	        model.addAttribute("edate", edate);
+	        model.addAttribute("detail_num", detail_num);
+	        model.addAttribute("tel", tel);
+
+	        // 계산
+	        int total_price = dto.getPrice();
+	        int point_price = (int) (total_price * 0.05);
+
+	        // 결제 정보 저장
+	        long sale_num = paymentService.payMentSeq();
+	        model.addAttribute("sale_num", sale_num);
+	        model.addAttribute("total_price", total_price);
+	        model.addAttribute("point_price", point_price);
+
+	        return ".room.payment";
+	    }
 	
 
 	@RequestMapping("list")
@@ -243,7 +313,10 @@ public class RoomController {
 	}
 	
 	@PostMapping("writeQnA")
-	public String writeQnA(RoomQnA qna, HttpSession session, Model model) {
+	public String writeQnA(RoomQnA qna, HttpSession session, Model model,
+			@RequestParam String sdate,
+			@RequestParam String edate
+			) {
 	    SessionInfo info = (SessionInfo) session.getAttribute("member");
 	    
 	    try {
@@ -350,63 +423,7 @@ public class RoomController {
 	}
 	
 	
-	@GetMapping("payment") 
-	public String roomPayment(
-			@RequestParam long detail_num,
-			@RequestParam String sdate,
-			@RequestParam String edate,
-			HttpSession session,
-			Model model) throws Exception {
-		
-		try {
-			long sale_num = paymentService.payMentSeq();
-			// 해당 레코드 가져 오기
-			Room dto = service.findByDetail(detail_num);
-			SessionInfo info = (SessionInfo)session.getAttribute("member");
-			
-			
-			Member member = null;
-			String tel;
-			
-			member = myPageService.findById(info.getUser_num());
-			tel = member.getTel();
-			
-			
-			// 상세정보 출력
-			Map<String, Object> map = new HashMap<>();
-			
-			model.addAttribute("dto", dto);
-			
-			//  System.out.println("테스터 : " + dto + sdate + edate + people + detail_num + photo);
-			
-			// 추가된 정보
-			model.addAttribute("sdate", sdate);
-			model.addAttribute("edate", edate);
-			model.addAttribute("detail_num", detail_num);
-			model.addAttribute("tel",tel);
-			
-			// 계산
-			int total_price = dto.getPrice(); // 객실 가격
-			/// int coupon_price = d
-			int point_price = (int) (total_price * 0.05); // 적립된 포인트가
-			// int final_price = total_price - point_price;
-			// int dicount = point_price;
-			
-			// 결제 정보 저장
-			// RoomPayment roomPayment = new RoomPayment();
-			//   roomSale.setRegDate(LocalDate.now()); ... 등으로 저장
-			
-			model.addAttribute("sale_num",sale_num);
-			model.addAttribute("total_price",total_price );
-			model.addAttribute("point_price", point_price );
-			// model.addAttribute("final_price",final_price );
-			
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-		
-		return ".room.payment";
-	}
+   
 	
 	@PostMapping("insertPayment")
 	@ResponseBody
@@ -562,4 +579,12 @@ public class RoomController {
 		return model;
 	}
 	
-}
+	  
+	
+	
+	
+	
+	
+	}
+	
+
