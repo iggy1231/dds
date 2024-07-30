@@ -31,6 +31,26 @@ public class Member {
 	
 	private int age;
 	private int ageDecade;
+	
+	private int enabled;
+	
+	
+
+	public int getEnabled() {
+		return enabled;
+	}
+
+	public void setEnabled(int enabled) {
+		this.enabled = enabled;
+	}
+
+	public void setAge(int age) {
+		this.age = age;
+	}
+
+	public void setAgeDecade(int ageDecade) {
+		this.ageDecade = ageDecade;
+	}
 
 	public long getUser_num() {
 		return user_num;

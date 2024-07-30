@@ -119,7 +119,10 @@
                         <span>체크인</span><br> <span>${list2.sdate}</span>
                     </div>
                     <div>
-                        <span>|</span>
+                        <span>|<input type="hidden" id="sale_num-${list2.sale_num}" value="${list2.sale_num}">
+				            <input type="hidden" id="final_price-${list2.sale_num}" value="${list2.final_price}">
+				            <input type="hidden" id="card_num-${list2.sale_num}" value="${list2.card_num}">
+				            <input type="hidden" id="user_num-${list2.sale_num}" value="${list2.user_num}"></span>
                     </div>
                     <div>
                         <span>체크아웃</span><br> <span>${list2.edate}</span>

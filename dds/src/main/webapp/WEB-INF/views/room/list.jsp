@@ -230,7 +230,7 @@ hr {
 		                                 </div>
                                     </div>
                                     <button type="submit" class="btn border border-gray rounded-pill keyword-btn">필터 적용</button>
-                                    <button type="button" class="btn border border-gray rounded-pill keyword-btn" onclick="resetFilter();">새로고침</button>
+                                    <button type="button" class="btn border border-gray rounded-pill keyword-btn" onclick="resetFilter();">필터 초기화</button>
                                 </div>
                             </form>
                             </div>

@@ -55,6 +55,7 @@ public class MemberController {
 		info.setStatus(dto.getStatus());
 		info.setActivity(dto.getActivity());
 		info.setPhoto(dto.getPhoto());
+		info.setEnabled(dto.getEnabled());
 		
 		
         try {

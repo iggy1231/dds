@@ -81,6 +81,24 @@ ul.payment-info li span.total {
 <c:set var="differenceInMillis" value="${endTime - startTime}"/>
 <c:set var="differenceInDays" value="${differenceInMillis / (1000 * 60 * 60 * 24)}"/>
 
+<script>
+    window.onload = function() {
+        // JSP에서 differenceInDays 값을 읽어옵니다.
+        var differenceInDays = ${differenceInDays};
+
+        // 자바스크립트를 사용하여 실수형 값을 정수형으로 변환합니다.
+        var differenceInDaysInt = Math.floor(differenceInDays);
+
+        // 변환된 값을 HTML 요소에 설정합니다.
+        let daysElement = document.querySelector('.payment-info li span:nth-child(2)');
+        if (daysElement) {
+            daysElement.textContent = differenceInDaysInt + "박";
+        } else {
+            console.error('Element not found: .payment-info li span:nth-child(2)');
+        }
+    }
+</script>
+
   <div class="row g-4">
     <div class="col-lg-8">
       <h4 style="font-weight: 700;" class="ps-2 pb-0">✅ 예약 확인 및 결제</h4>

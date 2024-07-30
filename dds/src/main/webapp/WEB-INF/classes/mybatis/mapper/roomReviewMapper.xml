@@ -12,12 +12,12 @@
 	<!--  public Summary findByReviewSummary(Map<String, Object> map); -->
 	<select id="findByRoomReviewSummary" parameterType="map" resultType="com.fly.dds.domain.Summary">
 		SELECT NVL(COUNT(*), 0) count,
-			   ROUND(NVL(AVG(score), 0), 1) ave,
-			   COUNT(DECODE(score, 1, 1)) score1, 
-			   COUNT(DECODE(score, 2, 1)) score2, 
-			   COUNT(DECODE(score, 3, 1)) score3, 
-			   COUNT(DECODE(score, 4, 1)) score4, 
-			   COUNT(DECODE(score, 5, 1)) score5
+			   ROUND(NVL(AVG(rating), 0), 1) ave,
+			   COUNT(DECODE(rating, 1, 1)) score1, 
+			   COUNT(DECODE(rating, 2, 1)) score2, 
+			   COUNT(DECODE(rating, 3, 1)) score3, 
+			   COUNT(DECODE(rating, 4, 1)) score4, 
+			   COUNT(DECODE(rating, 5, 1)) score5
 		FROM room_review
 		WHERE num = #{num}
 	</select>
@@ -25,7 +25,7 @@
 	
 	<!-- public List<Review>"listRoomReview"(Map<String, Object> map); -->
 	<select id="listRoomReview" parameterType="map" resultType="com.fly.dds.domain.RoomReview">
-		SELECT rr.review_num, rr.user_num, nickname , score, content, num, photo, TO_CHAR(rr.reg_date, 'YYYY-MM-DD') reg_date
+		SELECT rr.review_num, rr.rating, rr.user_num, nickname , content, num, photo, TO_CHAR(rr.reg_date, 'YYYY-MM-DD') reg_date
 		FROM room_review rr
 		JOIN member1 m ON m.user_num = rr.user_num
 		JOIN member_info i ON i.user_num = rr.user_num

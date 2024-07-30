@@ -218,7 +218,7 @@
      </select>
      
      <select id="findReviewSummaryByNum" parameterType="long" resultType="com.fly.dds.domain.RoomReview">
-     	SELECT NVL(COUNT(*), 0) AS ratingCount, ROUND(NVL(AVG(score), 0), 1) AS rating
+     	SELECT NVL(COUNT(*), 0) AS ratingCount, ROUND(NVL(AVG(rating), 0), 1) AS rating
 		FROM room_review
 		WHERE num = #{num}
      </select>

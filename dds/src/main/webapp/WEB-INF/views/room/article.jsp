@@ -223,22 +223,22 @@
 <div id="topBox" class="fixed-top-box ps-5 p-2 border-bottom">
     <ul class="nav nav-pills">
         <li class="nav-item">
-            <a class="nav-link" href="#address">위치</a>
+            <a class="nav-link roomnav" href="#address">위치</a>
         </li>
         <li class="nav-item">
-            <a class="nav-link" href="#details">상세 설명</a>
+            <a class="nav-link roomnav" href="#details">상세 설명</a>
         </li>
         <li class="nav-item">
-            <a class="nav-link" href="#facility">시설 정보</a>
+            <a class="nav-link roomnav" href="#facility">시설 정보</a>
         </li>
         <li class="nav-item">
-            <a class="nav-link" href="#caution">주의 사항</a>
+            <a class="nav-link roomnav" href="#caution">주의 사항</a>
         </li>
         <li class="nav-item">
-            <a class="nav-link" href="#rooms">객실 선택</a>
+            <a class="nav-link roomnav" href="#rooms">객실 선택</a>
         </li>
         <li class="nav-item">
-            <a class="nav-link" href="#reviews">리뷰 / QnA</a>
+            <a class="nav-link roomnav" href="#reviews">리뷰 / QnA</a>
         </li>
     </ul>
 </div>
@@ -642,7 +642,7 @@ function checkScroll() {
 }
 
 //스크롤을 조정하는 함수
-document.querySelectorAll('a.nav-link').forEach(anchor => {
+document.querySelectorAll('a.roomnav').forEach(anchor => {
     anchor.addEventListener('click', function(e) {
         e.preventDefault();
         var target = document.querySelector(this.getAttribute('href'));
@@ -709,7 +709,7 @@ function printReview(data) {
 	for(let item of data.list) {
 		let num = item.num;
 		let nickName = item.nickName;
-		let score = item.score;
+		let score = item.rating;
 		let review = item.review;
 		let reg_date = item.reg_date;
 		let content = item.content;

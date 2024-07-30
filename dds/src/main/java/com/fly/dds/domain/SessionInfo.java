@@ -9,6 +9,7 @@ public class SessionInfo {
 	private int status;
 	private int activity;
 	private String photo;
+	private int enabled;
 	public long getUser_num() {
 		return user_num;
 	}
@@ -57,4 +58,13 @@ public class SessionInfo {
 	public void setPhoto(String photo) {
 		this.photo = photo;
 	}
+	public int getEnabled() {
+		return enabled;
+	}
+	public void setEnabled(int enabled) {
+		this.enabled = enabled;
+	}
+	
+	
+	
 }
