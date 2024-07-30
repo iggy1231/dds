@@ -13,7 +13,7 @@
         border-radius: 10px;
         overflow: hidden;
         margin: 10px 0; /* 상하 마진만 설정하여 좌우 여백 제거 */
-    	width: 100%; /* 부모 요소의 너비를 모두 차지하도록 설정 */
+    	width: calc(100% - 15px); /* 부모 요소의 너비를 모두 차지하도록 설정 */
     }
     .content-card img {
         width: 100%;
@@ -27,16 +27,34 @@
         margin: 10px 0;
     }
     .content-card .card-body .meta {
-        font-size: 0.9rem;
+        font-size: 1rem;
         color: #777;
         display: flex;
-        justify-content: space-between;
+        align-items: center;
     }
-    .content-card .card-body .meta span {
-        margin-right: 5px;
-    }
+    
+    .content-card .card-body .meta img {
+            width: 40px; /* 원하는 크기로 조정하세요 */
+            height: 40px; /* 원하는 크기로 조정하세요 */
+            border-radius: 50%; /* 원형으로 만들기 */
+            object-fit: cover; /* 이미지 비율 유지 */
+            margin-right: 10px;
+        }
+    
+    .content-card .card-body .meta .nickname {
+            font-size: 14px; /* 닉네임 크기 조정 */
+            margin-right: 5px;
+        }
+    
+    .content-card .card-body .meta .details {
+            font-size: 12px; /* 나이, 성별, 지역 정보 크기 조정 */
+            display: flex;
+            align-items: center;
+        }
+        
     .content-card .card-body .meta .location {
         margin-left: auto;
+        font-size: 1rem;
     }
     .content-container {
         display: flex;
@@ -55,15 +73,25 @@
     
     @media (max-width: 1200px) {
     .content-card {
-        width: 100%; /* 반응형에서도 부모 요소에 꽉 차도록 설정 */
+        width: calc(100% - 15px); /* 반응형에서도 부모 요소에 꽉 차도록 설정 */
     }
 }
 
 @media (max-width: 768px) {
     .content-card {
-        width: 100%; /* 반응형에서도 부모 요소에 꽉 차도록 설정 */
+        width: calc(100% - 15px); /* 반응형에서도 부모 요소에 꽉 차도록 설정 */
     }
 }
+
+.text-primary {
+	color: #18A8F1 !important;
+}
+
+.age-gender {
+        font-size: 1rem; /* 기본 폰트 크기 */
+    }
+    
+   
 </style>
 
 <div class="my-info">

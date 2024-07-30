@@ -19,12 +19,16 @@ public interface TravelReviewService {
 	public void updateReview(TravelReview dto, String pathname);
 
 	public void deleteReview(long num);
-	
+
 	public void TravelReview_Like(Map<String, Object> map);
-	
+
 	public int likeCount(long num);
-	
+
 	public boolean isBoardLike(Map<String, Object> map);
-	
+
 	public List<TravelReview> listFile(long num);
+	
+	public List<TravelReview> listHas(Map<String, Object> map);
+	public int dataHas(Map<String, Object> map);
+	
 }

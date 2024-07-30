@@ -8,12 +8,17 @@
 <c:forEach var="list4" items="${list}">
 	<div class="col-md-4">
 	<div class="content-card" onclick="companionArticle(${list4.num});">
-		<img src="${pageContext.request.contextPath}/uploads/companion/${list4.saveFilename}" alt="Content Image">
+		<div class="d-flex align-items-stretch" style="height: 230px;">
+			<img class="ratio ratio-4x3" src="${pageContext.request.contextPath}/uploads/companion/${list4.saveFilename}"
+			onerror=this.src="${pageContext.request.contextPath}/resources/images/product_default.png"
+			style="object-fit:cover; height: 100%;">
+		</div>
 		<div class="card-body">
-			<h5>${list4.subject}</h5>
-			<div class="meta">
-				<span><i class="bi bi-person-circle"></i><img src="${pageContext.request.contextPath}/uploads/mypage/${list4.photo}">&nbsp;${list4.nickname}</span> 
-				<span>${list4.age} 대 · ${list4.gender}</span> <span class="location">${list4.mainRegion}</span>
+			<h4 class="bold">${list4.subject}</h4>
+			<span class="text-primary age-gender">#${list4.age}대&nbsp;&nbsp;#${list4.gender}</span> 
+			<div class="meta mt-2">
+				<span><img src="${pageContext.request.contextPath}/uploads/mypage/${list4.photo}">${list4.nickname}</span> 
+				<span class="location"><i class="bi bi-geo-alt-fill text-primary"></i>&nbsp;${list4.mainRegion}</span>
 			</div>
 		</div>
 	</div>

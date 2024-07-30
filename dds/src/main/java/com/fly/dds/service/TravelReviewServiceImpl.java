@@ -15,19 +15,19 @@ import com.fly.dds.mapper.TravelReviewMapper;
 public class TravelReviewServiceImpl implements TravelReviewService {
 	@Autowired
 	private TravelReviewMapper mapper;
-	
+
 	@Autowired
 	private FileManager fileManager;
-	
+
 	@Override
 	public void reviewInsert(TravelReview dto, String pathname) {
 		try {
-			long seq=mapper.travelreviewSeq();
+			long seq = mapper.travelreviewSeq();
 			dto.setNum(seq);
-			
+
 			mapper.insertReview(dto);
 			mapper.insertReviewArea(dto);
-			
+
 			if (!dto.getSelectFile().isEmpty()) {
 				for (MultipartFile mf : dto.getSelectFile()) {
 					String imageFilename = fileManager.doFileUpload(mf, pathname);
@@ -39,7 +39,7 @@ public class TravelReviewServiceImpl implements TravelReviewService {
 
 					mapper.insertFile(dto);
 				}
-			}		
+			}
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -59,10 +59,10 @@ public class TravelReviewServiceImpl implements TravelReviewService {
 	@Override
 	public List<TravelReview> listReview(Map<String, Object> map) {
 		List<TravelReview> list = null;
-		
+
 		try {
 			list = mapper.listReview(map);
-			for(TravelReview dto:list) {
+			for (TravelReview dto : list) {
 				dto.setRegion_main(mapper.findAreaByNum(dto.getNum()).getRegion_main());
 				dto.setRegion_sub(mapper.findAreaByNum(dto.getNum()).getRegion_sub());
 				dto.setThumbnail(mapper.thumbnail(dto.getNum()));
@@ -85,16 +85,16 @@ public class TravelReviewServiceImpl implements TravelReviewService {
 	@Override
 	public TravelReview findByNum(long num) {
 		TravelReview dto = null;
-		
+
 		try {
 			dto = mapper.findByNum(num);
-			TravelReview t=mapper.findAreaByNum(num);
+			TravelReview t = mapper.findAreaByNum(num);
 			dto.setRegion_main(t.getRegion_main());
 			dto.setRegion_sub(t.getRegion_sub());
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		
+
 		return dto;
 	}
 
@@ -104,7 +104,7 @@ public class TravelReviewServiceImpl implements TravelReviewService {
 			mapper.updateReview(dto);
 			mapper.updateReviewArea(dto);
 			mapper.deleteFile(dto.getNum());
-			
+
 			if (!dto.getSelectFile().isEmpty()) {
 				for (MultipartFile mf : dto.getSelectFile()) {
 					String imageFilename = fileManager.doFileUpload(mf, pathname);
@@ -116,7 +116,7 @@ public class TravelReviewServiceImpl implements TravelReviewService {
 
 					mapper.insertFile(dto);
 				}
-			}		
+			}
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -142,21 +142,21 @@ public class TravelReviewServiceImpl implements TravelReviewService {
 
 	@Override
 	public int likeCount(long num) {
-		int result=0;
-		
+		int result = 0;
+
 		try {
-			result=mapper.likeCount(num);
+			result = mapper.likeCount(num);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		
+
 		return result;
 	}
 
 	@Override
 	public boolean isBoardLike(Map<String, Object> map) {
 		try {
-			if(mapper.isBoardLike(map)>0) {
+			if (mapper.isBoardLike(map) > 0) {
 				return false;
 			}
 		} catch (Exception e) {
@@ -167,15 +167,37 @@ public class TravelReviewServiceImpl implements TravelReviewService {
 
 	@Override
 	public List<TravelReview> listFile(long num) {
-		List<TravelReview> list=null;
-		
+		List<TravelReview> list = null;
+
 		try {
-			list=mapper.listFile(num);
+			list = mapper.listFile(num);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		
+
 		return list;
+	}
+
+	@Override
+	public List<TravelReview> listHas(Map<String, Object> map) {
+		List<TravelReview> list = null;
+
+		try {
+			list = mapper.listHas(map);
+			for (TravelReview dto : list) {
+				dto.setRegion_main(mapper.findAreaByNum(dto.getNum()).getRegion_main());
+				dto.setRegion_sub(mapper.findAreaByNum(dto.getNum()).getRegion_sub());
+				dto.setThumbnail(mapper.thumbnail(dto.getNum()));
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return list;
+	}
+
+	@Override
+	public int dataHas(Map<String, Object> map) {
+		return  mapper.dataHas(map);
 	}
 	
 	

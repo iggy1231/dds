@@ -2,121 +2,185 @@
 
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.fly.dds.mapper.TravelReviewMapper">
-	<insert id="insertReview" parameterType="com.fly.dds.domain.TravelReview">
-		INSERT INTO travelreview(num, nickName, subject, content, 
-			 reg_date, hitcount, user_num)
-		VALUES (#{num}, #{nickName}, #{subject}, #{content},
-			 SYSDATE, 0, #{user_num} )
+	<insert id="insertReview"
+		parameterType="com.fly.dds.domain.TravelReview">
+		INSERT INTO travelreview(num, nickName, subject,
+		content,
+		reg_date, hitcount, user_num)
+		VALUES (#{num}, #{nickName}, #{subject},
+		#{content},
+		SYSDATE, 0, #{user_num} )
 	</insert>
-	
-	<insert id="insertReviewArea" parameterType="com.fly.dds.domain.TravelReview">
-		insert into travelreview_region(REGION_NUM, REGION_MAIN, REGION_SUB, NUM)
-		values(travelreview_region_seq.nextval, #{region_main}, #{region_sub}, #{num})
+
+	<insert id="insertReviewArea"
+		parameterType="com.fly.dds.domain.TravelReview">
+		insert into travelreview_region(REGION_NUM, REGION_MAIN,
+		REGION_SUB, NUM)
+		values(travelreview_region_seq.nextval,
+		#{region_main}, #{region_sub}, #{num})
 	</insert>
-	
+
 	<sql id="where-list">
 		<choose>
 			<when test="schType == 'all' ">
-			   ( INSTR(subject, #{kwd}) &gt; 0
-		          OR DBMS_LOB.INSTR(content, #{kwd}) &gt; 0 )
+				( INSTR(subject, #{kwd}) &gt; 0
+				OR DBMS_LOB.INSTR(content, #{kwd}) &gt; 0 )
 			</when>
 			<when test="schType == 'content'">
-			    DBMS_LOB.INSTR(content, #{kwd}) &gt; 0
+				DBMS_LOB.INSTR(content, #{kwd}) &gt; 0
 			</when>
 			<otherwise>
-			    INSTR(${schType}, #{kwd}) &gt; 0
+				INSTR(${schType}, #{kwd}) &gt; 0
 			</otherwise>
 		</choose>
 	</sql>
-	
+
 	<select id="dataCount" parameterType="map" resultType="Integer">
 		SELECT NVL(COUNT(*), 0)
 		FROM travelreview
 		<where>
 			<if test="kwd != null and kwd != '' ">
-				<include refid="where-list"/>
+				<include refid="where-list" />
 			</if>
-		</where>   
+		</where>
 	</select>
-	
-	<select id="listReview" parameterType="map" resultType="com.fly.dds.domain.TravelReview">
-	 	SELECT t.NUM, NICKNAME, SUBJECT, CONTENT, TO_CHAR(REG_DATE, 'YYYY-MM-DD') AS REG_DATE, HITCOUNT, USER_NUM, likeCount, replyCount
+
+	<select id="listReview" parameterType="map"
+		resultType="com.fly.dds.domain.TravelReview">
+		SELECT t.NUM, NICKNAME, SUBJECT, CONTENT, TO_CHAR(REG_DATE,
+		'YYYY-MM-DD') AS REG_DATE, HITCOUNT, USER_NUM, likeCount, replyCount
 		FROM TRAVELREVIEW t
-        left outer join (select NVL(COUNT(*), 0) AS likeCount, num from travelreview_like group by num) t2 on t.num=t2.num
-        left outer join (select NVL(COUNT(*), 0) AS replyCount, num from travelreview_reply group by num) t3 on t.num=t3.num
+		left outer join (select NVL(COUNT(*), 0) AS likeCount, num from
+		travelreview_like group by num) t2 on t.num=t2.num
+		left outer join (select NVL(COUNT(*), 0) AS replyCount, num from
+		travelreview_reply group by num) t3 on t.num=t3.num
 		<where>
 			<if test="kwd != null and kwd != ''">
-				<include refid="where-list"/>
+				<include refid="where-list" />
 			</if>
 		</where>
 		ORDER BY NUM DESC
 		OFFSET #{offset} ROWS FETCH FIRST #{size} ROWS ONLY
 	</select>
-	
-	<select id="findByNum" parameterType="Long" resultType="com.fly.dds.domain.TravelReview">
-		SELECT NUM, NICKNAME, SUBJECT, CONTENT, REG_DATE, HITCOUNT, USER_NUM
+
+	<select id="findByNum" parameterType="Long"
+		resultType="com.fly.dds.domain.TravelReview">
+		SELECT NUM, NICKNAME, SUBJECT, CONTENT, REG_DATE, HITCOUNT,
+		USER_NUM
 		FROM travelreview
 		WHERE num = #{num}
 	</select>
-	
-	<select id="findAreaByNum" parameterType="long" resultType="com.fly.dds.domain.TravelReview">
+
+	<select id="findAreaByNum" parameterType="long"
+		resultType="com.fly.dds.domain.TravelReview">
 		select region_main, region_sub from travelreview_region
- 		where num=#{num}
+		where num=#{num}
 	</select>
-	
+
 	<update id="updateHitCount" parameterType="Long">
-		UPDATE travelreview SET hitCount=hitCount+1 WHERE num = #{num}
+		UPDATE travelreview
+		SET hitCount=hitCount+1 WHERE num = #{num}
 	</update>
-	
-	<update id="updateReview" parameterType="com.fly.dds.domain.TravelReview">
-		UPDATE travelreview SET subject = #{subject}, content = #{content} WHERE num = #{num}
+
+	<update id="updateReview"
+		parameterType="com.fly.dds.domain.TravelReview">
+		UPDATE travelreview SET subject = #{subject}, content =
+		#{content} WHERE num = #{num}
 	</update>
-	
+
 	<delete id="deleteReview" parameterType="Long">
-		DELETE FROM travelreview WHERE num = #{num}
+		DELETE FROM travelreview
+		WHERE num = #{num}
 	</delete>
-	
+
 	<insert id="TravelReview_Like" parameterType="map">
-		INSERT INTO TravelReview_Like(num, user_num) VALUES (#{num}, #{user_num})
+		INSERT INTO
+		TravelReview_Like(num, user_num) VALUES (#{num}, #{user_num})
 	</insert>
-	
+
 	<select id="likeCount" parameterType="Long" resultType="Integer">
-		select COUNT(*) from travelreview_like where num=#{num}
+		select
+		COUNT(*) from travelreview_like where num=#{num}
 	</select>
-	
-	<select id="isBoardLike" parameterType="map" resultType="Integer">
-		 select count(*) from travelreview_like where num=#{num} and user_num=#{user_num}
+
+	<select id="isBoardLike" parameterType="map"
+		resultType="Integer">
+		select count(*) from travelreview_like where num=#{num} and
+		user_num=#{user_num}
 	</select>
-	
-	<insert id="insertFile" parameterType="com.fly.dds.domain.TravelReview">
-		INSERT INTO TravelReview_File(file_Num, num, imageFilename)
-		VALUES(TRAVELREVIEW_FILE_SEQ.NEXTVAL, #{num}, #{imageFilename})
+
+	<insert id="insertFile"
+		parameterType="com.fly.dds.domain.TravelReview">
+		INSERT INTO TravelReview_File(file_Num, num,
+		imageFilename)
+		VALUES(TRAVELREVIEW_FILE_SEQ.NEXTVAL, #{num},
+		#{imageFilename})
 	</insert>
-	
+
 	<select id="travelreviewSeq" resultType="Long">
-		SELECT travelreview_seq.NEXTVAL FROM dual
+		SELECT
+		travelreview_seq.NEXTVAL FROM dual
 	</select>
-	
-	<select id="listFile" parameterType="long" resultType="com.fly.dds.domain.TravelReview">
+
+	<select id="listFile" parameterType="long"
+		resultType="com.fly.dds.domain.TravelReview">
 		SELECT file_Num, num, imageFilename
 		FROM travelreview_file
 		WHERE num=#{num}
 	</select>
-	
+
 	<select id="thumbnail" parameterType="long" resultType="String">
-		SELECT imageFilename
+		SELECT
+		imageFilename
 		FROM travelreview_file
-        where num=#{num}
-        order by file_num
-        FETCH FIRST 1 ROWS ONLY
+		where num=#{num}
+		order by file_num
+		FETCH FIRST 1 ROWS ONLY
 	</select>
 
 	<update id="updateReviewArea" parameterType="map">
-		update travelreview_region set REGION_MAIN=#{region_main}, REGION_SUB=#{region_sub}
+		update
+		travelreview_region set REGION_MAIN=#{region_main},
+		REGION_SUB=#{region_sub}
 		where num=#{num}
 	</update>
-	
+
 	<delete id="deleteFile" parameterType="long">
-		delete from travelreview_file where num=#{num}
+		delete from
+		travelreview_file where num=#{num}
 	</delete>
+
+	<select id="listHas" parameterType="map" resultType="com.fly.dds.domain.TravelReview">
+		SELECT t.NUM, NICKNAME, SUBJECT, CONTENT, TO_CHAR(REG_DATE,
+		'YYYY-MM-DD') AS REG_DATE, HITCOUNT, USER_NUM, likeCount, replyCount, region_main
+		FROM TRAVELREVIEW t
+		left outer join (select NVL(COUNT(*), 0) AS likeCount, num from
+		travelreview_like group by num) t2 on t.num=t2.num
+		left outer join (select NVL(COUNT(*), 0) AS replyCount, num from
+		travelreview_reply group by num) t3 on t.num=t3.num
+        join travelreview_region t4 on t.num=t4.num
+        <if test="region != '전체'">
+			where region_main=#{region}
+		</if>
+		<where>
+			<if test="kwd != null and kwd != ''">
+				<include refid="where-list" />
+			</if>
+		</where>
+		ORDER BY NUM DESC
+		OFFSET #{offset} ROWS FETCH FIRST #{size} ROWS ONLY
+	</select>
+
+	<select id="dataHas" parameterType="map" resultType="Integer">
+		SELECT NVL(COUNT(*), 0)
+		FROM travelreview t join travelreview_region t4 on t.num=t4.num
+		<if test="region != '전체'">
+			where region_main=#{region}
+		</if>
+		<where>
+			<if test="kwd != null and kwd != '' ">
+				<include refid="where-list" />
+			</if>
+		</where>
+	</select>
 </mapper>
