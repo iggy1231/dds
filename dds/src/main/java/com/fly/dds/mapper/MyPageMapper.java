@@ -98,4 +98,6 @@ public interface MyPageMapper {
 	public void updateCouponUse();
 	public String findThumbnailByNum(long num);
 	public void deleteQna(long num);
+	
+	public List<TravelReview> listPast(Map<String, Object> map);
 }

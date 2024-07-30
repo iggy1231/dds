@@ -87,4 +87,6 @@ public interface MyPageService {
 	public List<Coupon> listCouponDisabled(long user_num);
 	public void updateCouponUse();
 	public void deleteQna(long num);
+	
+	public List<TravelReview> listPast(Map<String, Object> map);
 }

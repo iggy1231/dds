@@ -5,8 +5,8 @@
 <div class="row justify-content-between">
 	<h2 class="col color-text">전체 ${dataCount}건</h2>
 		<div class="col text-end">
-				<button id="listRecent" type="button" class="btn active" data-bs-toggle="button">최신순</button>
-				<button id="listPast" type="button" class="btn" data-bs-toggle="button">과거순</button>
+				<button id="listRecent" type="button" class="btn ${mode=='newest'?'active':''}" data-bs-toggle="button">최신순</button>
+				<button id="listPast" type="button" class="btn ${mode=='oldest'?'active':''}" data-bs-toggle="button">과거순</button>
 		</div>
 </div>
 <div class="row g-4">

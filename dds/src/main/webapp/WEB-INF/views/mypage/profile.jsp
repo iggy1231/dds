@@ -404,6 +404,16 @@ function ajaxFun(url, method, formData, dataType, fn, file = false) {
 $(function(){
 	listReview(1);
 	
+	$(document).on('click', '#listRecent', function(){
+		$('#listPast').removeClass("active");
+		listReview(1);
+	});
+	
+	$(document).on('click', '#listPast', function(){
+		$('#listRecent').removeClass("active");
+		listPast(1);
+	});
+	
     $("button[role='tab']").on("click", function(e){
 		const tab = $(this).attr("aria-controls");
 		if(tab === "1") {
@@ -416,6 +426,15 @@ $(function(){
 
 function listReview(page) {
 	let url = '${pageContext.request.contextPath}/mypage/review';
+	
+	const fn = function(data) {
+		$('.tab-content').html(data);
+	};
+	ajaxFun(url, "get", {pageNo : page}, "text", fn);
+}
+
+function listPast(page) {
+	let url = '${pageContext.request.contextPath}/mypage/reviewPast';
 	
 	const fn = function(data) {
 		$('.tab-content').html(data);
@@ -457,42 +476,6 @@ $('.tab-content').on('click', '.deleteQuestion', function() {
              }
          });
      }   
-});
-
-$(function(){
-	$('.listRecent').click(function() {
-		$('.listPast').removeClass("active");
-		$('.list-content').html("");
-		listPage(1);
-	});
-	
-	$('.listPast').click(function() {
-		$('.listTypebtn1').removeClass("active");
-		$('.listRecent').html("");
-		popularListPage(1);
-	});
-	
-	$('.list-footer .more-btn').click(function(){
-		let pageNo = $('.list-content').attr('data-pageNo');
-		let total_page = $('.list-content').attr('data-totalPage');
-		pageNo++;
-		
-		if($(".listRecent").hasClass("active") === true) {
-			if(pageNo>=total_page) {
-				$('.list-footer .more-btn').hide();
-				listPage(pageNo);
-			} else {
-				listPage(pageNo);
-			}
-		} else if($(".listPast").hasClass("active") === true) {	
-			if(pageNo>=total_page) {
-				$('.list-footer .more-btn').hide();
-				popularListPage(pageNo);
-			} else {
-				popularListPage(pageNo);
-			}
-		}
-	});
 });
 </script>
 

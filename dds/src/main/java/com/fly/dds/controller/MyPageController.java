@@ -115,7 +115,49 @@ public class MyPageController {
 		model.addAttribute("pageNo",current_page);
 
 		model.addAttribute("total_page",total_page);
+		model.addAttribute("mode", "newest");
+		
+		return "mypage/review";
+	}
+	
+	@GetMapping("reviewPast")
+	public String reviewPast(
+			 @RequestParam(value = "pageNo", defaultValue = "1") int current_page,
+    		HttpSession session,
+    		Model model
+    		) {
+			 
+		    
+		    Map<String, Object> map = new HashMap<>();
+		    int size = 9;
+		    int dataCount = 0;
+		    
+		    
+		    SessionInfo Info = (SessionInfo)session.getAttribute("member");
 
+		    
+		    Long user_num = Info.getUser_num();
+		    
+		    map.put("user_num", user_num);
+		    
+		    dataCount = service.dataCount(map);
+		    int total_page=myUtil.pageCount(dataCount, size);
+		    if(total_page < current_page) current_page = total_page;
+		    int offset = (current_page - 1) * size;
+		    map.put("offset", offset);
+		    map.put("size", size);
+		    List<TravelReview> list = service.listPast(map);
+
+		    String paging = myUtil.pagingMethod(current_page, total_page, "listPast");
+		    
+		model.addAttribute("dataCount" , dataCount);    
+		model.addAttribute("list",list);
+		model.addAttribute("paging", paging);
+
+		model.addAttribute("pageNo",current_page);
+
+		model.addAttribute("total_page",total_page);
+		model.addAttribute("mode", "oldest");
 		return "mypage/review";
 	}	
 	

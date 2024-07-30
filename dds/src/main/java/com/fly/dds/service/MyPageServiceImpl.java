@@ -592,4 +592,21 @@ public class MyPageServiceImpl implements MyPageService {
 		}
 	}
 	
+	@Override
+	public List<TravelReview> listPast(Map<String, Object> map) {
+		List<TravelReview> list = null;
+		try {
+			list = mapper.listPast(map);
+			
+			for(TravelReview dto:list) {
+				dto.setImageFilename(mapper.findThumbnailByNum(dto.getNum()));
+				
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		return list;
+	}
+	
 }
