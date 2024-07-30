@@ -248,12 +248,12 @@ hr {
         <div class="row justify-content-center">
             <div class="col-md-12">
                 <div class="d-flex pt-1 p-3">
-                    <div class="ratio ratio-4x3" style="width:530px; height: 200px;">
-                        <img src="${pageContext.request.contextPath}/uploads/room/${dto.thumbnail}" class="img-fluid rounded" alt="숙소 이미지">
+                    <div class="ratio ratio-4x3 me-1" style="width:520px; height: 200px;">
+                        <img src="${pageContext.request.contextPath}/uploads/room/${dto.thumbnail}" class="img-fluid rounded" alt="숙소 이미지" style="object-fit: cover; height: 100%;">
                     </div>
                     <div class="d-flex flex-column justify-content-between w-100 pl-5">
                         <div class="p-3">
-                            <h5 class="mb-2 fw-semibold">${dto.room_type}</h5>
+                            <h5 class="mb-2 fw-medium text-primary">${dto.room_type}</h5>
                             <a href="${pageContext.request.contextPath}/room/article?num=${dto.num}&page=${page}&sdate=${sdate}&edate=${edate}&people=${people}">
     						<h4 class="mb-2 fw-semibold">${dto.subject}</h4>
 							</a>
