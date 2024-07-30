@@ -43,6 +43,9 @@
         flex-wrap: wrap;
         justify-content: space-between;
     }
+    .content-card:hover {
+    	cursor: pointer; 
+    }
     .tab-content {
         display: none;
     }
@@ -153,6 +156,10 @@
         });
     });
 
+    function companionArticle(num) {
+    	location.href='${pageContext.request.contextPath}/companion/article?num='+num;
+    }
+    
     function listWaitingCompanion(page) {
     	let url = '${pageContext.request.contextPath}/mypage/waitingCompanion';
     	

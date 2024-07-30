@@ -7,7 +7,7 @@
 <div class="row">
 <c:forEach var="list4" items="${list}">
 	<div class="col-md-4">
-	<div class="content-card">
+	<div class="content-card" onclick="companionArticle(${list4.num});">
 		<img src="${pageContext.request.contextPath}/uploads/companion/${list4.saveFilename}" alt="Content Image">
 		<div class="card-body">
 			<h5>${list4.subject}</h5>
@@ -21,5 +21,5 @@
 </c:forEach>
 </div>
 </div>
-<div class="page-navigation">${dataCount == 0 ? "등록된 댓글이 없습니다." : paging}
+<div class="page-navigation">${dataCount == 0 ? "작성한 동행이 없습니다" : paging}
 </div>
