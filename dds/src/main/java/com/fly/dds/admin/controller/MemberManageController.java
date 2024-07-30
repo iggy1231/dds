@@ -181,7 +181,7 @@ public class MemberManageController {
 		}
 	
 		
-		return ".admin.memberManage.list";
+		return "redirect:/admin/memberManage/list";
 	}
 	
 	@PostMapping("unblock")
