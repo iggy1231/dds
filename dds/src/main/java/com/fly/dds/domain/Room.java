@@ -69,6 +69,18 @@ public class Room {
 	private String card_num;
 	
 	private int final_price;
+	
+	private int update_review;
+	
+	
+
+	public int getUpdate_review() {
+		return update_review;
+	}
+
+	public void setUpdate_review(int update_review) {
+		this.update_review = update_review;
+	}
 
 	public long getNum() {
 		return num;

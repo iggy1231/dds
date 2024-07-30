@@ -23,5 +23,7 @@ public interface RoomReviewMapper {
 	// public List<RoomReview>listReviewFile(long num);
 	public void deleteRoomReview(long num) throws SQLException;
 	
+	public void updateSaleForReview(RoomReview dto) throws SQLException;
+	
 	
 }

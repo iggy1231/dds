@@ -22,6 +22,16 @@ public class RoomReview {
 	
 	private String boardName;
 	
+	private long sale_num;
+	
+	
+	
+	public long getSale_num() {
+		return sale_num;
+	}
+	public void setSale_num(long sale_num) {
+		this.sale_num = sale_num;
+	}
 	public String getBoardName() {
 		return boardName;
 	}

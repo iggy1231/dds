@@ -132,7 +132,12 @@
                 <!-- 리뷰 폼 -->
                 <div class="flex-item" style="display: flex; justify-content: flex-end; margin-top: 10px;">
                     <button class="btn btn-secondary" style="margin-right: 5px;">다시예약</button>
-                    <button class="btn btn-primary btnReviewWriteForm" style="margin-right: 5px;" data-bs-toggle="modal" data-bs-target="#reviewModal" onclick="writeForm(${list2.num});">리뷰작성</button>
+                  	<c:if test="${list2.update_review == 0 }">
+                    <button class="btn btn-primary btnReviewWriteForm" style="margin-right: 5px;" data-bs-toggle="modal" data-bs-target="#reviewModal" onclick="writeForm(${list2.num},${list2.sale_num});">리뷰작성</button>                  	
+                  	</c:if>
+                    <c:if test="${list2.update_review == 1 }">
+                    <button class="btn btn-primary" style="margin-right: 5px;"  > 작성완료 </button>                  	
+                  	</c:if>
                     <div class="dropdown">
                         <button onclick="toggleDropdown()" class="btn btn-outline-secondary">...</button>
                         <div id="myDropdown" class="dropdown-content">
@@ -165,6 +170,7 @@
                                 <a href="#" class="on"><i class="bi bi-star-fill"></i></a>
                                 <input type="hidden" name="rating" value="5">
                                 <input type="hidden" name="num" value="${list2.num}">
+                                <input type="hidden" name="sale_num" value="${list2.sale_num}">
                             </p>
                         </div>
                         <div class="p-1">

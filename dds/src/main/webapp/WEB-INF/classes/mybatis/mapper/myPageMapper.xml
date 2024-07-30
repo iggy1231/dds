@@ -300,16 +300,16 @@
 	
 	<select id="listMyRoom" parameterType="map" resultType="com.fly.dds.domain.Room">
 	    SELECT r.num, thumbnail, subject, rd.name, sdate, edate, (edate - sdate) AS days, rs.sale_num,
-	     rd.detail_num, rs.user_num, pc.imp_uid , pc.card_name , pc.card_num , rs.final_price
+	     rd.detail_num, rs.user_num, pc.imp_uid , pc.card_name , pc.card_num , rs.final_price , update_review
 	    FROM room r
 	    JOIN room_detail rd ON r.num = rd.num
 	    JOIN room_sale rs ON rd.detail_num = rs.detail_num
 	    JOIN member1 m ON m.user_num = rs.user_num
 	    left outer join room_pay_cash pc on rs.sale_num = pc.sale_num
 	    left outer join room_refund rr on rs.sale_num = rr.sale_num
-	    WHERE rs.user_num = #{user_num}
-	    and rr.sale_num is null 
-	    GROUP BY thumbnail, subject, rd.name, sdate, edate, rs.sale_num, rd.detail_num, rs.user_num, r.num, pc.imp_uid , pc.card_name , pc.card_num , rs.final_price
+	    WHERE rs.user_num = 1
+	    GROUP BY thumbnail, subject, rd.name, sdate, edate, rs.sale_num, rd.detail_num,
+        rs.user_num, r.num, pc.imp_uid , pc.card_name , pc.card_num , rs.final_price , update_review
 	    ORDER BY sdate ASC
 	</select>
 	

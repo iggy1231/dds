@@ -21,6 +21,7 @@ public class RoomReviewServiceImpl implements RoomReviewService {
 		try {
 			
 			mapper.insertRoomReview(dto);
+			mapper.updateSaleForReview(dto);
 			
 		} catch (Exception e) {
 			e.printStackTrace();

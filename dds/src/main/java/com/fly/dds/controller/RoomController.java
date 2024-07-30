@@ -448,7 +448,9 @@ public class RoomController {
 	// 리뷰 등록 - ajax
 	@PostMapping("reviewWrite")
 	@ResponseBody
-	public Map<String, Object> writeReviewSubmit(RoomReview dto, HttpSession session) throws Exception {
+	public Map<String, Object> writeReviewSubmit(RoomReview dto, HttpSession session,
+			@RequestParam long sale_num 
+			) throws Exception {
 	    Map<String, Object> map = new HashMap<>();
 	    SessionInfo info = (SessionInfo) session.getAttribute("member");
 	    dto.setUser_num(info.getUser_num());
@@ -463,7 +465,7 @@ public class RoomController {
                 String filename = fileManager.doFileUpload(dto.getPhotoFile(), pathname);
                 dto.setPhoto(filename);
 	        }
-
+	        dto.setSale_num(sale_num);
 	        reviewService.insertRoomReview(dto, pathname);
 	        map.put("state", "true");
 	    } catch (Exception e) {
@@ -494,6 +496,7 @@ public class RoomController {
 			
 			
 			map.put("num", num);
+
 			Summary summary = reviewService.findByRoomReviewSummary(map);
 			
 			if(summary == null) {

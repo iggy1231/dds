@@ -9,6 +9,10 @@
 		VALUES(room_review_seq.NEXTVAL, #{rating} , #{content}, SYSDATE, #{photo , jdbcType=VARCHAR}, #{num} , #{user_num} )
 	</insert>
 	
+	<update id="updateSaleForReview">
+		update room_sale set update_review = 1 where sale_num = #{sale_num}
+	</update>
+	
 	<!--  public Summary findByReviewSummary(Map<String, Object> map); -->
 	<select id="findByRoomReviewSummary" parameterType="map" resultType="com.fly.dds.domain.Summary">
 		SELECT NVL(COUNT(*), 0) count,

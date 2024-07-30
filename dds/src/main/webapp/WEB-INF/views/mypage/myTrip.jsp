@@ -269,9 +269,10 @@
 
 
 <script type="text/javascript">
-function writeForm(num) {
+function writeForm(num,sale_num) {
 	const f=document.reviewForm;
 	f.num.value=num;
+	f.sale_num.value=sale_num;
 	
 	let modalBtn=document.querySelector('#reviewModal .modal-body button');
 	modalBtn.dataset.roomId=num;
