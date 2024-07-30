@@ -214,7 +214,6 @@ hr {
                                              	<input type="checkbox" name="facilities" class="m-1 mb-2 px-3 py-1 btn border border-gray rounded-pill keyword-btn" value="사우나">
                                              	<input type="checkbox" name="facilities" class="m-1 mb-2 px-3 py-1 btn border border-gray rounded-pill keyword-btn" value="취사가능">
                                              	<input type="checkbox" name="facilities" class="m-1 mb-2 px-3 py-1 btn border border-gray rounded-pill keyword-btn" value="바비큐">
-                                             	<input type="checkbox" name="facilities" class="m-1 mb-2 px-3 py-1 btn border border-gray rounded-pill keyword-btn" value="감성숙소">
                                              	<input type="checkbox" name="facilities" class="m-1 mb-2 px-3 py-1 btn border border-gray rounded-pill keyword-btn" value="수영장">
                                              	<input type="checkbox" name="facilities" class="m-1 mb-2 px-3 py-1 btn border border-gray rounded-pill keyword-btn" value="노래방">
                                              	<input type="checkbox" name="facilities" class="m-1 mb-2 px-3 py-1 btn border border-gray rounded-pill keyword-btn" value="스파">
