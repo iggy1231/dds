@@ -22,6 +22,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.fly.dds.admin.domain.MemberManage;
+import com.fly.dds.admin.service.MemberManageService;
 import com.fly.dds.common.FileManager;
 import com.fly.dds.common.MyUtil;
 import com.fly.dds.domain.Member;
@@ -56,13 +58,28 @@ public class RoomController {
 	private RoomReviewService reviewService;
 	
 	@Autowired
+	private MemberManageService mmservice;
+	
+	@Autowired
 	private MyUtil myUtil;
 	
 	@Autowired
 	private FileManager fileManager;
 	
 	@GetMapping("main")
-	public String roomMain() {
+	public String roomMain(HttpSession session , Model model) {
+		SessionInfo info=(SessionInfo) session.getAttribute("member");
+		try {
+			MemberManage dto2;
+			dto2 = mmservice.checkBan(info.getUser_num());
+		        if(dto2.getBan_state() == 1) {
+		            session.invalidate();
+		            model.addAttribute("dto2",dto2);
+		            return "/member/login";
+		}
+		}catch (Exception e) {
+			e.printStackTrace();
+		}
 		return ".room.main";
 	}
 	

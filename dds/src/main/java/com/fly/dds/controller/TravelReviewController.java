@@ -20,6 +20,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.fly.dds.admin.domain.MemberManage;
+import com.fly.dds.admin.service.MemberManageService;
 import com.fly.dds.common.MyUtil;
 import com.fly.dds.domain.SessionInfo;
 import com.fly.dds.domain.TravelReview;
@@ -38,12 +40,28 @@ public class TravelReviewController {
 
 	@Autowired
 	private TravelReviewReplyService replyService;
+	
+	@Autowired
+	private MemberManageService mmservice;
 
 	@RequestMapping("list")
 	public String list(@RequestParam(value = "page", defaultValue = "1") int current_page,
 			@RequestParam(defaultValue = "all") String schType, @RequestParam(defaultValue = "") String kwd,
-			HttpServletRequest req, Model model) throws Exception {
+			HttpServletRequest req, Model model , HttpSession session) throws Exception {
 
+		SessionInfo info=(SessionInfo) session.getAttribute("member");
+		try {
+			MemberManage dto2;
+			dto2 = mmservice.checkBan(info.getUser_num());
+		        if(dto2.getBan_state() == 1) {
+		            session.invalidate();
+		            model.addAttribute("dto2",dto2);
+		            return "/member/login";
+		}
+		}catch (Exception e) {
+			e.printStackTrace();
+		}
+		
 		int size = 10;
 		int total_page = 0;
 		int dataCount = 0;
