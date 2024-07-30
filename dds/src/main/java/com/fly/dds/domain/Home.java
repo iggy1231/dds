@@ -7,7 +7,7 @@ import org.springframework.web.multipart.MultipartFile;
 public class Home {
 	private long num;
     private String subject;
-    private String roomType; // 카멜케이스로 변경
+    private String room_type; // 카멜케이스로 변경
     private String regDate; // 카멜케이스로 변경
     private String addr1;
     private int active;
@@ -32,11 +32,12 @@ public class Home {
 	public void setSubject(String subject) {
 		this.subject = subject;
 	}
-	public String getRoomType() {
-		return roomType;
+	
+	public String getRoom_type() {
+		return room_type;
 	}
-	public void setRoomType(String roomType) {
-		this.roomType = roomType;
+	public void setRoom_type(String room_type) {
+		this.room_type = room_type;
 	}
 	public String getRegDate() {
 		return regDate;

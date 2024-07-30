@@ -294,64 +294,67 @@
  .custom-height {
     height: 60px; /* 원하는 높이값으로 수정하세요 */
 } 
+
+
         
 </style>
 
 
- <!-- Hero Start -->
-        <div class="container-fluid py-5 mb-3 hero-header">
-            <div class="container pt-1 pb-4">
-                <div class="row m-2 g-5 align-items-center">
-                    <div class="col-md-12">
-                        <h2 class="mb-1 text-light display-5" style="font-weight: 600;">두둥실 떠나는</h2>
-                        <h2 class="mb-1 text-light display-5" style="font-weight: 600;">신나는 여행</h2>
-                        <div class="container mt-4">
-						    <div class="search-form-container">
-						        <ul class="nav nav-tabs" id="myTab" role="tablist">
-						            <li class="nav-item" role="presentation">
-						                <a class="nav-link active" id="domestic-tab" data-bs-toggle="tab" href="#domestic" role="tab" aria-controls="domestic" aria-selected="true">국내 숙소</a>
-						            </li>
-						            <li class="nav-item" role="presentation">
-						                <a class="nav-link" id="overseas-tab" data-bs-toggle="tab" href="#overseas" role="tab" aria-controls="overseas" aria-selected="false">여행 정보</a>
-						            </li>
-						        </ul>
-						        <div class="tab-content mt-1" id="myTabContent">
-						            <div class="tab-pane fade show active my-3" id="domestic" role="tabpanel" aria-labelledby="domestic-tab">
-						                <form class="d-flex" name="searchForm" action="${pageContext.request.contextPath}/room/list">
-						                    <div class="py-3 input-group custom-height">
-									        <span class="input-group-text custom-height rounded-start"><i class="bi bi-search"></i></span> <!-- 여기에 클래스 추가 -->
-									        <input name="kwd" type="text" class="form-control custom-height rounded-end" placeholder="여행지나 숙소를 검색해보세요" autocomplete='off'>
-									    </div>
-									    <div class="py-3 input-group mx-1 custom-height"> 
-									        <span class="input-group-text custom-height rounded-start"><i class="bi bi-calendar"></i></span>
-									        <input name="sdate" type="text" id="startDate" class="form-control custom-height" placeholder="시작 날짜" autocomplete='off'>
-									        <input name="edate" type="text" id="endDate" class="form-control custom-height rounded-end" placeholder="종료 날짜" autocomplete='off'>
-									    </div>
-									    <div class="py-3 input-group custom-height"> 
-									        <span class="input-group-text custom-height rounded-start"><i class="bi bi-people"></i></span>
-									        <input name="people" type="text" class="form-control custom-height" placeholder="인원 입력" autocomplete='off'>
-									    <button type="submit" class="btn btn-primary ms-1 custom-height rounded-end">검색</button>
-									    </div>
-										</form>
-						            </div>
-						            <div class="tab-pane fade" id="overseas" role="tabpanel" aria-labelledby="overseas-tab">
-						                <form class="d-flex" name="searchForm" action="${pageContext.request.contextPath}/info/search">
-						                    <div class="input-group mr-1 pe-2">
-						                        <span class="input-group-text"><i class="p-2 bi bi-search"></i></span>
-						                        <input name="kwd" type="text" class="p-3 form-control" placeholder="원하는 여행지를 검색해보세요">
-						                    	<input type="hidden" name="schType" value="all">
-						                    </div>
-						                    <button type="submit" class="p-3  btn btn-primary">검색</button>
-						                </form>
-						            </div>
-						        </div>
-						    </div>
-						</div>
+<!-- Hero Start -->
+<div class="container-fluid py-5 mb-3 hero-header">
+    <div class="container pt-1 pb-4">
+        <div class="row m-2 g-5 align-items-center">
+            <div class="col-md-12">
+                <h2 class="mb-1 text-light display-5" style="font-weight: 600;">두둥실 떠나는</h2>
+                <h2 class="mb-1 text-light display-5" style="font-weight: 600;">신나는 여행</h2>
+                <div class="container mt-4">
+                    <div class="search-form-container">
+                        <ul class="nav nav-tabs" id="myTab" role="tablist">
+                            <li class="nav-item" role="presentation">
+                                <a class="nav-link active" id="domestic-tab" data-bs-toggle="tab" href="#domestic" role="tab" aria-controls="domestic" aria-selected="true">국내 숙소</a>
+                            </li>
+                            <li class="nav-item" role="presentation">
+                                <a class="nav-link" id="overseas-tab" data-bs-toggle="tab" href="#overseas" role="tab" aria-controls="overseas" aria-selected="false">여행 정보</a>
+                            </li>
+                        </ul>
+                        <div class="tab-content mt-1" id="myTabContent">
+                            <div class="tab-pane fade show active my-3" id="domestic" role="tabpanel" aria-labelledby="domestic-tab">
+                                <form class="d-flex pb-1" name="searchForm" action="${pageContext.request.contextPath}/room/list">
+                                    <div class="py-3 input-group custom-height">
+                                        <span class="input-group-text custom-height rounded-start"><i class="bi bi-search"></i></span>
+                                        <input name="kwd" type="text" class="form-control custom-height rounded-end" placeholder="여행지나 숙소를 검색해보세요" autocomplete='off'>
+                                    </div>
+                                    <div class="py-3 input-group mx-1 custom-height">
+                                        <span class="input-group-text custom-height rounded-start"><i class="bi bi-calendar"></i></span>
+                                        <input name="sdate" type="text" id="startDate" class="form-control custom-height" placeholder="시작 날짜" autocomplete='off'>
+                                        <input name="edate" type="text" id="endDate" class="form-control custom-height rounded-end" placeholder="종료 날짜" autocomplete='off'>
+                                    </div>
+                                    <div class="py-3 input-group custom-height">
+                                        <span class="input-group-text custom-height rounded-start"><i class="bi bi-people"></i></span>
+                                        <input name="people" type="text" class="form-control custom-height" placeholder="인원 입력" autocomplete='off'>
+                                        <button type="submit" class="btn btn-primary ms-1 custom-height rounded-end">검색</button>
+                                    </div>
+                                </form>
+                            </div>
+                            <div class="tab-pane fade" id="overseas" role="tabpanel" aria-labelledby="overseas-tab">
+                                <form class="d-flex pt-4 pb-2" name="searchForm" action="${pageContext.request.contextPath}/info/search">
+                                    <div class="input-group mr-1 pe-2">
+                                        <span class="input-group-text rounded-start"><i class="p-2 bi bi-search"></i></span>
+                                        <input name="kwd" type="text" class="p-3 form-control" placeholder="원하는 여행지를 검색해보세요">
+                                        <input type="hidden" name="schType" value="all">
+                                    </div>
+                                    <button type="submit" class="p-3 btn btn-primary rounded-end">검색</button>
+                                </form>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
-        <!-- Hero End -->
+    </div>
+</div>
+<!-- Hero End -->
+
 <div class="container-xxl py-5">
     <div class="container">
         <div class="col-lg-12">
@@ -417,7 +420,7 @@
                             <div class="position-relative overflow-hidden">
                                 <a href="#"><img class="ratio ratio-4x3 img-fluid img-fluid-hover" src="${pageContext.request.contextPath}/uploads/room/${room.thumbnail}" alt="${room.subject}"></a>
                                 <div class="bg-primary rounded text-white position-absolute start-0 top-0 m-4 py-1 px-3">★ ${room.rating}</div>
-                                <div class="display-9 bg-white rounded-top text-primary position-absolute start-0 bottom-0 mx-4 pt-1 px-3"><h5 style="font-weight: 600;">${room.roomType}</h5></div>
+                                <div class="display-9 bg-white rounded-top text-primary position-absolute start-0 bottom-0 mx-4 pt-1 px-3"><h6 style="font-weight: 600;">${room.room_type}</h6></div>
                             </div>
                             <div class="px-4 py-2 pb-3">
                                 <h4 class="text-primary my-2 pt-1" style="font-weight: 600;">${room.price}원</h4>

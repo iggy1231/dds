@@ -157,16 +157,16 @@
 .score-star { font-size: 0; letter-spacing: -4px; }
 .score-star .item {
 	font-size: 22px; letter-spacing: 1px; display: inline-block;
-	color: #BEE8FD; text-decoration: none; vertical-align: middle;
+	color: #D5D5D5; text-decoration: none; vertical-align: middle;
 }
 .score-star .item:first-child{ margin-left: 0; }
-.score-star .on { color: #18A8F1; }
+.score-star .on { color: #FFE400; }
 
 .graph { font-size: 0;  letter-spacing: 0; word-spacing: 0; }
 .graph-title { padding-right: 3px; }
 .graph .one-space { font-size:13px; background:#eee;}
 .graph .one-space:after { content: ''; display: inline-block; width:17px; }
-.graph .one-space.on{ background:  #BEE8FD; }
+.graph .one-space.on{ background:  #FFE400; }
 .graph .one-space:first-child{ border-top-left-radius:5px;  border-bottom-left-radius:5px; }
 .graph .one-space:last-child{ border-top-right-radius:5px; border-bottom-right-radius:5px; }
 .graph-rate { padding-left: 5px; display: inline-block; width: 60px; text-align: left; }
@@ -408,51 +408,50 @@
 						</div> 
 						
 						<div class="col p-3 text-center d-flex flex-column justify-content-center review-rate">
-							<div class="fs-6 fw-semibold">평점비율</div>
 							<div class="p-1 score-5">
-								<span class="graph-title">5점</span>
+								<span class="graph-title pe-2">5점</span>
 								<span class="graph">
 									<c:forEach var="n" begin="1" end="10">
 										<label class="one-space"></label>
 									</c:forEach>
 								</span>
-								<span class="graph-rate">0%</span>
+								<span class="graph-rate ps-2">0%</span>
 							</div>
 							<div class="p-1 score-4">
-								<span class="graph-title">4점</span>
+								<span class="graph-title pe-2">4점</span>
 								<span class="graph">
 									<c:forEach var="n" begin="1" end="10">
 										<label class="one-space"></label>
 									</c:forEach>
 								</span>
-								<span class="graph-rate">0%</span>
+								<span class="graph-rate ps-2">0%</span>
 							</div>
 							<div class="p-1 score-3">
-								<span class="graph-title">3점</span>
+								<span class="graph-title pe-2">3점</span>
 								<span class="graph">
 									<c:forEach var="n" begin="1" end="10">
 										<label class="one-space"></label>
 									</c:forEach>
 								</span>
-								<span class="graph-rate">0%</span>
+								<span class="graph-rate ps-2">0%</span>
 							</div>
 							<div class="p-1 score-2">
-								<span class="graph-title">2점</span>
+								<span class="graph-title pe-2">2점</span>
 								<span class="graph">
 									<c:forEach var="n" begin="1" end="10">
 										<label class="one-space"></label>
 									</c:forEach>
 								</span>
-								<span class="graph-rate">0%</span>
+								<span class="graph-rate ps-2">0%</span>
 							</div>
 							<div class="p-1 score-1">
-								<span class="graph-title">1점</span>
+								<span class="graph-title pe-2">1점</span>
 								<span class="graph">
 									<c:forEach var="n" begin="1" end="10">
 										<label class="one-space"></label>
 									</c:forEach>
 								</span>
-								<span class="graph-rate">0%</span>
+								<span class="graph-rate ps-2">0%</span>
 							</div>
 						</div>
 					</div>
@@ -737,11 +736,12 @@ function printReview(data) {
 		out += '      </div>';
 		out += '    </div>';
 		if(photo && photo.length > 0) {
-		    out += '    <div class="col-md-4 text-end order-md-2">';
-		    out += '      <div class="ratio customratio ms-3">';
-		    out += '        <img class="border rounded img-fluid" src="${pageContext.request.contextPath}/uploads/roomReview/' + photo + '">';
-		    out += '      </div>';
-		    out += '    </div>';
+			out += '    <div class="col-md-4 d-flex justify-content-end order-md-5">';
+			out += '        <div class="ratio ratio-4x3 customratio ms-5" style="height: 140px; width: 230px;">';
+			out += '            <img class="border rounded img-fluid" style="object-fit: cover; height: 100%;" src="${pageContext.request.contextPath}/uploads/roomReview/' + photo + '">';
+			out += '        </div>';
+			out += '    </div>';
+
 		}
 		out += '  </div>';
 		out += '</div>';
