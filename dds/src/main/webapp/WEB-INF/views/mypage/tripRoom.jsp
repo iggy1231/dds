@@ -132,7 +132,7 @@
                 <!-- 리뷰 폼 -->
                 <div class="flex-item" style="display: flex; justify-content: flex-end; margin-top: 10px;">
                     <button class="btn btn-secondary" style="margin-right: 5px;">다시예약</button>
-                    <button class="btn btn-primary btnReviewWriteForm" style="margin-right: 5px;" data-bs-toggle="modal" data-bs-target="#reviewModal">리뷰작성</button>
+                    <button class="btn btn-primary btnReviewWriteForm" style="margin-right: 5px;" data-bs-toggle="modal" data-bs-target="#reviewModal" onclick="writeForm(${list2.num});">리뷰작성</button>
                     <div class="dropdown">
                         <button onclick="toggleDropdown()" class="btn btn-outline-secondary">...</button>
                         <div id="myDropdown" class="dropdown-content">
@@ -145,6 +145,7 @@
     </div>
 
     <!-- Modal -->
+</c:forEach>
 <div class="modal fade" id="reviewModal" tabindex="-1" aria-labelledby="reviewModalLabel" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
@@ -185,7 +186,6 @@
         </div>
     </div>
 </div>
-</c:forEach>
 
 
 

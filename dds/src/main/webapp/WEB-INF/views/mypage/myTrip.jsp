@@ -269,6 +269,17 @@
 
 
 <script type="text/javascript">
+function writeForm(num) {
+	const f=document.reviewForm;
+	f.num.value=num;
+	
+	let modalBtn=document.querySelector('#reviewModal .modal-body button');
+	modalBtn.dataset.roomId=num;
+	
+	console.log(f.num.value);
+	console.log(modalBtn.dataset.roomId);
+}
+
 function toggleDropdown() {
     document.getElementById("myDropdown").classList.toggle("show");
 }
