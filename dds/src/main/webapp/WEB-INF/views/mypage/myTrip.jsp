@@ -256,9 +256,6 @@
             <li class="nav-item" role="presentation">
                 <button class="nav-link" id="tab-2" data-bs-toggle="tab" data-bs-target="#tab-pane-2" type="button" role="tab" aria-controls="2" aria-selected="false"> 투어 </button>
             </li>
-            <li class="nav-item" role="presentation">
-                <button class="nav-link" id="tab-3" data-bs-toggle="tab" data-bs-target="#tab-pane-3" type="button" role="tab" aria-controls="3" aria-selected="false"> 일정 </button>
-            </li>
         </ul>
         
         <div class="tab-content mt-3">
@@ -359,7 +356,7 @@ $(function(){
 		if(tab === "1") {
 			listMyRoom(1);
 		} else if(tab === "2") {
-			listReply(1);
+			
 		}
     });
 });
@@ -373,14 +370,6 @@ function listMyRoom(page) {
 	ajaxFun(url, "get", {pageNo : page}, "text", fn);
 }
 
-function listReply(page) {
-	let url = '${pageContext.request.contextPath}/mypage/reply';
-	
-	const fn = function(data) {
-		$('.tab-content').html(data);
-	};
-	ajaxFun(url, "get", {pageNo : page}, "text", fn);
-}
 
 // 페이지 로드 시점에서 각 버튼에 이벤트 리스너 추가
 document.querySelectorAll('.btn.btn-primary').forEach(function(button) {
