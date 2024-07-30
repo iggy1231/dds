@@ -44,7 +44,7 @@
 }
 
 .checkbox:checked + label:before, .checkbox:not(:checked) + label:before {
-	background-color: #ffffff;
+	background-color: #18A8F1;
 	border: 1px solid #18A8F1;
 }
 
@@ -54,7 +54,7 @@
 }
 
 .checkbox:checked + label:before, .checkbox:not(:checked) + label:before {
-	color: #ffffff;
+	color: #18A8F1;
 }
 
 .form-style {
@@ -63,7 +63,7 @@
 }
 
 .form-style:focus {
-	border: 1px solid #25D380;
+	border: 1px solid #BEE8FD !important;
 }
 
 .input-icon {
@@ -71,14 +71,19 @@
 }
 
 .btn, .btn:hover {
-	background-color: #ffffff;
+	background-color: #18A8F1;
 	border: 1px solid #18A8F1;
-	color: #18A8F1;
+	color: #fff;
+	width: 200px;
 }
 
 .forgetPwd, .forgetPwd:hover {
 	color: #18A8F1;
 	text-decoration: none;
+}
+
+.form-style::placeholder {
+    color: #949494 !important;
 }
 </style>
 
@@ -88,28 +93,26 @@
         <div class="row full-height justify-content-center">
             <div class="col-12 text-center align-self-center py-5">
                 <div class="section pb-5 pt-5 pt-sm-2 text-center">
-                    <h6 class="mb-0 pb-3 swap"><span>Log In </span><span>Sign Up</span></h6>
-                    <input class="checkbox" type="checkbox" id="reg-log" name="reg-log"/>
-                    <label for="reg-log">
+                    <h6 class="mb-0 pb-3 swap"><span>로그인 </span><span>회원가입</span></h6>
+                    <input class="checkbox bg-primary" type="checkbox" id="reg-log" name="reg-log"/>
+                    <label for="reg-log" >
                     </label>
                     <div class="card-3d-wrap mx-auto">
                         <div class="card-3d-wrapper">
                             <div class="card-front">
                                 <div class="center-wrap">
                                     <div class="section text-center">
-                                        <h4 class="mb-4 pb-3 title">Log In</h4>
+                                        <h4 class="mb-3 pb-3 title">로그인</h4>
                                         <form action="${pageContext.request.contextPath}/member/login" method="post" name="loginForm">
                                             <div class="form-group">
-                                            	<!-- 나중에 value="admin" 지울것! -->
-                                                <input value="admin" type="text" name="userId" class="form-style" placeholder="Your Id" autocomplete="off"/>
+                                                <input value="admin" type="text" name="userId" class="form-style" placeholder="Id 입력" autocomplete="off"/>
                                                 <i class="input-icon bi bi-box-arrow-in-right"></i>
                                             </div>    
                                             <div class="form-group mt-2">
-                                            	<!-- 나중에 value="admin" 지울것! -->
-                                                <input value="admin" type="password" name="userPwd" class="form-style" placeholder="Your Password" autocomplete="off">
+                                                <input value="admin" type="password" name="userPwd" class="form-style" placeholder="Password 입력" autocomplete="off">
                                                 <i class="input-icon bi bi-lock-fill"></i>
                                             </div>
-                                            <button type="button" onclick="sendLogin();" class="btn mt-4" data-bs-toggle="modal" data-bs-target="#alertModal">submit</button>
+                                            <button type="button" onclick="sendLogin();" class="btn mt-4" data-bs-toggle="modal" data-bs-target="#alertModal">로그인하기</button>
                                             <p class="mb-0 mt-4 text-center"><a href="#0" class="forgetPwd link">${message}</a></p>
                                             <c:if test="${not empty dto2.reason}">
 											    <p>${dto2.reason}의 사유로 ${dto2.ban_edate} 까지 차단되었습니다.</p>
@@ -121,23 +124,23 @@
                             <div class="card-back">
                                 <div class="center-wrap">
                                     <div class="section text-center">
-                                        <h4 class="mb-4 pb-3 title">Sign Up</h4>
+                                        <h4 class="mb-3 pb-2 title">회원가입</h4>
                                         <form action="${pageContext.request.contextPath}/member/signup" method="post" name="signupForm">
                                             <div class="form-group">
-                                                <input type="text" name="userId" class="form-style" placeholder="Your Id" autocomplete="off">
+                                                <input type="text" name="userId" class="form-style" placeholder="Id 입력" autocomplete="off">
                                                 <i class="input-icon bi bi-box-arrow-in-right"></i>
                                             </div>     
                                             <div class="form-group mt-2">
-                                                <input type="password" name="userPwd" class="form-style" placeholder="Your Password" autocomplete="off">
+                                                <input type="password" name="userPwd" class="form-style" placeholder="Password 입력" autocomplete="off">
                                                 <i class="input-icon bi bi-lock-fill"></i>
                                             </div>
                                             <div class="form-group mt-2">
-                                                <input type="text" name="userName" class="form-style" placeholder="Your Name" autocomplete="off">
+                                                <input type="text" name="userName" class="form-style" placeholder="이름 입력" autocomplete="off">
                                                 <i class="input-icon bi bi bi-person-plus"></i>
                                             </div>
   		                                    <div class="row gx-1">
   		                                    	<div class="form-group mt-2 col pr-0 pl-0">
-  		                                    		<input type="text" name="userNickname" class="form-style" placeholder="Your Nickname" autocomplete="off">
+  		                                    		<input type="text" name="userNickname" class="form-style" placeholder="닉네임 입력" autocomplete="off">
                                                 	<i class="input-icon bi bi bi-person-plus"></i>
   		                                    	</div>
   		                                    	<div class="form-group mt-2 col pr-0 pl-0">
@@ -145,7 +148,7 @@
                                                 	<i class="input-icon bi bi-calendar-check"></i>
   		                                    	</div>
                                             </div>
-                                            <button type="button" class="btn mt-4" onclick="sendSignup();" data-bs-toggle="modal" data-bs-target="#alertModal">submit</button>
+                                            <button type="button" class="btn mt-4" onclick="sendSignup();" data-bs-toggle="modal" data-bs-target="#alertModal">회원가입하기</button>
                                         </form>
                                     </div>
                                 </div>
