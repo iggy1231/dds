@@ -2,6 +2,7 @@
 
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.fly.dds.mapper.TravelReviewReplyMapper">
+
     <insert id="insertReply" parameterType="com.fly.dds.domain.TravelReviewReply">
         INSERT INTO travelreview_reply (REPLY_NUM, NUM, ANSWER_NUM, NICKNAME, CONTENT, REG_DATE, USER_NUM)
         VALUES (travelreview_reply_seq.NEXTVAL, #{num}, null, #{nickName}, #{content}, SYSDATE, #{userNum})

@@ -83,7 +83,7 @@ function searchList() {
 <div class="container">
     <div class="body-container">
         <div>
-            <h3 style="font-weight: bold; color: #18A8F1"> 이벤트 </h3>
+            <h3 style="font-weight: bold; color: #18A8F1"> EVENT </h3>
         </div>
         <br>
         

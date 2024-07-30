@@ -16,7 +16,7 @@ public interface TravelReviewService {
 
 	public TravelReview findByNum(long num);
 
-	public void updateReview(TravelReview dto);
+	public void updateReview(TravelReview dto, String pathname);
 
 	public void deleteReview(long num);
 	

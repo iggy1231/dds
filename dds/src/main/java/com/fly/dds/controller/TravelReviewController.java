@@ -20,6 +20,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.fly.dds.common.MyUtil;
 import com.fly.dds.domain.SessionInfo;
 import com.fly.dds.domain.TravelReview;
 import com.fly.dds.domain.TravelReviewReply;
@@ -31,6 +32,9 @@ import com.fly.dds.service.TravelReviewService;
 public class TravelReviewController {
     @Autowired
     private TravelReviewService reviewService;
+    
+    @Autowired
+    private MyUtil myUtil;
     
     @Autowired
     private TravelReviewReplyService replyService;
@@ -73,13 +77,15 @@ public class TravelReviewController {
 
         // 글 리스트
         List<TravelReview> list = reviewService.listReview(map);
+        String listUrl="";
 
+        String paging=myUtil.paging(current_page, total_page, listUrl);
         model.addAttribute("list", list);
         model.addAttribute("page", current_page);
         model.addAttribute("dataCount", dataCount);
         model.addAttribute("size", size);
         model.addAttribute("total_page", total_page);
-
+        model.addAttribute("paging", paging);
         model.addAttribute("schType", schType);
         model.addAttribute("kwd", kwd);
 
@@ -181,7 +187,7 @@ public class TravelReviewController {
             query += "&schType=" + schType + 
                     "&kwd=" + URLEncoder.encode(kwd, "UTF-8");
         }
-
+        
         TravelReview dto = reviewService.findByNum(num);
         if (dto == null) {
             return "redirect:/travelreview/list?" + query;
@@ -198,11 +204,15 @@ public class TravelReviewController {
     public String updateReview(@RequestParam long num,
             @RequestParam String subject,
             @RequestParam String content,
+            @RequestParam String region_main,
+            @RequestParam String region_sub,
+            @RequestParam List<MultipartFile> selectFile,
             @RequestParam String page,
             @RequestParam(defaultValue = "all") String schType,
             @RequestParam(defaultValue = "") String kwd,
             HttpSession session,
             Model model) throws Exception {
+        SessionInfo info=(SessionInfo) session.getAttribute("member");
         
         kwd = URLDecoder.decode(kwd, "utf-8");
 
@@ -212,14 +222,22 @@ public class TravelReviewController {
                     "&kwd=" + URLEncoder.encode(kwd, "UTF-8");
         }
 
+        String root = session.getServletContext().getRealPath("/");
+        String pathname = root + "uploads" + File.separator + "travelreview";
+        
         try {
             TravelReview dto = new TravelReview();
             
             dto.setNum(num);
+            dto.setRegion_main(region_main);
+            dto.setRegion_sub(region_sub);
             dto.setSubject(subject);
             dto.setContent(content);
+            dto.setSelectFile(selectFile);
+            dto.setNickName(info.getNickName());
+            dto.setUser_num(info.getUser_num());
             
-            reviewService.updateReview(dto);
+            reviewService.updateReview(dto, pathname);
         } catch (Exception e) {
             e.printStackTrace();
         }

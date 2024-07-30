@@ -65,6 +65,7 @@ public class TravelReviewServiceImpl implements TravelReviewService {
 			for(TravelReview dto:list) {
 				dto.setRegion_main(mapper.findAreaByNum(dto.getNum()).getRegion_main());
 				dto.setRegion_sub(mapper.findAreaByNum(dto.getNum()).getRegion_sub());
+				dto.setThumbnail(mapper.thumbnail(dto.getNum()));
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -98,9 +99,24 @@ public class TravelReviewServiceImpl implements TravelReviewService {
 	}
 
 	@Override
-	public void updateReview(TravelReview dto) {
+	public void updateReview(TravelReview dto, String pathname) {
 		try {
 			mapper.updateReview(dto);
+			mapper.updateReviewArea(dto);
+			mapper.deleteFile(dto.getNum());
+			
+			if (!dto.getSelectFile().isEmpty()) {
+				for (MultipartFile mf : dto.getSelectFile()) {
+					String imageFilename = fileManager.doFileUpload(mf, pathname);
+					if (imageFilename == null) {
+						continue;
+					}
+
+					dto.setImageFilename(imageFilename);
+
+					mapper.insertFile(dto);
+				}
+			}		
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

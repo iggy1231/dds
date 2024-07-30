@@ -24,4 +24,7 @@ public interface TravelReviewMapper {
 	public void insertFile(TravelReview dto);
 	public long travelreviewSeq();
 	public List<TravelReview> listFile(long num);
+	public String thumbnail(long num);
+	public void updateReviewArea(TravelReview dto);
+	public void deleteFile(long num);
 }

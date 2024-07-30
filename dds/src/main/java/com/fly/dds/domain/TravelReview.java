@@ -19,6 +19,7 @@ public class TravelReview {
 	
 	private long fileNum;
 	private String imageFilename;
+	private String thumbnail;
 	
 	private String region_main;
 	private String region_sub;
@@ -106,5 +107,11 @@ public class TravelReview {
 	}
 	public void setRegion_sub(String region_sub) {
 		this.region_sub = region_sub;
+	}
+	public String getThumbnail() {
+		return thumbnail;
+	}
+	public void setThumbnail(String thumbnail) {
+		this.thumbnail = thumbnail;
 	}
 }

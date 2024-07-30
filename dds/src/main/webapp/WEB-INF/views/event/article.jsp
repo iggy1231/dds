@@ -15,21 +15,21 @@
 }
 
 .nav-tabs {
+	padding-bottom: 15px;
 	border-bottom: 1px solid #ddd;
 }
 
 .nav-tabs .nav-link {
 	min-width: 170px;
-	background: #f3f5f7;
-	border: 1px solid #dbdddf;
-	border-bottom: none;
-	color: #333;
-	font-weight: 600;
-	text-align: center;
+    background: #f3f5f7;
+    border-radius: 20px;
+    color: #333;
+    font-weight: 600;
+    text-align: center;
 }
 
 .nav-tabs .nav-link.active {
-	background: #3d3d4f;
+	background: #18A8F1;
 	color: #fff;
 }
 
@@ -54,6 +54,9 @@
 .text-reset:hover {
 	text-decoration: underline;
 }
+.body-title h3 {
+    display: block;
+    border-bottom: 3px solid #18A8F1;
 </style>
 
 <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/boot-board.css" type="text/css">
@@ -101,11 +104,11 @@ $(function(){
 <div class="container">
 	<div class="body-container">
 		<div class="body-title">
-			<h3><i class="bi bi-calendar-event"></i> 이벤트 </h3>
+			<h3 style="color: #18A8F1; font-size: 30px; text-align: left;"> EVENT </h3>
 		</div>
 
 		<div class="body-main">
-			<ul class="nav nav-tabs" id="myTab" role="tablist">
+			<ul class="nav nav-tabs justify-content-around" id="myTab" role="tablist">
 				<li class="nav-item" role="presentation">
 					<button class="nav-link" id="tab-progress" data-bs-toggle="tab" data-bs-target="#nav-content" type="button" role="tab" aria-controls="progress" aria-selected="true" data-tab="progress">진행중인 이벤트</button>
 				</li>

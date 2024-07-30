@@ -40,6 +40,10 @@
             line-height: 1.6;
             color: #555;
         }
+        
+        .post-content img {
+        	width: 100%;
+        }
 
         .post-info {
             margin-top: 20px;
@@ -130,7 +134,8 @@
             background: #ffffff;
             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
             border-radius: 10px;
-            max-width: 600px; /* 댓글 작성 폼의 최대 너비를 지정 */
+            max-width: 800px; /* 댓글 작성 폼의 최대 너비를 지정 */
+            width: 90%;
         }
 
         .comment-section h2 {
@@ -143,8 +148,7 @@
         .comment-form {
             margin-top: 10px;
             padding: 10px;
-            background-color: #f0f0f0;
-            border: 1px solid #ccc;
+            background-color: #ffffff;
             border-radius: 5px;
         }
 
@@ -186,15 +190,13 @@
         .comment-list {
             margin-top: 20px;
             padding: 10px;
-            background-color: #f0f0f0;
-            border: 1px solid #ccc;
+            background-color: #ffffff;
             border-radius: 5px;
         }
 
         .comment {
             margin-bottom: 10px;
             padding: 10px;
-            border: 1px solid #ccc;
             border-radius: 5px;
             background-color: #ffffff;
         }
@@ -300,8 +302,9 @@
 		    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
 		}
 		.reply {
-			text-align: right;
+			padding-left: 60px;
 		}
+		
         
     </style>
     <script type="text/javascript">
@@ -399,7 +402,7 @@
 <body>
     <div class="container">
         <div class="post"> 
-            <div class="post-title">${dto.subject} | ${dto.region_main} ${dto.region_sub}</div>
+            <div class="post-title">${dto.subject}</div>
             <div class="post-content">
                 ${dto.content}
                 <c:forEach var="imageFile" items="${fileList}">
@@ -428,7 +431,7 @@
     <div class="comment-section">
         <h2>댓글을 사용할 때는 타인을 존중하고 커뮤니티 가이드를 준수해야 합니다(욕설 바로 고소 합니다.)</h2>
 
-        <div class="comment-form">
+        <div class="comment-form" style="background: #ffffff">
             <form method="post" action="${pageContext.request.contextPath}/travelreview/insertReply" onsubmit="return validateReplyForm(this)">
                 <input type="hidden" name="num" value="${dto.num}">
                 <input type="hidden" name="page" value="${page}">
