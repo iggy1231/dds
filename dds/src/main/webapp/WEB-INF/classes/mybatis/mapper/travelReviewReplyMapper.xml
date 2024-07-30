@@ -9,7 +9,7 @@
     </insert>
 
     <select id="listReplies" parameterType="long" resultType="com.fly.dds.domain.TravelReviewReply">
-        SELECT reply_num AS replyNum, num, answer_num AS answerNum, nickName, content, reg_date, user_num
+        SELECT reply_num AS replyNum, num, answer_num AS answerNum, nickName, content, reg_date, user_num AS userNum
 		FROM travelreview_reply
 		WHERE NUM = #{num}
 		START WITH answer_num IS NULL
@@ -26,4 +26,15 @@
     DELETE FROM travelreview_reply
     WHERE REPLY_NUM = #{replyNum}
 	</delete>
+	
+	<insert id="reportReply" parameterType="map">
+		insert into DECLARATION(NUM, REASON, ARTICLE_NUM, USER_NUM, REPORTER_NUM, ISREPLY, REPORTPAGE, REG_DATE)
+		values(DECLARATION_SEQ.NEXTVAL, #{reason}, #{article_num}, #{user_num}, #{reporter_num}, 1, 'travelreview', SYSDATE)
+	</insert>
+	
+	<select id="isReplyReported" parameterType="map" resultType="Integer">
+		select nvl(count(*), 0)
+		from (select * from declaration WHERE isreply=1 AND reportpage='travelreview')
+		WHERE user_num=#{user_num} AND article_num=#{article_num} AND reporter_num=#{reporter_num}
+	</select>
 </mapper>

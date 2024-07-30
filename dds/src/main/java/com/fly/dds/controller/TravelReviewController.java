@@ -396,5 +396,66 @@ public class TravelReviewController {
 
 		return "redirect:/travelreview/article?num=" + reply.getNum() + "&page=" + page;
 	}
-
+	
+	
+	@ResponseBody
+	@PostMapping("reportReply")
+	public Map<String, Object> travelreviewReplyReport(@RequestParam(value="article_num") long article_num,
+			@RequestParam(value="user_num") long user_num,
+			@RequestParam(value="reason") String reason,
+			HttpSession session) {
+		
+		SessionInfo info=(SessionInfo) session.getAttribute("member");
+		Map<String, Object> model=new HashMap<String, Object>();
+		String state="false";
+		
+		try {
+			Map<String, Object> map=new HashMap<String, Object>();
+			map.put("article_num", article_num);
+			map.put("user_num", user_num);
+			map.put("reporter_num", info.getUser_num());
+			if(replyService.isReplyReported(map)) {
+				state="reported";
+				model.put("state", state);
+				return model;
+			}
+			map.put("reason", reason);
+			replyService.reportReply(map);
+			state="true";
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		model.put("state", state);
+		return model;
+	}
+	
+	@ResponseBody
+	@PostMapping("reportReview")
+	public Map<String, Object> travelreviewReport(@RequestParam(value="article_num") long article_num,
+			@RequestParam(value="user_num") long user_num,
+			@RequestParam(value="reason") String reason,
+			HttpSession session) {
+		SessionInfo info=(SessionInfo) session.getAttribute("member");
+		Map<String, Object> model=new HashMap<String, Object>();
+		String state="false";
+		
+		try {
+			Map<String, Object> map=new HashMap<String, Object>();
+			map.put("article_num", article_num);
+			map.put("user_num", user_num);
+			map.put("reporter_num", info.getUser_num());
+			if(reviewService.isReviewReported(map)) {
+				state="reported";
+				model.put("state", state);
+				return model;
+			}
+			map.put("reason", reason);
+			reviewService.reportReview(map);
+			state="true";
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		model.put("state", state);
+		return model;
+	}
 }

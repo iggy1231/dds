@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Map;
 
 @Service
 public class TravelReviewReplyServiceImpl implements TravelReviewReplyService {
@@ -51,6 +52,28 @@ public class TravelReviewReplyServiceImpl implements TravelReviewReplyService {
 			e.printStackTrace();
 		}
 		
+	}
+
+	@Override
+	public boolean isReplyReported(Map<String, Object> map) {
+		try {
+			if(mapper.isReplyReported(map)>0) {
+				return true;
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		return false;
+	}
+
+	@Override
+	public void reportReply(Map<String, Object> map) {
+		try {
+			mapper.reportReply(map);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 	}
 	
 }

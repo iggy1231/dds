@@ -47,4 +47,8 @@ public interface TravelReviewMapper {
 	
 	public List<TravelReview> listHas(Map<String, Object> map);
 	public int dataHas(Map<String, Object> map);
+
+	public int isReviewReported(Map<String, Object> map);
+
+	public void reportReview(Map<String, Object> map);
 }

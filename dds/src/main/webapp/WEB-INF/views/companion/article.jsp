@@ -384,6 +384,7 @@ function submitReport2() {
 	let query="article_num="+reply_num+"&user_num="+user_num+"&reason="+reason;	
 	
 	const fn = function(data) {
+		$('#inputModal .modal-footer button').show();
 		let state=data.state;
 		if(state === "true") {
 			alert("댓글 신고가 완료되었습니다.")
@@ -410,6 +411,7 @@ function submitReport1() {
 	let query="article_num=${dto.num}&user_num="+user_num+"&reason="+reason;	
 	console.log("article_num=${dto.num}&user_num="+user_num+"&reason="+reason);
 	const fn = function(data) {
+		$('#inputModal .modal-footer button').show();
 		let state=data.state;
 		if(state === "true") {
 			alert("신고가 완료되었습니다.")

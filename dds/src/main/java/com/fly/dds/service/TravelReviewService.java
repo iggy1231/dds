@@ -30,5 +30,9 @@ public interface TravelReviewService {
 	
 	public List<TravelReview> listHas(Map<String, Object> map);
 	public int dataHas(Map<String, Object> map);
+
+	public boolean isReviewReported(Map<String, Object> map);
+
+	public void reportReview(Map<String, Object> map);
 	
 }

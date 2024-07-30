@@ -183,4 +183,15 @@
 			</if>
 		</where>
 	</select>
+	
+	<insert id="reportReview" parameterType="map">
+		insert into DECLARATION(NUM, REASON, ARTICLE_NUM, USER_NUM, REPORTER_NUM, ISREPLY, REPORTPAGE, REG_DATE)
+		values(DECLARATION_SEQ.NEXTVAL, #{reason}, #{article_num}, #{user_num}, #{reporter_num}, 0, 'travelreview', SYSDATE)
+	</insert>
+	
+	<select id="isReviewReported" parameterType="map" resultType="Integer">
+		select nvl(count(*), 0)
+		from (select * from declaration WHERE isreply=0 AND reportpage='travelreview')
+		WHERE user_num=#{user_num} AND article_num=#{article_num} AND reporter_num=#{reporter_num}
+	</select>
 </mapper>

@@ -199,6 +199,28 @@ public class TravelReviewServiceImpl implements TravelReviewService {
 	public int dataHas(Map<String, Object> map) {
 		return  mapper.dataHas(map);
 	}
+
+	@Override
+	public boolean isReviewReported(Map<String, Object> map) {
+		try {
+			if(mapper.isReviewReported(map)>0) {
+				return true;
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		return false;
+	}
+
+	@Override
+	public void reportReview(Map<String, Object> map) {
+		try {
+			mapper.reportReview(map);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
 	
 	
 }

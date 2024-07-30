@@ -320,6 +320,93 @@
                 window.location.href = "${pageContext.request.contextPath}/travelreview/delete?num=${dto.num}&page=${page}";
             }
         }
+        
+        function confirmReport() {
+        	if(${empty sessionScope.member}) {
+        		$('#inputModal .modal-body').html('');
+        		$('#inputModal .modal-footer button:nth-child(2)').hide();
+        		$('#inputModal .modal-footer button:last').hide();
+        		$('#inputModal .modal-title').text("신고는 로그인 후에만 가능합니다.");
+        		return;
+        	}
+        	
+        	$('#inputModal .modal-footer button:first').hide();
+        	$('#inputModal .modal-footer button:last').hide();
+        	const f=document.reportForm;
+        	f.unum.value='${dto.user_num}';
+        }
+        
+        function Declaration(user_num, replyNum) {
+        	if(${empty sessionScope.member}) {
+        		$('#inputModal .modal-body').html('');
+        		$('#inputModal .modal-footer button:nth-child(2)').hide();
+        		$('#inputModal .modal-footer button:last').hide();
+        		$('#inputModal .modal-title').text("댓글 신고는 로그인 후에만 가능합니다.");
+        		return;
+        	}
+        	
+        	$('#inputModal .modal-footer button:first').hide();
+        	$('#inputModal .modal-footer button:nth-child(2)').hide();
+        	const f=document.reportForm;
+        	f.unum.value=user_num;
+        	f.rnum.value=replyNum;	
+        }
+        
+        function submitReport2() {
+        	const f=document.reportForm;
+        	if(f.reason.value==null||f.reason2.value==null) {
+        		alert('신고 사유를 입력해주세요');
+        		return;
+        	}
+        	let user_num=f.unum.value;
+        	let reply_num=f.rnum.value;
+        	
+        	let reason=f.reason.value+" : "+f.reason2.value;
+        	let url="${pageContext.request.contextPath}/travelreview/reportReply";
+        	let query="article_num="+reply_num+"&user_num="+user_num+"&reason="+reason;	
+        	
+        	const fn = function(data) {
+        		$('#inputModal .modal-footer button').show();
+        		let state=data.state;
+        		if(state === "true") {
+        			alert("댓글 신고가 완료되었습니다.")
+        		} else if(state === "reported") {
+        			alert("동일한 글에 신고는 1회만 가능합니다");
+        			return;
+        		} else {
+        			alert("댓글 신고에 실패했습니다.");
+        		}
+        	}
+        	
+        	ajaxFun(url, "post", query, "json", fn);
+        }
+
+        function submitReport1() {
+        	const f=document.reportForm;
+        	if(f.reason.value==null||f.reason2.value==null) {
+        		alert('신고 사유를 입력해주세요');
+        		return;
+        	}
+        	let user_num=f.unum.value;
+        	let reason=f.reason.value+" : "+f.reason2.value;
+        	let url="${pageContext.request.contextPath}/travelreview/reportReview";
+        	let query="article_num=${dto.num}&user_num="+user_num+"&reason="+reason;	
+        	console.log("article_num=${dto.num}&user_num="+user_num+"&reason="+reason);
+        	const fn = function(data) {
+        		$('#inputModal .modal-footer button').show();
+        		let state=data.state;
+        		if(state === "true") {
+        			alert("신고가 완료되었습니다.")
+        		} else if(state === "reported") {
+        			alert("동일한 글에 신고는 1회만 가능합니다");
+        			return;
+        		} else {
+        			alert("신고에 실패했습니다.");
+        		}
+        	}
+        	
+        	ajaxFun(url, "post", query, "json", fn);
+        }
 
         function validateReplyForm(form) {
             var content = form.content.value.trim();
@@ -386,12 +473,6 @@
         	$.ajax(url, settings);
         }
         
-        function Declaration() {
-        	if(! confirm("고소 하시겠습니까?")){
-        		return;
-        	}
-        }
-        
         function insertReReply() {
         	const form=document.querySelector('.rereply-form');
         	form.style.display="block";
@@ -422,8 +503,14 @@
             <i class="bi bi-heart-fill">&nbsp;<span id="boardLikeCount">${likeCount}
             </span>&nbsp;</i></button>
             <div class="action-buttons">
-                <a href="${pageContext.request.contextPath}/travelreview/update?num=${dto.num}&page=${page}" class="edit-button">수정</a>
-                <a href="#" onclick="confirmDelete()" class="delete-button">삭제</a>
+            	<c:if test="${dto.user_num!=sessionScope.member.user_num}">
+            		<a href="#" onclick="confirmReport()" class="delete-button" data-bs-toggle="modal" data-bs-target="#inputModal">신고</a>
+            	</c:if>
+            	<c:if test="${dto.user_num==sessionScope.member.user_num}">
+            		<a href="${pageContext.request.contextPath}/travelreview/update?num=${dto.num}&page=${page}" class="edit-button">수정</a>
+                	<a href="#" onclick="confirmDelete()" class="delete-button">삭제</a>
+            	</c:if>
+                
             </div>
         </div>
     </div>
@@ -463,8 +550,12 @@
 	                    <div class="comment-header">작성자: ${comment.nickName}</div>
 	                    <div class="comment-content">${comment.content}</div>
 	                    <div class="comment-buttons">
-	                        <button class="delete-button" onclick="deleteReply('${comment.replyNum}','${dto.num}','${page}');">삭제</button>
-	                        <button class="report-button" onclick="Declaration();">신고</button>
+	                    	<c:if test="${dto.user_num!=sessionScope.member.user_num}">
+								<button class="report-button" onclick="Declaration('${comment.userNum}', '${comment.replyNum}');" data-bs-toggle="modal" data-bs-target="#inputModal">신고</button>
+							</c:if>
+							<c:if test="${dto.user_num==sessionScope.member.user_num}">
+								<button class="delete-button" onclick="deleteReply('${comment.replyNum}','${dto.num}','${page}');">삭제</button>
+							</c:if>
 	                        <button class="hidden-button" onclick="insertReReply();">답글달기</button>
 	                    </div>
 	                </div>
@@ -475,8 +566,12 @@
 	                    작성자: ${comment.nickName}</div>
 	                    <div class="comment-content">${comment.content}</div>
 	                    <div class="comment-buttons">
-	                        <button class="delete-button" onclick="deleteReply('${comment.replyNum}','${dto.num}','${page}');">삭제</button>
-	                        <button class="report-button" onclick="Declaration();">신고</button>
+	                    	<c:if test="${dto.user_num!=sessionScope.member.user_num}">
+								<button class="report-button" onclick="Declaration('${comment.userNum}', '${comment.replyNum}');" data-bs-toggle="modal" data-bs-target="#inputModal">신고</button>
+							</c:if>
+							<c:if test="${dto.user_num==sessionScope.member.user_num}">
+								<button class="delete-button" onclick="deleteReply('${comment.replyNum}','${dto.num}','${page}');">삭제</button>
+							</c:if>
 	                        <button class="hidden-button" onclick="insertReReply();">답글달기</button>
 	                    </div>
 	                </div>
@@ -508,6 +603,37 @@
 		        </div>
             </c:forEach>
         </div>
+        <div class="modal fade" id="inputModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+		  <div class="modal-dialog">
+		    <div class="modal-content">
+		      <div class="modal-header">
+		        <h1 class="modal-title fs-5" id="staticBackdropLabel">신고</h1>
+		      </div>
+		      <div class="modal-body">
+				<form name="reportForm" action="#" method="post">
+		        <select name="reason">
+		        	<option value="모욕 및 괴롭힘">모욕 및 괴롭힘</option>
+		        	<option value="허위 정보 유포">허위 정보 유포</option>
+		        	<option value="스팸 및 무단도배">스팸 및 무단도배</option>
+		        	<option value="부적절한 콘텐츠">부적절한 콘텐츠</option>
+		        	<option value="개인정보 침해">개인정보 침해</option>
+		        	<option value="부적절한 콘텐츠">부적절한 콘텐츠</option>
+		        	<option value="저작권 침해">저작권 침해</option>
+		        	<option value="기타">기타</option>
+		        </select>
+		        <input type="text" name="reason2">
+		        <input type="hidden" name="unum">
+		        <input type="hidden" name="rnum">
+		        </form>
+			  </div>  
+		      <div class="modal-footer">
+		        <button type="button" class="btn btn-primary" data-bs-dismiss="modal">확인</button>
+		        <button type="button" class="btn btn-primary" data-bs-dismiss="modal" onclick="submitReport1();">확인</button>
+		        <button type="button" class="btn btn-primary" data-bs-dismiss="modal" onclick="submitReport2();">확인</button>
+		      </div>
+		    </div>
+		  </div>
+		</div>
     </div>
 </body>
 </html>
