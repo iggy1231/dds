@@ -4,23 +4,24 @@
 <mapper namespace="com.fly.dds.mapper.HomeMapper">
     <select id="homeRoom" parameterType="map" resultType="com.fly.dds.domain.Home">
         <![CDATA[
-		SELECT num, subject, addr1, room_type, rating, review_count, price, thumbnail, score
-		FROM (
-		    SELECT r.num, r.subject, r.addr1, r.room_type, 
-		           NVL(AVG(rr.rating) OVER (PARTITION BY r.num), 0) AS rating, 
-		           NVL(COUNT(rr.review_num) OVER (PARTITION BY r.num), 0) AS review_count, 
-		           MIN(d.price) OVER (PARTITION BY r.num) AS price, 
-		           r.thumbnail,
-		           (NVL(AVG(rr.rating) OVER (PARTITION BY r.num), 0) * 0.7 + 
-		           NVL(COUNT(rr.review_num) OVER (PARTITION BY r.num), 0) * 0.3) AS score,
-		           ROWNUM AS rn
-		    FROM room r
-		    LEFT OUTER JOIN room_review rr ON r.num = rr.num
-		    LEFT OUTER JOIN room_detail d ON r.num = d.num
-		    WHERE r.active = 1
-		)
-		WHERE rn <= 6
-		ORDER BY score DESC
+			SELECT num, subject, addr1, room_type, avg_rating AS rating, review_count, price, thumbnail
+			FROM (
+			    SELECT r.num, r.subject, r.addr1, r.room_type, 
+			           NVL(AVG(rr.rating) OVER (PARTITION BY r.num), 0) AS avg_rating, 
+			           NVL(COUNT(rr.review_num) OVER (PARTITION BY r.num), 0) AS review_count, 
+			           MIN(d.price) OVER (PARTITION BY r.num) AS price, 
+			           r.thumbnail,
+			           (NVL(AVG(rr.rating) OVER (PARTITION BY r.num), 0) * 0.7 + 
+			           NVL(COUNT(rr.review_num) OVER (PARTITION BY r.num), 0) * 0.3) AS score,
+			           ROW_NUMBER() OVER (PARTITION BY r.num ORDER BY r.num) AS rn
+			    FROM room r
+			    LEFT OUTER JOIN room_review rr ON r.num = rr.num
+			    LEFT OUTER JOIN room_detail d ON r.num = d.num
+			    WHERE r.active = 1
+			)
+			WHERE rn = 1
+			ORDER BY score DESC
+			FETCH FIRST 12 ROWS ONLY
         ]]>
     </select>
     
