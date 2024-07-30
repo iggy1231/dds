@@ -86,4 +86,5 @@ public interface MyPageService {
 	public List<Coupon> listCouponAvailable(long user_num);
 	public List<Coupon> listCouponDisabled(long user_num);
 	public void updateCouponUse();
+	public void deleteQna(long num);
 }

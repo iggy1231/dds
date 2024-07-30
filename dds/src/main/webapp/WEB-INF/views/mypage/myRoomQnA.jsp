@@ -22,7 +22,7 @@
 		</div>
 		<div class="col-auto pt-2 px-0">
 			&nbsp;|&nbsp;<span>${list1.reg_date}</span> |<span class="deleteQuestion"
-				data-num="1">삭제</span>
+				data-num="${list1.qna_num}">삭제</span>
 		</div>
 		<div class="col pt-2 text-end">
 			<button class="btn btnAnswerView">

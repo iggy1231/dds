@@ -97,4 +97,5 @@ public interface MyPageMapper {
 	public List<Coupon> listCouponDisabled(long user_num);
 	public void updateCouponUse();
 	public String findThumbnailByNum(long num);
+	public void deleteQna(long num);
 }

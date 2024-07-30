@@ -59,6 +59,22 @@ $(function() {
             answerContent.css('display', 'none');
         }
     });
+    
+    $('#nav-content').on('click', '.deleteQuestion', function() {
+    	var form = document.createElement('form');
+        form.method = 'POST';
+        form.action = '${pageContext.request.contextPath}/mypage/deleteQna';
+        
+        var input = document.createElement('input');
+        input.type = 'hidden';
+        input.name = 'num';
+        input.value = $(this).data('num');
+        
+        form.appendChild(input);
+
+        document.body.appendChild(form);
+        form.submit();
+    });
 });
     
     function ajaxFun(url, method, formData, dataType, fn, file = false) {

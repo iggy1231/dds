@@ -582,6 +582,15 @@ public class MyPageController {
         return ".four.mypage.inquiReview";
     }
 	
+	@PostMapping("deleteQna")
+	public String deleteQna(@RequestParam(value="num") long num) {
+		try {
+			service.deleteQna(num);
+		} catch (Exception e) {	
+		}
+		return ".four.mypage.inquiReview";	
+	}
+	
 	@GetMapping("companion")
     public String companion(
     		 @RequestParam(value = "page", defaultValue = "1") int current_page,

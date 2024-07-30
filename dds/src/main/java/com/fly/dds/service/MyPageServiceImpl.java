@@ -582,5 +582,14 @@ public class MyPageServiceImpl implements MyPageService {
 			e.printStackTrace();
 		}
 	}
+
+	@Override
+	public void deleteQna(long num) {
+		try {
+			mapper.deleteQna(num);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
 	
 }

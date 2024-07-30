@@ -334,6 +334,10 @@
     )
 	</select>
 	
+	<delete id="deleteQna" parameterType="long">
+		delete from room_qna where qna_num=#{num}
+	</delete>
+	
 	<select id="myTripReview" parameterType="map" resultType="com.fly.dds.domain.RoomReview">
 	    SELECT * FROM (
 	    SELECT r.review_num, r.user_num, i.nickname, r.score, r.content, r.num, r.photo, TO_CHAR(r.reg_date, 'YYYY-MM-DD') as reg_date, 'room' AS boardname
