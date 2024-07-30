@@ -8,12 +8,15 @@
 <c:forEach var="list1" items="${list}">
 	<div class="col-md-4">
 	<div class="content-card" onclick="companionArticle(${list1.num});">
-		<img src="${pageContext.request.contextPath}/uploads/companion/${list1.saveFilename}" alt="Content Image">
+		<div class="d-flex align-items-stretch" style="height: 230px;">
+			<img class="ratio ratio-4x3" src="${pageContext.request.contextPath}/uploads/companion/${list1.saveFilename}" alt="Content Image" style="object-fit:cover; height: 100%;">
+		</div>
 		<div class="card-body">
-			<h5>${list1.subject}</h5>
-			<div class="meta">
-				<span><i class="bi bi-person-circle"></i><img src="${pageContext.request.contextPath}/uploads/mypage/${list1.photo}">&nbsp;${list1.nickname}</span> 
-				<span>${list1.age} 대 · ${list1.gender}</span> <span class="location">${list1.mainRegion}</span>
+			<h4 class="bold">${list1.subject}</h4>
+			<span class="text-primary age-gender">#${list1.age}대&nbsp;&nbsp;#${list1.gender}</span> 
+			<div class="meta mt-2">
+				<span><img src="${pageContext.request.contextPath}/uploads/mypage/${list1.photo}">${list1.nickname}</span> 
+				<span class="location"><i class="bi bi-geo-alt-fill text-primary"></i>&nbsp;${list1.mainRegion}</span>
 			</div>
 		</div>
 	</div>
