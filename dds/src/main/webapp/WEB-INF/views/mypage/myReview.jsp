@@ -2,6 +2,27 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 
+<style>
+.delete-button {
+	border-radius: 20px;
+	width: 50px; 
+	font-size: 16px;
+	background: #EAEAEA;
+	border: 1px solid #EAEAEA;
+}
+
+
+.delete-button:hover {
+	background: gray;
+	border: 1px solid gray;
+	color: white;
+	transform: translateY(2px);
+	transition: 0.3s;   
+}
+
+</style>
+
+
 <div class="mt-3 pt-3">
 	<div class="mt-2 pt-1 pb-2">
 		<p class="fs-4 fw-semibold">📝 나의 리뷰</p>
@@ -53,7 +74,7 @@
 	<div class="mt-3 border-bottom">
 		<div class="row p-2">
 			<div class="col-md-8 order-md-1">
-				<div class="row">
+				<div class="row review-item">
 					<div class="col-auto pt-0 ps-2 pe-1 score-star">
 						<c:forEach var="i" begin="1" end="5">
 							<span
@@ -75,11 +96,11 @@
                             </c:otherwise>
                         </c:choose>
 					</div>
-					<div class="row">
-						<div class="col mt-2 p-2 fs-3 ps-3">${list2.content}</div>
-					</div>
-					<div class="pt-3 text-start fs-5">
+						<div class="review-content col mt-2 p-2 fs-3 ps-3">${list2.content}</div>
+					<div class="col-auto pt-3 text-start fs-4">
 						<span class="fs-6">${list2.reg_date}</span>
+						<button class="deleteReview delete-button"
+							data-num="" style="margin-left: 10px;">삭제</button>
 					</div>
 				</div>
 			</div>
