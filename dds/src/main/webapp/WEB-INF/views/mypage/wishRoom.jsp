@@ -6,7 +6,7 @@
                 <div class="row">
                 	<c:forEach var="list1" items="${list}">
 	                    <div class="col-md-4">
-	                        <div class="wishlist-item position-relative">
+	                        <div class="wishlist-item position-relative" onclick="wishRoomArticle(${list1.num});">
 	                            <span class="badge-top-left">오늘의특가</span>
 	                            <i class="bi bi-heart-fill heart-icon" id="wishlist-${list1.num}" onclick="removeFromWishlist(${list1.num}, 'room')"></i>
 	                            <img src="${list1.thumbnail}" alt="Item Image">

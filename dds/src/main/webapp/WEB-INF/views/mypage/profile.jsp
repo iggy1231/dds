@@ -362,6 +362,10 @@ $(document).ready(function(){
 </script>
 
 <script type="text/javascript">
+function travelreviewArticle(num) {
+	location.href = '${pageContext.request.contextPath}/travelreview/article?num='+num+"&page=1";
+}
+
 function login() {
 	location.href = '${pageContext.request.contextPath}/member/login';
 }
