@@ -50,7 +50,6 @@
     }
     .coupon-card {
         background-color: #0080ff;
-        border: 1px solid #0073e6;
         border-radius: 15px;
         padding: 20px;
         margin-bottom: 15px;
@@ -160,6 +159,14 @@
     .points-history .history-item .points {
         color: #00aaff;
     }
+    
+    .usable-background-primary {
+	background-color: #18A8F1 !important;
+}
+
+.disusable-background-primary {
+	background-color: #BEE8FD !important;
+}
 </style>
 
 <div class="my-info">
@@ -196,19 +203,19 @@
                 </div>
                 <div id="available-coupons" class="coupon-content active">
                 <c:forEach var="dto" items="${list1}">
-                	<div class="coupon-card">
+                	<div class="coupon-card usable-background-primary">
                         <div class="coupon-info">
                             <h4>${dto.name}</h4>
                             <p>${dto.content}<br>${dto.content}</p>
                         </div>
-                        <div class="coupon-brand">GIORDANO</div>
+                        <div class="coupon-brand">DoDoongSil</div>
                     </div>
                 </c:forEach>
                     
                 </div>
                 <div id="expired-coupons" class="coupon-content">
                 <c:forEach var="dto" items="${list2}">
-                    <div class="coupon-card">
+                    <div class="coupon-card disusable-background-primary">
                         <div class="coupon-info">
                             <h4>${dto.name}</h4>
                             <p>${dto.content}<br>${dto.content}</p>

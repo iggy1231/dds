@@ -269,6 +269,16 @@
 
 
 <script type="text/javascript">
+function roomArticle(num) {
+	const date = new Date();
+	let sdate = date.getFullYear()+'-'+('0' + (date.getMonth() + 1)).slice(-2)+'-'+('0' + date.getDate()).slice(-2);
+	
+	date.setDate(date.getDate()+1);
+	let edate = date.getFullYear()+'-'+('0' + (date.getMonth() + 1)).slice(-2)+'-'+('0' + date.getDate()).slice(-2);
+	
+	location.href='${pageContext.request.contextPath}/room/article?num='+num+'&sdate='+sdate+'&edate='+edate;
+}
+
 function writeForm(num,sale_num) {
 	const f=document.reviewForm;
 	f.num.value=num;
@@ -335,6 +345,14 @@ function ajaxFun(url, method, formData, dataType, fn, file = false) {
 
 $(function(){
 	listMyRoom(1);
+	
+	const date = new Date();
+	let sdate = date.getFullYear()+'-'+('0' + (date.getMonth() + 1)).slice(-2)+'-'+('0' + date.getDate()).slice(-2);
+	
+	date.setDate(date.getDate()+1);
+	let edate = date.getFullYear()+'-'+('0' + (date.getMonth() + 1)).slice(-2)+'-'+('0' + date.getDate()).slice(-2);
+	
+	
 	
     $("button[role='tab']").on("click", function(e){
 		const tab = $(this).attr("aria-controls");

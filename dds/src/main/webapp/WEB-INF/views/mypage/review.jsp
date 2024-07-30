@@ -13,7 +13,7 @@
 	<c:forEach var="list" items="${list}">
 
 		<div class="col-lg-4 col-md-6 wow fadeInUp" data-wow-delay="0.3s">
-			<div class="property-item rounded overflow-hidden">
+			<div class="property-item rounded overflow-hidden" onclick="travelreviewArticle(${list.num});">
 				<div class="position-relative overflow-hidden">
 					<a
 						href="${pageContext.request.contextPath}/travelreview/article?num=${list.num}&page=1">
