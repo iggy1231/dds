@@ -24,6 +24,17 @@
 }
 .score-star .item:first-child{ margin-left: 0; }
 .score-star .on { color: #FFE400; }
+
+    .review-item {
+        display: flex;
+        flex-direction: column;
+        height: 100%;
+    }
+    .review-content {
+        flex: 1;
+    }
+    
+    
 </style>
 
 <div class="my-info">

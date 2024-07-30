@@ -933,9 +933,10 @@ public class MyPageController {
 		    
 		    Map<String, Object> map = new HashMap<>();
 		    int size = 9;
+		    int total_page;
 		    int dataCount = 0;
-		    
-		    
+		  
+		
 		    SessionInfo Info = (SessionInfo)session.getAttribute("member");
 
 		    
@@ -944,14 +945,26 @@ public class MyPageController {
 		    map.put("user_num", user_num);
 		    
 		    dataCount = service.myTripCount(user_num);
-		    int total_page=myUtil.pageCount(dataCount, size);
-		    if(total_page < current_page) current_page = total_page;
+		    total_page=myUtil.pageCount(dataCount, size);
+		    
+		    if (current_page > total_page) {
+				current_page = total_page;
+			}
+		    
 		    int offset = (current_page - 1) * size;
+		    
+		    if (offset < 0)
+				offset = 0;
+		    
+		    
 		    map.put("offset", offset);
 		    map.put("size", size);
 		    List<RoomReview> list = service.myTripReview(map);
 
-		    String paging = myUtil.pagingMethod(current_page, total_page, "myTripReview");
+		    String paging = myUtil.pagingMethod(current_page, total_page, "listMyReview");
+		    
+		 // 리뷰 통계 계산
+		    Map<String, Object> stats = service.calculateReviewStatistics(user_num);
 		    
 		model.addAttribute("dataCount" , dataCount);    
 		model.addAttribute("list",list);
@@ -960,7 +973,12 @@ public class MyPageController {
 		model.addAttribute("pageNo",current_page);
 
 		model.addAttribute("total_page",total_page);
-
+		
+		// 통계 데이터 추가
+	    model.addAttribute("averageScore", stats.get("averageScore"));
+	    model.addAttribute("reviewCount", stats.get("reviewCount"));
+	    model.addAttribute("ratingCount", stats.get("ratingCount"));
+	    
 		return "mypage/myReview";
 	}
 	
