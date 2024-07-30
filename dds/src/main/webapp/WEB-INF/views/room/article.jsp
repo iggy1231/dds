@@ -739,7 +739,7 @@ function printReview(data) {
 		if(photo && photo.length > 0) {
 		    out += '    <div class="col-md-4 text-end order-md-2">';
 		    out += '      <div class="ratio customratio ms-3">';
-		    out += '        <img class="border rounded img-fluid" src="' + photo + '">';
+		    out += '        <img class="border rounded img-fluid" src="${pageContext.request.contextPath}/uploads/roomReview/' + photo + '">';
 		    out += '      </div>';
 		    out += '    </div>';
 		}

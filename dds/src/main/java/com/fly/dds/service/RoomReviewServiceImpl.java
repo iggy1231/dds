@@ -6,7 +6,6 @@ import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.fly.dds.common.FileManager;
 import com.fly.dds.domain.RoomReview;
 import com.fly.dds.domain.Summary;
 import com.fly.dds.mapper.RoomReviewMapper;
@@ -17,20 +16,12 @@ public class RoomReviewServiceImpl implements RoomReviewService {
 	@Autowired
 	private RoomReviewMapper mapper;
 	
-	@Autowired
-	private FileManager fileManager;
-
 	@Override
 	public void insertRoomReview(RoomReview dto, String pathname) throws Exception {
 		try {
 			
 			mapper.insertRoomReview(dto);
 			
-			String filename;
-	        filename = fileManager.doFileUpload(dto.getPhotoFile(), pathname);
-	        dto.setPhoto(filename);
-			
-	        
 		} catch (Exception e) {
 			e.printStackTrace();
 			throw e;

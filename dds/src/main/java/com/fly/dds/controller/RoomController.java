@@ -457,10 +457,11 @@ public class RoomController {
 	        String root = session.getServletContext().getRealPath("/");
 	        String pathname = root + "uploads" + File.separator + "roomReview";
 
-	        // 파일 업로드 처리
+	     // 파일 업로드 처리
 	        if (dto.getPhotoFile() != null && !dto.getPhotoFile().isEmpty()) {
-	            String filename = fileManager.doFileUpload(dto.getPhotoFile(), pathname);
-	            dto.setPhoto(filename);
+	            // 파일이 이미 업로드된 경우 확인
+                String filename = fileManager.doFileUpload(dto.getPhotoFile(), pathname);
+                dto.setPhoto(filename);
 	        }
 
 	        reviewService.insertRoomReview(dto, pathname);
