@@ -5,6 +5,7 @@
 <style>
 	.companion-card-header {
 	overflow-wrap : break-word;
+	padding-top: 40px;
 	}
 </style>
 <!-- 동행 탭 콘텐츠 -->
