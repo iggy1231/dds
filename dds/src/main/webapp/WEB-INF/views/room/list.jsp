@@ -152,7 +152,7 @@ hr {
                                         <div class="mb-3">
                                             <h4 class="pb-2" style="font-weight: 600;">가격대</h4>
                                             <div class="pb-2 form-check">
-											  <input class="p-2 form-check-input" type="radio" name="priceType" value="미ㅣ" id="priceTypeall" ${priceType=='all' ? 'checked' : ''}>
+											  <input class="p-2 form-check-input" type="radio" name="priceType" value="all" id="priceTypeall" ${priceType=='all' ? 'checked' : ''}>
 											  <label class="form-check-label" for="flexRadioPrice1">
 											    전체
 											  </label>
