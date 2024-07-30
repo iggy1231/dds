@@ -9,7 +9,9 @@
 	<div class="col-md-4 col-sm-6 col-xs-12">
 	<div class="content-card" onclick="companionArticle(${list2.num});">
 		<div class="d-flex align-items-stretch" style="height: 230px;">
-			<img class="ratio ratio-4x3" src="${pageContext.request.contextPath}/uploads/companion/${list2.saveFilename}" alt="Content Image" style="object-fit:cover; height: 100%;">
+			<img class="ratio ratio-4x3" src="${pageContext.request.contextPath}/uploads/companion/${list2.saveFilename}"
+			onerror=this.src="${pageContext.request.contextPath}/resources/images/product_default.png"
+			style="object-fit:cover; height: 100%;">
 		</div>
 		<div class="card-body">
 			<h4 class="bold">${list2.subject}</h4>
