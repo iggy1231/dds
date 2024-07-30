@@ -147,7 +147,9 @@ ul.payment-info li span.total {
 		<div class="px-3 rounded row gx-4 gy-1 pt-3 d-flex justify-content-between align-items-center">
 		    <h5 class="flex-grow-1 col">객실 가격(1박)</h5>
 		    <div class="col-3 d-flex align-items-end">
-		        <h4 class="total text-end" style="color: #A6A6A6;">${dto.price}원</h4>
+		        <h4 class="total text-end" style="color: #A6A6A6;">
+		       	 	<fmt:formatNumber value="${dto.price}" type="number" groupingUsed="true"/>원
+		        </h4>
 		    </div>
 		</div>
 		<div class="px-3 rounded row gx-4 gy-1 pt-3 d-flex justify-content-between align-items-center">
@@ -160,7 +162,10 @@ ul.payment-info li span.total {
 		<div class="px-3 rounded row gx-4 gy-3 mt-2 pt-3 d-flex justify-content-between align-items-center">
 		    <h3 class="flex-grow-1 col fw-semibold">최종 가격</h3>
 		    <div class="col-3 d-flex align-items-end">
-		        <h4 id="final-price" class="total fw-semibold" style="color: #f45858;">${total_price - point_price}원</h4>
+		        <h4 id="final-price" class="total fw-semibold" style="color: #f45858;">
+		        	<fmt:formatNumber value="${total_price - point_price}" type="number" groupingUsed="true"/>원
+		        </h4>
+		        <!--  <h4 id="final-price" class="total fw-semibold" style="color: #f45858;">${total_price - point_price}원</h4> -->
 		    </div>
 		</div>
     </div>
@@ -194,14 +199,16 @@ ul.payment-info li span.total {
         <li>
           <span>객실 가격(1박)</span>
           <span>${differenceInDays} 박</span>
-          <span>${dto.price}원</span>
+          <span><fmt:formatNumber value="${dto.price}" type="number" groupingUsed="true"/>원</span>
+         <!--   <span>${dto.price}원</span> -->
         </li>
         <hr class="pb-2">
         <li>
           <span class="total fw-semibold">총 결제 금액</span>
-          <span class="total fw-semibold" style="color: #f45858;">${total_price - point_price}원</span>
+          <span class="total fw-semibold" style="color: #f45858;"><fmt:formatNumber value="${total_price - point_price}" type="number" groupingUsed="true"/>원</span>
+          <!--   <span class="total fw-semibold" style="color: #f45858;">${total_price - point_price}원</span>  -->
         </li>
-      </ul>
+      </ul>	
       <div class="d-flex justify-content-center mt-4 mb-3 pt-2">
         <button class="text-center text-white fs-5 btn btn-primary px-4 py-2 rounded" id="final_price" onclick="requestPay()" value="${( total_price * differenceInDays ) - point_price}">${total_price * differenceInDays - point_price}원 결제하기</button>
       </div>

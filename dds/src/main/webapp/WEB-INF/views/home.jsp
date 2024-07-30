@@ -60,7 +60,7 @@
         }
         
         .carousel-item {
-    height: 300px; /* 원하는 vh 값을 설정하세요 */
+    height: 350px; /* 원하는 vh 값을 설정하세요 */
 }
 
 .carousel-item img {
@@ -423,7 +423,9 @@
                                 <div class="display-9 bg-white rounded-top text-primary position-absolute start-0 bottom-0 mx-4 pt-1 px-3"><h6 style="font-weight: 600;">${room.room_type}</h6></div>
                             </div>
                             <div class="px-4 py-2 pb-3">
-                                <h4 class="text-primary my-2 pt-1" style="font-weight: 600;">${room.price}원</h4>
+                                <h4 class="text-primary my-2 pt-1" style="font-weight: 600;">
+								    <fmt:formatNumber value="${room.price}" type="number" groupingUsed="true"/>원
+								</h4>
                                 <a class="d-block h4 mb-2" href="#" style="font-weight: 600;">${room.subject}</a>
                                 <h6 class="display-10 py-1" style="color: #666565;"><i class="text-primary bi bi-geo-alt-fill"></i>&nbsp;${room.addr1}</h6>
                                 <h6 class="display-10" style="color: #666565;"><i class="text-primary bi bi-chat-fill"></i>&nbsp;&nbsp;${room.reviewCount}개</h6>
@@ -510,24 +512,51 @@
         </div>
         <!-- Testimonial End -->
 
-<!-- 회원가입 이벤트 배너 시작 -->
-<div class="container-xxl py-3">
-    <div class="container">
-        <div class="row align-items-center rounded p-4" style="background-color: #EDEBFF;">
-            <div class="col-md-8">
-                <h4 class="mb-2" style="font-weight: 600;">회원가입만 해도 받는 멤버십 혜택</h4>
-                <h5 class="mb-3">로그인 하면 멤버십 할인으로 예약할 수 있어요.</h5>
-                <a href="${pageContext.request.contextPath}/member/login">
-                <button  type="button" class="btn btn-primary me-3">로그인/회원가입</button>
-                </a>
-            </div>
-            <div class="col-md-4 text-center">
-                <img src="${pageContext.request.contextPath}/resources/images/main_event_icon.png" alt="Membership Benefits" class="img-fluid">
+
+<!-- 로그인 상태에 따른 배너 표시 -->
+<c:choose>
+    <c:when test="${not empty sessionScope.member}">
+        <!-- 여행리뷰 배너 시작 -->
+        <div class="container-xxl py-3">
+            <div class="container">
+                <div class="row align-items-center rounded p-4" style="background-color: #1b5084;">
+                    <div class="col-md-8">
+                        <h4 class="mb-2 text-white" style="font-weight: 600;">생생한 여행 후기 두두둥장!</h4>
+                        <h5 class="mb-3 text-white">다양한 곳의 여행 후기를 만나보세요!</h5>
+                        <a href="${pageContext.request.contextPath}/travelreview/list">
+                            <button type="button" class="btn me-3 text-white" style="background-color: #18A8F1;">여행후기 바로가기</button>
+                        </a>
+                    </div>
+                    <div class="col-md-4 text-center">
+                        <img src="${pageContext.request.contextPath}/resources/images/main_review_icon_2.png" alt="Membership Benefits" class="img-fluid" style="margin: 0; padding: 0;">
+                    </div>
+                </div>
             </div>
         </div>
-    </div>
-</div>
-<!-- 회원가입 배너 끝 -->
+        <!-- 여행리뷰 배너 끝 -->
+    </c:when>
+    <c:otherwise>
+        <!-- 회원가입 이벤트 배너 시작 -->
+        <div class="container-xxl py-3">
+            <div class="container">
+                <div class="row align-items-center rounded p-4" style="background-color: #EDEBFF;">
+                    <div class="col-md-8">
+                        <h4 class="mb-2" style="font-weight: 600;">회원가입만 해도 받는 멤버십 혜택</h4>
+                        <h5 class="mb-3">로그인 하면 멤버십 할인으로 예약할 수 있어요.</h5>
+                        <a href="${pageContext.request.contextPath}/member/login">
+                            <button type="button" class="btn btn-primary me-3">로그인/회원가입</button>
+                        </a>
+                    </div>
+                    <div class="col-md-4 text-center">
+                        <img src="${pageContext.request.contextPath}/resources/images/main_event_icon.png" alt="Membership Benefits" class="img-fluid">
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- 회원가입 이벤트 배너 끝 -->
+    </c:otherwise>
+</c:choose>
+
 
        
 	

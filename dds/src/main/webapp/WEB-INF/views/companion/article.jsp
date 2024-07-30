@@ -88,6 +88,10 @@ table tr>td:nth-child(2) {
     	color: #18A8F1;
     }
     
+    .table-light {
+    	background-color: #A6A6A6 !important;
+    }
+    
 </style>
 
 <div class="container border mt-5 rounded">
@@ -611,10 +615,10 @@ function listPage(page) {
 				out+='</td>';
 				out+='<td><button class="btn btn-outline-secondary btnReplyAnswer" data-bs-toggle="modal" data-bs-target="#alertModal">';
 				out+='<i class="bi bi-chat-dots"></i></button></td></tr>';
-				out+='<tr class="replyAnswer"><td colspan="5"><textarea id='+item.reply_num+' placeholder="답글을 작성하세요"></textarea></td>';
+				out+='<tr class="replyAnswer" style="background-color: #EAEAEA;"><td colspan="5"><textarea id='+item.reply_num+' placeholder="답글을 작성하세요"></textarea></td>';
 				out+='<td><button class="btn btn-outline-secondary" onclick="insertReplyAnswer('+item.reply_num+')">답글 작성</button></td></tr>';
 			} else {
-				out+='<tr><td><span>'+item.nickname+'</span></td>';
+				out+='<tr class = "table-light"><td><span>'+item.nickname+'</span></td>';
 				out+='<td><span>'+item.content+'</span></td>';
 				out+='<td><span>'+item.reg_date+'</span></td>';
 				out+='<td><button class="btn btn-outline-secondary btnReplyLike" data-reply_num='+item.reply_num+'>';

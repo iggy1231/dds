@@ -271,7 +271,10 @@
             <h5 class="fw-medium" style="color: #f1c40f">${dto.room_type}</h5>
             <h3 class="fw-semibold py-1">${dto.subject}</h3>
             <h5 class="py-1"><i class="text-primary bi bi-geo-alt-fill fw-semibold"></i>&nbsp;${dto.addr1}</h5>
-            <h2 class="py-2 text-primary fw-semibold">${dto.price} / 박</h2>
+            
+            <h2 class="py-2 text-primary fw-semibold">
+						<fmt:formatNumber value="${dto.price}" type="number" groupingUsed="true"/>  / 박
+					</h2>
         </div>
         <div class="col-md-4 text-end p-3">
         	<div class="d-flex justify-content-end align-items-center">
@@ -351,7 +354,10 @@
 		                </div>
 		            </div>
 		            <div class="col-md-3 text-end p-3 pe-4">
-		                <h4 class="text-primary fw-semibold">${detail.price}원 / 박</h4>
+		            <h4 class="text-primary fw-semibold">
+						<fmt:formatNumber value="${detail.price}" type="number" groupingUsed="true"/>원 / 박
+					</h4>
+		               <!--   <h4 class="text-primary fw-semibold">${detail.price}원 / 박</h4> -->
 		                <form id="reservationForm_${detail.detail_num}" method="get" action="${pageContext.request.contextPath}/room/payment">
 		                    <input type="hidden" name="num" value="${dto.num}">
 		                    <input type="hidden" name="detail_num" value="${detail.detail_num}">
@@ -515,6 +521,8 @@
 				</div>
 			</div>
 			<input type="hidden" name="num" value="${dto.num}">
+			<input type="hidden" name="sdate" value="${sdate}">
+			<input type="hidden" name="edate" value="${edate}">
 			<input type="hidden" name="page" value="1">
 		</form>
 	</div>
@@ -727,8 +735,7 @@ function printReview(data) {
 		out += '        </div>';
 		out += '        <div class="col-auto ps-0 fs-5 ps-2"><span>' + nickName + '<span></div>';
 		out += '        <div class="pt-3 text-start fs-6">';
-		out += '          <span class="fs-6">' + reg_date + '</span> |';
-		out += '          <span class="notifyReview fs-6" data-num="' + num + '">신고</span>';
+		out += '          <span class="fs-6">' + reg_date + '</span>';
 		out += '        </div>';
 		out += '      </div>';
 		out += '      <div class="row">';
@@ -867,9 +874,6 @@ function printQuestion(data) {
         out += '     <div class="col-auto pt-2 pe-0 fs-6">' + answerState + '</div>';
         out += '     <div class="col-auto pt-2 px-0 fs-6">&nbsp;|&nbsp;' + userName + '</div>';
         out += '     <div class="col-auto pt-2 px-0 fs-6">&nbsp;|&nbsp;<span>' + question_date + '</span>';
-        if (anonymous === 0) {
-            out += '       |<span class="notifyQuestion" data-num="' + num + '">신고</span>';
-        }
         out += '      </div>';
         if (answer) {
             out += '  <div class="col pt-2 text-end"><button class="btn btnAnswerView"> <i class="bi bi-chevron-down"></i> </button></div>';
