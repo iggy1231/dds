@@ -352,7 +352,7 @@
 	
 	<select id="myTripReview" parameterType="map" resultType="com.fly.dds.domain.RoomReview">
 	    SELECT * FROM (
-	    SELECT r.review_num, r.user_num, i.nickname, r.score, r.content, r.num, r.photo, TO_CHAR(r.reg_date, 'YYYY-MM-DD') as reg_date, 'room' AS boardname
+	    SELECT r.review_num, r.user_num, i.nickname, r.rating, r.content, r.num, r.photo, TO_CHAR(r.reg_date, 'YYYY-MM-DD') as reg_date, 'room' AS boardname
 	    FROM room_review r
 	    JOIN member1 m ON m.user_num = r.user_num
 	    JOIN member_info i ON i.user_num = r.user_num
@@ -360,7 +360,7 @@
 	    
 	    UNION ALL
 	    
-	    SELECT t.review_num, t.user_num, i.nickname, t.score, t.content, t.num, t.photo, TO_CHAR(t.reg_date, 'YYYY-MM-DD') as reg_date, 'tour' AS boardname
+	    SELECT t.review_num, t.user_num, i.nickname, t.rating, t.content, t.num, t.photo, TO_CHAR(t.reg_date, 'YYYY-MM-DD') as reg_date, 'tour' AS boardname
 	    FROM tour_review t
 	    JOIN member1 m ON m.user_num = t.user_num
 	    JOIN member_info i ON i.user_num = t.user_num

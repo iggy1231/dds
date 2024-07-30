@@ -12,6 +12,18 @@
     .btnAnswerView.active i {
         transform: rotate(180deg);
     }
+    
+    .waitingAnswer {
+    	color: #FE77AC;
+    }
+    
+    .score-star { font-size: 0; letter-spacing: -4px; }
+.score-star .item {
+	font-size: 22px; letter-spacing: 1px; display: inline-block;
+	color: #D5D5D5; text-decoration: none; vertical-align: middle;
+}
+.score-star .item:first-child{ margin-left: 0; }
+.score-star .on { color: #FFE400; }
 </style>
 
 <div class="my-info">
@@ -61,6 +73,8 @@ $(function() {
     });
     
     $('#nav-content').on('click', '.deleteQuestion', function() {
+    	if (confirm('정말 삭제하시겠습니까?')) {
+    		
     	var form = document.createElement('form');
         form.method = 'POST';
         form.action = '${pageContext.request.contextPath}/mypage/deleteQna';
@@ -74,6 +88,7 @@ $(function() {
 
         document.body.appendChild(form);
         form.submit();
+    	}
     });
 });
     

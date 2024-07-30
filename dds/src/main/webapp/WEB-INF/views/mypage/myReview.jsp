@@ -10,7 +10,7 @@
 				<div class="col-auto pt-0 ps-2 pe-1 score-star">
 					<c:forEach var="i" begin="1" end="5">
 						<span
-							class="item fs-6 <c:if test="${list2.score >= i}">on</c:if>">
+							class="item fs-6 <c:if test="${list2.rating >= i}">on</c:if>">
 							<i class="bi bi-star-fill"></i>
 						</span>
 					</c:forEach>
@@ -19,7 +19,7 @@
 					<span>${list2.nickName}</span>
 				</div>
 				<div class="pt-3 text-start fs-6">
-					<span class="fs-6">${list2.nickName}</span> | <span
+					<span class="fs-6">${list2.reg_date}</span> | <span
 						class="notifyReview fs-6" data-num="' + num + '">신고</span>
 				</div>
 				<div class="row">
