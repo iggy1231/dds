@@ -11,6 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
@@ -158,4 +159,42 @@ public class MemberManageController {
 		
         return ".admin.memberManage.banlist";
     }
+	
+	@PostMapping("ban")
+	public String insertBan(
+			@RequestParam int ban_date,
+			@RequestParam String reason,
+			@RequestParam Long user_num
+			) {
+		
+		MemberManage dto = new MemberManage();
+		
+		try {
+			dto.setBan_date(ban_date);
+			dto.setReason(reason);
+			dto.setUser_num(user_num);
+			
+			service.insertBan(dto);
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	
+		
+		return ".admin.memberManage.list";
+	}
+	
+	@PostMapping("unblock")
+	public String unblock(
+			@RequestParam long user_num
+			) {
+
+		try {
+			service.updateBan(user_num);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		return "redirect:/admin/memberManage/banlist";
+	}
 }

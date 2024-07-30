@@ -49,6 +49,7 @@ ORDER BY m.user_num
 		select num , reason , ban_sdate , ban_edate , ban_state , b.user_num , nickname
 		from ban b 
 		join member_info m on b.user_num = m.user_num
+		order by num desc
 	</select>
 	
 	<select id="banCount" resultType="Integer">

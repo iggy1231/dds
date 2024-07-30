@@ -22,6 +22,7 @@
 										<th>시작시간</th>
 										<th>종료시간</th>
 										<th>차단여부</th>
+										<th>차단해제</th>
 									</tr>
 								</thead>
 								<tbody class="table-border-bottom-0">
@@ -34,6 +35,10 @@
 											<td>${list.ban_sdate}</td>
 											<td>${list.ban_edate}</td>
 											<td>${list.ban_state == 1 ? "차단 중" : "차단 해제"}</td>
+											<c:if test="${list.ban_state == 1}">
+												<td><button type="button" onclick="unblock(${list.user_num})"> 차단 해제 </button></td>
+											</c:if>
+											
 
 										</tr>
 									</c:forEach>
@@ -54,6 +59,24 @@
 		</div>
 	</div>
 
-<script type="text/javascript">
+<script>
+    function unblock(userNum) {
+        const contextPath = '${pageContext.request.contextPath}';
+        const url = contextPath + '/admin/memberManage/unblock';
 
+        // 동적으로 form 생성
+        const form = document.createElement('form');
+        form.method = 'POST';
+        form.action = url;
+
+        // 유저 번호를 전송하기 위한 hidden input 생성
+        const hiddenField = document.createElement('input');
+        hiddenField.type = 'hidden';
+        hiddenField.name = 'user_num';
+        hiddenField.value = userNum;
+
+        form.appendChild(hiddenField);
+        document.body.appendChild(form);
+        form.submit();
+    }
 </script>
