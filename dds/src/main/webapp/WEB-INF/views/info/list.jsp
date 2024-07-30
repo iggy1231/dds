@@ -116,33 +116,32 @@
     	font-weight: bold;
     }
     
-    .custom-margin-right {
-        margin-left:  400px !important; /* 원하는 만큼의 공간으로 조절 */
+    .custom-margin-left {
+        margin-left:  285px !important; /* 원하는 만큼의 공간으로 조절 */
     }
     
-    @media (max-width: 1200px) {
-            .custom-margin-right {
-                margin-left: 300px !important; /* 화면 크기에 따라 조정 */
-            }
-        }
-
-        @media (max-width: 992px) {
-            .custom-margin-right {
-                margin-left: 200px !important; /* 화면 크기에 따라 조정 */
-            }
-        }
-
-        @media (max-width: 768px) {
-            .custom-margin-right {
-                margin-left: 100px !important; /* 화면 크기에 따라 조정 */
-            }
-        }
-
-        @media (max-width: 576px) {
-            .custom-margin-right {
-                margin-left: 50px !important; /* 화면 크기에 따라 조정 */
-            }
-        }
+    @media (min-width: 1200px) {
+    .custom-margin-left {
+        margin-left: 285px !important; /* 1200px 이상 화면에서 적용 */
+    	}
+	}
+	
+	@media (max-width: 1199px) and (min-width: 992px) {
+	    .custom-margin-left {
+	        margin-left: 250px !important; /* 992px ~ 1199px 화면에서 적용 */
+	    }
+	}
+	
+	@media (max-width: 991px) and (min-width: 768px) {
+	    .custom-margin-left {
+	        margin-left: 200px !important; /* 768px ~ 991px 화면에서 적용 */
+	    }
+	}
+	
+	@media (max-width: 767px) {
+	    .custom-margin-left {
+	        margin-left: 150px !important; /* 767px 이하 화면에서 적용 */
+	    }
         
      .btn.listTypebtn1.active, .btn.listTypebtn2.active {
     background-color: #18A8F1	; /* Primary color */
@@ -150,12 +149,13 @@
 }
 </style>
 		<div class="container-fluid py-5 mb-3 hero-header">
+			<div class="container pt-1 pb-4">
 			<div class="row m-2 g-5 align-items-center">
 				<div class="col-md-12">
-					<h2 class="mb-1 text-light display-5" style="font-weight: 600;">두둥실
-						떠나는</h2>
-					<h2 class="mb-1 text-light display-5" style="font-weight: 600;">신나는
-						여행</h2>
+						<h2 class="mb-1 mx-5 text-light display-5" style="font-weight: 600;">두둥실
+							떠나는</h2>
+						<h2 class="mb-1 mx-5 text-light display-5" style="font-weight: 600;">신나는
+							여행</h2>
 					<div class="container mt-4">
 					<div class="search-form-container">
 						<div class="row m-2 gx-5 align-items-center">
@@ -179,6 +179,7 @@
 					</div>
 				</div>
 				</div>
+			</div>
 			</div>
 		</div>
 	<div class="container-xxl py-5">
