@@ -609,4 +609,40 @@ public class MyPageServiceImpl implements MyPageService {
 		return list;
 	}
 	
+	public List<RoomReview> getMyTripReviews(Long userNum, int offset, int size) {
+        Map<String, Object> params = new HashMap<>();
+        params.put("user_num", userNum);
+        params.put("offset", offset);
+        params.put("size", size);
+        return mapper.myTripReview(params);
+    }
+
+    public int getMyTripReviewCount(Long userNum) {
+        return mapper.myTripCount(userNum);
+    }
+
+    public Map<String, Object> calculateReviewStatistics(Long userNum) {
+        List<RoomReview> reviews = getMyTripReviews(userNum, 0, Integer.MAX_VALUE); // 모든 리뷰 가져오기
+        Map<String, Object> stats = new HashMap<>();
+        
+        double totalScore = 0;
+        int[] ratingCount = new int[5];
+
+        for (RoomReview review : reviews) {
+            totalScore += review.getRating();
+            int rating = (int) Math.ceil(review.getRating());
+            if (rating >= 1 && rating <= 5) {
+                ratingCount[rating - 1]++;
+            }
+        }
+
+        int reviewCount = reviews.size();
+        double averageScore = reviewCount > 0 ? totalScore / reviewCount : 0;
+        stats.put("averageScore", averageScore);
+        stats.put("reviewCount", reviewCount);
+        stats.put("ratingCount", ratingCount);
+        
+        return stats;
+    }
+	
 }
