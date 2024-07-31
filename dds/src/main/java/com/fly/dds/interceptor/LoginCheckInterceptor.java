@@ -1,14 +1,21 @@
 package com.fly.dds.interceptor;
 
+import java.io.IOError;
+import java.io.IOException;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.ui.Model;
 import org.springframework.web.servlet.HandlerInterceptor;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.fly.dds.admin.domain.MemberManage;
+import com.fly.dds.admin.service.MemberManageService;
 import com.fly.dds.domain.SessionInfo;
 
 /*
@@ -21,7 +28,8 @@ import com.fly.dds.domain.SessionInfo;
 public class LoginCheckInterceptor implements HandlerInterceptor {
 	private final Logger logger = LoggerFactory.getLogger(LoginCheckInterceptor.class);
 
-	
+	@Autowired
+	private MemberManageService mmservice;
 	/*
 	 * 클라이언트 요청 처리 전에 실행
 	 * false를 반환하면 다른 HandlerInterceptor 또는 Controller를 실행하지 않음
@@ -65,6 +73,14 @@ public class LoginCheckInterceptor implements HandlerInterceptor {
 				
 			} else {
 				// 로그인 된 경우
+				
+				MemberManage dto2;
+				dto2 = mmservice.checkBan(info.getUser_num());
+			        if(dto2.getBan_state() == 1) {
+			            session.invalidate();
+			            response.sendRedirect(cp + "/member/login?state=0");
+			            return false;
+			        }
 				
 				if(uri.indexOf("admin") != -1 && info.getEnabled() < 2) {
 
