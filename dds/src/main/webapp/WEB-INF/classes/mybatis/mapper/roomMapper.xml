@@ -188,6 +188,7 @@
 	from room_detail d
 	join room r on d.num = r.num
 	where r.num=#{num}
+	order by detail_num
 	</select>
 	
 	<!-- detail 값 가져오기 -->
