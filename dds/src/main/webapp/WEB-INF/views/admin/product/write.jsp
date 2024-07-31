@@ -204,12 +204,12 @@
 					</tr>
 					
 					<tr>
-    <td class="table-light col-sm-2">썸네일 이미지</td>
-    <td>
-        <div class="thumbnail-viewer"></div>
-        <input type="file" name="thumbnailFile" accept="image/*" class="form-control" style="display: none;">
-    </td>
-</tr>
+					    <td class="table-light col-sm-2">썸네일 이미지</td>
+					    <td>
+					        <div class="thumbnail-viewer"></div>
+					        <input type="file" name="thumbnailFile" accept="image/*" class="form-control" style="display: none;">
+					    </td>
+					</tr>
 
                         <tr>
                             <td class="table-light col-sm-2">추가이미지</td>
@@ -240,7 +240,7 @@
 							
 							<button type="button" class="btn btn-dark" onclick="submitContents(this.form);">${mode=="update"?"수정완료":"등록완료"}</button>
 							<button type="reset" class="btn btn-light">다시입력</button>
-							<button type="button" class="btn btn-light" onclick="location.href='${url}';">${mode=="update"?"수정취소":"등록취소"}</button>
+							<button type="button" class="btn btn-light" onclick="location.href='${pageContext.request.contextPath}/admin/product/main';">${mode=="update"?"수정취소":"등록취소"}</button>
 							<c:if test="${mode=='update'}">
 								<input type="hidden" name="num" value="${dto.num}">
 								<input type="hidden" name="thumbnail" value="${dto.thumbnail}">
@@ -355,8 +355,6 @@ document.getElementById('addOptionBtn').addEventListener('click', function() {
     referenceNode.insertAdjacentHTML('beforebegin', optionTable);
 });
 </script>
-
-
 
 <script type="text/javascript">
 // 대표(썸네일) 이미지
