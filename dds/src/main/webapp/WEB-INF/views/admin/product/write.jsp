@@ -163,7 +163,7 @@
             <tr>
 				<td>할인율</td>
 					<td>
-						<input type="text" name="discounts" class="form-control" value="${list.discount}">
+						<input type="text" name="discounts" class="form-control" value="${mode == 'update' ? list.discount : 0}">
 					</td>
 			</tr>
 			<tr>
@@ -338,7 +338,7 @@ document.getElementById('addOptionBtn').addEventListener('click', function() {
 	            <tr>
 					<td>할인율</td>
 						<td>
-							<input type="text" name="discounts" class="form-control" value="">
+							<input type="text" name="discounts" class="form-control" value="0">
 						</td>
 				</tr>
 				<tr>
