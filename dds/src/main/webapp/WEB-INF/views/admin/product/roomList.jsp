@@ -7,8 +7,8 @@
 	상품 리스트</div>
 <div class="table-responsice text-wrap">
 	<table class="table">
-		<thead>
-			<tr class="text-center">
+		<thead> 
+			<tr class="text-center table-primary">
 				<th>상품코드</th>
 				<th>상품타입</th>
 				<th>상품썸네일</th>
