@@ -79,8 +79,10 @@ public class RoomProductServiceImpl implements RoomProductService {
 			// 썸내일 이미지
 	    	String filename;
 	        filename = fileManager.doFileUpload(dto.getThumbnailFile(), pathname);
-	        dto.setThumbnail(filename);
-	    	
+	        if(filename != null && filename.length() != 0) {
+	        	dto.setThumbnail(filename);
+	        }
+	    	System.out.println("+++++++++++++++++" +  dto.getThumbnail());
 	    	// 룸 테이블 추가
 	        mapper.updateRoom(dto);
 	        
@@ -125,7 +127,7 @@ public class RoomProductServiceImpl implements RoomProductService {
 	                }
 
 	                dto.setPhoto(filename);
-	                mapper.updateRoomFile(dto);
+	                mapper.insertRoomFile(dto);
 	            }
 	        }	        
 	    
