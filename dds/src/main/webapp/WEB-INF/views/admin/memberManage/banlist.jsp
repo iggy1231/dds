@@ -42,6 +42,42 @@
     background-color: #696cff;
     color: white;
 }
+
+/* 반응형 카드 스타일 */
+.card { /* 수정된 부분 */
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    box-sizing: border-box;
+}
+
+/* 반응형 카드 헤더 스타일 */
+.card-header { /* 수정된 부분 */
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    box-sizing: border-box;
+}
+
+/* 반응형 테이블 스타일 */
+.table-responsive { /* 수정된 부분 */
+    width: 100%;
+    overflow-x: auto;
+}
+
+.table-responsive table { /* 수정된 부분 */
+    width: 100%;
+    max-width: 100%;
+    margin-bottom: 1rem;
+    background-color: transparent;
+}
+
+/* 테이블 헤더 스타일 */
+th { /* 추가된 부분 */
+    font-size: 1em !important; /* 글씨 크기 */
+    font-weight: bold !important; /* 글씨 굵게 */
+} 
 </style>
 
 <!-- Content wrapper -->
@@ -56,7 +92,7 @@
 						<div class="table-responsice text-nowrap">
 							<table class="table">
 								<thead>
-									<tr class="text-center"> 
+									<tr class="text-center table-primary"> 
 										<th>차단 번호</th>
 										<th>유저번호</th>
 										<th>닉네임</th>
@@ -73,10 +109,10 @@
 											<td>${list.num}</td>
 											<td>${list.user_num}</td>
 											<td>${list.nickName} </td>
-											<td>${list.reason} </td>
+											<td style="font-weight: bold;">${list.reason} </td>
 											<td>${list.ban_sdate}</td>
 											<td>${list.ban_edate}</td>
-											<td>${list.ban_state == 1 ? "차단 중" : "차단 해제"}</td>
+											<td style="${list.ban_state == 1 ? 'color: red;' : ''}">${list.ban_state == 1 ? "차단 중" : "차단 해제"}</td>
 											
 											<c:choose>
 												<c:when test="${list.ban_state == 1}">

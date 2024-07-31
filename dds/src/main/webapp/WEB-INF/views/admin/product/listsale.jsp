@@ -21,6 +21,42 @@
 	
 }
 
+/* 반응형 카드 스타일 */
+.card { /* 수정된 부분 */
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    box-sizing: border-box;
+}
+
+/* 반응형 카드 헤더 스타일 */
+.card-header { /* 수정된 부분 */
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    box-sizing: border-box;
+}
+
+/* 반응형 테이블 스타일 */
+.table-responsive { /* 수정된 부분 */
+    width: 100%;
+    overflow-x: auto;
+}
+
+.table-responsive table { /* 수정된 부분 */
+    width: 100%;
+    max-width: 100%;
+    margin-bottom: 1rem;
+    background-color: transparent;
+}
+
+/* 테이블 헤더 스타일 */
+th { /* 추가된 부분 */
+    font-size: 1em !important; /* 글씨 크기 */
+    font-weight: bold !important; /* 글씨 굵게 */
+} 
+
 </style>
 
 <!-- Content wrapper -->
@@ -82,7 +118,7 @@
 						</div>
 
 						<div class="col-auto pt-4 ps-4 text-start">${dataCount}개(${page}/${total_page} 페이지)</div>
-						<div class="page-navigation">${dataCount == 0 ? "등록된 상품이 없습니다." : paging}
+						<div class="page-navigation">${dataCount == 0 ? "주문 상품이 없습니다." : paging}
 						</div>
 				</div>
 					</div>

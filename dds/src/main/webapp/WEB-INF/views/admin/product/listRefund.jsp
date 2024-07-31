@@ -2,6 +2,44 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 
+<style>
+/* 반응형 카드 스타일 */
+.card { /* 수정된 부분 */
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    box-sizing: border-box;
+}
+
+/* 반응형 카드 헤더 스타일 */
+.card-header { /* 수정된 부분 */
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    box-sizing: border-box;
+}
+
+/* 반응형 테이블 스타일 */
+.table-responsive { /* 수정된 부분 */
+    width: 100%;
+    overflow-x: auto;
+}
+
+.table-responsive table { /* 수정된 부분 */
+    width: 100%;
+    max-width: 100%;
+    margin-bottom: 1rem;
+    background-color: transparent;
+}
+
+/* 테이블 헤더 스타일 */
+th { /* 추가된 부분 */
+    font-size: 1em !important; /* 글씨 크기 */
+    font-weight: bold !important; /* 글씨 굵게 */
+} 
+</style>
+
 <!-- Content wrapper -->
 <div class="content-wrapper">
 	<!-- Content -->
@@ -11,12 +49,11 @@
         <div class="card-header">
         <div class="ps-3 fw-semibold fs-3 text-center mb-1 text-primary">숙소 환불 리스트</div>
         
-        </div>
         <div class="card-body">
         	<div class="table-responsive text-nowrap">
 						    <table class="table">
 						        <thead>
-						            <tr class="text-center">
+						            <tr class="text-center table-primary">
 						                <th>주문번호</th>
 										<th>예약일자</th>
 										<th>환불일</th>
@@ -57,8 +94,9 @@
 						</div>
 
 							<div class="col-auto pt-4 ps-4 text-start">${dataCount}개(${page}/${total_page} 페이지)</div>
-						<div class="page-navigation">${dataCount == 0 ? "등록된 상품이 없습니다." : paging}
+						<div class="page-navigation">${dataCount == 0 ? "환불 상품이 없습니다." : paging}
 						</div>
+        </div>
         </div>
 		</div>
 	</div>

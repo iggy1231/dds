@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import com.fly.dds.admin.domain.MemberManage;
 import com.fly.dds.admin.domain.ReportManage;
 import com.fly.dds.admin.service.MemberManageService;
+import com.fly.dds.common.MyUtil;
 
 @Controller
 @RequestMapping("/admin/memberManage/*")
@@ -25,14 +26,18 @@ public class MemberManageController {
 	@Autowired
 	private MemberManageService service;
 	
+	@Autowired
+	private MyUtil myUtil;
+	
 	
 	@GetMapping("list")
-    public String memberManage(@RequestParam(value = "page", defaultValue = "1") int current_page,
+    public String memberManage(@RequestParam(defaultValue = "all") String schType,
+    		@RequestParam(value = "page", defaultValue = "1") int current_page,
     		@RequestParam(defaultValue = "") String kwd,
             HttpServletRequest req,
             Model model
     		) throws Exception {
-		 int size = 10;
+			int size = 10;
 	        int total_page = 0;
 	        int dataCount = 0;
 	        
@@ -43,8 +48,11 @@ public class MemberManageController {
 	        Map<String, Object> map = new HashMap<String, Object>();
 
 	        map.put("kwd", kwd);
+	        map.put("schType", schType);
 
 	        dataCount = service.dataCount(map);
+	        total_page = myUtil.pageCount(dataCount, size);
+	        
 	        if (dataCount != 0) {
 	            total_page = dataCount / size + (dataCount % size > 0 ? 1 : 0);
 	        }
@@ -60,14 +68,20 @@ public class MemberManageController {
 
 	        map.put("offset", offset);
 	        map.put("size", size);
+	        
 	        List<MemberManage> list = service.listMember(map);
+	        
+			String paging = myUtil.pagingMethod(current_page, total_page, "list");
+
 	        
 	        model.addAttribute("list",list);
 	        model.addAttribute("kwd",kwd);
+	        model.addAttribute("schType", schType);
 	        model.addAttribute("page",current_page);
 	        model.addAttribute("total_page",total_page);
 	        model.addAttribute("size",size);
 	        model.addAttribute("dataCount",dataCount);
+	        model.addAttribute("paging", paging);
 		
         return ".admin.memberManage.list";
     }
@@ -83,13 +97,16 @@ public class MemberManageController {
             HttpServletRequest req,
             Model model
     		) throws Exception {
-		 int size = 10;
+		 	
+			int size = 20;
 	        int total_page = 0;
 	        int dataCount = 0;
 	        
 	        Map<String, Object> map = new HashMap<String, Object>();
 
 	        dataCount = service.reportCount();
+	        total_page = myUtil.pageCount(dataCount, size);
+	        
 	        if (dataCount != 0) {
 	            total_page = dataCount / size + (dataCount % size > 0 ? 1 : 0);
 	        }
@@ -110,11 +127,14 @@ public class MemberManageController {
 	        
 	        List<ReportManage> list = service.listReportMember(dto);
 	        
+	        String paging = myUtil.pagingMethod(current_page, total_page, "report");
+	        
 	        model.addAttribute("list",list);
 	        model.addAttribute("page",current_page);
 	        model.addAttribute("total_page",total_page);
 	        model.addAttribute("size",size);
 	        model.addAttribute("dataCount",dataCount);
+	        model.addAttribute("paging", paging);
 		
         return ".admin.memberManage.report";
     }
@@ -124,38 +144,45 @@ public class MemberManageController {
             HttpServletRequest req,
             Model model
     		) throws Exception {
-		 int size = 10;
+		
+
+			int size = 20;
 	        int total_page = 0;
 	        int dataCount = 0;
 	        
 	        Map<String, Object> map = new HashMap<String, Object>();
-
+	        
 	        dataCount = service.banCount();
-	        if (dataCount != 0) {
-	            total_page = dataCount / size + (dataCount % size > 0 ? 1 : 0);
-	        }
+	        total_page = myUtil.pageCount(dataCount, size);
+	        
 	        
 	        // 다른 사람이 자료를 삭제하여 전체 페이지수가 변화 된 경우
 	        if (total_page < current_page) {
-	            current_page = total_page;
+	        	current_page = total_page;
 	        }
 
 	        // 리스트에 출력할 데이터를 가져오기
 	        int offset = (current_page - 1) * size;
 	        if(offset < 0) offset = 0;
-
+	        
 	        map.put("offset", offset);
 	        map.put("size", size);
-	        
 
-	        
 	        List<ReportManage> list = service.listBan();
+	        
+	        if (dataCount != 0) {
+	            total_page = dataCount / size + (dataCount % size > 0 ? 1 : 0);
+	        }
+	        
+	        String paging = myUtil.pagingUrl(current_page, total_page, "banlist");
+	        	        	        
 	        
 	        model.addAttribute("list",list);
 	        model.addAttribute("page",current_page);
 	        model.addAttribute("total_page",total_page);
 	        model.addAttribute("size",size);
 	        model.addAttribute("dataCount",dataCount);
+	        model.addAttribute("paging", paging);
 		
         return ".admin.memberManage.banlist";
     }

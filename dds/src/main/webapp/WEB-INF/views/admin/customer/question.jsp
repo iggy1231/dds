@@ -35,6 +35,12 @@
 
 .answerQuestion, .deleteQuestion { cursor: pointer; padding-left: 5px; }
 .answerQuestion:hover, .deleteQuestion:hover { font-weight: 500; color: #2478FF; }
+
+/* 테이블 헤더 스타일 */
+th { /* 추가된 부분 */
+    font-size: 1em !important; /* 글씨 크기 */
+    font-weight: bold !important; /* 글씨 굵게 */
+} 
 </style>
 
 <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/boot-board.css" type="text/css">
@@ -99,7 +105,7 @@ $(function(){
 		        </div>
 		        <table class="card-body table table-borderless board-list">
 				<thead class="table-light">
-					<tr class="border-bottom1">
+					<tr class="border-bottom1 table-primary">
 						<th width="100">상품명</th>
 						<th width="100">답변상태</th>
 						<th>내용</th>

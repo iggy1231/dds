@@ -18,6 +18,21 @@
 	color: white;
 }
 
+.btn4 {
+	border: 1px solid #6978AD;
+	border-radius: 8px; 
+	color: #6978AD;
+	background: white;
+	
+} 
+
+.btn4:hover {
+	border: 1px solid #6978AD;
+	background: #6978AD;  
+	color: white;
+}
+
+
 
 
 </style>
@@ -42,7 +57,7 @@
 					</div>
 					<div class="text-end m-3"> 
 						<button class="btn3"><a onclick="location.href='${pageContext.request.contextPath}/admin/faqManage/update?num=${dto.num}&pageNo=${pageNo}';">수정</a></button>
-						<button class="btn3"><a onclick="deleteFaq('${dto.num}', '${pageNo}');">삭제</a></button> 
+						<button class="btn4"><a onclick="deleteFaq('${dto.num}', '${pageNo}');">삭제</a></button> 
 					</div>
 				</div>
 			</div>

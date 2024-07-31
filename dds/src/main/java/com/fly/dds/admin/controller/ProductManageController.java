@@ -379,11 +379,14 @@ public class ProductManageController {
 		
 		List<RoomPayment> list = service.listRefund(map);
 		
+		String paging = myUtil.pagingMethod(current_page, total_page, "listRefund");
+		
 		model.addAttribute("list", list);
 		model.addAttribute("dataCount", dataCount);
 		model.addAttribute("page", current_page);
 		model.addAttribute("size", size);
 		model.addAttribute("total_page", total_page);
+		model.addAttribute("paging", paging);
 
 		
 		return ".admin.product.listRefund";

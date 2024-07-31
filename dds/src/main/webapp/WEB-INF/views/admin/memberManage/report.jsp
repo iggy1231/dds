@@ -7,6 +7,10 @@
 	max-width: 950px;
 }
 
+.text-primary {
+	color: #696cff !important;
+}
+
 .nav-tabs .nav-link {
 	min-width: 170px;
 	background: #f3f5f7;
@@ -17,12 +21,48 @@
 }
 .nav-tabs .nav-link.active {
 	background: #3d3d4f;
-	color: #fff;
+	color: #fff; 
 }
 .tab-pane { min-height: 300px; }
 
 .orderStatus-update, .orderDetailStatus-update { cursor: pointer;  }
 .orderStatus-update:hover, .orderDetailStatus-update:hover { color: #0d6efd; }
+
+/* 반응형 카드 스타일 */
+.card { /* 수정된 부분 */
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    box-sizing: border-box;
+}
+
+/* 반응형 카드 헤더 스타일 */
+.card-header { /* 수정된 부분 */
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    box-sizing: border-box;
+}
+
+/* 반응형 테이블 스타일 */
+.table-responsive { /* 수정된 부분 */
+    width: 100%;
+    overflow-x: auto;
+}
+
+.table-responsive table { /* 수정된 부분 */
+    width: 100%;
+    max-width: 100%;
+    margin-bottom: 1rem;
+    background-color: transparent;
+}
+
+/* 테이블 헤더 스타일 */
+th { /* 추가된 부분 */
+    font-size: 1em !important; /* 글씨 크기 */
+    font-weight: bold !important; /* 글씨 굵게 */
+} 
 </style>
 <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/boot-board.css" type="text/css">
 
@@ -49,34 +89,20 @@ $(function(){
 
 <div class="content-wrapper">
 	<div class="container-xxl flex-grow-1 container-p-y">
-		
 		<div class="card">
 			<div class="card-header">
-		<div class="ps-3 fw-semibold fs-3 text-center mb-3 text-primary">신고 리스트</div>
-		
-			
-			<div class="tab-content pt-4" id="myTabContent">
+				<div class="ps-3 fw-semibold fs-3 text-center mb-3 text-primary">신고 리스트</div>
+					
 
-		        <div class="row board-list-header">
-					<div class="col-auto me-auto">
-		        		<c:if test="${orderStatus =='status'}">
-			            	<div class="form-check form-check-inline">
-			            		<input type="radio" id="order-state1" class="form-check-input" name="orderstatus" value="1" ${state==1 ? "checked='checked'" : ""}> <label class="form-check-label" for="order-state1">신규 신고</label>
-			            	</div>
-			            	<div class="form-check form-check-inline">
-			            		<input type="radio" id="order-state2" class="form-check-input" name="orderstatus" value="2" ${state==2 ? "checked='checked'" : ""}> <label class="form-check-label" for="order-state2">전체 신고</label>
-			            	</div>
-		            	</c:if>
-		            	<div class="form-check form-check-inline">&nbsp;</div>
-					</div>
-		            <div class="col-auto">
+		       	<div class="row board-list-header">
+		            <div class="text-end">
 		            	${dataCount}개(${page}/${total_page} 페이지)
 					</div>
 		        </div>
 				<div class="table-responsice text-nowrap">
 				<table class="table">
-					<thead class="table-light">
-						<tr class="text-center">
+					<thead>
+						<tr class="text-center table-primary">
 							<th>신고번호</th>
 							<th>신고사유</th>
 							<th>신고당한사람</th>
@@ -91,7 +117,7 @@ $(function(){
 						<c:forEach var="dto" items="${list}" varStatus="status">
 							<tr class="text-center">
 								<td>${dto.num}</td>
-								<td>${dto.reason}</td>
+								<td style="font-weight: bold;">${dto.reason}</td>
 								<td>${dto.user_num}</td>
 								<td>${dto.reportPage}</td>
 								<td>${dto.reg_date}</td>
@@ -102,7 +128,7 @@ $(function(){
 								      확인완료
 								    </c:when>
 								    <c:otherwise>
-								      확인요망
+								      <span style="color: #696cff;">확인요망</span>
 								    </c:otherwise>
 								  </c:choose>
 								</td>
@@ -112,44 +138,13 @@ $(function(){
 				</table>
 				</div>
 				
-				<div class="page-navigation">
-					${dataCount == 0 ? "등록된 주문정보가 없습니다." : paging}
-				</div>
-	
-				<div class="row board-list-footer">
-					<div class="col">
-						<button type="button" class="btn btn-light" onclick="location.href='${pageContext.request.contextPath}/admin/order/${orderStatus}';" title="새로고침"><i class="bi bi-arrow-counterclockwise"></i></button>
-					</div>
-					<div class="col-6 text-center">
-						<form class="row" name="searchForm" action="${pageContext.request.contextPath}/admin/order/${orderStatus}" method="post">
-							<div class="col-auto p-1">
-								<select name="schType" class="form-select">
-									<option value="orderNum" ${schType=="orderNum"?"selected":""}>주문번호</option>
-									<c:if test="${orderStatus=='delivery'}">
-										<option value="invoiceNumber" ${schType=="invoiceNumber"?"selected":""}>송장번호</option>
-									</c:if>
-									<option value="userName" ${schType=="userName"?"selected":""}>주문자</option>
-									<option value="orderDate" ${schType=="orderDate"?"selected":""}>주문일자</option>
-								</select>
-							</div>
-							<div class="col-auto p-1">
-								<input type="hidden" name="state" value="${state}">
-								<input type="text" name="kwd" value="${kwd}" class="form-control">
-							</div>
-							<div class="col-auto p-1">
-								<button type="button" class="btn btn-light" onclick="searchList()"> <i class="bi bi-search"></i> </button>
-							</div>
-						</form>
-					</div>
-					<div class="col text-end">
-						&nbsp;
-					</div>
-				</div>
-			
+				<div class="page-navigation mt-3">
+					${dataCount == 0 ? "신고 목록이 없습니다." : paging}
+				</div>	
 			</div>		
 			</div>
 		</div>
-	</div>
+	
 </div>
 
 <!-- 주문정보-상태변경/배송변경 대화상자  -->
@@ -164,7 +159,7 @@ $(function(){
 				<div class="modal-order-detail"></div>
 			</div>
 		</div>
-	</div>
+	</div> 
 </div>
 
 <!-- 주문상세정보-상태변경/상태확인 대화상자  -->

@@ -131,7 +131,22 @@ ul.tabs li {
 	padding: 5px 10px;
 }
 
+/* 반응형 레이아웃 스타일 추가 */
+.search-container { /* 추가된 부분 */
+	display: flex;
+	flex-wrap: wrap;
+	align-items: center;
+	justify-content: center;
+}
 
+.search-container select, 
+.search-container input { /* 추가된 부분 */
+	margin: 5px;
+}
+
+.search-container .btn2 { /* 추가된 부분 */
+    margin-left: auto; /* 자동 여백 추가 */
+}
 
 </style>
 
@@ -287,19 +302,20 @@ function deleteFaq(num, page) {
 			</ul>
 		<div id="tab-content" class="table-responsive text-nowrap accordion-container">
 		</div>
-		<div class="mb-3"> 
-			<span style="margin-left: 140px;">   
-				<select id="schType" name="schType" class="col-auto p-1" style="width: 130px; border: 1px solid #566a7f; border-radius: 8px; color: #566a7f;">   
-					<option value="all" ${schType=="all"?"selected":""}>제목+내용</option> 
-					<option value="subject" ${schType=="subject"?"selected":""}>제목</option>
-					<option value="content" ${schType=="content"?"selected":""}>내용</option>
-				</select>
-				<input type="text" id="kwd" name="kwd" class="col-auto p-1" value="${kwd}" style="width: 400px; border: 1px solid #566a7f; border-radius: 8px;">
-			  
-				<button type="button" class="btn1" onclick="searchList();"><i class="bi bi-search"></i></button> 
-				<button type="button" class="btn2" onclick="location.href='${pageContext.request.contextPath}/admin/faqManage/write';" style="margin-left: 60px;">글올리기</button>
-			</span>  
-		</div>
+		 <div class="mb-3"> 
+                <div class="search-container"> <!-- 수정된 부분 -->
+                    <span style="margin-left: 300px;"> <!-- 수정된 부분 -->
+                        <select id="schType" name="schType" class="col-auto p-1" style="width: 130px; border: 1px solid #566a7f; border-radius: 8px; color: #566a7f;">   
+                            <option value="all" ${schType=="all"?"selected":""}>제목+내용</option> 
+                            <option value="subject" ${schType=="subject"?"selected":""}>제목</option>
+                            <option value="content" ${schType=="content"?"selected":""}>내용</option>
+                        </select>
+                        <input type="text" id="kwd" name="kwd" class="col-auto p-1" value="${kwd}" style="width: 400px; border: 1px solid #566a7f; border-radius: 8px;">
+                        <button type="button" class="btn1" onclick="searchList();"><i class="bi bi-search"></i></button>
+                    </span> <!-- 수정된 부분 -->
+                    <button type="button" class="btn2" onclick="location.href='${pageContext.request.contextPath}/admin/faqManage/write';">글올리기</button> <!-- 수정된 부분 -->
+                </div> <!-- 수정된 부분 -->
+            </div>
 		</div>
 		
 	</div>
@@ -310,6 +326,6 @@ function deleteFaq(num, page) {
     <input type="hidden" name="kwd" value="">
 </form>
 
-<div class="page-navigation">${dataCount == 0 ? "등록된 게시물이 없습니다." : paging}
+<div class="page-navigation">${dataCount == 0 ? "등록된 FAQ가 없습니다." : paging}
 </div>
 
