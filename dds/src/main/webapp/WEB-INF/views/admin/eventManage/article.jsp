@@ -6,6 +6,10 @@
 <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/board.css" type="text/css">
 
 <style type="text/css">
+:root {
+    --primary-color: #696cff; /* primary 색상 지정 */
+}
+
 .body-main {
     max-width: 900px;
     margin: 0 auto;
@@ -19,7 +23,7 @@
     border-radius: 5px;
 }
 
-.rank-plus:hover, .rank-minus:hover {
+.rank-plus:hover, .rank-minus:hover { 
     color: blue;
 }
 
@@ -102,19 +106,20 @@ th {
     cursor: pointer;
     border: 1px solid #ddd;
     border-bottom: none;
-    background: #f9f9f9;
+    background: #696cff; 
     margin-right: 5px;
-    transition: background-color 0.2s ease;
+	transition: background-color 0.2s ease, color 0.2s ease;
 }
 
 .tabs li.active {
-    background: #fff;
+	background: var(--primary-color); /* primary 색상 적용 */
+	color: white;
     font-weight: bold;
     border-bottom: 2px solid #fff;
 }
 
 .page-navigation {
-    text-align: center;
+    text-align: center; 
     margin: 20px 0;
 }
 
@@ -147,6 +152,29 @@ $(function() {
     $('ul.tabs li').click(function() {
         let category = $(this).attr('data-category');
         location.href = '${pageContext.request.contextPath}/admin/eventManage/' + category + '/list';
+    });
+    
+    $('#tab-all').addClass('active').css({
+        'background': 'var(--primary-color)',
+        'color': 'white'
+    });
+
+    $('ul.tabs li').click(function() {
+        $('ul.tabs li').removeClass('active').css({
+            'background': '#f9f9f9',
+            'color': 'black'
+        });
+        $(this).addClass('active').css({
+            'background': 'var(--primary-color)',
+            'color': 'white'
+        });
+
+        if ($(this).attr('id') !== 'tab-all') {
+            $('#tab-all').css({
+                'background': 'var(--primary-color)',
+                'color': 'white'
+            });
+        }
     });
 });
 </script>

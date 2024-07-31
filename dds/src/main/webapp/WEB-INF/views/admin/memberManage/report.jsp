@@ -73,23 +73,23 @@ $(function(){
 		            	${dataCount}개(${page}/${total_page} 페이지)
 					</div>
 		        </div>
-				
-				<table class="table board-list">
+				<div class="table-responsice text-nowrap">
+				<table class="table">
 					<thead class="table-light">
-						<tr>
+						<tr class="text-center">
 							<th>신고번호</th>
-							<th width="90">신고사유</th>
-							<th width="100">신고당한사람</th>
-							<th width="150">게시글</th>
-							<th width="130">등록일</th>
-							<th width="150">신고한사람</th>
-							<th width="90">처리상태</th>
+							<th>신고사유</th>
+							<th>신고당한사람</th>
+							<th>게시글</th>
+							<th>등록일</th>
+							<th>신고한사람</th>
+							<th>처리상태</th>
 						</tr>
 					</thead>
 					
 					<tbody>
 						<c:forEach var="dto" items="${list}" varStatus="status">
-							<tr valign="middle">
+							<tr class="text-center">
 								<td>${dto.num}</td>
 								<td>${dto.reason}</td>
 								<td>${dto.user_num}</td>
@@ -110,6 +110,7 @@ $(function(){
 						</c:forEach>
 					</tbody>
 				</table>
+				</div>
 				
 				<div class="page-navigation">
 					${dataCount == 0 ? "등록된 주문정보가 없습니다." : paging}

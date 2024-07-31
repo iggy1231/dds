@@ -4,6 +4,7 @@
 <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/board.css" type="text/css">
 <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js"></script>
 <link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+
 <style type="text/css">
 .table-category {
 	border-spacing: 1px;
@@ -64,6 +65,10 @@
 .btnCategoryAddOk, .btnSpanIcon {
 	cursor: pointer;
 }
+
+.text-primary {
+	color: #696cff !important;
+}
 </style>
 
 <script type="text/javascript">
@@ -98,18 +103,18 @@ function sendOk() {
 <div class="content-wrapper">
 	<!-- Content -->
 	<div class="container-xxl flex-grow-1 container-p-y">
-		<div class="body-title">
-			<h2><i class="fa-solid fa-clipboard-question"></i> 자주하는 질문 </h2>
+    
+    <div class="card">
+    	<div class="card-header">
+		<div> 
+			<h2 style="color: #696cff; font-weight: bold;"> 자주하는 질문 </h2>
     	</div>
-    
-    <div class="body-main">
-    
 		<form name="faqForm" method="post">
-			<table class="table table-border border-top2 table-form">
-				<tr> 
-					<td>카테고리</td>
-					<td> 
-						<select name="categoryNum" class="form-select">
+			<table class="table table-border border-top2 table-formm">  
+				<tr style="border-top: 2px solid black;"> 
+					<td style="background: rgba(105, 108, 255, 0.16); text-align: center; width: 250px;">카테고리</td>
+					<td>   
+						<select name="categoryNum" class="form-select" style="width: 150px;">
 							<c:forEach var="vo" items="${listCategory}">
 								<option value="${vo.categoryNum}" ${dto.categoryNum==vo.categoryNum?"selected":""}>${vo.category}</option>
 							</c:forEach>
@@ -119,21 +124,21 @@ function sendOk() {
 				</tr>
 			
 				<tr> 
-					<td>제&nbsp;&nbsp;&nbsp;&nbsp;목</td>
+					<td style="background: rgba(105, 108, 255, 0.16); text-align: center; width: 250px; border-top: 2px solid #d5d5d5;">제&nbsp;&nbsp;&nbsp;&nbsp;목</td>
 					<td> 
 						<input type="text" name="subject" maxlength="100" class="form-control" value="${dto.subject}">
 					</td>
 				</tr>
 			
 				<tr>
-					<td>작성자</td>
+					<td style="background: rgba(105, 108, 255, 0.16); text-align: center; width: 250px; border-top: 2px solid #d5d5d5;">작성자</td>
 					<td> 
-						${sessionScope.member.userName}
+						${sessionScope.member.userName} 
 					</td>
 				</tr>
 			
 				<tr> 
-					<td valign="top">내&nbsp;&nbsp;&nbsp;&nbsp;용</td>
+					<td valign="top" style="background: rgba(105, 108, 255, 0.16); text-align: center; width: 250px; line-height: 60px; border-top: 2px solid #d5d5d5;">내&nbsp;&nbsp;&nbsp;&nbsp;용</td>
 					<td valign="top"> 
 						<textarea name="content" class="form-control">${dto.content}</textarea>
 					</td>
@@ -185,6 +190,7 @@ function sendOk() {
 		</div>
 		</div>
 	</div>
+    	</div>
 </div>
 
 <script type="text/javascript">
@@ -227,10 +233,10 @@ function ajaxFun(url, method, formData, dataType, fn, file = false) {
 
 $(function(){
 	// 카테고리 수정 대화상자
-	$(".table-form").on("click", ".btnCategoryDialog", function(){
+	$(".table-formm").on("click", ".btnCategoryDialog", function(){
 		$("form[name=categoryForm]").each(function(){
 			this.reset();
-		});
+		}); 
 		
 		$("#category-dialog").dialog({
 			  modal: true,

@@ -2,6 +2,47 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 
+<style>
+.text-primary {
+	color: #696cff !important;
+}
+
+/* 버튼 기본 스타일 */
+.btn {
+    background-color: white; /* 기본 배경색: 하얀색 */
+    color: #696cff; /* 기본 텍스트 색상: 검정색 */
+    border-radius: 8px; /* 테두리 둥글게 */
+    padding: 10px 20px; /* 버튼 여백 */
+    cursor: pointer; /* 커서 포인터 */
+    transition: background-color 0.3s, color 0.3s; /* 색상 전환 애니메이션 */
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3); /* 박스 그림자 */
+    scale: 0.9;
+}
+
+
+.btn2 {
+	background-color: white; /* 기본 배경색: 하얀색 */
+    color: #bdbdbd; /* 기본 텍스트 색상: 검정색 */
+    border: 1px solid #BDBDBD;
+    border-radius: 8px; /* 테두리 둥글게 */
+    padding: 10px 20px; /* 버튼 여백 */
+    cursor: pointer; /* 커서 포인터 */ 
+    scale: 0.9;
+}
+
+/* 버튼 클릭 시 스타일 */
+.btn:active {
+    background-color: white; /* 클릭 시 배경색: primary 색상 */
+    color: black; /* 클릭 시 텍스트 색상: 하얀색 */
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2); /* 클릭 시 박스 그림자 변경 */
+}
+
+/* 버튼 hover 시 스타일 */
+.btn:hover {
+    background-color: #696cff;
+    color: white;
+}
+</style>
 
 <!-- Content wrapper -->
 <div class="content-wrapper">
@@ -36,9 +77,15 @@
 											<td>${list.ban_sdate}</td>
 											<td>${list.ban_edate}</td>
 											<td>${list.ban_state == 1 ? "차단 중" : "차단 해제"}</td>
-											<c:if test="${list.ban_state == 1}">
-												<td><button type="button" onclick="unblock(${list.user_num})"> 차단 해제 </button></td>
-											</c:if>
+											
+											<c:choose>
+												<c:when test="${list.ban_state == 1}">
+													<td><button class="btn" type="button" onclick="unblock(${list.user_num})"> 차단 해제 </button></td>
+												</c:when>
+												<c:otherwise>
+													<td><button class="btn2" disabled>차단 해제</button>
+												</c:otherwise>
+											</c:choose>
 											
 
 										</tr>

@@ -3,6 +3,26 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 
 
+<style>
+.btn {
+    background-color: #ffffff; /* 기본 배경색: 하얀색 */
+    color: #696cff; /* 기본 텍스트 색상: 검정색 */
+    border: 1px solid #696cff;
+    border-radius: 8px; /* 테두리 둥글게 */
+    padding: 5px 10px; /* 버튼 여백 */
+    cursor: pointer; /* 커서 포인터 */
+    transition: background-color 0.3s, color 0.3s; /* 색상 전환 애니메이션 */
+    
+}
+    
+.btn:hover {
+	background-color: #696cff;
+	color: white;
+	
+}
+
+</style>
+
 <!-- Content wrapper -->
 <div class="content-wrapper">
 	<!-- Content -->
@@ -54,7 +74,7 @@
 											<td>${list.detail_num}</td>
 											<td>${list.user_num}</td>
 											<td>${list.nickName}</td>	
-											<td> <input type="text" id="description-${list.sale_num}"> <button type="button" onclick="getToken('${list.imp_uid}',0,${list.sale_num});" > 환 불 </button> </td>			
+											<td> <input type="text" id="description-${list.sale_num}"> <button type="button" class="btn" onclick="getToken('${list.imp_uid}',0,${list.sale_num});" > 환 불 </button> </td>			
 										</tr>
 									</c:forEach>
 								</tbody>

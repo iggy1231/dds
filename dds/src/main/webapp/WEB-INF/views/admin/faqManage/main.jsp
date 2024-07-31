@@ -107,6 +107,32 @@ ul.tabs li {
 	cursor: pointer; 
 }
 
+
+.btn1 {
+	border: 1px solid #566a7f !important;
+	border-radius: 8px; 
+	color: #566a7f !important;
+	background: white;
+	
+} 
+
+.btn1:hover {
+	border: 1px solid #566a7f !important; 
+	background: #566a7f !important;  
+	color: white;
+}
+
+
+.btn2 {
+	border: 1px solid #696cff;
+	border-radius: 8px; 
+	background: #696cff;  
+	color: white;
+	padding: 5px 10px;
+}
+
+
+
 </style>
 
 <script type="text/javascript">
@@ -252,37 +278,31 @@ function deleteFaq(num, page) {
     </div>
     
     <div class="card">
-		<div class="card-header pb-0  tabs-container">
+		<div class="card-header pb-0 ">
 			<ul class="tabs">
 				<li id="tab-0" data-categoryNum="0">모두</li>
 				<c:forEach var="dto" items="${listCategory}">
 					<li id="tab-${dto.categoryNum}" data-categoryNum="${dto.categoryNum}">${dto.category}</li>
 				</c:forEach>
 			</ul>
-		</div>
 		<div id="tab-content" class="table-responsive text-nowrap accordion-container">
 		</div>
-		<table class="table">
-			<tr>
-				<td align="left" width="100">
-					<button type="button" class="btn" onclick="reloadFaq();" title="새로고침"><i class="fa-solid fa-arrow-rotate-left"></i></button>
-				</td>
-				<td align="center">
-					<select id="schType" name="schType" class="form-select">
-						<option value="all" ${schType=="all"?"selected":""}>제목+내용</option>
-						<option value="subject" ${schType=="subject"?"selected":""}>제목</option>
-						<option value="content" ${schType=="content"?"selected":""}>내용</option>
-					</select>
-					<input type="text" id="kwd" name="kwd" class="form-control" value="${kwd}">
-					<button type="button" class="btn" onclick="searchList();">검색</button>
-				</td>
-				<td align="right" width="100">
-					<button type="button" class="btn" onclick="location.href='${pageContext.request.contextPath}/admin/faqManage/write';">글올리기</button>
-				</td>
-			</tr>
-		</table>
-		
+		<div class="mb-3"> 
+			<span style="margin-left: 140px;">   
+				<select id="schType" name="schType" class="col-auto p-1" style="width: 130px; border: 1px solid #566a7f; border-radius: 8px; color: #566a7f;">   
+					<option value="all" ${schType=="all"?"selected":""}>제목+내용</option> 
+					<option value="subject" ${schType=="subject"?"selected":""}>제목</option>
+					<option value="content" ${schType=="content"?"selected":""}>내용</option>
+				</select>
+				<input type="text" id="kwd" name="kwd" class="col-auto p-1" value="${kwd}" style="width: 400px; border: 1px solid #566a7f; border-radius: 8px;">
+			  
+				<button type="button" class="btn1" onclick="searchList();"><i class="bi bi-search"></i></button> 
+				<button type="button" class="btn2" onclick="location.href='${pageContext.request.contextPath}/admin/faqManage/write';" style="margin-left: 60px;">글올리기</button>
+			</span>  
 		</div>
+		</div>
+		
+	</div>
 	</div>
 </div>
 <form name="faqSearchForm" method="post">
@@ -292,3 +312,4 @@ function deleteFaq(num, page) {
 
 <div class="page-navigation">${dataCount == 0 ? "등록된 게시물이 없습니다." : paging}
 </div>
+

@@ -27,7 +27,7 @@
 }
 
 .table th {
-	background-color: #f2f2f2;
+	background-color: #e1e2ff;
 }
 
 .table-list th, .table-list td {
@@ -60,18 +60,19 @@
 	cursor: pointer;
 	border: 1px solid #ddd;
 	border-bottom: none;
-	background: #f9f9f9;
+	background: #696cff; 
 }
 
-.tabs li.active {
-	background: #fff;
+.tabs li.active { 
+	background: #696cff;
 	font-weight: bold;
+	color: white;
 }
 
 .page-navigation {
 	text-align: center;
-	margin: 20px 0;
-}
+	margin: 20px 0; 
+} 
 
 .btn {
 	cursor: pointer;
@@ -143,7 +144,7 @@ $(function(){
     
     <div class="card">
     	<div class="card-header">
-		<ul class="tabs">
+		<ul class="tabs"> 
 			<li id="tab-all" data-category="all">전체 이벤트</li>
 			<li id="tab-progress" data-category="progress">진행중인 이벤트</li>
 			<li id="tab-winner" data-category="winner">당첨자 발표</li>
