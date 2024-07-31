@@ -110,6 +110,14 @@
     filter: brightness(70%); /* 호버 시 이미지 밝기를 70%로 낮춤 */
 }
 
+.detail-img img {
+    transition: 0.3s ease; /* 부드러운 전환 효과 추가 */
+}
+
+.detail-img img:hover {
+    filter: brightness(70%); /* 호버 시 이미지 밝기를 70%로 낮춤 */
+}
+
 .ratio {
     position: relative;
     width: 95%;
@@ -342,8 +350,8 @@
 		    <div class="card mb-3">
 		        <div class="row g-0 align-items-center">
 		            <div class="col-md-4">
-		                <div class="ratio ratio-4x3">
-		                    <img src="${pageContext.request.contextPath}/uploads/room/${detail.detail_photo}" class="img-fluid rounded-start" alt="객실 이미지">
+		                <div class="ratio ratio-4x3  detail-img">
+		                    <img src="${pageContext.request.contextPath}/uploads/room/${detail.detail_photo}" class="img-fluid rounded-start" alt="객실 이미지"  style="object-fit: cover; height: 100%;">
 		                </div>
 		            </div>
 		            <div class="col-md-5">

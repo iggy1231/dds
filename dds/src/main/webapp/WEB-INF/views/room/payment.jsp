@@ -172,8 +172,8 @@ ul.payment-info li span.total {
 <div class="col-lg-4">
   <div class="px-3 border border-1 rounded row gx-4 gy-3 mb-3">
     <h5 style="font-weight: 700;" class="ps-2 pb-0 text-center">${dto.subject}</h5>
-    <div class="ratio ratio-4x3">
-      <img src="${pageContext.request.contextPath}/uploads/room/${dto.thumbnail}" class="img-fluid rounded" alt="객실 이미지">
+    <div class="ratio ratio-4x3" style="height: 180px;">
+      <img src="${pageContext.request.contextPath}/uploads/room/${dto.thumbnail}" class="img-fluid rounded" alt="객실 이미지" style="object-fit: cover; height: 100%;">
     </div>
     <div class="p-2 mt-2">
       <table>
