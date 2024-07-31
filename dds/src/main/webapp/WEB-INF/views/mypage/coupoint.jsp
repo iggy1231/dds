@@ -227,8 +227,8 @@
             </div>
             <div id="tab-pane-2" class="tab-pane fade">
                 <div class="points-section">
-                    <h2>0 P <span class="info-icon">i</span></h2>
-                    <p>30일 내 0P가 소멸될 예정이에요</p>
+                    <h2>1580 P <span class="info-icon">i</span></h2>
+                    <p>30일 내 500P가 소멸될 예정이에요</p>
                 </div>
                 <div class="points-buttons">
                     <button class="btn active" data-type="all">전체</button>
@@ -237,9 +237,9 @@
                     <button class="btn" data-type="expiring">소멸</button>
                 </div>
                 <div class="points-history" id="points-history">
-                    <h3>23년 08월</h3>
+                    <h3>24년 08월</h3>
                     <div class="history-item">
-                        <div class="date">23.08.10</div>
+                        <div class="date">24.07.28</div>
                         <div class="description">주문포인트 사용</div>
                         <div class="points">-2,000 P</div>
                     </div>
@@ -318,13 +318,13 @@
         history.innerHTML = '';
 
         if (type === 'all') {
-            history.innerHTML = '<h3>23년 08월</h3><div class="history-item"><div class="date">23.08.10</div><div class="description">주문포인트 사용</div><div class="points">-2,000 P</div></div>';
+            history.innerHTML = '<h3>24년 8월</h3><div class="history-item"><div class="date">24.08.01</div><div class="description">주문포인트 사용</div><div class="points">-2,000 P</div></div>';
         } else if (type === 'earned') {
-            history.innerHTML = '<h3>23년 08월</h3><div class="history-item"><div class="date">23.08.05</div><div class="description">포인트 적립</div><div class="points">+1,000 P</div></div>';
+            history.innerHTML = '<h3>24년 07월</h3><div class="history-item"><div class="date">24.07.30</div><div class="description">포인트 적립</div><div class="points">+1,000 P</div></div>';
         } else if (type === 'used') {
-            history.innerHTML = '<h3>23년 08월</h3><div class="history-item"><div class="date">23.08.10</div><div class="description">주문포인트 사용</div><div class="points">-2,000 P</div></div>';
+            history.innerHTML = '<h3>24년 08월</h3><div class="history-item"><div class="date">24.08.01</div><div class="description">주문포인트 사용</div><div class="points">-2,000 P</div></div>';
         } else if (type === 'expiring') {
-            history.innerHTML = '<h3>23년 08월</h3><div class="history-item"><div class="date">23.08.15</div><div class="description">포인트 소멸 예정</div><div class="points">-500 P</div></div>';
+            history.innerHTML = '<h3>23년 08월</h3><div class="history-item"><div class="date">24.08.18</div><div class="description">포인트 소멸 예정</div><div class="points">-500 P</div></div>';
         }
     }
     function ajaxFun(url, method, formData, dataType, fn, file = false) {
