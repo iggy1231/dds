@@ -8,7 +8,7 @@
 	<!-- Content -->
 	<div class="container-xxl flex-grow-1 container-p-y">
 		<div class="card">
-				<div class="card-header ps-3 fw-semibold fs-3 text-center mb-3 text-primary">숙소 상품 리스트</div>
+				<div class="card-header ps-3 fw-semibold fs-3 text-center mb-3 text-primary">숙소 주문 리스트</div>
 					<div class="table-responsice text-nowrap" style="overflow: auto; max-height: 400px;">
 						<table class="table">
 								<thead>

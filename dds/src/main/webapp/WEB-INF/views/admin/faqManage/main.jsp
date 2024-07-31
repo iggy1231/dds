@@ -12,6 +12,7 @@
 	width: 100%;
 	min-height: 50px;
 	margin: 15px auto 5px;
+	padding: 10px; /* 수정된 부분 */
 }
 
 .accordion h3.question {
@@ -20,7 +21,7 @@
     font-weight:500;
     border:1px solid #ccc;
     background-color:#fff;
-    padding:7px 15px 7px;
+    padding:10px 15px; /* 패딩 수정 */
     border-radius:4px;	
     cursor:pointer;
     margin: 3px 0 0;
@@ -41,7 +42,7 @@
 	border: 1px solid #ccc;
 	border-top: none;
 	min-height: 50px;
-	padding: 3px 10px 10px;
+	padding: 15px; /* 패딩 추가 */
 	display: none;
 }
 
@@ -52,7 +53,7 @@
 }
 
 .accordion div.answer > .content {
-	padding: 7px 15px 5px;
+	padding: 10px 15px 5px;
 }
 .accordion div.answer > .content div:first-child {
 	font-weight: 700;
@@ -66,12 +67,46 @@
 
 .accordion div.answer > .update {
 	text-align: right;
+	padding: 5px 15px; /* 패딩 추가 */
 }
 
 .accordion h3.active {
 	font-weight: 600;
 	background-color: #f8f9fa;
 }
+
+ul.tabs li.active {
+	background-color: #007bff;
+	color: #fff;
+	border-top-left-radius: 10px;
+	border-top-right-radius: 10px;
+}
+
+ul.tabs li.active:hover {
+	color: #fff;
+}
+
+/* 새로운 컨테이너 스타일 */
+.tabs-container, .accordion-container {
+	width: 100%; /* 수정된 부분 */
+	margin: 0 auto; /* 수정된 부분 */
+	padding: 0; /* 수정된 부분 */
+}
+
+/* tabs 스타일 */
+ul.tabs {
+	list-style: none;
+	padding: 0; /* 수정된 부분 */
+	margin: 0; /* 수정된 부분 */
+	display: flex;
+}
+
+ul.tabs li {
+	padding: 10px 15px; /* 패딩 추가 */
+	margin-right: 5px; /* 탭 간 간격 추가 */
+	cursor: pointer; 
+}
+
 </style>
 
 <script type="text/javascript">
@@ -98,17 +133,17 @@ $(function(){
 	if(pageNo === "") {
 		pageNo = 1;
 	}
-	$("#tab-"+categoryNum).addClass("active");
+	$("#tab-"+categoryNum).addClass("active bg-primary");
 	listPage(pageNo);
 
 	$("ul.tabs li").click(function() {
 		categoryNum = $(this).attr("data-categoryNum");
 		
 		$("ul.tabs li").each(function(){
-			$(this).removeClass("active");
+			$(this).removeClass("active bg-primary");
 		});
 		
-		$("#tab-"+categoryNum).addClass("active");
+		$("#tab-"+categoryNum).addClass("active bg-primary");
 		
 		listPage(1);
 	});
@@ -217,7 +252,7 @@ function deleteFaq(num, page) {
     </div>
     
     <div class="card">
-		<div class="card-header pb-0">
+		<div class="card-header pb-0  tabs-container">
 			<ul class="tabs">
 				<li id="tab-0" data-categoryNum="0">모두</li>
 				<c:forEach var="dto" items="${listCategory}">
@@ -225,7 +260,7 @@ function deleteFaq(num, page) {
 				</c:forEach>
 			</ul>
 		</div>
-		<div id="tab-content" class="table-responsive text-nowrap">
+		<div id="tab-content" class="table-responsive text-nowrap accordion-container">
 		</div>
 		<table class="table">
 			<tr>
@@ -254,3 +289,6 @@ function deleteFaq(num, page) {
 	<input type="hidden" name="schType" value="all">
     <input type="hidden" name="kwd" value="">
 </form>
+
+<div class="page-navigation">${dataCount == 0 ? "등록된 게시물이 없습니다." : paging}
+</div>

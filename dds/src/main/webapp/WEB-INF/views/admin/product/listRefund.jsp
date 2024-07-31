@@ -6,9 +6,6 @@
 <div class="content-wrapper">
 	<!-- Content -->
 	<div class="container-xxl flex-grow-1 container-p-y">
-		<h4 class="py-3 mb-4">
-			<span class="text-muted fw-light">주문관리 /</span> 환불 리스트
-		</h4>
 		<div class="card">
 			<div class="card mt-2">
         <div class="card-header">

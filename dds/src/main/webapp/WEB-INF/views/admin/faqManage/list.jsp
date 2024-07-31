@@ -7,13 +7,13 @@
 	<div id="accordionIcon" class="accordion mt-3 accordion-without-arrow">
 		<c:forEach var="dto" items="${list}">
 			<div class="accordion-item card">
-				<h3 class="accordion-header text-body d-flex justify-content-between" id="accordionIconOne">
+				<h3 class="accordion-header text-body d-flex justify-content-between" id="accordionIcon-${dto.num}">
 					<button type="button" class="accordion-button collapsed"
-						data-bs-toggle="collapse" data-bs-target="#accordionIcon-1"
-						aria-controls="accordionIcon-1">
-						<span class="q">Q.</span> <span class="subject">${dto.subject}</span></button>
+						data-bs-toggle="collapse" data-bs-target="#accordionIcon-collapse-${dto.num}"
+						aria-controls="accordionIcon-collapse-${dto.num}">
+						<span class="q"></span> <span class="subject">${dto.subject}</span></button>
 				</h3>
-				<div id="accordionIcon-1" class="accordion-collapse collapse">
+				<div id="accordionIcon-collapse-${dto.num}" class="accordion-collapse collapse" aria-labelledby="accordionIcon-${dto.num}">
 					<div class="accordion-body">
 						<div class="category">분류 : ${dto.category}</div>
 						<div class="content">
@@ -21,7 +21,6 @@
 							<div>${dto.content}</div>
 						</div>
 					</div>
-
 					<div class="update">
 						<a
 							onclick="location.href='${pageContext.request.contextPath}/admin/faqManage/update?num=${dto.num}&pageNo=${pageNo}';">수정</a>&nbsp;|
@@ -33,5 +32,3 @@
 	</div>
 </c:if>
 
-<div class="page-navigation">${dataCount == 0 ? "등록된 게시물이 없습니다." : paging}
-</div>

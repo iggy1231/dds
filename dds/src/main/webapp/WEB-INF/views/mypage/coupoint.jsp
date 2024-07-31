@@ -269,6 +269,7 @@
 		
 		const fn = function(data) {
 			let state=data.state;
+			console.log(state);
 			if(state === "true") {
 				$('#alertModal .modal-title').text("쿠폰 등록에 성공했습니다");
 				location.href="${pageContext.request.contextPath}/mypage/coupoint";
