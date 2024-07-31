@@ -29,13 +29,25 @@ public class MemberController {
 	private MemberManageService mmservice;
 	
 	@GetMapping("login")
-	public String loginForm() {
+	public String loginForm(@RequestParam (defaultValue = "1")int state,Model model,HttpSession session) {
+		
+		SessionInfo info=(SessionInfo) session.getAttribute("member");
+		MemberManage dto2;
+		try {
+			dto2 = mmservice.checkBan(info.getUser_num());
+			if(state==0) {
+			model.addAttribute("dto2",dto2);
+			return "member/login";
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 		return "member/login";
 	}
 	
 	@PostMapping("login")
 	public String loginSubmit(@RequestParam String userId,
-			@RequestParam String userPwd,
+			@RequestParam String userPwd,	
 			HttpSession session,
 			Model model) {
 
