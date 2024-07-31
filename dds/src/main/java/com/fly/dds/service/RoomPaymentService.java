@@ -10,6 +10,4 @@ public interface RoomPaymentService {
 	public void insertCardData(RoomPayment dto) throws Exception;
 	public long payMentSeq();
 	public void insertRefund(Map<String, Object> map) throws Exception;
-	
-	// public List<RoomPayment> listRoomPayment(List<>);
 }

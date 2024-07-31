@@ -15,7 +15,7 @@ public class RoomPaymentServiceImpl implements RoomPaymentService{
 
 	@Override
 	public String roomPaymentNumber() {
-		// TODO Auto-generated method stub
+		
 		return null;
 	}
 

@@ -19,7 +19,6 @@ import com.fly.dds.common.MyUtil;
 import com.fly.dds.domain.RoomQnA;
 import com.fly.dds.domain.SessionInfo;
 import com.fly.dds.service.RoomQnAService;
-import com.fly.dds.service.RoomReviewService;
 
 @Controller
 @RequestMapping(value = "/admin/customer/*")
@@ -27,10 +26,6 @@ public class CustomerManageController {
 	
 	@Autowired
 	private MyUtil myUtil;
-	
-	
-	@Autowired
-	private RoomReviewService rrviewService;
 	
 	@Autowired
 	private RoomQnAService qnaService;

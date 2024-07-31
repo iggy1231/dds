@@ -1,8 +1,5 @@
 package com.fly.dds.interceptor;
 
-import java.io.IOError;
-import java.io.IOException;
-
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
@@ -10,7 +7,6 @@ import javax.servlet.http.HttpSession;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.ui.Model;
 import org.springframework.web.servlet.HandlerInterceptor;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -76,11 +72,11 @@ public class LoginCheckInterceptor implements HandlerInterceptor {
 				
 				MemberManage dto2;
 				dto2 = mmservice.checkBan(info.getUser_num());
-			        if(dto2.getBan_state() == 1) {
-			            session.invalidate();
-			            response.sendRedirect(cp + "/member/login?state=0");
-			            return false;
-			        }
+		        if(dto2 != null && dto2.getBan_state() == 1) {
+		            session.invalidate();
+		            response.sendRedirect(cp + "/member/login?state=0");
+		            return false;
+		        }
 				
 				if(uri.indexOf("admin") != -1 && info.getEnabled() < 2) {
 

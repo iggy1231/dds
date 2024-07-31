@@ -73,19 +73,8 @@ public class RoomController {
 	
 
 	@GetMapping("main")
-	public String roomMain(HttpSession session , Model model) {
-		SessionInfo info=(SessionInfo) session.getAttribute("member");
-		try {
-			MemberManage dto2;
-			dto2 = mmservice.checkBan(info.getUser_num());
-		        if(dto2.getBan_state() == 1) {
-		            session.invalidate();
-		            model.addAttribute("dto2",dto2);
-		            return "/member/login";
-		}
-		}catch (Exception e) {
-			e.printStackTrace();
-		}
+	public String roomMain() {
+		
 		return ".room.main";
 	}
 	

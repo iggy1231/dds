@@ -18,7 +18,5 @@ public interface RoomService {
 	public void insertRoomWishList(Map<String, Object> map) throws Exception;
 
 	public boolean isLiked(Map<String, Object> map);
-	
-	// <select id="findByDetail" parameterType="Long" resultType="com.fly.dds.domian.Room">
-	// public List<Room> searchRoom(Map<String, Object> map);
+
 }

@@ -481,7 +481,7 @@ public class CompanionServiceImpl implements CompanionService {
 		try {
 			mapper.apply(map);
 		} catch (Exception e) {
-			// TODO: handle exception
+			e.printStackTrace();
 		}
 	}
 	
@@ -491,8 +491,8 @@ public class CompanionServiceImpl implements CompanionService {
 		try {
 			result=mapper.applyCount(num);
 		} catch (Exception e) {
-			// TODO: handle exception
-		}
+			e.printStackTrace();
+			}
 		
 		return result;
 	}
@@ -509,7 +509,7 @@ public class CompanionServiceImpl implements CompanionService {
 		try {
 			list=mapper.waitingList(num);
 		} catch (Exception e) {
-			// TODO: handle exception
+			e.printStackTrace();
 		}
 		
 		return list;
@@ -522,7 +522,7 @@ public class CompanionServiceImpl implements CompanionService {
 		try {
 			list=mapper.partyList(num);
 		} catch (Exception e) {
-			// TODO: handle exception
+			e.printStackTrace();
 		}
 		
 		return list;
@@ -539,7 +539,7 @@ public class CompanionServiceImpl implements CompanionService {
 			mapper.accept(map);
 			mapper.updateCurrentPeople(map);
 		} catch (Exception e) {
-			// TODO: handle exception
+			e.printStackTrace();
 		}	
 	}
 

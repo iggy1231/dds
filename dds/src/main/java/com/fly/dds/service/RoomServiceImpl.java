@@ -123,9 +123,4 @@ public class RoomServiceImpl implements RoomService {
 		return false;
 	}
 
-	/*
-	 * @Override public List<Room> searchRoom(Map<String, Object> map) { return
-	 * mapper.searchRoom(map); }
-	 */
-
 }

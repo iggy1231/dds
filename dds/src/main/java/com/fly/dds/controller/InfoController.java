@@ -17,8 +17,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.fly.dds.admin.domain.MemberManage;
-import com.fly.dds.admin.service.MemberManageService;
 import com.fly.dds.common.MyUtil;
 import com.fly.dds.domain.Info;
 import com.fly.dds.domain.InfoReply;
@@ -33,24 +31,11 @@ public class InfoController {
 	
 	@Autowired
 	private MyUtil myUtil;
-	
-	@Autowired
-	private MemberManageService mmservice;
+
 	
 	@GetMapping("list")
-	public String list(Model model,HttpSession session) {
-		SessionInfo info=(SessionInfo) session.getAttribute("member");
-		try {
-			MemberManage dto2;
-			dto2 = mmservice.checkBan(info.getUser_num());
-		        if(dto2.getBan_state() == 1) {
-		            session.invalidate();
-		            model.addAttribute("dto2",dto2);
-		            return "/member/login";
-		}
-		}catch (Exception e) {
-			e.printStackTrace();
-		}
+	public String list(Model model) {
+		
 		
 		Map<String, Object> map=new HashMap<String, Object>();
 		int dataCount=service.dataCount(map);

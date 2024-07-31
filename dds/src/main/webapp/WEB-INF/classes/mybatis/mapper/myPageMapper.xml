@@ -34,7 +34,7 @@
 	</update>
 	
 	<update id="updateMember" parameterType="com.fly.dds.domain.Member">
-		UPDATE member1 SET username = #{userName}
+		UPDATE member1 SET username = #{userName} , pwd = #{pwd}
 		WHERE user_num = #{user_num}
 	</update>
 	

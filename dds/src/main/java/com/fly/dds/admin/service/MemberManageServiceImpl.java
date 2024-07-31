@@ -1,6 +1,5 @@
 package com.fly.dds.admin.service;
 
-import java.sql.Timestamp;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
@@ -123,6 +122,11 @@ public class MemberManageServiceImpl implements MemberManageService {
 		MemberManage dto = null;
 		try {
 			dto = mapper.checkBan(user_num);
+			
+			if (dto == null) {
+				return null;
+			}
+			
 			
 			int banState = dto.getBan_state();
 			 LocalDateTime bandate = convertStringToLocalDateTime(dto.getBan_edate());

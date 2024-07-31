@@ -62,8 +62,6 @@ public class ProductManageController {
 			@RequestParam(value = "page", defaultValue = "1") int current_page, HttpServletRequest req, Model model)
 			throws Exception {
 
-		String cp = req.getContextPath();
-
 		int size = 10;
 		int total_page;
 		int dataCount;
@@ -114,8 +112,6 @@ public class ProductManageController {
 			@RequestParam(defaultValue = "") String kwd,
 			@RequestParam(value = "page", defaultValue = "1") int current_page, HttpServletRequest req, Model model)
 			throws Exception {
-
-		String cp = req.getContextPath();
 
 		int size = 10;
 		int total_page;

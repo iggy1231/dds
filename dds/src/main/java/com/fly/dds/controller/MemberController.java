@@ -34,8 +34,8 @@ public class MemberController {
 		SessionInfo info=(SessionInfo) session.getAttribute("member");
 		MemberManage dto2;
 		try {
-			dto2 = mmservice.checkBan(info.getUser_num());
 			if(state==0) {
+			dto2 = mmservice.checkBan(info.getUser_num());
 			model.addAttribute("dto2",dto2);
 			return "member/login";
 			}
