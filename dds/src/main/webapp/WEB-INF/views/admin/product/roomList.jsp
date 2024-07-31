@@ -5,7 +5,7 @@
 
 <div class="ps-3 fw-semibold fs-3 text-center mb-3 text-primary">숙소
 	상품 리스트</div>
-<div class="table-responsice text-wrap">
+<div class="table-responsice text-nowrap">
 	<table class="table">
 		<thead> 
 			<tr class="text-center table-primary">

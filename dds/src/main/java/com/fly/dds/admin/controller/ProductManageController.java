@@ -230,6 +230,8 @@ public class ProductManageController {
 
 		dataCount = service.saleCount(map);
 		total_page = myUtil.pageCount(dataCount, size);
+		
+		if(total_page < current_page) current_page = total_page;
 
 		if (current_page > total_page) {
 			current_page = total_page;
@@ -243,12 +245,16 @@ public class ProductManageController {
 		map.put("size", size);
 
 		List<RoomPayment> list = service.listSale(map);
+		
+		
+		String paging = myUtil.pagingUrl(current_page, total_page, "listsale");
 
 		model.addAttribute("list", list);
 		model.addAttribute("dataCount", dataCount);
 		model.addAttribute("page", current_page);
 		model.addAttribute("size", size);
 		model.addAttribute("total_page", total_page);
+		model.addAttribute("paging", paging);
 
 		return ".admin.product.listsale";
 	}
