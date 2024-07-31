@@ -8,7 +8,10 @@
 	<!-- Content -->
 	<div class="container-xxl flex-grow-1 container-p-y">
 		<div class="card">
-				<div class="card-header ps-3 fw-semibold fs-3 text-center mb-3 text-primary">숙소 주문 리스트</div>
+				<div class="card-header">
+					<div class="ps-3 fw-semibold fs-3 text-center mb-3 text-primary">
+					숙소 주문 리스트
+					</div>
 					<div class="table-responsice text-nowrap" style="overflow: auto; max-height: 400px;">
 						<table class="table">
 								<thead> 
@@ -61,6 +64,7 @@
 						<div class="col-auto pt-4 ps-4 text-start">${dataCount}개(${page}/${total_page} 페이지)</div>
 						<div class="page-navigation">${dataCount == 0 ? "등록된 상품이 없습니다." : paging}
 						</div>
+				</div>
 					</div>
 				</div>
 				<!-- tab-content _ end -->
