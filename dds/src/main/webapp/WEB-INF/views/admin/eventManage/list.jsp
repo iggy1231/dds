@@ -136,12 +136,13 @@ $(function(){
 });
 </script>
 
-<div class="body-container">
-    <div class="body-title">
-		
-    </div>
+<div class="content-wrapper">
+	<!-- Content -->
+	<div class="container-xxl flex-grow-1 container-p-y">
+ 
     
-    <div class="body-main">
+    <div class="card">
+    	<div class="card-header">
 		<ul class="tabs">
 			<li id="tab-all" data-category="all">전체 이벤트</li>
 			<li id="tab-progress" data-category="progress">진행중인 이벤트</li>
@@ -214,5 +215,7 @@ $(function(){
 				</tr>
 			</table>
 		</div>    
+    	</div>
+	</div>
 	</div>
 </div>
