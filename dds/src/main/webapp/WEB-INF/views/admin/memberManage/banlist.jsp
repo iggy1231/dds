@@ -6,11 +6,12 @@
 <!-- Content wrapper -->
 <div class="content-wrapper">
 	<!-- Content -->
-	<div class="container-xxl flex-grow-1">
-		<div class="">
+	<div class="container-xxl flex-grow-1 container-p-y">
+		<div class="card">
+			<div class="card-header">
 			<div class="mt-2">
 				<div class=" pt-0" id="myTabContent">
-					<div class="ps-3 fw-semibold fs-3 text-center mb-3 text-primary">숙소 상품 리스트</div>
+					<div class="ps-3 fw-semibold fs-3 text-center mb-3 text-primary">차단 리스트</div>
 						<div class="table-responsice text-nowrap">
 							<table class="table">
 								<thead>
@@ -54,6 +55,7 @@
 					</div>
 				</div>
 				<!-- tab-content _ end -->
+			</div>
 			</div>
 			<!-- body-main -->
 		</div>

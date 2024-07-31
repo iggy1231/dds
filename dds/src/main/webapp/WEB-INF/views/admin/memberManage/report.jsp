@@ -49,20 +49,11 @@ $(function(){
 
 <div class="content-wrapper">
 	<div class="container-xxl flex-grow-1 container-p-y">
-		<div class="body-title">
-			<h3><i class="bi bi-app"></i> 신고/차단 리스트 </h3>
-		</div>
 		
-		<div class="body-main">
+		<div class="card">
+			<div class="card-header">
+		<div class="ps-3 fw-semibold fs-3 text-center mb-3 text-primary">신고 리스트</div>
 		
-			<ul class="nav nav-tabs mt-5" id="myTab" role="tablist">
-				<li class="nav-item" role="presentation">
-					<button class="nav-link" id="tab-1"  type="button" role="tab" aria-controls="1" aria-selected="true">신고</button>
-				</li>
-				<li class="nav-item" role="presentation">
-					<button class="nav-link" id="tab-2"  type="button" role="tab" aria-controls="2" aria-selected="false">차단</button>
-				</li>
-			</ul>
 			
 			<div class="tab-content pt-4" id="myTabContent">
 
@@ -101,6 +92,7 @@ $(function(){
 							<tr valign="middle">
 								<td>${dto.num}</td>
 								<td>${dto.reason}</td>
+								<td>${dto.user_num}</td>
 								<td>${dto.reportPage}</td>
 								<td>${dto.reg_date}</td>
 								<td>${dto.reporter_num}</td>
@@ -154,6 +146,7 @@ $(function(){
 				</div>
 			
 			</div>		
+			</div>
 		</div>
 	</div>
 </div>

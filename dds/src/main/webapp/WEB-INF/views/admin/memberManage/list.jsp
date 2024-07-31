@@ -8,7 +8,7 @@
             <div class="container-xxl flex-grow-1 container-p-y">
             	<!-- Hoverable Table rows -->
               <div class="card">
-                <h5 class="card-header">회원관리</h5>
+                <h5 class="card-header ps-3 fw-semibold fs-3 text-center mb-3 text-primary">회원관리</h5>
                 <p> 회원수 : ${dataCount} </p>
                 <div class="table-responsive text-nowrap">
                   <table class="table table-hover">
