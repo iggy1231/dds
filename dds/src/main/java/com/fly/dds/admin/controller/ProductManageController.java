@@ -176,7 +176,7 @@ public class ProductManageController {
 			// model.addAttribute("message", "등록에 실패했습니다.");
 		}
 
-		return "redirect:/admin/product/roomList";
+		return "redirect:/admin/product/main";
 	}
 
 	@GetMapping("update")

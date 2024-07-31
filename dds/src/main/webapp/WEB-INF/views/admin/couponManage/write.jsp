@@ -6,14 +6,39 @@
 	.accordion-body input {
 	width: 100%
 }
+
+/* 버튼 기본 스타일 */
+.btn {
+    background-color: #ffffff; /* 기본 배경색: 하얀색 */
+    color: #000000; /* 기본 텍스트 색상: 검정색 */
+    border-radius: 8px; /* 테두리 둥글게 */
+    padding: 10px 20px; /* 버튼 여백 */
+    cursor: pointer; /* 커서 포인터 */
+    transition: background-color 0.3s, color 0.3s; /* 색상 전환 애니메이션 */
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* 박스 그림자 */
+}
+
+/* 버튼 클릭 시 스타일 */
+.btn:active {
+    background-color: #696cff; /* 클릭 시 배경색: primary 색상 */
+    color: #ffffff; /* 클릭 시 텍스트 색상: 하얀색 */
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2); /* 클릭 시 박스 그림자 변경 */
+}
+
+/* 버튼 hover 시 스타일 */
+.btn:hover {
+    background-color: #696cff;
+    color: #ffffff;
+}
 </style>
 <!-- Content wrapper -->
           <div class="content-wrapper">
             <!-- Content -->
             <div class="container-xxl flex-grow-1 container-p-y">
-            	<div class="row">
+            	<div class="row fw-semibold fs-3 text-primary">
     	        	<div>쿠폰 코드 생성</div>
 				</div>
+				<div class="card">
 				<form name="couponManageForm" action="${pageContext.request.contextPath}/admin/couponManage/${mode}" method="post" enctype="multipart/form-data">
 				<input type="hidden" name="num" value="${dto.num}">
 				<div class="accordion" id="accordionPanelsStayOpenExample">
@@ -90,12 +115,13 @@
 				      </div>
 				    </div>
 				  </div>
-				  <div class="text-center">
+				  <div class="text-center mb-3">
 				  	<button class="btn btn-outlint-secondary" type="button" onclick="submit();">${mode=="update"?"쿠폰 코드 수정":"쿠폰 코드 생성"}</button>
 				  	<button class="btn btn-outlint-secondary" type="button" onclick="cancel();">${mode=="update"?"쿠폰 수정 취소":"쿠폰 생성 취소"}</button>
 				  </div>
 				</div>
 				</form>
+				</div>
             </div>
           </div>
           <script type="text/javascript">

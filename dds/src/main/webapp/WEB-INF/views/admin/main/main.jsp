@@ -18,7 +18,7 @@
                             오늘 판매량이 <span class="fw-bold">72%</span> 증가했습니다. 주문리스트를 확인해보세요.
                           </p>
 
-                          <a href="javascript:;" class="btn btn-sm btn-outline-primary">주문 리스트</a>
+                          <a href="${pageContext.request.contextPath}/admin/product/listsale" class="btn btn-sm btn-outline-primary">주문 리스트</a>
                         </div>
                       </div>
                       <div class="col-sm-5 text-center text-sm-left">
@@ -65,8 +65,8 @@
                               </div>
                             </div>
                           </div>
-                          <span class="fw-semibold d-block mb-1">이익</span>
-                          <h3 class="card-title mb-2">&#8361;12,628</h3>
+                          <span class="fw-semibold d-block mb-1">오늘의 매출</span>
+                          <h3 class="card-title mb-2">&#8361;822,620</h3>
                           <small class="text-success fw-semibold"><i class="bx bx-up-arrow-alt"></i> +72.80%</small>
                         </div>
                       </div>
@@ -100,8 +100,8 @@
                               </div>
                             </div>
                           </div>
-                          <span>매출</span>
-                          <h3 class="card-title text-nowrap mb-1">&#8361;4,679</h3>
+                          <span>어제의 방문자수</span>
+                          <h3 class="card-title text-nowrap mb-1">669명</h3>
                           <small class="text-success fw-semibold"><i class="bx bx-up-arrow-alt"></i> +28.42%</small>
                         </div>
                       </div>
@@ -128,12 +128,12 @@
                                 aria-haspopup="true"
                                 aria-expanded="false"
                               >
-                                2022
+                                2024
                               </button>
                               <div class="dropdown-menu dropdown-menu-end" aria-labelledby="growthReportId">
+                                <a class="dropdown-item" href="javascript:void(0);">2023</a>
+                                <a class="dropdown-item" href="javascript:void(0);">2022</a>
                                 <a class="dropdown-item" href="javascript:void(0);">2021</a>
-                                <a class="dropdown-item" href="javascript:void(0);">2020</a>
-                                <a class="dropdown-item" href="javascript:void(0);">2019</a>
                               </div>
                             </div>
                           </div>
@@ -147,7 +147,7 @@
                               <span class="badge bg-label-primary p-2"><i class="bx bx-dollar text-primary"></i></span>
                             </div>
                             <div class="d-flex flex-column">
-                              <small>2022</small>
+                              <small>2024</small>
                               <h6 class="mb-0">&#8361;32.5k</h6>
                             </div>
                           </div>
@@ -156,7 +156,7 @@
                               <span class="badge bg-label-info p-2"><i class="bx bx-wallet text-info"></i></span>
                             </div>
                             <div class="d-flex flex-column">
-                              <small>2021</small>
+                              <small>2023</small>
                               <h6 class="mb-0">&#8361;41.2k</h6>
                             </div>
                           </div>
@@ -192,8 +192,8 @@
                               </div>
                             </div>
                           </div>
-                          <span class="d-block mb-1">지불</span>
-                          <h3 class="card-title text-nowrap mb-2">&#8361;2,456</h3>
+                          <span class="d-block mb-1">어제의 매출</span>
+                          <h3 class="card-title text-nowrap mb-2">&#8361;245,680</h3>
                           <small class="text-danger fw-semibold"><i class="bx bx-down-arrow-alt"></i> -14.82%</small>
                         </div>
                       </div>
@@ -222,8 +222,8 @@
                               </div>
                             </div>
                           </div>
-                          <span class="fw-semibold d-block mb-1">거래</span>
-                          <h3 class="card-title mb-2">&#8361;14,857</h3>
+                          <span class="fw-semibold d-block mb-1">오늘의 방문자수</span>
+                          <h3 class="card-title mb-2">857명</h3>
                           <small class="text-success fw-semibold"><i class="bx bx-up-arrow-alt"></i> +28.14%</small>
                         </div>
                       </div>
@@ -237,7 +237,7 @@
                             <div class="d-flex flex-sm-column flex-row align-items-start justify-content-between">
                               <div class="card-title">
                                 <h5 class="text-nowrap mb-2">프로필 보고서</h5>
-                                <span class="badge bg-label-warning rounded-pill">Year 2021</span>
+                                <span class="badge bg-label-warning rounded-pill">Year 2024</span>
                               </div>
                               <div class="mt-sm-auto">
                                 <small class="text-success text-nowrap fw-semibold"

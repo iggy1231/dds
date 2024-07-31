@@ -8,11 +8,11 @@
 	<!-- Content -->
 	<div class="container-xxl flex-grow-1 container-p-y">
 		<div class="card">
-				<div class="card-header ps-3 fw-semibold fs-3 text-center mb-3 text-primary">숙소 상품 리스트</div>
+				<div class="card-header ps-3 fw-semibold fs-3 text-center mb-3 text-primary">숙소 주문 리스트</div>
 					<div class="table-responsice text-nowrap" style="overflow: auto; max-height: 400px;">
 						<table class="table">
-								<thead>
-									<tr class="text-center"> 
+								<thead> 
+									<tr class="text-center table-primary"> 
 										<th>주문번호</th>
 										<th>예약일자</th>
 										<th>체크인</th>
