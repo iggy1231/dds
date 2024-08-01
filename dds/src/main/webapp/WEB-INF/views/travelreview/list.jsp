@@ -283,7 +283,8 @@ body {
 				<i class="bi bi-search"></i>
 			</button>
 		</form>
-
+		<div class="page-navigation">${dataCount == 0 ? "등록된 상품이 없습니다." : paging}
+						</div>
 		<div class="create-post-button">
 			<form action="${pageContext.request.contextPath}/travelreview/create"
 				method="get">

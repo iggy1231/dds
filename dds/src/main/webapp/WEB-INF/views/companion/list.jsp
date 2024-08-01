@@ -348,7 +348,7 @@ function addNextPage(data) {
 			htmlText+='	<div class="travel-info-item" onclick="article('+data.list[i].num+');">';
 			htmlText+='	<img src="${pageContext.request.contextPath}/uploads/companion/'+data.list[i].saveFilename+'" onerror=this.src="${pageContext.request.contextPath}/resources/images/noimage.png" class = "companion-img">';
 			htmlText+='	<div class="travel-info-item-body">';
-			htmlText+='		<a class="travel-info-item-title" href="">'+data.list[i].subject+'</a>';
+			htmlText+='		<a class="travel-info-item-title" href="${pageContext.request.contextPath}/companion/article?num='+data.list[i].num+'">'+data.list[i].subject+'</a>';
 			htmlText+='		<p class="travel-info-item-location">';
 			for(let j=0;j<data.list[i].region_main.length;j++) {
 				htmlText+='		<i class="bi bi-geo-alt-fill">'+data.list[i].region_main[j]+' '+data.list[i].region_sub[j]+'</i></p>';
@@ -405,7 +405,7 @@ function addNextPage2(data) {
 			htmlText+='	<div class="travel-info-item" onclick="article('+data.list[i].num+');">';
 			htmlText+='	<img src="${pageContext.request.contextPath}/uploads/companion/'+data.list[i].saveFilename+'" onerror=this.src="${pageContext.request.contextPath}/resources/images/noimage.png" class = "companion-img">';
 			htmlText+='	<div class="travel-info-item-body">';
-			htmlText+='		<a class="travel-info-item-title" href="">'+data.list[i].subject+'</a>';
+			htmlText+='		<a class="travel-info-item-title" href="${pageContext.request.contextPath}/companion/article?num='+data.list[i].num+'">'+data.list[i].subject+'</a>';
 			htmlText+='		<p class="travel-info-item-location">';
 			for(let j=0;j<data.list[i].region_main.length;j++) {
 				htmlText+='		<i class="bi bi-geo-alt-fill">'+data.list[i].region_main[j]+' '+data.list[i].region_sub[j]+'</i></p>';
