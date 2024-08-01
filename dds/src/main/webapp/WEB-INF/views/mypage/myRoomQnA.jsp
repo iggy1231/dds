@@ -63,5 +63,5 @@
 </div>
 </c:forEach>
 
-<div class="page-navigation">${dataCount == 0 ? "등록된 댓글이 없습니다." : paging}
+<div class="page-navigation">${dataCount == 0 ? "작성한 문의가 없습니다." : paging}
 </div>

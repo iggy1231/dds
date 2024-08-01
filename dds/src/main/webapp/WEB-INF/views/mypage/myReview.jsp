@@ -20,6 +20,48 @@
 	transition: 0.3s;   
 }
 
+.graph {
+    font-size: 0; 
+    letter-spacing: 0; 
+    word-spacing: 0;
+}
+
+.graph-title { 
+    padding-right: 3px; 
+}
+
+.graph .one-space { 
+    font-size: 13px; 
+    background: #eee;
+}
+
+.graph .one-space:after { 
+    content: ''; 
+    display: inline-block; 
+    width: 17px; 
+}
+
+.graph .one-space.on { 
+    background: #FFE400; 
+}
+
+.graph .one-space:first-child { 
+    border-top-left-radius: 5px;  
+    border-bottom-left-radius: 5px; 
+}
+
+.graph .one-space:last-child { 
+    border-top-right-radius: 5px; 
+    border-bottom-right-radius: 5px; 
+}
+
+.graph-rate { 
+    padding-left: 5px; 
+    display: inline-block; 
+    width: 50px; 
+    text-align: left; 
+}
+
 </style>
 
 
@@ -57,12 +99,12 @@
                 <div class="p-1 score-${i}">
                     <span class="graph-title">${i}점</span> 
                     <span class="graph">
-                        <c:set var="percentage" value="${(ratingCount[i - 1] * 100) / reviewCount}" />
+                        <c:set var="percentage" value="${reviewCount > 0 ? (ratingCount[i - 1] * 100) / reviewCount : 0}" />
                         <c:forEach var="n" begin="1" end="10">
                             <label class="one-space ${n <= percentage / 10 ? 'on' : ''}"></label>
                         </c:forEach>
                     </span> 
-                    <span class="graph-rate">${percentage}%</span>
+                    <span class="graph-rate">${percentage > 0 ? percentage : 0}%</span>
                 </div>
             </c:forEach>
 		</div>
@@ -77,8 +119,7 @@
 				<div class="row review-item">
 					<div class="col-auto pt-0 ps-2 pe-1 score-star">
 						<c:forEach var="i" begin="1" end="5">
-							<span
-								class="item fs-5 <c:if test="${list2.rating >= i}">on</c:if>">
+							<span class="item fs-5 ${list2.rating >= i ? 'on' : ''}">
 								<i class="bi bi-star-fill"></i>
 							</span>
 						</c:forEach>
@@ -114,10 +155,10 @@
 						</c:forEach>
 					</div>
 				</div>
-			</c:if>
+			</c:if> 
 		</div>
-	</div>
+	</div> 
 </c:forEach>
 
-<div class="page-navigation">${dataCount == 0 ? "등록된 댓글이 없습니다." : paging}
+<div class="page-navigation">${dataCount == 0 ? '작성한 리뷰가 없습니다.' : paging}
 </div>

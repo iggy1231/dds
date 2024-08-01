@@ -170,4 +170,53 @@ $(function() {
     	};
     	ajaxFun(url, "get", {pageNo : page}, "text", fn);
     }
+    
+    function printSummary(summary) {
+        let count = summary.count;
+        let ave = summary.ave;
+        
+        let score1 = summary.score1;
+        let score2 = summary.score2;
+        let score3 = summary.score3;
+        let score4 = summary.score4;
+        let score5 = summary.score5;
+        let scoreRate1 = summary.scoreRate1;
+        let scoreRate2 = summary.scoreRate2;
+        let scoreRate3 = summary.scoreRate3;
+        let scoreRate4 = summary.scoreRate4;
+        let scoreRate5 = summary.scoreRate5;
+        
+        $(".product-reviewCount").text(count);
+        $(".product-score").text("("+ave+" / 5)");
+        $(".product-star .item").removeClass("on");
+        let roundAve = Math.round(ave);
+        for(let i=1; i<=roundAve; i++) {
+            $(".product-star .item").eq(i-1).addClass("on");
+        }
+        
+        $(".title-reviewCount").text("("+count+")");
+        
+        $(".review-score-star .item").removeClass("on");
+        for(let i=1; i<=roundAve; i++) {
+            $(".review-score-star .item").eq(i-1).addClass("on");
+        }
+        $(".review-score").text(ave+" / 5");
+        $(".review-reviewCount").text(count);
+        
+        // Update the graph based on score rates
+        updateGraph(".review-rate .score-5", scoreRate5);  // 수정된 부분
+        updateGraph(".review-rate .score-4", scoreRate4);  // 수정된 부분
+        updateGraph(".review-rate .score-3", scoreRate3);  // 수정된 부분
+        updateGraph(".review-rate .score-2", scoreRate2);  // 수정된 부분
+        updateGraph(".review-rate .score-1", scoreRate1);  // 수정된 부분
+    }
+
+    function updateGraph(selector, percentage) {
+        $(selector + " .one-space").removeClass("on");
+        for(let i=1; i<=Math.floor(percentage / 10); i++) {
+            $(selector + " .one-space").eq(i-1).addClass("on");
+        }
+        $(selector + " .graph-rate").text(percentage + "%");
+    }
+
 </script>
