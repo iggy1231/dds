@@ -24,4 +24,4 @@
 		<!-- 다른 여행정보 아이템들도 여기에 추가 -->
 	</c:forEach>
 </div>
-<div class="page-navigation">${dataCount == 0 ? "등록된 댓글이 없습니다." : paging} </div>
+<div class="page-navigation">${dataCount == 0 ? "위시리스트 여행 정보가 없습니다." : paging} </div>

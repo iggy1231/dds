@@ -35,5 +35,5 @@
 	</c:forEach>
 </div>
 
-<div class="page-navigation">${dataCount == 0 ? "등록된 댓글이 없습니다." : paging} </div>
+<div class="page-navigation">${dataCount == 0 ? "위시리스트 동행 목록이 없습니다." : paging} </div>
 

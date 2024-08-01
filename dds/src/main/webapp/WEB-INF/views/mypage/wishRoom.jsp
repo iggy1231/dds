@@ -26,5 +26,5 @@
                 	</c:forEach>
                 </div>
                 
-                <div class="page-navigation">${dataCount == 0 ? "등록된 댓글이 없습니다." : paging}
+                <div class="page-navigation">${dataCount == 0 ? "위시리스트 숙소가 없습니다." : paging}
 </div>
