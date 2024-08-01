@@ -205,8 +205,10 @@
                 <c:forEach var="dto" items="${list1}">
                 	<div class="coupon-card usable-background-primary">
                         <div class="coupon-info">
-                            <h4>${dto.name}</h4>
-                            <p>${dto.content}<br>${dto.content}</p>
+                            <h3 style="font-weight: bold;">${dto.name}[${dto.rate_discount}%]</h3>
+                            <p>${dto.content}
+                            <br>
+                            <p>만료일: ${dto.expiry_date}</p>
                         </div>
                         <div class="coupon-brand">DoDoongSil</div>
                     </div>
@@ -217,8 +219,10 @@
                 <c:forEach var="dto" items="${list2}">
                     <div class="coupon-card disusable-background-primary">
                         <div class="coupon-info">
-                            <h4>${dto.name}</h4>
-                            <p>${dto.content}<br>${dto.content}</p>
+                            <h3 style="font-weight: bold;">${dto.name}[${dto.rate_discount}%]</h3>
+                            <p>${dto.content}
+                            <br>
+                            ${dto.issue_date} ~ ${dto.expiry_date}</p>
                         </div>
                         <div class="coupon-brand">EXPIRED</div>
                     </div>
