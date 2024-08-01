@@ -62,6 +62,18 @@
     text-align: left; 
 }
 
+    .color-text {
+        color: #18A8F1;
+    }
+    
+    .btn-custom {
+        background-color: #f8f9fa; /* 기본 배경색 */
+        color: #000; /* 기본 텍스트 색상 */
+    }
+    .btn-custom.active {
+        background-color: #18A8F1; /* 활성화 배경색 */
+        color: #fff; /* 활성화 텍스트 색상 */
+    }
 </style>
 
 
@@ -114,6 +126,13 @@
 		</div>
 	</div>
 
+<div class="row justify-content-between">
+	<h5 class="col">전체 <span class="color-text">${dataCount}</span>건</h5>
+		<div class="col text-end" style="margin-bottom: .5rem;">
+				<button id="listMyReviewRecent" type="button" class="btn btn btn-custom ${mode=='newest'?'active':''}" data-bs-toggle="button">최신순</button>
+				<button id="listMyReviewPast" type="button" class="btn btn btn-custom ${mode=='oldest'?'active':''}" data-bs-toggle="button">과거순</button>
+		</div>
+</div>
 
 </div>
 <c:forEach var="list2" items="${list}">

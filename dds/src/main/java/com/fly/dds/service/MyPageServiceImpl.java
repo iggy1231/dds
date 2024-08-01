@@ -669,5 +669,17 @@ public class MyPageServiceImpl implements MyPageService {
 		
 		return list;
 	}
+
+	@Override
+	public List<RoomReview> myTripPastReview(Map<String, Object> map) {
+		List<RoomReview> list = null;
+		try {
+			list = mapper.myTripPastReview(map);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		return list;
+	}
 	
 }

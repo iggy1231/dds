@@ -938,6 +938,62 @@ public class MyPageController {
 		model.addAttribute("pageNo", current_page);
 
 		model.addAttribute("total_page", total_page);
+		
+		model.addAttribute("mode", "newest");
+
+		// 통계 데이터 추가
+		model.addAttribute("averageScore", stats.get("averageScore"));
+		model.addAttribute("reviewCount", stats.get("reviewCount"));
+		model.addAttribute("ratingCount", stats.get("ratingCount"));
+
+		return "mypage/myReview";
+	}
+	
+	@GetMapping("myPastReview")
+	public String myPastReview(@RequestParam(value = "pageNo", defaultValue = "1") int current_page, HttpSession session,
+			Model model) {
+
+		Map<String, Object> map = new HashMap<>();
+		int size = 9;
+		int total_page;
+		int dataCount = 0;
+
+		SessionInfo Info = (SessionInfo) session.getAttribute("member");
+
+		Long user_num = Info.getUser_num();
+
+		map.put("user_num", user_num);
+
+		dataCount = service.myTripCount(user_num);
+		total_page = myUtil.pageCount(dataCount, size);
+
+		if (current_page > total_page) {
+			current_page = total_page;
+		}
+
+		int offset = (current_page - 1) * size;
+
+		if (offset < 0)
+			offset = 0;
+
+		map.put("offset", offset);
+		map.put("size", size);
+		List<RoomReview> list = service.myTripPastReview(map);
+
+		String paging = myUtil.pagingMethod(current_page, total_page, "listMyPastReview");
+
+		// 리뷰 통계 계산
+		Map<String, Object> stats = service.calculateReviewStatistics(user_num);
+
+		model.addAttribute("dataCount", dataCount);
+		model.addAttribute("list", list);
+		model.addAttribute("paging", paging);
+
+		model.addAttribute("pageNo", current_page);
+
+		model.addAttribute("total_page", total_page);
+		
+		model.addAttribute("mode", "oldest");
 
 		// 통계 데이터 추가
 		model.addAttribute("averageScore", stats.get("averageScore"));

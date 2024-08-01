@@ -103,6 +103,7 @@ public interface MyPageMapper {
 	public List<MyPage> listReplyPast(Map<String, Object> map);
 	
 	public List<RoomQnA> myPastRoomQnA(Map<String, Object> map);
+	public List<RoomReview> myTripPastReview(Map<String, Object> map);
 	
 	
 }

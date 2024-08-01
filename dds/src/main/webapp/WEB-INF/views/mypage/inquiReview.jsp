@@ -151,6 +151,16 @@ $(function() {
     		listPastMyQnA(1);
     	});
     	
+    	$(document).on('click', '#listMyReviewRecent', function(){
+    		$('#listMyReviewPast').removeClass("active");
+    		listMyReview(1);
+    	});
+    	
+    	$(document).on('click', '#listMyReviewPast', function(){
+    		$('#listMyReviewRecent').removeClass("active");
+    		listMyPastReview(1);
+    	});
+    	
         $("button[role='tab']").on("click", function(e){
     		const tab = $(this).attr("aria-controls");
     		if(tab === "1") {
@@ -183,6 +193,16 @@ $(function() {
 
     function listMyReview(page) {
     	let url = '${pageContext.request.contextPath}/mypage/myReview';
+    	
+    	const fn = function(data) {
+    		$('.tab-content').html(data);
+    		
+    	};
+    	ajaxFun(url, "get", {pageNo : page}, "text", fn);
+    }
+    
+    function listMyPastReview(page) {
+    	let url = '${pageContext.request.contextPath}/mypage/myPastReview';
     	
     	const fn = function(data) {
     		$('.tab-content').html(data);

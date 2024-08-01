@@ -405,6 +405,26 @@
 	OFFSET #{offset} ROWS FETCH FIRST #{size} ROWS ONLY
 	</select>
 	
+	<select id="myTripPastReview" parameterType="map" resultType="com.fly.dds.domain.RoomReview">
+	    SELECT * FROM (
+	    SELECT r.review_num, r.user_num, i.nickname, r.rating, r.content, r.num, r.photo, TO_CHAR(r.reg_date, 'YYYY-MM-DD') as reg_date, 'room' AS boardname
+	    FROM room_review r
+	    JOIN member1 m ON m.user_num = r.user_num
+	    JOIN member_info i ON i.user_num = r.user_num
+	    WHERE r.user_num = #{user_num}
+	    
+	    UNION ALL
+	    
+	    SELECT t.review_num, t.user_num, i.nickname, t.rating, t.content, t.num, t.photo, TO_CHAR(t.reg_date, 'YYYY-MM-DD') as reg_date, 'tour' AS boardname
+	    FROM tour_review t
+	    JOIN member1 m ON m.user_num = t.user_num
+	    JOIN member_info i ON i.user_num = t.user_num
+	    WHERE t.user_num = #{user_num}
+	) subquery
+	ORDER BY reg_date ASC
+	OFFSET #{offset} ROWS FETCH FIRST #{size} ROWS ONLY
+	</select>
+	
 	<select id="myTripCount" parameterType="long" resultType="Integer">
 		SELECT NVL(SUM(cnt), 0) FROM (
         SELECT COUNT(r.num) as cnt
