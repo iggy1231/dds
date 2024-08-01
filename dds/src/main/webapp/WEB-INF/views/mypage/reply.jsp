@@ -32,7 +32,7 @@
 
 <div class="row justify-content-between">
 	<h5 class="col">전체 <span class="color-text">${dataCount}</span>건</h5>
-		<div class="col text-end">
+		<div class="col text-end" style="margin-bottom: .5rem;">
 				<button id="listReplyRecent" type="button" class="btn btn btn-custom ${mode=='replyNewest'?'active':''}" data-bs-toggle="button">최신순</button>
 				<button id="listReplyPast" type="button" class="btn btn btn-custom ${mode=='replyOldest'?'active':''}" data-bs-toggle="button">과거순</button>
 		</div>
