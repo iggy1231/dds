@@ -146,9 +146,10 @@
     }
 </script>
 
-<div class="body-container">
+<div class="content-wrapper">
 
-    <div class="body-main">
+    <div class="container-xxl flex-grow-1 container-p-y">
+    	<div class="card">
         <ul class="tabs">
             <li id="tab-all" data-category="all">전체 이벤트</li>
             <li id="tab-progress" data-category="progress">진행중인 이벤트</li>
@@ -230,6 +231,7 @@
                     </tr>
                 </table>
             </form>
+        </div>
         </div>
     </div>
 </div>
