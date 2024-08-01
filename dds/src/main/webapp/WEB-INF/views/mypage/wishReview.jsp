@@ -2,6 +2,18 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 
+<style>
+/* 기존 스타일 생략 */
+.review-item-text {
+    display: -webkit-box; /* 수정된 부분 시작 */
+    -webkit-line-clamp: 2; /* 표시할 줄 수 */
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: normal; /* 수정된 부분 끝 */
+}
+</style>
+
 <!-- 후기 탭 콘텐츠 -->
 <div class="row">
 	<c:forEach var="list5" items="${list}">
