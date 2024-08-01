@@ -75,7 +75,7 @@
 			<form name="productForm" method="post" action="${pageContext.request.contextPath}/admin/product/write" enctype="multipart/form-data">
 				<table class="table mt-2 table-form">
 					<tr>
-						<td class="table-light col-sm-2">카테고리</td>
+						<td class="table-light col-sm-2" style="background: rgba(105, 108, 255, 0.16); text-align: center; width: 250px; border-top: 2px solid #d5d5d5;">카테고리</td>
 						<td>
 							<div class="row">
 								<div class="col-6 pe-1">
@@ -89,13 +89,13 @@
 						</td>
 					</tr>
 					<tr> 
-						<td class="table-light col-sm-2">상품명</td>
+						<td class="table-light col-sm-2" style="background: rgba(105, 108, 255, 0.16); text-align: center; width: 250px; border-top: 2px solid #d5d5d5;">상품명</td>
 						<td>
 							<input type="text" name="subject" class="form-control" value="${dto.subject}">
 						</td>
 					</tr>
 					<tr>
-						<td class="table-light col-sm-2">키워드 선택</td>
+						<td class="table-light col-sm-2" style="background: rgba(105, 108, 255, 0.16); text-align: center; width: 250px; border-top: 2px solid #d5d5d5;">키워드 선택</td>
 						<td>
 							<input name="key_value" type="checkbox" value="가족여행" ${dto.key_value == '가족여행' ? "checked='checked'":''} class="ms-1"> 가족여행
 							<input name="key_value" type="checkbox" value="힙한감성"  ${dto.key_value == '힙한감성' ? "checked='checked'":''} class="ms-1"> 힙한감성
@@ -106,7 +106,7 @@
 						</td>
 					</tr>
 					<tr>
-						<td class="table-light col-sm-2">시설 선택</td>
+						<td class="table-light col-sm-2" style="background: rgba(105, 108, 255, 0.16); text-align: center; width: 250px; border-top: 2px solid #d5d5d5;">시설 선택</td>
 						<td>
 							<input name="facility_content" type="checkbox" value="사우나" ${dto.facility_content == '사우나' ? "checked='checked'":''} class="ms-1"> 사우나
 							<input name="facility_content" type="checkbox" value="취사가능" ${dto.facility_content == '취사가능' ? "checked='checked'":''} class="ms-1"> 취사가능
@@ -118,7 +118,7 @@
 						</td>
 					</tr>
 					<tr>
-						<td class="table-light col-sm-2">숙소 주소</td>
+						<td class="table-light col-sm-2" style="background: rgba(105, 108, 255, 0.16); text-align: center; width: 250px; border-top: 2px solid #d5d5d5;">숙소 주소</td>
 						<td>
 							<input name="post_num" type="text" id="sample6_postcode" placeholder="우편번호" class="my-1 form-control address" value="${dto.post_num}">
 							<input type="button" onclick="sample6_execDaumPostcode()" value="우편번호 찾기" class="my-1  btn btn-light "><br>
@@ -130,30 +130,30 @@
 					
 				<!-- 객실 옵션 -->
 	<tr class="product-option-1">
-    <td class="table-light col-sm-2">객실 옵션</td>
+    <td class="table-light col-sm-2" >객실 옵션</td>
     <td>
         <table class="table mb-2 option-table">
         <c:forEach var="list" items="${list}">
             <tr>
-                <td>객실/구역명</td>
+                <td >객실/구역명</td>
                 <td><input type="text" name="names" class="form-control" placeholder="객실/구역명" value="${list.name}">
                 <input type="hidden" name="detail_nums" value="${list.detail_num}">
                 </td>
             </tr>
             <tr>
-                <td>최대 인원수</td>
+                <td >최대 인원수</td>
                 <td><input type="text" name="peoples" class="form-control" placeholder="최대 인원수" value="${list.people}">
             </tr>
             <tr>
-                <td>옵션가격</td>
+                <td >옵션가격</td>
                 <td><input type="text" name="prices" class="form-control" placeholder="옵션 가격" value="${list.price}"></td>
             </tr>
             <tr>
-                <td>객실설명</td>
+                <td >객실설명</td>
                 <td><textarea name="detail_contents"  class="form-control" placeholder="옵션 상세 설명" style="height:100px; ">${list.content}</textarea></td>
             </tr>
            <tr>
-   				 <td class="col-sm-2">객실/구역 썸네일</td>
+   				 <td class="col-sm-2" style="background: rgba(105, 108, 255, 0.16); text-align: center; width: 250px; border-top: 2px solid #d5d5d5;">객실/구역 썸네일</td>
     		     <td>
     		     	<input type="file" name="detailPhotoFiles" class="form-control" placeholder="객실/구역 썸네일">
     		     	<label>${list.detail_photo}</label>
@@ -180,13 +180,13 @@
            <td colspan="2" class="text-center"><button type="button" id="addOptionBtn" class="btn btn-primary">+ 옵션 추가하기</button></td>
 </tr>
 			<tr>
-                <td class="table-light col-sm-2">주의사항</td>
+                <td class="table-light col-sm-2" style="background: rgba(105, 108, 255, 0.16); text-align: center; width: 250px; border-top: 2px solid #d5d5d5;">주의사항</td>
                 <td> <textarea  name="caution" class="form-control" style="height:100px;">${dto.caution}</textarea> </td>
             </tr>					
 					
 					
 					<tr>
-						<td class="table-light col-sm-2">상품 진열</td>
+						<td class="table-light col-sm-2" style="background: rgba(105, 108, 255, 0.16); text-align: center; width: 250px; border-top: 2px solid #d5d5d5;">상품 진열</td>
 						<td>
 							<div class="pt-2 pb-2">
 								<input type="radio" name="active" class="form-check-input" id="active1" value="1" ${dto.active==1 ? "checked='checked'" : "" }> <label class="form-check-label" for="productShow1">상품진열</label>
@@ -197,14 +197,14 @@
 					</tr>
 
 					<tr>
-						<td class="table-light col-sm-2">상세 설명</td>
+						<td class="table-light col-sm-2" style="background: rgba(105, 108, 255, 0.16); text-align: center; width: 250px; border-top: 2px solid #d5d5d5;">상세 설명</td>
 						<td>
 							<textarea name="content" id="ir1" class="form-control" style="max-width: 95%; height: 290px;">${dto.content}</textarea>
 						</td>
 					</tr>
 					
 					<tr>
-					    <td class="table-light col-sm-2">썸네일 이미지</td>
+					    <td class="table-light col-sm-2" style="background: rgba(105, 108, 255, 0.16); text-align: center; width: 250px; border-top: 2px solid #d5d5d5;">썸네일 이미지</td>
 					    <td>
 					        <div class="thumbnail-viewer"></div>
 					        <input type="file" name="thumbnailFile" accept="image/*" class="form-control" style="display: none;">
@@ -212,7 +212,7 @@
 					</tr>
 
                         <tr>
-                            <td class="table-light col-sm-2">추가이미지</td>
+                            <td class="table-light col-sm-2" style="background: rgba(105, 108, 255, 0.16); text-align: center; width: 250px; border-top: 2px solid #d5d5d5;">추가이미지</td>
                             <td>
                                 <div id="additionalImageContainer" class="img-grid">
                                     <img id="addAdditionalImage" class="item img-add" src="${pageContext.request.contextPath}/resources/images/add_photo.png">
@@ -306,29 +306,29 @@ document.getElementById('addOptionBtn').addEventListener('click', function() {
 
     const optionTable = `
         <tr class="product-option">
-            <td class="table-light col-sm-2">객실 옵션 ${optionCount}</td>
+            <td class="table-light col-sm-2" style="background: rgba(105, 108, 255, 0.16); text-align: center; width: 250px; border-top: 2px solid #d5d5d5;">객실 옵션 ${optionCount}</td>
             <td>
                 <table class="table mb-2 option-table">
                 <tr>
-	                <td>객실/구역명</td>
+	                <td style="background: rgba(105, 108, 255, 0.16); text-align: center; width: 250px; border-top: 2px solid #d5d5d5;">객실/구역명</td>
 	                <td><input type="text" name="names" class="form-control" placeholder="객실/구역명" value="">
 	                <input type="hidden" name="detail_nums" value="0">
 	                </td>
 	            </tr>
 	            <tr>
-	                <td>최대 인원수</td>
+	                <td style="background: rgba(105, 108, 255, 0.16); text-align: center; width: 250px; border-top: 2px solid #d5d5d5;">최대 인원수</td>
 	                <td><input type="text" name="peoples" class="form-control" placeholder="최대 인원수" value="">
 	            </tr>
 	            <tr>
-	                <td>옵션가격</td>
+	                <td style="background: rgba(105, 108, 255, 0.16); text-align: center; width: 250px; border-top: 2px solid #d5d5d5;">옵션가격</td>
 	                <td><input type="text" name="prices" class="form-control" placeholder="옵션 가격" value=""></td>
 	            </tr>
 	            <tr>
-	                <td>객실설명</td>
+	                <td style="background: rgba(105, 108, 255, 0.16); text-align: center; width: 250px; border-top: 2px solid #d5d5d5;">객실설명</td>
 	                <td><textarea name="detail_contents"  class="form-control" placeholder="옵션 상세 설명" style="height:100px; "></textarea></td>
 	            </tr>
 	           <tr>
-	   				 <td class="col-sm-2">객실/구역 썸네일</td>
+	   				 <td class="col-sm-2" style="background: rgba(105, 108, 255, 0.16); text-align: center; width: 250px; border-top: 2px solid #d5d5d5;">객실/구역 썸네일</td>
 	    		     <td>
 	    		     	<input type="file" name="detailPhotoFiles" class="form-control" placeholder="객실/구역 썸네일">
 	    		     	<label></label>
@@ -336,13 +336,13 @@ document.getElementById('addOptionBtn').addEventListener('click', function() {
 	    		     </td>
 				</tr>
 	            <tr>
-					<td>할인율</td>
+					<td style="background: rgba(105, 108, 255, 0.16); text-align: center; width: 250px; border-top: 2px solid #d5d5d5;">할인율</td>
 						<td>
 							<input type="text" name="discounts" class="form-control" value="0">
 						</td>
 				</tr>
 				<tr>
-							<td>포인트</td>
+							<td style="background: rgba(105, 108, 255, 0.16); text-align: center; width: 250px; border-top: 2px solid #d5d5d5;">포인트</td>
 							<td>
 								<input type="text" name="points" class="form-control" value="100" readonly value="" >
 							</td>
