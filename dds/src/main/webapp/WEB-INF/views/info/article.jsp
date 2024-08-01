@@ -189,7 +189,6 @@ p{
 		        </select>
 		        <input type="text" name="reason2">
 		        <input type="hidden" name="unum">
-		        <input type="hidden" name="rnum">
 		        </form>
 			  </div>  
 		      <div class="modal-footer">
@@ -273,7 +272,7 @@ function replyDelete(reply_num) {
 	
 	ajaxFun(url, "post", query, "json", fn);
 }
-function replyReport(user_num, reply_num) {
+function replyReport(user_num) {
 	if(${empty sessionScope.member}) {
 		$('#inputModal .modal-body').html('');
 		$('#inputModal .modal-footer button:last').hide();
@@ -284,7 +283,6 @@ function replyReport(user_num, reply_num) {
 	$('#inputModal .modal-footer button:first').hide();
 	const f=document.reportForm;
 	f.unum.value=user_num;
-	f.rnum.value=reply_num;;
 }
 
 function submitReport() {
@@ -294,10 +292,9 @@ function submitReport() {
 		return;
 	}
 	let user_num=f.unum.value;
-	let reply_num=f.rnum.value;
 	let reason=f.reason.value+" : "+f.reason2.value;
 	let url="${pageContext.request.contextPath}/info/reportReply";
-	let query="article_num="+reply_num+"&user_num="+user_num+"&reason="+reason;	
+	let query="article_num=${dto.num}&user_num="+user_num+"&reason="+reason;	
 	
 	const fn = function(data) {
 		let state=data.state;
@@ -403,7 +400,7 @@ function listPage(page) {
 				out+='<i class="bi bi-trash"></i></button>';
 			} else {
 				out+='<td><button class="btn btn-outline-secondary" data-bs-toggle="modal" data-bs-target="#inputModal"';
-				out+=' onclick="replyReport('+item.user_num+','+item.reply_num+');">';
+				out+=' onclick="replyReport('+item.user_num+');">';
 				out+='<i class="bi bi-exclamation-octagon"></i></button>';
 			}
 			

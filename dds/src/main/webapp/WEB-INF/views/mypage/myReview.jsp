@@ -79,7 +79,9 @@
                 </c:forEach>
 			</div>
 			<div class="fs-2">
-				<label class="review-score">${averageScore} / 5</label>
+				<label class="review-score">
+					<fmt:formatNumber value="${averageScore}" type="number" maxFractionDigits="1"/> / 5
+				</label>
 			</div>
 		</div>
 
@@ -104,7 +106,9 @@
                             <label class="one-space ${n <= percentage / 10 ? 'on' : ''}"></label>
                         </c:forEach>
                     </span> 
-                    <span class="graph-rate">${percentage > 0 ? percentage : 0}%</span>
+                    <span class="graph-rate">
+                    	<fmt:formatNumber value="${percentage}" type="number" maxFractionDigits="1"/>%
+                    </span>
                 </div>
             </c:forEach>
 		</div>

@@ -119,7 +119,7 @@
 	
 	<select id="isInfoReplyReported" parameterType="map" resultType="Integer">
 		select nvl(count(*), 0)
-		from (select * from declaration WHERE isreply=1 AND reportpage='infoReply')
+		from (select * from declaration WHERE isreply=1 AND reportpage='info')
 		WHERE user_num=#{user_num} AND article_num=#{article_num} AND reporter_num=#{reporter_num}
 	</select>
 	
