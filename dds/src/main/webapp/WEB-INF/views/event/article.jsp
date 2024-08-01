@@ -4,7 +4,7 @@
 
 <style type="text/css">
 .body-container {
-	max-width: 850px;
+	max-width: 1000px;
 	margin: 0 auto;
 	padding: 15px;
 }
@@ -108,7 +108,7 @@ $(function(){
 		</div>
 
 		<div class="body-main">
-			<ul class="nav nav-tabs justify-content-around" id="myTab" role="tablist">
+			<ul class="nav nav-tabs justify-content-center" id="myTab" role="tablist">
 				<li class="nav-item" role="presentation">
 					<button class="nav-link" id="tab-progress" data-bs-toggle="tab" data-bs-target="#nav-content" type="button" role="tab" aria-controls="progress" aria-selected="true" data-tab="progress">진행중인 이벤트</button>
 				</li>
@@ -124,7 +124,7 @@ $(function(){
 				<table class="table mb-0">
 					<thead>
 						<tr>
-							<td colspan="2" align="center">${dto.title}</td>
+							<td colspan="2" align="center" class="fw-semibold fs-5 pb-3">${dto.title}</td>
 						</tr>
 					</thead>
 					<tbody>
