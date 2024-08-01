@@ -100,9 +100,9 @@
                               </div>
                             </div>
                           </div>
-                          <span>어제의 방문자수</span>
-                          <h3 class="card-title text-nowrap mb-1">669명</h3>
-                          <small class="text-success fw-semibold"><i class="bx bx-up-arrow-alt"></i> +28.42%</small>
+                          <span>어제의 매출</span>
+                          <h3 class="card-title text-nowrap mb-1">&#8361;475,000</h3>
+                          <small class="text-success fw-semibold"><i class="bx bx-up-arrow-alt"></i> -14.82%</small> 
                         </div>
                       </div>
                     </div>
@@ -139,7 +139,7 @@
                           </div>
                         </div>
                         <div id="growthChart"></div>
-                        <div class="text-center fw-semibold pt-3 mb-2">62% Company Growth</div>
+                        <div class="text-center fw-semibold pt-3 mb-2">78% Company Growth</div>
 
                         <div class="d-flex px-xxl-4 px-lg-2 p-4 gap-xxl-3 gap-lg-1 gap-3 justify-content-between">
                           <div class="d-flex">
@@ -148,7 +148,7 @@
                             </div>
                             <div class="d-flex flex-column">
                               <small>2024</small>
-                              <h6 class="mb-0">&#8361;32.5k</h6>
+                              <h6 class="mb-0">&#8361;84,686k</h6>
                             </div>
                           </div>
                           <div class="d-flex">
@@ -157,7 +157,7 @@
                             </div>
                             <div class="d-flex flex-column">
                               <small>2023</small>
-                              <h6 class="mb-0">&#8361;41.2k</h6>
+                              <h6 class="mb-0">&#8361;47,581k</h6>
                             </div>
                           </div>
                         </div>
@@ -173,7 +173,7 @@
                         <div class="card-body">
                           <div class="card-title d-flex align-items-start justify-content-between">
                             <div class="avatar flex-shrink-0">
-                              <img src="${pageContext.request.contextPath}/resources/admin/img/icons/unicons/paypal.png" alt="Credit Card" class="rounded" />
+                              <img src="${pageContext.request.contextPath}/resources/admin/img/icons/unicons/admin_logo_human.png" alt="Credit Card" class="rounded" />
                             </div>
                             <div class="dropdown">
                               <button
@@ -192,8 +192,8 @@
                               </div>
                             </div>
                           </div>
-                          <span class="d-block mb-1">어제의 매출</span>
-                          <h3 class="card-title text-nowrap mb-2">&#8361;475,000</h3>
+                          <span class="d-block mb-1">오늘의 방문자수</span>
+                          <h3 class="card-title text-nowrap mb-2">857명</h3>
                           <small class="text-danger fw-semibold"><i class="bx bx-down-arrow-alt"></i> -14.82%</small>
                         </div>
                       </div>
@@ -203,7 +203,7 @@
                         <div class="card-body">
                           <div class="card-title d-flex align-items-start justify-content-between">
                             <div class="avatar flex-shrink-0">
-                              <img src="${pageContext.request.contextPath}/resources/admin/img/icons/unicons/cc-primary.png" alt="Credit Card" class="rounded" />
+                              <img src="${pageContext.request.contextPath}/resources/admin/img/icons/unicons/admin_logo_people.png" alt="Credit Card" class="rounded" />
                             </div>
                             <div class="dropdown">
                               <button
@@ -222,8 +222,8 @@
                               </div>
                             </div>
                           </div>
-                          <span class="fw-semibold d-block mb-1">오늘의 방문자수</span>
-                          <h3 class="card-title mb-2">857명</h3>
+                          <span class="fw-semibold d-block mb-1">어제의 방문자수</span>
+                          <h3 class="card-title mb-2">750명</h3>
                           <small class="text-success fw-semibold"><i class="bx bx-up-arrow-alt"></i> +28.14%</small>
                         </div>
                       </div>
@@ -241,7 +241,7 @@
                               </div>
                               <div class="mt-sm-auto">
                                 <small class="text-success text-nowrap fw-semibold"
-                                  ><i class="bx bx-chevron-up"></i> 68.2%</small
+                                  ><i class="bx bx-chevron-up"></i> 78.2%</small
                                 >
                                 <h3 class="mb-0">&#8361;84,686k</h3>
                               </div>
@@ -293,8 +293,7 @@
                         <li class="d-flex mb-4 pb-1">
                           <div class="avatar flex-shrink-0 me-3">
                             <span class="avatar-initial rounded bg-label-primary"
-                              ><i class="bx bx-mobile-alt"></i
-                            ></span>
+                              ><i class="bi bi-pin-map-fill"></i></span>
                           </div>
                           <div class="d-flex w-100 flex-wrap align-items-center justify-content-between gap-2">
                             <div class="me-2">
@@ -308,8 +307,8 @@
                         </li>
                         <li class="d-flex mb-4 pb-1">
                           <div class="avatar flex-shrink-0 me-3">
-                            <span class="avatar-initial rounded bg-label-success"><i class="bx bx-closet"></i></span>
-                          </div>
+                            <span class="avatar-initial rounded bg-label-success"><i class="bi bi-pin-map-fill"></i></span>
+                          </div> 
                           <div class="d-flex w-100 flex-wrap align-items-center justify-content-between gap-2">
                             <div class="me-2">
                               <h6 class="mb-0">Fashion</h6>
@@ -322,7 +321,7 @@
                         </li>
                         <li class="d-flex mb-4 pb-1">
                           <div class="avatar flex-shrink-0 me-3">
-                            <span class="avatar-initial rounded bg-label-info"><i class="bx bx-home-alt"></i></span>
+                            <span class="avatar-initial rounded bg-label-info"><i class="bi bi-pin-map-fill"></i></span>
                           </div>
                           <div class="d-flex w-100 flex-wrap align-items-center justify-content-between gap-2">
                             <div class="me-2">
@@ -337,8 +336,7 @@
                         <li class="d-flex">
                           <div class="avatar flex-shrink-0 me-3">
                             <span class="avatar-initial rounded bg-label-secondary"
-                              ><i class="bx bx-football"></i
-                            ></span>
+                              ><i class="bi bi-pin-map-fill"></i></span>
                           </div>
                           <div class="d-flex w-100 flex-wrap align-items-center justify-content-between gap-2">
                             <div class="me-2">
