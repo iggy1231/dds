@@ -4,7 +4,7 @@
 
 <style type="text/css">
 .body-container {
-    max-width: 850px;
+    max-width: 1030px;
     margin: 0 auto;
     padding: 15px;
 }
@@ -81,14 +81,13 @@ function searchList() {
 </script>
 
 <div class="container">
-    <div class="body-container">
+    <div class="body-container mt-3">
         <div>
             <h3 style="font-weight: bold; color: #18A8F1"> EVENT </h3>
         </div>
-        <br>
         
         <div class="body-main">
-            <ul class="nav nav-tabss" id="myTab" role="tablist">
+            <ul class="nav nav-tabss justify-content-center" id="myTab" role="tablist">
                 <li class="nav-item" role="presentation">
                     <button class="nav-link" id="tab-progress" data-bs-toggle="tab" data-bs-target="#nav-content" type="button" role="tab" aria-controls="progress" aria-selected="true" data-tab="progress">진행중인 이벤트</button>
                 </li>
@@ -114,8 +113,8 @@ function searchList() {
                         <tr>
                             <th width="60">번호</th>
                             <th>제목</th>
-                            <th width="140">시작일</th>
-                            <th width="140">종료일</th>
+                            <th width="170">시작일</th>
+                            <th width="170">종료일</th>
                             <th width="70">${category == "winner" ? "발표" : "조회수"}</th>
                         </tr>
                     </thead>
@@ -138,37 +137,34 @@ function searchList() {
                     ${dataCount == 0 ? "등록된 이벤트가 없습니다." : paging}
                 </div>
     
-                <div class="row board-list-footer" style="align: center;">
-                    
-                    <div class="text-center" style="width: 600px; margin-left: 150px;">
-                        <form class="row" name="searchForm" action="${pageContext.request.contextPath}/event/${category}/list" method="post"  >
-                            <div class="col-auto p-1">
-                                <select name="schType" class="form-select">
-                                    <option value="all" ${schType == "all" ? "selected" : ""}>제목+내용</option>
-                                    <option value="startDate" ${schType == "startDate" ? "selected" : ""}>시작일</option>
-                                    <option value="endDate" ${schType == "endDate" ? "selected" : ""}>종료일</option>
-                                    <option value="winningDate" ${schType == "winningDate" ? "selected" : ""}>발표일</option>
-                                </select>
-                            </div>
-                            <div class="col-auto p-1">
-                                <input type="text" name="kwd" value="${kwd}" class="form-control">
-                            </div>
-                            <div class="col-auto p-1">
-                                <button type="button" class="btn btn-light" onclick="searchList()">
-                                    <i class="bi bi-search"></i>
-                                </button>
-                            </div>
-                        </form>
-                    </div>
-                    <div class="col">
-                        <button type="button" class="btn btn-light" onclick="location.href='${pageContext.request.contextPath}/event/${category}/list';" title="새로고침">
-                            <i class="bi bi-arrow-counterclockwise"></i>
-                        </button>
-                    </div>
-                    <div class="col text-end">
-                        &nbsp;
-                    </div>
-                </div>
+                <div class="row board-list-footer d-flex justify-content-center align-items-center">
+    <div class="text-center d-flex justify-content-center" style="width: 600px;">
+        <form class="row" name="searchForm" action="${pageContext.request.contextPath}/event/${category}/list" method="post">
+            <div class="col-auto p-1">
+                <select name="schType" class="form-select">
+                    <option value="all" ${schType == "all" ? "selected" : ""}>제목+내용</option>
+                    <option value="startDate" ${schType == "startDate" ? "selected" : ""}>시작일</option>
+                    <option value="endDate" ${schType == "endDate" ? "selected" : ""}>종료일</option>
+                    <option value="winningDate" ${schType == "winningDate" ? "selected" : ""}>발표일</option>
+                </select>
+            </div>
+            <div class="col-auto p-1">
+                <input type="text" name="kwd" value="${kwd}" class="form-control">
+            </div>
+            <div class="col-auto p-1">
+                <button type="button" class="btn btn-light" onclick="searchList()">
+                    <i class="bi bi-search"></i>
+                </button>
+            </div>
+        </form>
+    </div>
+    <div class="col-auto">
+        <button type="button" class="btn btn-light" onclick="location.href='${pageContext.request.contextPath}/event/${category}/list';" title="새로고침">
+            <i class="bi bi-arrow-counterclockwise"></i>
+        </button>
+    </div>
+</div>
+
             </div>
         </div>
     </div>
