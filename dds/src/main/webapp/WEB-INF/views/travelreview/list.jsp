@@ -123,6 +123,15 @@ body {
 	line-height: 1.6;
 }
 
+.post-content .content {
+    display: -webkit-box; /* 수정된 부분 시작 */
+    -webkit-line-clamp: 2; /* 표시할 줄 수 */
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: normal; /* 수정된 부분 끝 */
+}
+
 .post-content img {
 	width: 100%;
 	max-width: 200px;
@@ -240,7 +249,8 @@ body {
 						<div class="col">
 							<h3 style="font-weight: bold;">${dto.subject}</h3>
 							<br>
-							<br> <span style="font-size: 16px;">${dto.content}</span>
+							<br> 
+							<span class="content" style="font-size: 16px;">${dto.content}</span>
 						</div>
 						<img class="col" 
 							src="${pageContext.request.contextPath}/uploads/travelreview/${dto.thumbnail}"
