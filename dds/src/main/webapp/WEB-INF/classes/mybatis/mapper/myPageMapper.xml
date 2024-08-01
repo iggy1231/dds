@@ -145,7 +145,7 @@
 		SELECT tr.num, mp.photo, mi.nickname, tr.subject, tr.content, rr.region_sub, to_char(tr.reg_date, 'yyyy-mm-dd') AS reg_date, tf.imagefilename
 	    FROM TravelReview tr
 	    LEFT OUTER JOIN TravelReview_Region rr ON tr.num = rr.num
-	    JOIN TravelReview_File tf ON tr.num = tf.num
+	    LEFT OUTER JOIN TravelReview_File tf ON tr.num = tf.num
 	    JOIN MEMBER_INFO mi ON tr.user_num = mi.user_num
 	    LEFT OUTER JOIN MEMBER_PROFILE mp ON tr.user_num = mp.user_num
 	    WHERE tr.num IN (SELECT num FROM TravelReview_Like WHERE user_num = #{user_num})
