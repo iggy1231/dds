@@ -15,7 +15,16 @@
 		</div>
 		<div class="card-body">
 			<h4 class="bold">${list4.subject}</h4>
-			<span class="text-primary age-gender">#${list4.age}대&nbsp;&nbsp;#${list4.gender}</span> 
+			<span class="text-primary age-gender">
+			    <c:choose>
+			        <c:when test="${list4.age == 'all'}">
+			            #모두&nbsp;&nbsp;#${list4.gender}
+			        </c:when>
+			        <c:otherwise>
+			            #${list4.age}대&nbsp;&nbsp;#${list4.gender}
+			        </c:otherwise>
+			    </c:choose>
+			</span>
 			<div class="meta mt-2">
 				<span><img src="${pageContext.request.contextPath}/uploads/mypage/${list4.photo}">${list4.nickname}</span> 
 				<span class="location"><i class="bi bi-geo-alt-fill text-primary"></i>&nbsp;${list4.mainRegion}</span>

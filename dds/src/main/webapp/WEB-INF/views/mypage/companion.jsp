@@ -59,7 +59,7 @@
     .content-container {
         display: flex;
         flex-wrap: wrap;
-        justify-content: space-between;
+        justify-content: flex-start;
     }
     .content-card:hover {
     	cursor: pointer; 
@@ -71,15 +71,15 @@
         display: block;
     }
     
-    @media (max-width: 1200px) {
+@media (max-width: 1200px) {
     .content-card {
-        width: calc(100% - 15px); /* 반응형에서도 부모 요소에 꽉 차도록 설정 */
+        width: 100% !important; /* 100% 너비를 설정 */
     }
 }
 
 @media (max-width: 768px) {
     .content-card {
-        width: calc(100% - 15px); /* 반응형에서도 부모 요소에 꽉 차도록 설정 */
+        width: 100% !important; /* 100% 너비를 설정 */
     }
 }
 
@@ -90,7 +90,14 @@
 .age-gender {
         font-size: 1rem; /* 기본 폰트 크기 */
     }
-    
+  
+  .row {
+    width: 100%;
+    display: flex;
+    flex-wrap: wrap;
+    margin-right: -15px;
+    margin-left: -15px;
+}
    
 </style>
 
