@@ -179,9 +179,10 @@ $(function() {
 });
 </script>
 
-<div class="body-container">
-    <div class="body-main">
-        <div>
+<div class="content-wrapper">
+    <div class="container-xxl flex-grow-1 container-p-y">
+        <div class="card">
+        	<div class="card-header">
             <ul class="tabs">
                 <li id="tab-all" data-category="all">전체 이벤트</li>
                 <li id="tab-progress" data-category="progress">진행중인 이벤트</li>
@@ -283,6 +284,7 @@ $(function() {
                     <button type="button" class="btn" onclick="location.href='${pageContext.request.contextPath}/admin/eventManage/${category}/list?${query}';">리스트</button>
                 </div>
             </div>
+        	</div>
         </div>
     </div>
 </div>
