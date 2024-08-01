@@ -48,7 +48,7 @@ hr {
 }
 
 @media (min-width: 992px) {
-  .col-lg-3 {
+  .col-lg-3-1 {
     flex: 0 0 auto;
     width: 30%;
   }
@@ -113,7 +113,7 @@ hr {
 
                         <div class="row g-4">
 
-                            <div class="col-lg-3">
+                            <div class="col-lg-3-1">
                             	<form name="filterForm" action="${pageContext.request.contextPath}/room/list" method="get">
                             		<input type="hidden" name="kwd" value="${kwd}">
                             		<input type="hidden" name="sdate" value="${sdate}">

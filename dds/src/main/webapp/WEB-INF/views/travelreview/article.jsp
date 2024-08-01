@@ -15,7 +15,7 @@
             background-color: #f0f2f5;
         }
 
-        .container {
+        .container2 {
             width: 90%;
             max-width: 800px;
             margin: 50px auto;
@@ -481,7 +481,7 @@
     </script>
 </head>
 <body>
-    <div class="container">
+    <div class="container2">
         <div class="post"> 
             <div class="post-title">${dto.subject}</div>
             <div class="post-content">
