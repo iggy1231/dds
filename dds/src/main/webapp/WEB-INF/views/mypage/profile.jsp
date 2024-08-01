@@ -418,6 +418,16 @@ $(function(){
 		listPast(1);
 	});
 	
+	$(document).on('click', '#listReplyRecent', function(){
+		$('#listReplyPast').removeClass("active");
+		listReply(1);
+	});
+	
+	$(document).on('click', '#listReplyPast', function(){
+		$('#listReplyRecent').removeClass("active");
+		listReplyPast(1);
+	});
+	
     $("button[role='tab']").on("click", function(e){
 		const tab = $(this).attr("aria-controls");
 		if(tab === "1") {
@@ -448,6 +458,15 @@ function listPast(page) {
 
 function listReply(page) {
 	let url = '${pageContext.request.contextPath}/mypage/reply';
+	
+	const fn = function(data) {
+		$('.tab-content').html(data);
+	};
+	ajaxFun(url, "get", {pageNo : page}, "text", fn);
+}
+
+function listReplyPast(page) {
+	let url = '${pageContext.request.contextPath}/mypage/replyPast';
 	
 	const fn = function(data) {
 		$('.tab-content').html(data);

@@ -100,4 +100,5 @@ public interface MyPageMapper {
 	public void deleteQna(long num);
 	
 	public List<TravelReview> listPast(Map<String, Object> map);
+	public List<MyPage> listReplyPast(Map<String, Object> map);
 }

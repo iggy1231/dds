@@ -644,5 +644,18 @@ public class MyPageServiceImpl implements MyPageService {
         
         return stats;
     }
+
+	@Override
+	public List<MyPage> listReplyPast(Map<String, Object> map) {
+		
+		List<MyPage> list = null;
+		try {
+			list = mapper.listReplyPast(map);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		return list;
+	}
 	
 }

@@ -89,6 +89,7 @@ public interface MyPageService {
 	public void deleteQna(long num);
 	
 	public List<TravelReview> listPast(Map<String, Object> map);
+	public List<MyPage> listReplyPast(Map<String, Object> map);
 	
 	public List<RoomReview> getMyTripReviews(Long userNum, int offset, int size);
 	public int getMyTripReviewCount(Long userNum);

@@ -146,6 +146,47 @@ public class MyPageController {
 		return "mypage/review";
 	}
 
+	@GetMapping("replyPast")
+	public String replyPast(@RequestParam(value = "pageNo", defaultValue = "1") int current_page, HttpSession session,
+			Model model) {
+
+		Map<String, Object> map = new HashMap<>();
+		int size = 10;
+		int dataCount = 0;
+
+		SessionInfo Info = (SessionInfo) session.getAttribute("member");
+
+		Long user_num = Info.getUser_num();
+
+		map.put("user_num", user_num);
+
+		dataCount = service.replyCount(map);
+
+		int total_page = myUtil.pageCount(dataCount, size);
+		if (total_page < current_page)
+			current_page = total_page;
+		int offset = (current_page - 1) * size;
+		map.put("offset", offset);
+		map.put("size", size);
+		List<MyPage> list = service.listReplyPast(map);
+
+		String paging = myUtil.pagingMethod(current_page, total_page, "listReplyPast");
+
+		model.addAttribute("dataCount", dataCount);
+
+		model.addAttribute("list", list);
+
+		model.addAttribute("paging", paging);
+
+		model.addAttribute("pageNo", current_page);
+
+		model.addAttribute("total_page", total_page);
+		
+		model.addAttribute("mode", "replyOldest");
+
+		return "mypage/reply";
+	}
+	
 	@GetMapping("reply")
 	public String reply(@RequestParam(value = "pageNo", defaultValue = "1") int current_page, HttpSession session,
 			Model model) {
@@ -181,6 +222,8 @@ public class MyPageController {
 		model.addAttribute("pageNo", current_page);
 
 		model.addAttribute("total_page", total_page);
+		
+		model.addAttribute("mode", "replyNewest");
 
 		return "mypage/reply";
 	}
