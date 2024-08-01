@@ -101,4 +101,8 @@ public interface MyPageMapper {
 	
 	public List<TravelReview> listPast(Map<String, Object> map);
 	public List<MyPage> listReplyPast(Map<String, Object> map);
+	
+	public List<RoomQnA> myPastRoomQnA(Map<String, Object> map);
+	
+	
 }

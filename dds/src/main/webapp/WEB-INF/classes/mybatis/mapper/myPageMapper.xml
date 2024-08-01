@@ -347,6 +347,25 @@
 		ORDER BY reg_date DESC
 		OFFSET #{offset} ROWS FETCH FIRST #{size} ROWS ONLY
 	</select>
+	
+	<select id="myPastRoomQnA" parameterType="map" resultType="com.fly.dds.domain.RoomQnA">
+	    SELECT qna_num, userName, subject, content, TO_CHAR(reg_date, 'yyyy-mm-dd') AS reg_date, answer, TO_CHAR(answer_date, 'yyyy-mm-dd') AS answer_date, boardname
+		FROM (
+		    SELECT q.qna_num, m.username AS userName, q.subject, q.content, q.reg_date, q.answer, q.answer_date, 'room_qna' AS boardname
+		    FROM room_qna q
+		    JOIN member1 m ON q.user_num = m.user_num
+		    WHERE q.anonymous = 0 AND q.user_num = #{user_num}
+		
+		    UNION ALL
+		
+		    SELECT t.qna_num, m.username AS userName, t.subject, t.content, t.reg_date, t.answer, t.answer_date, 'tour_qna' AS boardname
+		    FROM tour_qna t
+		    JOIN member1 m ON t.user_num = m.user_num
+		    WHERE t.anonymous = 0 AND t.user_num = #{user_num}
+		) subquery
+		ORDER BY reg_date ASC
+		OFFSET #{offset} ROWS FETCH FIRST #{size} ROWS ONLY
+	</select>
 
 	<select id="myRoomQnACount" parameterType="long" resultType="Integer">
 		SELECT NVL(SUM(cnt), 0) FROM (

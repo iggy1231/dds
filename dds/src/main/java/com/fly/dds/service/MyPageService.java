@@ -94,4 +94,6 @@ public interface MyPageService {
 	public List<RoomReview> getMyTripReviews(Long userNum, int offset, int size);
 	public int getMyTripReviewCount(Long userNum);
 	public Map<String, Object> calculateReviewStatistics(Long userNum);
+	
+	public List<RoomQnA> myPastRoomQnA(Map<String, Object> map);
 }

@@ -657,5 +657,17 @@ public class MyPageServiceImpl implements MyPageService {
 		
 		return list;
 	}
+
+	@Override
+	public List<RoomQnA> myPastRoomQnA(Map<String, Object> map) {
+		List<RoomQnA> list = null;
+		try {
+			list = mapper.myPastRoomQnA(map);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		return list;
+	}
 	
 }

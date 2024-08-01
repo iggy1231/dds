@@ -141,6 +141,16 @@ $(function() {
     $(function(){
     	listMyQnA(1);
     	
+    	$(document).on('click', '#listQnArecent', function(){
+    		$('#listQnApast').removeClass("active");
+    		listMyQnA(1);
+    	});
+    	
+    	$(document).on('click', '#listQnApast', function(){
+    		$('#listQnArecent').removeClass("active");
+    		listPastMyQnA(1);
+    	});
+    	
         $("button[role='tab']").on("click", function(e){
     		const tab = $(this).attr("aria-controls");
     		if(tab === "1") {
@@ -153,6 +163,16 @@ $(function() {
 
     function listMyQnA(page) {
     	let url = '${pageContext.request.contextPath}/mypage/myQnA';
+    	
+    	const fn = function(data) {
+    		$('.tab-content').html(data);
+
+    	};
+    	ajaxFun(url, "get", {pageNo : page}, "text", fn);
+    }
+    
+    function listPastMyQnA(page) {
+    	let url = '${pageContext.request.contextPath}/mypage/myPastQnA';
     	
     	const fn = function(data) {
     		$('.tab-content').html(data);
