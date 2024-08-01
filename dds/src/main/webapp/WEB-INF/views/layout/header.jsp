@@ -37,7 +37,7 @@
                     <a href="${pageContext.request.contextPath}/room/main" class="nav-link text-start text-nowrap"><img alt="" src="${pageContext.request.contextPath}/resources/images/menu_room.png" style="width: 35px;">&nbsp;&nbsp;&nbsp;숙소</a>
                 </div>
                 <div class="nav-item dropdown">
-                    <a href="${pageContext.request.contextPath}/tour/main" class="nav-link text-start text-nowrap" data-bs-toggle="dropdown"><img alt="" src="${pageContext.request.contextPath}/resources/images/menu_tour.png" style="width: 35px;">&nbsp;&nbsp;&nbsp;투어</a>
+                    <a href="${pageContext.request.contextPath}/tour/main" class="nav-link text-start text-nowrap"><img alt="" src="${pageContext.request.contextPath}/resources/images/menu_tour.png" style="width: 35px;">&nbsp;&nbsp;&nbsp;투어</a>
                 </div>
                 <div class="nav-item dropdown">
                     <a href="#" class="nav-link dropdown-toggle text-start" data-bs-toggle="dropdown"><img alt="" src="${pageContext.request.contextPath}/resources/images/menu_여행.png" style="width: 35px;">&nbsp;&nbsp;&nbsp;여행</a>
