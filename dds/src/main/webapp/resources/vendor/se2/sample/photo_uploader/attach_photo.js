@@ -1,4 +1,4 @@
-	//변수 선언 및 초기화
+﻿	//변수 선언 및 초기화
 	var nImageInfoCnt = 0;
 	var htImageInfo = [];		//image file정보 저장
 	var aResult = [];
