@@ -73,7 +73,7 @@ public class MemberController {
         try {
         	MemberManage dto2;
 			dto2 = mmservice.checkBan(info.getUser_num());
-		        if(dto2.getBan_state() == 1) {
+		        if(dto2!=null && dto2.getBan_state() == 1) {
 		            session.invalidate();
 		            model.addAttribute("dto2",dto2);
 		            return "/member/login";
