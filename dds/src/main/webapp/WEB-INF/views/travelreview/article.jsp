@@ -336,7 +336,7 @@
         	f.unum.value='${dto.user_num}';
         }
         
-        function Declaration(user_num, replyNum) {
+        function Declaration(user_num) {
         	if(${empty sessionScope.member}) {
         		$('#inputModal .modal-body').html('');
         		$('#inputModal .modal-footer button:nth-child(2)').hide();
@@ -349,7 +349,6 @@
         	$('#inputModal .modal-footer button:nth-child(2)').hide();
         	const f=document.reportForm;
         	f.unum.value=user_num;
-        	f.rnum.value=replyNum;	
         }
         
         function submitReport2() {
@@ -359,11 +358,10 @@
         		return;
         	}
         	let user_num=f.unum.value;
-        	let reply_num=f.rnum.value;
         	
         	let reason=f.reason.value+" : "+f.reason2.value;
         	let url="${pageContext.request.contextPath}/travelreview/reportReply";
-        	let query="article_num="+reply_num+"&user_num="+user_num+"&reason="+reason;	
+        	let query="article_num=${dto.num}&user_num="+user_num+"&reason="+reason;	
         	
         	const fn = function(data) {
         		$('#inputModal .modal-footer button').show();
@@ -551,7 +549,7 @@
 	                    <div class="comment-content">${comment.content}</div>
 	                    <div class="comment-buttons">
 	                    	<c:if test="${dto.user_num!=sessionScope.member.user_num}">
-								<button class="report-button" onclick="Declaration('${comment.userNum}', '${comment.replyNum}');" data-bs-toggle="modal" data-bs-target="#inputModal">신고</button>
+								<button class="report-button" onclick="Declaration('${comment.userNum}');" data-bs-toggle="modal" data-bs-target="#inputModal">신고</button>
 							</c:if>
 							<c:if test="${dto.user_num==sessionScope.member.user_num}">
 								<button class="delete-button" onclick="deleteReply('${comment.replyNum}','${dto.num}','${page}');">삭제</button>
@@ -567,7 +565,7 @@
 	                    <div class="comment-content">${comment.content}</div>
 	                    <div class="comment-buttons">
 	                    	<c:if test="${dto.user_num!=sessionScope.member.user_num}">
-								<button class="report-button" onclick="Declaration('${comment.userNum}', '${comment.replyNum}');" data-bs-toggle="modal" data-bs-target="#inputModal">신고</button>
+								<button class="report-button" onclick="Declaration('${comment.userNum}');" data-bs-toggle="modal" data-bs-target="#inputModal">신고</button>
 							</c:if>
 							<c:if test="${dto.user_num==sessionScope.member.user_num}">
 								<button class="delete-button" onclick="deleteReply('${comment.replyNum}','${dto.num}','${page}');">삭제</button>
