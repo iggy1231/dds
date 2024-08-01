@@ -245,6 +245,12 @@ $(function(){
 		var newArea = $('.selectArea').first().clone();
 		$('.addRegion').before(newArea);
 	});
+	
+	$('.resetRegion').click(function(){
+		var newArea = $('.selectArea').first().clone();
+		$('.selectArea').remove();
+		$('.select-area').prepend(newArea);
+	});
 });
 
 </script>
@@ -262,7 +268,7 @@ $(function(){
 				      </button>
 				    </h2>
 				    <div id="panelsStayOpen-collapseOne" class="accordion-collapse collapse show">
-				      <div class="accordion-body">
+				      <div class="accordion-body select-area">
 				      	<div class="selectArea">
 							<select name="areaCode">
 								<option class="select" value="선택" selected>선택</option>
@@ -289,6 +295,7 @@ $(function(){
 							</select>
 						</div>
 						<button type="button" class="addRegion btn btn-outline-secondary">지역 추가</button>
+						<button type="button" class="resetRegion btn btn-outline-secondary">지역 초기화</button>
 				      </div>
 				      </div>
 				    </div>
