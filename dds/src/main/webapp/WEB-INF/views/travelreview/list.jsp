@@ -269,6 +269,8 @@ body {
 				</div>
 			</c:forEach>
 		</div>
+		<div class="page-navigation">${dataCount == 0 ? "등록된 상품이 없습니다." : paging}
+						</div>
 		<form class="search-form" name="searchForm"
 			action="${pageContext.request.contextPath}/travelreview/list"
 			method="post">
@@ -283,8 +285,7 @@ body {
 				<i class="bi bi-search"></i>
 			</button>
 		</form>
-		<div class="page-navigation">${dataCount == 0 ? "등록된 상품이 없습니다." : paging}
-						</div>
+		
 		<div class="create-post-button">
 			<form action="${pageContext.request.contextPath}/travelreview/create"
 				method="get">
