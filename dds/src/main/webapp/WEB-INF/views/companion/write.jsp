@@ -387,7 +387,7 @@ $(function(){
 				    </h2>
 				    <div id="panelsStayOpen-collapseSeven" class="accordion-collapse collapse">
 				      <div class="accordion-body">
-				      	<input type="text" name="estimate_cost" value="${dto.estimate_cost}">
+				      	<input type="text" name="estimate_cost" value="${dto.estimate_cost}" placeholder="숫자로 입력하세요">
 				      </div>
 				    </div>
 				  </div>
