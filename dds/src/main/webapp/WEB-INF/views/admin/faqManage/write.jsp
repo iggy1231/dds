@@ -6,6 +6,29 @@
 <link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
 
 <style type="text/css">
+
+.btn {
+	border: 1px solid #696cff;
+	border-radius: 8px; 
+	color: #696cff;
+	background: white;
+	
+} 
+
+.btn:hover {
+	border: 1px solid #696cff;
+	background: #696cff;  
+	color: white;
+}
+
+.btn3 {
+	border: 1px solid #696cff;
+	background: #696cff;  
+	color: white;
+	border-radius: 8px; 
+	padding: 0.4375rem 1.25rem;
+}
+
 .table-category {
 	border-spacing: 1px;
 	background: #999;
@@ -113,13 +136,15 @@ function sendOk() {
 			<table class="table table-border border-top2 table-formm">  
 				<tr style="border-top: 2px solid black;"> 
 					<td style="background: rgba(105, 108, 255, 0.16); text-align: center; width: 250px;">카테고리</td>
-					<td>   
+					<td>
+						<div style="display: flex; align-items: center; gap: 10px;">
 						<select name="categoryNum" class="form-select" style="width: 150px;">
 							<c:forEach var="vo" items="${listCategory}">
 								<option value="${vo.categoryNum}" ${dto.categoryNum==vo.categoryNum?"selected":""}>${vo.category}</option>
 							</c:forEach>
 						</select>
 						<button type="button" class="btn btnCategoryDialog"> 변경 </button>
+						</div>
 					</td>
 				</tr>
 			
@@ -148,7 +173,7 @@ function sendOk() {
 			<table class="table">
 				<tr>
 					<td align="center">
-						<button type="button" class="btn btn-dark" onclick="sendOk();">${mode=='update'?'수정완료':'등록하기'}</button>
+						<button type="button" class="btn3" onclick="sendOk();">${mode=='update'?'수정완료':'등록하기'}</button>
 						<button type="reset" class="btn">다시입력</button>
 						<button type="button" class="btn" onclick="location.href='${pageContext.request.contextPath}/admin/faqManage/main?pageNo=${pageNo}';">${mode=='update'?'수정취소':'등록취소'}</button>
 						<c:if test="${mode=='update'}">
