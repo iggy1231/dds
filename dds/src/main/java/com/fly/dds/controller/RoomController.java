@@ -23,7 +23,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.fly.dds.admin.service.MemberManageService;
 import com.fly.dds.common.AESUtil;
 import com.fly.dds.common.FileManager;
 import com.fly.dds.common.MyUtil;
