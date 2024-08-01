@@ -16,7 +16,13 @@ LEFT OUTER JOIN (
         WHERE ban_state = 1
     ) t
     WHERE t.rn = 1
+
 ) b ON m.user_num = b.user_num
+    <where>
+			<if test="kwd != null and kwd != '' ">
+				<include refid="where-list"/>
+			</if>
+		</where>
 ORDER BY m.user_num
 	</select>
 	
