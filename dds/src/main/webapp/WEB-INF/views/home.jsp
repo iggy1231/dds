@@ -419,7 +419,7 @@
                         <div class="property-item rounded overflow-hidden" onclick="roomArticle(${room.num})">
                             <div class="position-relative overflow-hidden">
                                 <a href="#"><img class="ratio ratio-4x3 img-fluid img-fluid-hover" src="${pageContext.request.contextPath}/uploads/room/${room.thumbnail}" alt="${room.subject}"></a>
-                                <div class="bg-primary rounded text-white position-absolute start-0 top-0 m-4 py-1 px-3">★ ${room.rating}</div>
+                                <div class="bg-primary rounded text-white position-absolute start-0 top-0 m-4 py-1 px-3">★ <fmt:formatNumber value="${room.rating}" type="number" minFractionDigits="1" maxFractionDigits="1"/></div>
                                 <div class="display-9 bg-white rounded-top text-primary position-absolute start-0 bottom-0 mx-4 pt-1 px-3"><h6 style="font-weight: 600;">${room.room_type}</h6></div>
                             </div>
                             <div class="px-4 py-2 pb-3">
