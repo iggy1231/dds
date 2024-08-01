@@ -92,6 +92,23 @@
 .text-primary {
 	color: #696cff !important;
 }
+
+.table-category th {
+        background-color: rgba(105, 108, 255, 0.16); /* 헤더 배경색 */ /* 수정된 부분 */
+        color: white; /* 텍스트 색상 */ /* 수정된 부분 */
+    }
+    .btnCategoryAddOk {
+        background-color: #696cff; /* 버튼 배경색 */ /* 수정된 부분 */
+        color: #5a5cbf; /* 버튼 텍스트 색상 */ /* 수정된 부분 */
+        border: none;
+        padding: 5px 10px;
+        border-radius: 4px;
+        cursor: pointer; 
+    }
+    .btnCategoryAddOk:hover {
+        background-color: #5a5cbf;
+        color: white;
+    }
 </style>
 
 <script type="text/javascript">
