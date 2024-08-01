@@ -139,7 +139,14 @@ table tr>td:nth-child(2) {
 			<div class="fs-5 p-2">
 				<p># ${dto.theme}</p>
 				<p># ${dto.gender}</p>
-				<span>${dto.age}대</span>
+				<c:choose>
+			        <c:when test="${dto.age == 'all'}">
+			            <span>모두</span>
+			        </c:when>
+			        <c:otherwise>
+			            <span>${dto.age}대</span>
+			        </c:otherwise>
+			    </c:choose>
 				<p><i class="bi bi-people-fill color-text pe-2"></i>현재 인원 : ${dto.current_people}/${dto.total_people} 명
 				<p>예상 비용 : ${dto.estimate_cost} 원
 			</div>
@@ -530,13 +537,25 @@ function addNextPage(data) {
 			htmlText+='		<p class="travel-info-item-location">';
 			for(let j=0;j<data.list[i].region_main.length;j++) {
 				htmlText+='		<i class="bi bi-geo-alt-fill">'+data.list[i].region_main[j]+' '+data.list[i].region_sub[j]+'</i></p>';
-			}	
-			htmlText+='		<span class="travel-info-item-tags">#'+data.list[i].theme+' #'+data.list[i].age+'대 #'+data.list[i].gender+'</span>';
+			}
+			
+			if (data.list[i].age === "all") { 
+                htmlText += '<span class="travel-info-item-tags">#모두 #';
+            } else {
+                htmlText += '<span class="travel-info-item-tags">#' + data.list[i].age + '대 #';
+            }
+
+			switch (data.list[i].gender) {
+				case "male" : htmlText+='남자만</span>'; break;
+				case "female" : htmlText+='여자만</span>'; break;
+				default : htmlText+='남/여</span>'; break;
+			}
 			htmlText+='</div></div></div>';
 		} else {
 			htmlText+='<div class="col"></div>';
 		}
 	}
+	
 	htmlText+='</div>';
 	$(".areaNewList").append(htmlText);
 	$(".areaNewList:first").removeClass('areaNewList');

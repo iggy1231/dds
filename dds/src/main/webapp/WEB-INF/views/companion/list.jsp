@@ -353,7 +353,11 @@ function addNextPage(data) {
 			for(let j=0;j<data.list[i].region_main.length;j++) {
 				htmlText+='		<i class="bi bi-geo-alt-fill">'+data.list[i].region_main[j]+' '+data.list[i].region_sub[j]+'</i></p>';
 			}	
-			htmlText+='		<span class="travel-info-item-tags">#'+data.list[i].theme+' #'+data.list[i].age+'대 #';
+			if (data.list[i].age === "all") { 
+                htmlText += '<span class="travel-info-item-tags">#모두 #';
+            } else {
+                htmlText += '<span class="travel-info-item-tags">#' + data.list[i].age + '대 #';
+            }
 			switch (data.list[i].gender) {
 				case "male" : htmlText+='남자만</span>'; break;
 				case "female" : htmlText+='여자만</span>'; break;
@@ -406,7 +410,11 @@ function addNextPage2(data) {
 			for(let j=0;j<data.list[i].region_main.length;j++) {
 				htmlText+='		<i class="bi bi-geo-alt-fill">'+data.list[i].region_main[j]+' '+data.list[i].region_sub[j]+'</i></p>';
 			}	
-			htmlText+='		<span class="travel-info-item-tags">#'+data.list[i].theme+' #'+data.list[i].age+'대 #';
+			if (data.list[i].age === "all") { 
+                htmlText += '<span class="travel-info-item-tags">#모두 #';
+            } else {
+                htmlText += '<span class="travel-info-item-tags">#' + data.list[i].age + '대 #';
+            }
 			switch (data.list[i].gender) {
 				case "male" : htmlText+='남자만</span>'; break;
 				case "female" : htmlText+='여자만</span>'; break;
@@ -493,7 +501,14 @@ function scroll_load(data) {
 		htmlText='<li><div class="card flex-row mb-3" onclick="article('+item.num+')">';
 		htmlText+='	<img src="${pageContext.request.contextPath}/uploads/companion/'+item.saveFilename+'" class="card-img-top companion-img" onerror=this.src="${pageContext.request.contextPath}/resources/images/noimage.png">';
 		htmlText+='		<div class="card-body">';
-		htmlText+='<a href="#">#'+item.age+'대 </a>';
+		
+		
+		if (item.age === "all") { 
+            htmlText += '<a href="#">#모두 </a>';
+        } else {
+            htmlText += '<a href="#">#' + item.age + '대 </a>';
+        }
+		
 		switch (item.gender) {
 			case "male" : htmlText+='<a href="#">#남자만 </a>'; break;
 			case "female" : htmlText+='<a href="#">#여자만 </a>'; break;
