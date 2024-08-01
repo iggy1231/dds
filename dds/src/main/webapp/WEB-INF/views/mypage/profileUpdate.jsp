@@ -42,17 +42,17 @@
 						value="${dto.userId}" autofocus />
 				</div>
 				<div class="mb-3 col-md-6">
-					<label for="Name" class="form-label">이름</label> <input
+					<label for="Name" class="form-label">이름(*필수)</label> <input
 						class="form-control" type="text" name="userName" id="Name"
 						value="${dto.userName}" />
 				</div>
 				<div class="mb-3 col-md-6">
-					<label for="password" class="form-label">패스워드</label> <input
+					<label for="password" class="form-label">패스워드(*필수)</label> <input
 						class="form-control" type="text" id="password" name="pwd"
 						value="${dto.pwd}" placeholder="패스워드입력하쇼" />
 				</div>
 				<div class="mb-3 col-md-6">
-					<label for="nickName" class="form-label">닉네임</label> <input
+					<label for="nickName" class="form-label">닉네임(*필수)</label> <input
 						type="text" class="form-control" id="nickName"
 						name="nickName" value="${dto.nickName}" />
 				</div>
@@ -83,7 +83,7 @@
 						placeholder="생년월일" value="${dto.birth}"/>
 				</div>
 				<div class="mb-3 col-md-6">
-					<label for="passwordCheck" class="form-label">패스워드 확인</label> <input
+					<label for="passwordCheck" class="form-label">패스워드 확인(*필수)</label> <input
 						type="password" class="form-control" id="passwordCheck" name="passwordCheck"
 						placeholder="현재 패스워드를 입력하세요" />
 				</div>
