@@ -276,17 +276,20 @@ function roomArticle(num) {
 	location.href='${pageContext.request.contextPath}/room/article?num='+num+'&sdate='+sdate+'&edate='+edate;
 }
 
-function writeForm(num,sale_num) {
-	const f=document.reviewForm;
-	f.num.value=num;
-	f.sale_num.value=sale_num;
-	
-	let modalBtn=document.querySelector('#reviewModal .modal-body button');
-	modalBtn.dataset.roomId=num;
-	
-	console.log(f.num.value);
-	console.log(modalBtn.dataset.roomId);
+function writeForm(num, sale_num) {
+    const f = document.reviewForm;
+    f.num.value = num;
+    f.sale_num.value = sale_num;
+
+    // 모달의 버튼에 데이터 속성 설정
+    let modalBtn = document.querySelector('#reviewModal .btnReviewSend');
+    modalBtn.dataset.roomId = num;
+    modalBtn.dataset.saleNum = sale_num;
+
+    console.log(f.num.value);
+    console.log(modalBtn.dataset.roomId);
 }
+
 
 function toggleDropdown() {
     document.getElementById("myDropdown").classList.toggle("show");
@@ -492,6 +495,7 @@ $(document).on("click", ".review-form .img-item", function(){
 //리뷰 작성 버튼 클릭 이벤트 위임 - ajax
 $(document).on('click', '.btnReviewSend', function() {
     const roomId = $(this).data('room-id');
+    const saleNum = $(this).data('sale-num');
     let form = document.forms['reviewForm'];
     let formData = new FormData(form);
 
@@ -514,8 +518,12 @@ $(document).on('click', '.btnReviewSend', function() {
 
     const fn = function(data) {
         if (data.state === "true") {
-            $('.btnReviewWriteForm').remove();
+            $('#reviewModal .modal-body').html('<p>리뷰가 성공적으로 등록되었습니다!</p>');
             $('.review-form').remove();
+            setTimeout(function() {
+                $('#reviewModal').modal('hide');
+                listMyRoom(1);
+            }, 1500);
         } else {
             alert("리뷰 등록 중 오류가 발생했습니다.");
         }
@@ -523,6 +531,7 @@ $(document).on('click', '.btnReviewSend', function() {
 
     ajaxFun(url, "POST", formData, "json", fn, true); // POST로 설정
 });
+
 
 
 

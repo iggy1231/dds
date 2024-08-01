@@ -166,12 +166,7 @@
 						<input type="text" name="discounts" class="form-control" value="${mode == 'update' ? list.discount : 0}">
 					</td>
 			</tr>
-			<tr>
-						<td>포인트</td>
-						<td>
-							<input type="text" name="points" class="form-control" value="100" readonly value="${list.point}" >
-						</td>
-					</tr>
+							<input type="hidden" name="points" class="form-control" value="100" readonly value="${list.point}" >
 			</c:forEach>
         </table>
     </td>
@@ -341,12 +336,7 @@ document.getElementById('addOptionBtn').addEventListener('click', function() {
 							<input type="text" name="discounts" class="form-control" value="0">
 						</td>
 				</tr>
-				<tr>
-							<td style="background: rgba(105, 108, 255, 0.16); text-align: center; width: 250px; border-top: 2px solid #d5d5d5;">포인트</td>
-							<td>
-								<input type="text" name="points" class="form-control" value="100" readonly value="" >
-							</td>
-						</tr>
+								<input type="hidden" name="points" class="form-control" value="100" readonly value="" >
                 </table>
             </td>
         </tr>

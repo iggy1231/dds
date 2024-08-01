@@ -11,7 +11,7 @@
 				<div class="flex-item">
 					<div>
 						<img
-							src="${list1.thumbnail}"
+							src="${pageContext.request.contextPath}/uploads/room/${list1.thumbnail}"
 							class="img-fluid rounded" alt="숙소 이미지">
 					</div>
 				</div>
@@ -32,10 +32,12 @@
 				</div>
 			</div>
 
-			<div class="flex-item"
-				style="display: flex; justify-content: space-evenly; margin-top: 10px;">
-				<div>
-					<span>체크인</span><br> <span>${list1.sdate}</span>
+			<div class="flex-item mt-4 py-3 rounded mb-2"
+				style="display: flex; justify-content: space-evenly; margin-top: 10px; background-color: #f3f5f7; ">
+				<div class="text-center">
+					<span>체크인</span><br> 
+					  <fmt:parseDate value="${list1.sdate}" pattern="yyyy-MM-dd HH:mm:ss" var="checkinDate" />
+                      <fmt:formatDate value="${checkinDate}" pattern="yyyy-MM-dd" />
 				</div>
 				<div>
 					<span>|<input type="hidden" id="sale_num-${list1.sale_num}" value="${list1.sale_num}">
@@ -43,8 +45,11 @@
 				            <input type="hidden" id="card_num-${list1.sale_num}" value="${list1.card_num}">
 				            <input type="hidden" id="user_num-${list1.sale_num}" value="${list1.user_num}"></span>
 				</div>
-				<div>
-					<span>체크아웃</span><br> <span>${list1.edate}</span>
+				<div  class="text-center">
+					<span>체크아웃</span><br> 
+					<fmt:parseDate value="${list1.edate}" pattern="yyyy-MM-dd HH:mm:ss" var="checkoutDate" />
+                    <fmt:formatDate value="${checkoutDate}" pattern="yyyy-MM-dd" />
+					<!--   <span>${list1.edate}</span> -->
 				</div>
 
 			</div>
@@ -99,7 +104,7 @@
                 <div class="flex-container">
                     <div class="flex-item">
                         <div>
-                            <img src="${list2.thumbnail}" class="img-fluid rounded" alt="숙소 이미지">
+                            <img src="${pageContext.request.contextPath}/uploads/room/${list2.thumbnail}" class="img-fluid rounded" alt="숙소 이미지">
                         </div>
                     </div>
 
@@ -115,9 +120,13 @@
                     </div>
                 </div>
 
-                <div class="flex-item" style="display: flex; justify-content: space-evenly; margin-top: 10px;">
-                    <div>
-                        <span>체크인</span><br> <span>${list2.sdate}</span>
+                <div class="flex-item mt-4 py-3 rounded mb-2" 
+                style="display: flex; justify-content: space-evenly; margin-top: 10px;  background-color: #f3f5f7;">
+                    <div class="text-center">
+                        <span>체크인</span><br> 
+                         <fmt:parseDate value="${list2.sdate}" pattern="yyyy-MM-dd HH:mm:ss" var="pastCheckinDate" />
+                            <fmt:formatDate value="${pastCheckinDate}" pattern="yyyy-MM-dd" />
+                        <!--  <span>${list2.sdate}</span> -->
                     </div>
                     <div>
                         <span>|<input type="hidden" id="sale_num-${list2.sale_num}" value="${list2.sale_num}">
@@ -125,8 +134,11 @@
 				            <input type="hidden" id="card_num-${list2.sale_num}" value="${list2.card_num}">
 				            <input type="hidden" id="user_num-${list2.sale_num}" value="${list2.user_num}"></span>
                     </div>
-                    <div>
-                        <span>체크아웃</span><br> <span>${list2.edate}</span>
+                    <div  class="text-center">
+                        <span>체크아웃</span><br> 
+                         <fmt:parseDate value="${list2.edate}" pattern="yyyy-MM-dd HH:mm:ss" var="pastCheckoutDate" />
+                            <fmt:formatDate value="${pastCheckoutDate}" pattern="yyyy-MM-dd" />
+                      <!--    <span>${list2.edate}</span> -->
                     </div>
                 </div>
 
@@ -152,6 +164,7 @@
 
     <!-- Modal -->
 </c:forEach>
+
 <div class="modal fade" id="reviewModal" tabindex="-1" aria-labelledby="reviewModalLabel" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">

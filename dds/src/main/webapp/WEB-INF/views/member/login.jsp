@@ -83,8 +83,14 @@
 }
 
 .form-style::placeholder {
-    color: #949494 !important;
+    color: #4C4C4C !important;
+    opacity: 1;
 }
+
+.form-style {
+    color: #000000; 
+}
+
 </style>
 
 </head>
@@ -102,17 +108,17 @@
                             <div class="card-front">
                                 <div class="center-wrap">
                                     <div class="section text-center">
-                                        <h4 class="mb-3 pb-3 title">로그인</h4>
+                                        <h4 class="mb-3 pb-3 title fw-semibold fs-4">로그인</h4>
                                         <form action="${pageContext.request.contextPath}/member/login" method="post" name="loginForm">
                                             <div class="form-group">
-                                                <input value="admin" type="text" name="userId" class="form-style" placeholder="Id 입력" autocomplete="off"/>
+                                                <input value="" type="text" name="userId" class="form-style" placeholder="Id 입력" autocomplete="off"/>
                                                 <i class="input-icon bi bi-box-arrow-in-right"></i>
                                             </div>    
                                             <div class="form-group mt-2">
-                                                <input value="admin" type="password" name="userPwd" class="form-style" placeholder="Password 입력" autocomplete="off">
+                                                <input value="" type="password" name="userPwd" class="form-style" placeholder="Password 입력" autocomplete="off">
                                                 <i class="input-icon bi bi-lock-fill"></i>
                                             </div>
-                                            <button type="button" onclick="sendLogin();" class="btn mt-4" data-bs-toggle="modal" data-bs-target="#alertModal">로그인하기</button>
+                                            <button type="button" onclick="sendLogin();" class="btn mt-4 fw-medium" data-bs-toggle="modal" data-bs-target="#alertModal">로그인하기</button>
                                             <p class="mb-0 mt-4 text-center"><a href="#0" class="forgetPwd link">${message}</a></p>
                                             <c:if test="${not empty dto2.reason}">
 											    <p>${dto2.reason}의 사유로 ${dto2.ban_edate} 까지 차단되었습니다.</p>
@@ -124,7 +130,7 @@
                             <div class="card-back">
                                 <div class="center-wrap">
                                     <div class="section text-center">
-                                        <h4 class="mb-3 pb-2 title">회원가입</h4>
+                                        <h4 class="mb-3 pb-2 title fw-semibold fs-4">회원가입</h4>
                                         <form action="${pageContext.request.contextPath}/member/signup" method="post" name="signupForm">
                                             <div class="form-group">
                                                 <input type="text" name="userId" class="form-style" placeholder="Id 입력" autocomplete="off">
@@ -144,11 +150,11 @@
                                                 	<i class="input-icon bi bi bi-person-plus"></i>
   		                                    	</div>
   		                                    	<div class="form-group mt-2 col pr-0 pl-0">
-  		                                    		<input type="date" name="userBirth" class="form-style" placeholder="Your Birthday" autocomplete="off">
+  		                                    		<input type="date" name="userBirth" class="form-style" placeholder="Your Birthday" autocomplete="off" style="color: #818181;">
                                                 	<i class="input-icon bi bi-calendar-check"></i>
   		                                    	</div>
                                             </div>
-                                            <button type="button" class="btn mt-4" onclick="sendSignup();" data-bs-toggle="modal" data-bs-target="#alertModal">회원가입하기</button>
+                                            <button type="button" class="btn mt-4 fw-medium" onclick="sendSignup();" data-bs-toggle="modal" data-bs-target="#alertModal">회원가입하기</button>
                                         </form>
                                     </div>
                                 </div>
