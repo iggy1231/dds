@@ -235,6 +235,7 @@
 	border: 1px solid #c2c2c2;
 	cursor: pointer;
 }
+
 </style>
 <div class="my-info">
 	<div class="page-title">

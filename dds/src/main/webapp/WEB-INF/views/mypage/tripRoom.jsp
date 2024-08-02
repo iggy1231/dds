@@ -2,7 +2,9 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 
-<h5 class="mt-3">두둥! 여행가자!</h5>
+<h2 class="mt-3" style="color: #18A8F0">
+<strong> 🧳 두둥! 여행가자!</strong>
+</h2>
 <c:forEach var="list1" items="${currentTrips}">
 <div class="row justify-content-center">
 	<div class="col-md-12 wow fadeInUp" data-wow-delay="0.3s">
@@ -96,7 +98,10 @@
 <!-- 수정된 부분 끝 -->
 </c:forEach>
 <hr>
-<h5 class="mt-3">두둥! 추억!</h5>
+<h2 class="mt-3" style="color: #18A8F0">
+
+<strong>🏝️ 두둥! 추억!</strong>
+</h2>
 <c:forEach var="list2" items="${pastTrips}">
     <div class="row justify-content-center payment-list">
         <div class="col-md-12 wow fadeInUp" data-wow-delay="0.3s">
