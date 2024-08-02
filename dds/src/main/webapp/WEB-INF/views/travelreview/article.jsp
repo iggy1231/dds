@@ -548,10 +548,10 @@
 	                    <div class="comment-header">작성자: ${comment.nickName}</div>
 	                    <div class="comment-content">${comment.content}</div>
 	                    <div class="comment-buttons">
-	                    	<c:if test="${dto.user_num!=sessionScope.member.user_num}">
+	                    	<c:if test="${comment.userNum!=sessionScope.member.user_num}">
 								<button class="report-button" onclick="Declaration('${comment.userNum}');" data-bs-toggle="modal" data-bs-target="#inputModal">신고</button>
 							</c:if>
-							<c:if test="${dto.user_num==sessionScope.member.user_num}">
+							<c:if test="${comment.userNum==sessionScope.member.user_num}">
 								<button class="delete-button" onclick="deleteReply('${comment.replyNum}','${dto.num}','${page}');">삭제</button>
 							</c:if>
 	                        <button class="hidden-button" onclick="insertReReply();">답글달기</button>
@@ -564,10 +564,10 @@
 	                    작성자: ${comment.nickName}</div>
 	                    <div class="comment-content">${comment.content}</div>
 	                    <div class="comment-buttons">
-	                    	<c:if test="${dto.user_num!=sessionScope.member.user_num}">
+	                    	<c:if test="${comment.userNum!=sessionScope.member.user_num}">
 								<button class="report-button" onclick="Declaration('${comment.userNum}');" data-bs-toggle="modal" data-bs-target="#inputModal">신고</button>
 							</c:if>
-							<c:if test="${dto.user_num==sessionScope.member.user_num}">
+							<c:if test="${comment.userNum==sessionScope.member.user_num}">
 								<button class="delete-button" onclick="deleteReply('${comment.replyNum}','${dto.num}','${page}');">삭제</button>
 							</c:if>
 	                        <button class="hidden-button" onclick="insertReReply();">답글달기</button>
