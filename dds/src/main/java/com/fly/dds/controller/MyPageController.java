@@ -37,12 +37,16 @@ import com.fly.dds.domain.SessionInfo;
 import com.fly.dds.domain.TravelReview;
 import com.fly.dds.service.MyPageService;
 import com.fly.dds.service.RoomPaymentService;
+import com.fly.dds.service.RoomReviewService;
 
 @Controller
 @RequestMapping("/mypage/*")
 public class MyPageController {
 	@Autowired
 	private MyPageService service;
+	
+	@Autowired
+	private RoomReviewService rrservice;
 
 	@Autowired
 	private MyUtil myUtil;
@@ -1096,6 +1100,15 @@ public class MyPageController {
 			return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(errorResponse);
 		}
 
+	}
+	
+	@GetMapping("deleteReview")
+	public String deleteReview(@RequestParam(value = "review_num") long review_num) {
+		try {
+			rrservice.deleteRoomReview(review_num);
+		} catch (Exception e) {
+		}
+		return ".four.mypage.inquiReview";
 	}
 
 }

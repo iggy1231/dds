@@ -202,7 +202,8 @@ $(function() {
     }
     
     function listMyPastReview(page) {
-    	let url = '${pageContext.request.contextPath}/mypage/myPastReview';
+    	
+    	let url = '${pageContext.request.contextPath}/uploads/roomReview/photo';
     	
     	const fn = function(data) {
     		$('.tab-content').html(data);
@@ -259,4 +260,14 @@ $(function() {
         $(selector + " .graph-rate").text(percentage + "%");
     }
 
+    $(function() {
+        $(document).on('click', '#deleteReview', function(event) {
+            event.preventDefault(); // 폼의 기본 동작 방지
+            if (confirm("삭제하시면 다시 리뷰를 작성하실 수 없습니다")) {
+                // "예"를 누르면 폼 제출
+                $(this).closest('form').submit();
+            }
+            // "아니오"를 누르면 아무 작업도 하지 않음
+        });
+    });
 </script>
