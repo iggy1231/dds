@@ -98,8 +98,8 @@ table tr>td:nth-child(2) {
 		<div>
 			<h3 class="mt-4 fs-2 fw-semibold text-center pt-3">${dto.subject}</h3>
 			<div class="d-flex justify-content-between px-3 fs-5 fw-medium">
-				<p class="m-0 ps-2">조회수 : ${dto.hitcount}</p>
-				<p class="m-0 pe-2">작성일 : ${dto.reg_date}</p>
+				<p class="m-0 ps-2">작성자 : ${dto.nickname}</p>
+				<p class="m-0 pe-2">조회수 : ${dto.hitcount} | 작성일 : ${dto.reg_date}</p>
 			</div>
 			<hr>
 		</div>
