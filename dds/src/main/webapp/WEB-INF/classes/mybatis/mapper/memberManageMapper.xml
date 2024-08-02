@@ -42,8 +42,11 @@ ORDER BY m.user_num
 		</sql>
 		
 	<select id="listReportMember" parameterType="map" resultType="com.fly.dds.admin.domain.ReportManage">
-	    select num , reason , user_num , reporter_num , isreply , reportpage , article_num , reg_date , state
-	     from declaration
+	    select num , reason , user_nick , reporter_nick , isreply , reportpage , article_num , reg_date , state
+		from declaration d
+		left outer join ( select nickname  as user_nick, user_num from member_info) mi1 on d.user_num = mi1.user_num
+		left outer join ( select nickname  as reporter_nick, user_num from member_info) mi2 on d.reporter_num = mi2.user_num
+		order by num desc
 	</select>
 	
 	<select id="reportCount" resultType="Integer">

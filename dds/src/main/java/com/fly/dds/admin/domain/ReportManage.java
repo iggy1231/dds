@@ -4,6 +4,8 @@ public class ReportManage {
 	private long num; // 신고번호, 차단번호
 	private String reason; // 신고사유
 	private long user_num; // 신고당한 사람
+	private String user_nick;
+	private String reporter_nick;
 	private long reporter_num; // 신고한 사람
 	private int reply; // 댓글여부
 	private String reportPage; // 신고 게시글
@@ -19,6 +21,18 @@ public class ReportManage {
 	
 	
 	
+	public String getUser_nick() {
+		return user_nick;
+	}
+	public void setUser_nick(String user_nick) {
+		this.user_nick = user_nick;
+	}
+	public String getReporter_nick() {
+		return reporter_nick;
+	}
+	public void setReporter_nick(String reporter_nick) {
+		this.reporter_nick = reporter_nick;
+	}
 	public String getNickName() {
 		return nickName;
 	}

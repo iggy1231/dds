@@ -118,10 +118,10 @@ $(function(){
 							<tr class="text-center">
 								<td>${dto.num}</td>
 								<td style="font-weight: bold;"> <a href="${pageContext.request.contextPath}/${dto.reportPage}/article?num=${dto.article_num}&page=1"> ${dto.reason} </a> </td>
-								<td>${dto.user_num}</td>
+								<td>${dto.user_nick}</td>
 								<td>${dto.reportPage}</td>
 								<td>${dto.reg_date}</td>
-								<td>${dto.reporter_num}</td>
+								<td>${dto.reporter_nick}</td>
 								<td>
 								  <c:choose>
 								    <c:when test="${dto.state == 1}">

@@ -40,7 +40,21 @@
 <div class="mt-1 p-2 list-question">
 	<c:forEach var="list2" items="${list}">
 		<div class="mt-1 border-bottom">
-			<a class="p-1 fw-semibold fs-4" href="">${list2.content}</a>
+			<!-- 댓글 info 막혀있음 -->
+			<c:choose>
+    <c:when test="${list2.boardName == 'info'}">
+        <a class="p-1 fw-semibold fs-4" href="">
+            ${list2.content}
+        </a>
+    </c:when>
+    <c:otherwise>
+        <a class="p-1 fw-semibold fs-4" 
+           href="${pageContext.request.contextPath}/${list2.boardName}/article?num=${list2.num}&page=1">
+            ${list2.content}
+        </a>
+    </c:otherwise>
+</c:choose>
+			
 			<h6 class="p-1 fs-5">
 				<c:choose>
 			        <c:when test="${list2.boardName == 'travelreview'}">

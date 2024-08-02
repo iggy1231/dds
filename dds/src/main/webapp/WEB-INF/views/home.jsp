@@ -452,25 +452,25 @@
             <div class="carousel-item active" data-bs-interval="2000">
                 <img src="https://i.namu.wiki/i/h3jpSjw3HY2pEAPIyw0NErxH1ctxVpyIBcf9SrCPpYQ1h3M8ggyoPEAoLYZqjY_vYOoxxsJo8xZdrY0dRLiTfw.webp" class="d-block w-100" alt="...">
                 <div class="carousel-caption d-none d-md-block">
-                    <h3>순천시 순천만</h3>
+                    <h3><a href="#" class="btn-hover text-white destination-link" data-kwd="순천">순천시 순천만</a></h3>
                 </div>
             </div>
             <div class="carousel-item" data-bs-interval="2000">
                 <img src="https://www.cha.go.kr/unisearch/images/national_treasure/2021030208283100.jpg" class="d-block w-100" alt="...">
                 <div class="carousel-caption d-none d-md-block">
-                    <h3>익산시 미륵사지 석탑</h3>
+                    <h3><a href="#" class="btn-hover text-white destination-link" data-kwd="익산">익산시 미륵사지 석탑</a></h3>
                 </div>
             </div>
             <div class="carousel-item" data-bs-interval="2000">
                 <img src="https://i.namu.wiki/i/hkDOgJHC40yiIFKQDRz7YjHpzWrL9vCTT7mve4TF6Lj-GpGsBpvT8WlXbwOT_To1Ndl1zKrVLQ-SiwaGNFOgQA.webp" class="d-block w-100" alt="...">
                 <div class="carousel-caption d-none d-md-block">
-                    <h3>부산 해운대</h3>
+                    <h3><a href="#" class="btn-hover text-white destination-link" data-kwd="부산">부산 해운대</a></h3>
                 </div>
             </div>
             <div class="carousel-item" data-bs-interval="2000">
                 <img src="https://img1.daumcdn.net/thumb/R1280x0/?fname=http://t1.daumcdn.net/brunch/service/user/1jPF/image/6dTBQAAJW6QLbLUaneCZWL3Vhf4.jpg" class="d-block w-100" alt="...">
                 <div class="carousel-caption d-none d-md-block">
-                    <h3>제주도 성산일출봉</h3>
+                    <h3><a href="#" class="btn-hover text-white destination-link" data-kwd="제주도">제주도 성산일출봉</a></h3>
                 </div>
             </div>
         </div>
