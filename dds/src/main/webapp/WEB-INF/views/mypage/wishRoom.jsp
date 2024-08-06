@@ -6,13 +6,13 @@
                 <div class="row">
                 	<c:forEach var="list1" items="${list}">
 	                    <div class="col-md-4">
-	                        <div class="wishlist-item position-relative" onclick="wishRoomArticle(${list1.num});">
+	                        <div class="wishlist-item position-relative" >
 	                            <span class="badge-top-left">두둥실특가</span>
 	                            <i class="bi bi-heart-fill heart-icon" id="wishlist-${list1.num}" onclick="removeFromWishlist(${list1.num}, 'room')"></i>
 	                            <img src="${pageContext.request.contextPath}/uploads/room/${list1.thumbnail}" alt="Item Image">
 	                            <div class="wishlist-item-body">
 	                                <p class="wishlist-item-title">${list1.subject}</p>
-	                                <div class="wishlist-item-rating">
+	                                <div class="wishlist-item-rating" onclick="wishRoomArticle(${list1.num});">
 	                                    <i class="bi bi-star-fill"></i>
 	                                    <span>${list1.rating} (${list1.ratingCount})</span>
 	                                </div>
